@@ -71,3 +71,12 @@ button[style*="background-color: rgb(204, 204, 255)"] {
   color: #FFFFFF !important;
 }
 
+/* Ensure selected/highlighted text is white */
+::selection {
+  color: #FFFFFF !important;
+}
+::-moz-selection {
+  color: #FFFFFF !important;
+}
+
+

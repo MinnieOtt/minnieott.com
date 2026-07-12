@@ -30,7 +30,7 @@ export default function App() {
   const blogSlug = currentPath.match(/^\/blog\/([^/]+)/)?.[1] || null;
 
   return (
-    <div id="personal-website-root" className="min-h-screen bg-neutral-bg selection:bg-accent flex flex-col justify-between">
+    <div id="personal-website-root" className="min-h-screen bg-neutral-bg selection:bg-accent selection:text-white flex flex-col justify-between">
       {/* Dynamic Header */}
       <Header currentPath={currentPath} onNavigate={navigate} />
 
