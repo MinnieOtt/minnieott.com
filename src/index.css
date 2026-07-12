@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Lato", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-accent: #3333FF;
+  --color-accent-hover: #1A1AFF;
+  --color-accent-light: #F0F0FF;
+  --color-accent-dark: #1A1AFF;
+  --color-neutral-bg: #FCFCFD;
+}
+
+/* Custom global styles for scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-neutral-bg);
+  color: #1F2937; /* Gray 800 */
+}
+
+/* Utility to ensure we can have crisp lines with periwinkle tints */
+.accent-glow {
+  box-shadow: 0 4px 20px -2px rgba(51, 51, 255, 0.25);
+}
+
+.accent-glow-strong {
+  box-shadow: 0 10px 30px -5px rgba(51, 51, 255, 0.4);
+}
+
+/* Custom scrollbar for beautiful, subtle experience */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E7EB;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3333FF;
+}
+
+/* Ensure text is white when background is #CCCCFF or bg-[#CCCCFF] */
+[style*="background: #CCCCFF" i],
+[style*="background: #ccccff" i],
+[style*="background-color: #CCCCFF" i],
+[style*="background-color: #ccccff" i],
+[style*="background: rgb(204, 204, 255)"],
+[style*="background-color: rgb(204, 204, 255)"],
+.bg-\[\#CCCCFF\],
+.bg-\[\#ccccff\],
+button.bg-\[\#CCCCFF\],
+button.bg-\[\#ccccff\] {
+  color: #FFFFFF !important;
+}
+
+/* Ensure any button with #CCCCFF inline style or background color has white text */
+button[style*="background: #CCCCFF" i],
+button[style*="background: #ccccff" i],
+button[style*="background-color: #CCCCFF" i],
+button[style*="background-color: #ccccff" i],
+button[style*="background: rgb(204, 204, 255)"],
+button[style*="background-color: rgb(204, 204, 255)"] {
+  color: #FFFFFF !important;
+}
+

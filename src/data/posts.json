@@ -1,0 +1,38 @@
+[
+  {
+    "id": "scaling-engineering-teams",
+    "title": "The Art of Scaling Engineering Teams without Chaos",
+    "slug": "scaling-engineering-teams",
+    "excerpt": "How to transition from a chaotic start-up style execution to a highly structured, scalable Technical Program Management (TPM) framework.",
+    "content": "Scaling an engineering organization is one of the most delicate challenges a Head of Technology or Senior TPM will face. In the early stages, speed is everything. Communication happens organically across a single room or Slack channel. \n\nHowever, once an organization grows past 50+ engineers, the organic model breaks. What worked before—handshakes, ad-hoc planning, and tribal knowledge—suddenly turns into bottlenecks and misalignment.\n\n### 1. Establish Structured TPM Frameworks\nTechnical Program Management isn't about adding bureaucratic overhead; it's about removing friction. By introducing light, standardized agile/scrum processes, clear milestone mapping, and predictable release cadences, teams can regain focus.\n\n*   **RACI Matrices:** Define clearly who is Responsible, Accountable, Consulted, and Informed for each deliverable.\n*   **Core Milestones:** Define common entrance/exit criteria for project stages (Concept, Design, Implementation, Launch).\n\n### 2. Guard the Engineering Focus\nAs teams grow, the volume of meetings expands exponentially. A key objective for leaders is to establish meeting-free blocks, consolidate standups, and shield engineers from unnecessary cross-departmental noise.\n\n### 3. Clear Ownership and Domain Boundaries\nDivide monolith teams into specialized squads with clear domain ownership. If multiple squads are constantly editing the same services, merge conflicts and deployment delays will skyrocket. Decouple your system architecture alongside your organizational structure.",
+    "category": "Leadership",
+    "readTime": "5 min read",
+    "date": "July 8, 2026",
+    "author": "Minerva Tanglao Ott",
+    "published": true
+  },
+  {
+    "id": "migrating-legacy-architectures",
+    "title": "Migrating Legacy Architectures: A Head of Tech's Playbook",
+    "slug": "migrating-legacy-architectures",
+    "excerpt": "A tactical playbook for de-risking high-stakes database and infrastructure migrations in live production environments.",
+    "content": "Infrastructure and architectural migrations are notoriously risky. We've all heard the horror stories: database migrations gone wrong resulting in hours of unscheduled downtime, or major refactors that introduce regression bugs across critical modules. \n\nBut as technology matures, staying on legacy systems becomes a security threat, a scalability bottleneck, and a drag on team morale. Here is my executive playbook for executing high-stakes migrations with zero user impact.\n\n### Step 1: The Strangler Fig Pattern\nNever attempt a \"Big Bang\" migration where you flip a switch and shift 100% of traffic to a new service on a Sunday night. Instead, use the Strangler Fig pattern. Build your new microservices alongside the legacy monolith, and intercept requests, routing them incrementally to the new system.\n\n### Step 2: Establish Comprehensive Observability\nBefore changing a single line of backend routing, establish precise performance, error, and throughput metrics. \n\n*   **Shadow Deployments:** Route a copy of live production traffic to the new database/service without using its responses. Compare results and performance profiles in real time.\n*   **Canary Launches:** Shift 1% of live traffic, then 5%, then 25%, monitoring logs closely for anomalies.\n\n### Step 3: Align Business Stakeholders\nMigrations are technical, but their success depends on organizational alignment. Communicate technical benefits in business terms: reduced hosting costs, improved uptime SLA, and faster feature delivery times.",
+    "category": "Technology",
+    "readTime": "6 min read",
+    "date": "June 15, 2026",
+    "author": "Minerva Tanglao Ott",
+    "published": true
+  },
+  {
+    "id": "understanding-jmx-patterns",
+    "title": "Standardizing Core JMX Patterns in Enterprise Systems",
+    "slug": "understanding-jmx-patterns",
+    "excerpt": "Deep dive into Java Management Extensions (JMX) instrumentation, monitoring, and structural validation of core patterns.",
+    "content": "As the Technical Editor of *JMX Programming*, I spent significant time analyzing how large enterprise systems instrument their services. Java Management Extensions (JMX) provide a standard, robust architecture to monitor resources, load-balance services, and manage configurations dynamically at runtime.\n\n### Why JMX Matters in Modern Enterprise\nWhile microservice ecosystems have heavily embraced HTTP/JSON telemetry endpoints (like Prometheus metrics), JMX remains the gold standard for deep JVM monitoring and interactive runtime manipulation.\n\nWith JMX, you don't just *view* metrics; you can *invoke operations* dynamically—such as forcing garbage collection, reloading system configurations, or modifying thread pool size on the fly without restarting the application.\n\n### Designing MBeans (Managed Beans)\nWhen designing manageable resources, there are standard patterns to follow:\n\n1.  **Standard MBeans:** Defined by writing a Java interface whose name ends in `MBean` and a class implementing that interface.\n2.  **Dynamic MBeans:** Implemented by providing a generic metadata structure. This is highly useful for dynamic scripting engines or wrapper adapters.\n\n### Security and Authentication\nNever expose JMX ports without strict SSL and username/password verification. In cluster environments, wrap JMX adapters with firewalled secure channels to prevent arbitrary remote code execution.",
+    "category": "Engineering",
+    "readTime": "4 min read",
+    "date": "May 22, 2026",
+    "author": "Minerva Tanglao Ott",
+    "published": true
+  }
+]
