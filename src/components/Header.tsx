@@ -17,7 +17,8 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      if (currentPath && currentPath.startsWith('/blog')) {
+      const isHomeBlog = !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
+      if (isHomeBlog) {
         setActiveSection('blog');
         return;
       }
@@ -44,29 +45,35 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   }, [currentPath]);
 
   useEffect(() => {
-    if (currentPath && currentPath.startsWith('/blog')) {
+    const isHomeBlog = !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
+    if (isHomeBlog) {
       setActiveSection('blog');
     }
   }, [currentPath]);
 
   const navItems = [
-    { label: 'Blog', href: '/blog', id: 'blog' },
-    { label: 'Story', href: '#home', id: 'home' },
-    { label: 'Apps', href: '#portfolio', id: 'portfolio' },
-    { label: 'Experience', href: '#experience', id: 'experience' },
-    { label: 'Skills', href: '#skills', id: 'skills' },
-    { label: 'Education & Patents', href: '#credentials', id: 'credentials' },
-    { label: 'Contact', href: '#contact', id: 'contact' },
+    { label: 'Blog', href: '/', id: 'blog' },
+    { label: 'Story', href: '/story#home', id: 'home' },
+    { label: 'Apps', href: '/story#portfolio', id: 'portfolio' },
+    { label: 'Experience', href: '/story#experience', id: 'experience' },
+    { label: 'Skills', href: '/story#skills', id: 'skills' },
+    { label: 'Education & Patents', href: '/story#credentials', id: 'credentials' },
+    { label: 'Contact', href: '/story#contact', id: 'contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { label: string; href: string; id: string }) => {
     e.preventDefault();
     setIsOpen(false);
     
-    if (item.href.startsWith('#')) {
-      if (currentPath && currentPath !== '/') {
+    if (item.id === 'blog') {
+      if (onNavigate) {
+        onNavigate('/');
+      }
+    } else {
+      // It's a story section: /story#id
+      if (currentPath && !currentPath.startsWith('/story')) {
         if (onNavigate) {
-          onNavigate('/');
+          onNavigate('/story');
           // Give the DOM a moment to mount the sections before scrolling
           setTimeout(() => {
             const el = document.getElementById(item.id);
@@ -76,10 +83,6 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
       } else {
         const el = document.getElementById(item.id);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      if (onNavigate) {
-        onNavigate(item.href);
       }
     }
   };
@@ -97,15 +100,10 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
         {/* Logo/Brand */}
         <a
           id="nav-logo-link"
-          href="#home"
+          href="/"
           onClick={(e) => {
             e.preventDefault();
-            if (currentPath && currentPath !== '/') {
-              if (onNavigate) onNavigate('/');
-            } else {
-              const el = document.getElementById('home');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }
+            if (onNavigate) onNavigate('/');
           }}
           className="flex items-center gap-3 group focus:outline-none"
         >
