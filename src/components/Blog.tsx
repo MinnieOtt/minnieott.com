@@ -331,21 +331,28 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       ) : (
         /* Blog Index View */
         <div id="blog-index">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-gray-100 pb-8 text-left">
-            <div>
-              <span className="font-mono text-[10px] text-accent-dark font-bold uppercase tracking-wider block mb-2">
-                Tech & Leadership Logs
-              </span>
-              <h2 className="font-display font-bold text-gray-900 text-3xl sm:text-4xl tracking-tight leading-none">
+          <div 
+            id="blog-header-banner"
+            className="relative rounded-3xl overflow-hidden bg-cover bg-center p-8 sm:p-12 mb-12 shadow-sm border border-gray-150/10 text-left min-h-[220px] flex flex-col md:flex-row md:items-end justify-between gap-6"
+            style={{ backgroundImage: "url('/ArchitectingHumanity.gif')" }}
+          >
+            {/* High-contrast gradient overlay to guarantee readability of white text */}
+            <div className="absolute inset-0 bg-gradient-to-r from-gray-950/85 via-gray-950/70 to-gray-950/40 z-0" />
+            
+            <div className="relative z-10 max-w-2xl">
+              <h1 
+                className="text-white text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3 text-left"
+                style={{ fontFamily: "'Lato', sans-serif" }}
+              >
                 Architecting Humanity
-              </h2>
-              <p className="font-sans text-sm text-gray-500 mt-2 max-w-xl leading-relaxed">
+              </h1>
+              <p className="font-sans text-sm text-gray-200 max-w-xl leading-relaxed">
                 Human-centric AI transformation, systems design, and technology leadership in the age of automation.
               </p>
             </div>
 
             {/* Actions for Admin */}
-            <div className="flex items-center gap-3 shrink-0">
+            <div className="relative z-10 flex items-center gap-3 shrink-0">
               {isAuthenticated ? (
                 <div className="flex items-center gap-2">
                   <button
@@ -356,7 +363,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   </button>
                   <button
                     onClick={handleLogout}
-                    className="text-[10px] font-mono border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-neutral-50 px-2.5 py-2 rounded-xl transition-all cursor-pointer"
+                    className="text-[10px] font-mono border border-white/20 bg-black/40 text-gray-200 hover:text-white hover:bg-black/60 px-2.5 py-2 rounded-xl transition-all cursor-pointer"
                   >
                     Lock Studio
                   </button>
@@ -364,9 +371,9 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               ) : (
                 <button
                   onClick={() => setShowEditor(!showEditor)}
-                  className="inline-flex items-center gap-1.5 bg-neutral-50 hover:bg-neutral-100 border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-4 py-2.5 rounded-xl font-sans font-bold text-xs transition-colors shadow-3xs cursor-pointer"
+                  className="inline-flex items-center gap-1.5 bg-black/40 hover:bg-black/60 border border-white/20 text-gray-200 hover:text-white px-4 py-2.5 rounded-xl font-sans font-bold text-xs transition-colors shadow-3xs cursor-pointer backdrop-blur-xs"
                 >
-                  <Lock className="w-3.5 h-3.5" /> Author Workspace
+                  <Lock className="w-3.5 h-3.5 text-white" /> Author Workspace
                 </button>
               )}
             </div>
