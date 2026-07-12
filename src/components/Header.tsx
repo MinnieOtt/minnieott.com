@@ -50,13 +50,13 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   }, [currentPath]);
 
   const navItems = [
-    { label: 'Overview', href: '#home', id: 'home' },
+    { label: 'Blog', href: '/blog', id: 'blog' },
+    { label: 'Story', href: '#home', id: 'home' },
     { label: 'Apps', href: '#portfolio', id: 'portfolio' },
     { label: 'Experience', href: '#experience', id: 'experience' },
     { label: 'Skills', href: '#skills', id: 'skills' },
     { label: 'Education & Patents', href: '#credentials', id: 'credentials' },
     { label: 'Contact', href: '#contact', id: 'contact' },
-    { label: 'Blog', href: '/blog', id: 'blog' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { label: string; href: string; id: string }) => {
