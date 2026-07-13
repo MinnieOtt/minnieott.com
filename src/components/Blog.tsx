@@ -334,16 +334,21 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           <div id="blog-header-banner" className="flex flex-col gap-6 mb-12 text-left">
             <div className="relative rounded-3xl overflow-hidden shadow-sm border border-gray-100 w-full bg-neutral-100">
               <img 
-                src="/ArchitectingHumanity.gif" 
+                src="/architecting-humanity-banner.gif" 
                 alt="Architecting Humanity" 
                 className="w-full h-auto object-cover max-h-[350px] min-h-[160px] block"
               />
             </div>
             
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <h1 className="font-display font-bold text-gray-900 text-2xl sm:text-3xl tracking-tight max-w-xl">
-                Elevating people at the center of progress.
-              </h1>
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+              <div className="max-w-xl space-y-3">
+                <h1 className="font-display font-bold text-gray-900 text-2xl sm:text-3xl tracking-tight">
+                  Elevating people at the center of progress.
+                </h1>
+                <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                  I’m an engineering leader whose tech journey started with self-taught BASIC and led to directing global enterprise transformations. As a mentor, mother to a fellow software engineer, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
+                </p>
+              </div>
               
               {/* Actions for Admin */}
               <div className="flex items-center gap-3 shrink-0">
