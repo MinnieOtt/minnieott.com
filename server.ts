@@ -16,11 +16,57 @@ interface BlogPost {
   published: boolean;
 }
 
-function isAdminAuthenticated(req: any): boolean {
+let firebaseConfig: any = null;
+try {
+  const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+  if (fs.existsSync(configPath)) {
+    firebaseConfig = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+  }
+} catch (err) {
+  console.error("Error reading firebase-applet-config.json:", err);
+}
+
+async function isAdminAuthenticated(req: any): Promise<boolean> {
   // Check administrative passcode in headers, query, or body
   const passcode = req.headers["x-admin-passcode"] || req.query.passcode || (req.body && req.body.passcode);
-  return !!(passcode && passcode.toString().toLowerCase() === "minnie");
+  if (passcode && passcode.toString().toLowerCase() === "minnie") {
+    return true;
+  }
+
+  // Check Google Firebase ID Token in Authorization header or x-admin-id-token
+  const authHeader = req.headers["authorization"] || req.headers["x-admin-id-token"];
+  let idToken = "";
+  if (authHeader) {
+    if (authHeader.startsWith("Bearer ")) {
+      idToken = authHeader.substring(7);
+    } else {
+      idToken = authHeader;
+    }
+  }
+
+  if (idToken) {
+    try {
+      const firebaseApiKey = firebaseConfig?.apiKey || process.env.FIREBASE_API_KEY || "AIzaSyCDIPQXWmDq81U8BrjbCy8hTDphG_Y45Xc";
+      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseApiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        const email = data.users?.[0]?.email;
+        if (email === "minnie.ott@gmail.com") {
+          return true;
+        }
+      }
+    } catch (error) {
+      console.error("Error verifying Firebase ID Token:", error);
+    }
+  }
+
+  return false;
 }
+
 
 // Paths to the posts JSON
 const postsFilePath = path.join(process.cwd(), "src", "data", "posts.json");
@@ -150,10 +196,45 @@ async function startServer() {
     return res.json({ posts });
   });
 
+  // POST: Verify Firebase ID Token and check if authorized
+  app.post("/api/auth/verify", async (req, res) => {
+    const { idToken } = req.body;
+    if (!idToken) {
+      return res.status(400).json({ error: "idToken is required" });
+    }
+    
+    try {
+      const firebaseApiKey = firebaseConfig?.apiKey || process.env.FIREBASE_API_KEY || "AIzaSyCDIPQXWmDq81U8BrjbCy8hTDphG_Y45Xc";
+      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${firebaseApiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken })
+      });
+      
+      if (!response.ok) {
+        const errData = await response.json();
+        return res.status(401).json({ error: "Invalid token", details: errData });
+      }
+      
+      const data = await response.json();
+      const user = data.users?.[0];
+      const email = user?.email;
+      
+      if (email === "minnie.ott@gmail.com") {
+        return res.json({ success: true, user: { email, displayName: user.displayName, photoUrl: user.photoUrl } });
+      } else {
+        return res.status(403).json({ error: "Forbidden: You are not authorized to access this workspace." });
+      }
+    } catch (error: any) {
+      console.error("Error in /api/auth/verify:", error);
+      return res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+  });
+
   // POST: Create/Publish a blog post
-  app.post("/api/posts", (req, res) => {
-    if (!isAdminAuthenticated(req)) {
-      return res.status(401).json({ error: "Unauthorized access. Invalid passcode." });
+  app.post("/api/posts", async (req, res) => {
+    if (!(await isAdminAuthenticated(req))) {
+      return res.status(401).json({ error: "Unauthorized access. Invalid credentials." });
     }
 
     const { title, excerpt, content, category, readTime, author, published } = req.body;
@@ -199,9 +280,9 @@ async function startServer() {
   });
 
   // DELETE: Remove a blog post
-  app.delete("/api/posts/:id", (req, res) => {
-    if (!isAdminAuthenticated(req)) {
-      return res.status(401).json({ error: "Unauthorized access. Invalid passcode." });
+  app.delete("/api/posts/:id", async (req, res) => {
+    if (!(await isAdminAuthenticated(req))) {
+      return res.status(401).json({ error: "Unauthorized access. Invalid credentials." });
     }
 
     const { id } = req.params;

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Search, ArrowLeft, Calendar, Clock, User, Plus, Check, Send, Trash2, ShieldCheck, Lock, Unlock, Eye, Sparkles } from 'lucide-react';
+import { signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import { auth, googleProvider } from '../lib/firebase';
 
 interface BlogPost {
   id: string;
@@ -29,7 +31,14 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
   
   // Admin Editor States
   const [showEditor, setShowEditor] = useState(false);
-  const [adminPasscode, setAdminPasscode] = useState('');
+  const [currentUser, setCurrentUser] = useState<FirebaseUser | null>(null);
+  const [idToken, setIdToken] = useState<string | null>(() => {
+    try {
+      return sessionStorage.getItem('minerva_portfolio_id_token');
+    } catch {
+      return null;
+    }
+  });
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     try {
       return sessionStorage.getItem('minerva_portfolio_unlocked') === 'true';
@@ -53,6 +62,41 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
   useEffect(() => {
     fetchPosts();
+
+    // Firebase Auth State Listener
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        if (user.email === 'minnie.ott@gmail.com') {
+          try {
+            const token = await user.getIdToken();
+            setCurrentUser(user);
+            setIdToken(token);
+            setIsAuthenticated(true);
+            sessionStorage.setItem('minerva_portfolio_unlocked', 'true');
+            sessionStorage.setItem('minerva_portfolio_id_token', token);
+          } catch (err) {
+            console.error('Error getting ID token:', err);
+          }
+        } else {
+          // Unrecognized user - sign them out immediately
+          await firebaseSignOut(auth);
+          setCurrentUser(null);
+          setIdToken(null);
+          setIsAuthenticated(false);
+          setAuthError('Access Denied: Only Minerva Tanglao Ott is authorized to access the Workspace.');
+          sessionStorage.removeItem('minerva_portfolio_unlocked');
+          sessionStorage.removeItem('minerva_portfolio_id_token');
+        }
+      } else {
+        setCurrentUser(null);
+        setIdToken(null);
+        setIsAuthenticated(false);
+        sessionStorage.removeItem('minerva_portfolio_unlocked');
+        sessionStorage.removeItem('minerva_portfolio_id_token');
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const fetchPosts = async () => {
@@ -69,26 +113,40 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
     }
   };
 
-  const handleAuth = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleGoogleSignIn = async () => {
     setAuthError('');
-    if (adminPasscode.toLowerCase() === 'minnie') {
-      setIsAuthenticated(true);
-      try {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      if (user.email === 'minnie.ott@gmail.com') {
+        const token = await user.getIdToken();
+        setCurrentUser(user);
+        setIdToken(token);
+        setIsAuthenticated(true);
         sessionStorage.setItem('minerva_portfolio_unlocked', 'true');
-      } catch (err) {
-        console.error(err);
+        sessionStorage.setItem('minerva_portfolio_id_token', token);
+      } else {
+        await firebaseSignOut(auth);
+        setAuthError('Access Denied: Only Minerva Tanglao Ott is authorized to access the Workspace.');
       }
-      setAdminPasscode('');
-    } else {
-      setAuthError('Invalid administrative passcode.');
+    } catch (err: any) {
+      console.error('Google Sign-In Error:', err);
+      setAuthError(err.message || 'Failed to authenticate with Google.');
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await firebaseSignOut(auth);
+    } catch (err) {
+      console.error('Error signing out:', err);
+    }
     setIsAuthenticated(false);
+    setCurrentUser(null);
+    setIdToken(null);
     try {
       sessionStorage.removeItem('minerva_portfolio_unlocked');
+      sessionStorage.removeItem('minerva_portfolio_id_token');
     } catch (err) {
       console.error(err);
     }
@@ -103,13 +161,18 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
     setIsSubmitting(true);
     try {
-      const passcodeToSend = isAuthenticated ? 'minnie' : adminPasscode;
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      if (idToken) {
+        headers['Authorization'] = `Bearer ${idToken}`;
+      } else {
+        headers['X-Admin-Passcode'] = 'minnie';
+      }
+
       const res = await fetch('/api/posts', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Admin-Passcode': passcodeToSend
-        },
+        headers,
         body: JSON.stringify(newPost)
       });
 
@@ -147,15 +210,19 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
   const handleDeletePost = async (id: string) => {
     if (!window.confirm('Are you sure you want to permanently delete this blog post?')) return;
     
-    const passcode = prompt('Please enter your administrator passcode to confirm deletion:');
-    if (!passcode) return;
+    const headers: Record<string, string> = {};
+    if (idToken) {
+      headers['Authorization'] = `Bearer ${idToken}`;
+    } else {
+      const passcode = prompt('Please enter your administrator passcode to confirm deletion:');
+      if (!passcode) return;
+      headers['X-Admin-Passcode'] = passcode;
+    }
 
     try {
       const res = await fetch(`/api/posts/${id}`, {
         method: 'DELETE',
-        headers: {
-          'X-Admin-Passcode': passcode
-        }
+        headers
       });
 
       if (!res.ok) {
@@ -389,34 +456,49 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 className="overflow-hidden mb-12"
               >
                 {!isAuthenticated ? (
-                  /* Authentication Screen inside Blog Page */
+                  /* Google Authentication Screen inside Blog Page */
                   <div className="bg-neutral-50/50 rounded-2xl border border-gray-200 p-6 sm:p-8 max-w-md mx-auto text-center shadow-sm">
-                    <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center mb-4 mx-auto text-rose-500">
+                    <div className="w-12 h-12 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center mb-4 mx-auto text-blue-500">
                       <Lock className="w-5 h-5" />
                     </div>
                     <h4 className="font-display font-bold text-gray-900 text-lg mb-1">
                       Author Studio Authentication
                     </h4>
-                    <p className="font-sans text-xs text-gray-500 leading-relaxed mb-4">
-                      Please input your developer passcode to unlock the blog publisher workspace.
+                    <p className="font-sans text-xs text-gray-500 leading-relaxed mb-6">
+                      This studio workspace is reserved. Please sign in with your authorized Google account to publish or edit articles.
                     </p>
-                    <form onSubmit={handleAuth} className="flex flex-col gap-3">
-                      <input
-                        type="password"
-                        placeholder="Admin passcode"
-                        value={adminPasscode}
-                        onChange={(e) => setAdminPasscode(e.target.value)}
-                        autoFocus
-                        className="px-4 py-2 text-center text-sm border border-gray-200 rounded-xl focus:outline-hidden focus:border-[#3333FF] transition-colors"
-                      />
-                      {authError && <span className="text-[10px] text-rose-500 font-bold font-sans">{authError}</span>}
+                    <div className="flex flex-col gap-3 items-center justify-center">
                       <button
-                        type="submit"
-                        className="bg-[#3333FF] hover:bg-[#2222DD] text-white font-sans font-bold text-xs py-2.5 rounded-xl transition-colors cursor-pointer"
+                        onClick={handleGoogleSignIn}
+                        type="button"
+                        className="inline-flex items-center justify-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#3333FF] shadow-3xs cursor-pointer transition-all w-full"
                       >
-                        Verify Identity
+                        <svg className="w-5 h-5" viewBox="0 0 24 24">
+                          <path
+                            fill="#EA4335"
+                            d="M12 5.04c1.62 0 3.08.56 4.22 1.65l3.15-3.15C17.45 1.77 14.93 1 12 1 7.42 1 3.51 3.63 1.58 7.46l3.77 2.92C6.27 7.03 8.91 5.04 12 5.04z"
+                          />
+                          <path
+                            fill="#4285F4"
+                            d="M23.49 12.27c0-.81-.07-1.59-.2-2.34H12v4.43h6.46c-.28 1.44-1.1 2.66-2.33 3.48l3.62 2.81c2.12-1.95 3.34-4.83 3.34-8.38z"
+                          />
+                          <path
+                            fill="#FBBC05"
+                            d="M5.35 14.38c-.24-.71-.38-1.47-.38-2.38s.14-1.67.38-2.38L1.58 6.7C.57 8.73 0 11.01 0 13.5s.57 4.77 1.58 6.8l3.77-2.92z"
+                          />
+                          <path
+                            fill="#34A853"
+                            d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.62-2.81c-1.1.74-2.51 1.18-4.34 1.18-3.09 0-5.73-1.99-6.66-5.34L1.58 16.04C3.51 19.87 7.42 23 12 23z"
+                          />
+                        </svg>
+                        <span>Sign in with Google</span>
                       </button>
-                    </form>
+                      {authError && (
+                        <span className="text-[11px] text-rose-500 font-bold font-sans mt-2 block bg-rose-50 border border-rose-100 rounded-lg px-3 py-1.5">
+                          {authError}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 ) : (
                   /* Create Blog Post Form */
