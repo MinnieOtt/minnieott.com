@@ -130,6 +130,9 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
             <span id="logo-text-title" className="text-[10px] text-gray-500 font-mono mt-0.5 uppercase tracking-wider">
               Technology Transformation Leader
             </span>
+            <span id="logo-text-companies" className="text-[9px] text-gray-400 font-mono mt-1 tracking-wide">
+              Creative Blue &larr; Google &larr; Apple &larr; Sun / Oracle
+            </span>
           </div>
         </a>
 

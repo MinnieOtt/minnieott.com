@@ -346,7 +346,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   Elevating people at the center of progress.
                 </h1>
                 <p className="font-sans text-sm text-gray-600 leading-relaxed">
-                  I’m an engineering leader whose tech journey started with self-taught BASIC and led to directing global enterprise transformations. As a mentor, mother to a fellow software engineer, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
+                  I’m an engineering leader whose tech journey started with self-taught BASIC as a teen and led to directing global enterprise transformations from Silicon Valley. As a mentor, mother to a fellow software engineer, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
                 </p>
               </div>
               
