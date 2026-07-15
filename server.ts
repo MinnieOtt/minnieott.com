@@ -279,6 +279,57 @@ async function startServer() {
     }
   });
 
+  // PUT: Update an existing blog post
+  app.put("/api/posts/:id", async (req, res) => {
+    if (!(await isAdminAuthenticated(req))) {
+      return res.status(401).json({ error: "Unauthorized access. Invalid credentials." });
+    }
+
+    const { id } = req.params;
+    const { title, excerpt, content, category, readTime, author, published } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({ error: "Title and content are required." });
+    }
+
+    const posts = readPostsFromFile();
+    const index = posts.findIndex(p => p.id === id);
+
+    if (index === -1) {
+      return res.status(404).json({ error: "Blog post not found" });
+    }
+
+    // Update slug if title changed, while ensuring uniqueness
+    let finalSlug = posts[index].slug;
+    if (posts[index].title !== title) {
+      const slug = slugify(title);
+      finalSlug = slug;
+      let suffix = 1;
+      while (posts.some((p, idx) => idx !== index && p.slug === finalSlug)) {
+        finalSlug = `${slug}-${suffix}`;
+        suffix++;
+      }
+    }
+
+    posts[index] = {
+      ...posts[index],
+      title,
+      slug: finalSlug,
+      excerpt: excerpt || (content.length > 150 ? content.substring(0, 150) + "..." : content),
+      content,
+      category: category || "Uncategorized",
+      readTime: readTime || `${Math.max(1, Math.ceil(content.split(/\s+/).length / 200))} min read`,
+      author: author || "Minerva Tanglao Ott",
+      published: published !== false
+    };
+
+    if (writePostsToFile(posts)) {
+      return res.json({ success: true, post: posts[index], posts });
+    } else {
+      return res.status(500).json({ error: "Failed to write update to file." });
+    }
+  });
+
   // DELETE: Remove a blog post
   app.delete("/api/posts/:id", async (req, res) => {
     if (!(await isAdminAuthenticated(req))) {
