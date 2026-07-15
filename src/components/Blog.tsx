@@ -806,31 +806,16 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               </div>
               
               {/* Actions for Admin */}
-              <div className="flex items-center gap-3 shrink-0">
-                {isAuthenticated ? (
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => onNavigate('/blog/author')}
-                      className="inline-flex items-center gap-1.5 bg-[#3333FF] hover:bg-[#2222DD] text-white px-4 py-2.5 rounded-xl font-sans font-bold text-xs transition-colors shadow-xs cursor-pointer"
-                    >
-                      <Plus className="w-4 h-4" /> Go to Workspace
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="text-[10px] font-mono border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-neutral-50 px-2.5 py-2 rounded-xl transition-all cursor-pointer"
-                    >
-                      Lock Studio
-                    </button>
-                  </div>
-                ) : (
+              {isAuthenticated && (
+                <div className="flex items-center gap-3 shrink-0">
                   <button
-                    onClick={() => onNavigate('/blog/author')}
-                    className="inline-flex items-center gap-1.5 bg-neutral-50 hover:bg-neutral-100 border border-gray-200 hover:border-gray-300 text-gray-600 hover:text-gray-900 px-4 py-2.5 rounded-xl font-sans font-bold text-xs transition-colors shadow-3xs cursor-pointer"
+                    onClick={handleLogout}
+                    className="text-[10px] font-mono border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-neutral-50 px-2.5 py-2 rounded-xl transition-all cursor-pointer"
                   >
-                    <Lock className="w-3.5 h-3.5 text-gray-500" /> Author Workspace
+                    Lock Studio
                   </button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
 
