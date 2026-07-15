@@ -8,6 +8,7 @@ import EducationCertifications from './components/EducationCertifications';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
 import { personalInfo } from './data/resumeData';
+import MochiChat from './components/MochiChat';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -80,6 +81,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <MochiChat />
     </div>
   );
 }

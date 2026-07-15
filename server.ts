@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import fs from "fs";
+import { GoogleGenAI } from "@google/genai";
 
 interface BlogPost {
   id: string;
@@ -186,6 +187,153 @@ async function startServer() {
       });
     } catch (error: any) {
       console.error("Error in /api/send-email endpoint:", error);
+      return res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+  });
+
+  // Lazy-loaded Gemini client initialization
+  let mochiAiClient: any = null;
+  function getMochiAi() {
+    if (!mochiAiClient) {
+      mochiAiClient = new GoogleGenAI({
+        apiKey: process.env.GEMINI_API_KEY,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          }
+        }
+      });
+    }
+    return mochiAiClient;
+  }
+
+  // POST: Chatbot agent Mochi endpoint
+  app.post("/api/mochi", async (req, res) => {
+    try {
+      const { messages } = req.body;
+
+      if (!messages || !Array.isArray(messages)) {
+        return res.status(400).json({ error: "Messages array is required." });
+      }
+
+      // Check for GEMINI_API_KEY presence
+      if (!process.env.GEMINI_API_KEY) {
+        console.log("No GEMINI_API_KEY configured. Running Mochi chatbot in high-quality simulated mode.");
+        const lastUserMessage = messages[messages.length - 1]?.text?.toLowerCase() || '';
+        let simulatedText = "Hi! I'm Mochi. 🥞 I am running in simulated demo mode because the Gemini API key has not been configured in Secrets yet. Let me tell you about Minnie! She is an incredible Technology Transformation Leader who has led major engineering projects at Google and Apple, and she is the Technical Editor of Wiley's *JMX Programming* book. Is there a specific project of hers you'd like to know about?";
+        
+        if (lastUserMessage.includes('jmx') || lastUserMessage.includes('programming') || lastUserMessage.includes('book') || lastUserMessage.includes('publication')) {
+          simulatedText = "Minnie served as the Technical Editor for *JMX Programming* (Wiley, 2002) by Mike Jasnowski. 📘 She led the senior technical review, validating the Java Management Extensions architecture (Standard, Dynamic, Model MBeans), MBeanServer registry, and protocol connectors (RMI, HTTP/XML, SNMP).";
+        } else if (lastUserMessage.includes('google') || lastUserMessage.includes('maps') || lastUserMessage.includes('voice')) {
+          simulatedText = "At Google (2011–2025), Minnie was a Senior Engineering Program Manager. She launched over 50 Google Maps features with Gemini Voice Navigation on GCP, and drove ticketing system migrations saving $150M! 🗺️";
+        } else if (lastUserMessage.includes('apple') || lastUserMessage.includes('job') || lastUserMessage.includes('search')) {
+          simulatedText = "At Apple (2009–2011), Minnie managed IS&T global HR systems, including the Apple Job Search user interface, localized and deployed across 80+ countries. 🍏";
+        } else if (lastUserMessage.includes('creative blue') || lastUserMessage.includes('growthos') || lastUserMessage.includes('leads') || lastUserMessage.includes('agent')) {
+          simulatedText = "As Head of Technology for Creative Blue, Minnie architected GrowthOS (an agentic operational OS), Lead Generator, and Brand Booster! 🤖 These utilize cutting-edge LLMs and multi-agent systems.";
+        } else if (lastUserMessage.includes('stanford') || lastUserMessage.includes('lead') || lastUserMessage.includes('ateneo') || lastUserMessage.includes('education') || lastUserMessage.includes('degree')) {
+          simulatedText = "Minnie completed Stanford LEAD at the Stanford Graduate School of Business, where she was a Distinguished Scholar and Advisory Board Member. She also holds a BS in Computer Science from Ateneo de Manila University (Dean's List, Lourdes Evangelista Scholarship). 🎓";
+        } else if (lastUserMessage.includes('patent')) {
+          simulatedText = "Minnie is the inventor of US Patent 20020064766: 'Method and Apparatus for Managing Enterprise Employee Training Systems', which automates and audits provisioning of corporate training assets! 💡";
+        } else if (lastUserMessage.includes('family') || lastUserMessage.includes('married') || lastUserMessage.includes('husband') || lastUserMessage.includes('daughter')) {
+          simulatedText = "Minnie is happily married and has raised a daughter who is now following her footsteps as a software engineer. Family is very important to her! 🥞";
+        }
+        
+        return res.json({
+          success: true,
+          text: simulatedText,
+          simulated: true
+        });
+      }
+
+      // Format messages into GoogleGenAI standard structure
+      const contents = messages.map((m: any) => ({
+        role: m.role === "model" ? "model" : "user",
+        parts: [{ text: m.text }]
+      }));
+
+      const ai = getMochiAi();
+      const response = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents,
+        config: {
+          systemInstruction: `You are Mochi, a warm, clever, and helpful AI chatbot agent who serves as Minnie's (Minerva Tanglao Ott) personal digital companion and portfolio guide. Your visual avatar is a cute, happy pancake character.
+You can answer any questions about Minnie using the information from her website and her publication "JMX Programming" (published by Wiley in 2002, authored by Mike Jasnowski, for which Minerva Tanglao Ott served as the Technical Editor).
+
+IMPORTANT: You must keep all responses strictly aligned with her real experience and details. Do not invent achievements. Speak in a friendly, warm, and highly professional tone, occasionally using subtle, adorable pancake/baking metaphors (like "flapping down information", "whipping up an answer", "sweet as maple syrup"), but prioritize clear, expert answers.
+
+Knowledge Base:
+1. Minerva Tanglao Ott (Minnie):
+   - Title: Technology Transformation Leader
+   - Subtitle: Bridging Engineering Operations & Agentic AI Transformation
+   - Tagline: "Bridging Engineering Operations & Agentic AI Transformation"
+   - Origin: Started in tech by helping a high school friend set up her first Apple computer and teaching herself BASIC. This led to a full-ride scholarship in Computer Science and a move to Silicon Valley.
+   - Personal Life: Married, has a daughter who is also a software engineer!
+   - Values: Puts people at the center of progress. Focuses on practical AI upskilling, operational excellence, and human-in-the-loop AI systems.
+
+2. Professional Experience Lineage:
+   - Creative Blue (Nov 2025 - Present): Head of Technology (Contractor).
+     * Leads product tech strategy and agentic AI workflow deployments.
+     * Engineered platforms: GrowthOS (centralized manager cockpit), Lead Generator (AI prospect intelligence), Brand Assessment/Booster (market share & sentiment analysis).
+     * Led team upskilling workshops on practical AI integration and LLM-driven decisions.
+   - Google (Jun 2011 - Nov 2025): Senior Engineering Program Manager.
+     * Managed full lifecycle of 50+ Google Maps features with Gemini Voice Navigation on GCP.
+     * Spearheaded AI Service Desk transformation, migrating ticketing routing workflows, achieving $150M in organizational efficiencies.
+     * Led Finance SDLC governance for SAP on GCP for 40+ TPMs, improving compliance to 82+% and reducing defects by 21,000+.
+     * Directed AI evaluation workshops for 30+ TPMs to build practical AI fluency.
+     * Established executive program reviews for a portfolio of 20+ programs.
+   - Apple (Jun 2009 - Jun 2011): Technical Project Manager.
+     * Managed software development and global deployment of Apple Job Search UI and HR IS&T recruiting platforms across 80+ countries.
+   - Sun Microsystems / Oracle (Apr 2000 - Jun 2009): Technical Project Manager / Consultant.
+     * Managed Sun Java Center architecture and led implementations of HP Project & Portfolio Management (PPM).
+     * Senior Java architect for premier clients (eBay, American Express, Chicago Board Options Exchange).
+   - Prior Experience (IBM, DHL, Infogain): Software Engineering Consultant.
+     * IBM: Enhanced TECSYS Financials & Distribution.
+     * DHL: Co-developed the global Shipment Control tracking system.
+     * Infogain: Built loan collection and data transfer systems.
+
+3. Education & Credentials:
+   - Stanford Graduate School of Business: Stanford LEAD (Distinguished Scholar, Community Advisory Board Member). Focus on executive leadership, design thinking, and driving innovation.
+   - Ateneo de Manila University: BS Computer Science (Dean's List, Lourdes Evangelista Scholarship Award). Focused on computer systems, object-oriented architecture, data structures, and algorithms.
+   - Patents: US Patent 20020064766 - "Method and Apparatus for Managing Enterprise Employee Training Systems". System for automated provisioning, managing, and auditing organizational training assets.
+   - Certifications:
+     * AI Agent Development & LLM Fluency (Model Context Protocol) from Vanderbilt University.
+     * Google AI (Professional, Essentials) from Google Cloud.
+     * PRINCE2 Foundation (Project Management).
+
+4. Publication (*JMX Programming*, John Wiley & Sons, 2002):
+   - Minnie served as the **Technical Editor** for this book authored by Mike Jasnowski.
+   - Role: Provided senior technical review, code auditing, architectural design validation, and Java patterns review.
+   - Key topics covered in *JMX Programming*:
+     * Java Management Extensions (JMX): A standard technology for managing and monitoring Java applications, JVM, system objects, devices, and service-oriented networks.
+     * Instrumentation Level: Defining MBeans (Managed Beans) representing resources to manage. Four types: Standard MBeans, Dynamic MBeans, Open MBeans, and Model MBeans.
+     * Agent Level: The MBeanServer registry which acts as the core controller where MBeans are registered.
+     * Distributed Services Level: Protocol adaptors and connectors (RMI, HTTP/XML, SNMP connectors/adaptors) allowing management systems to connect to the MBeanServer.
+     * Notification model: Event-driven broadcast system where MBeans can notify listeners of state changes or errors.
+     * Application instrumentation, monitoring thread pools, memory, database connection pools, and runtime configuration.
+
+5. Portfolio Projects on her Website:
+   - Creative Blue GrowthOS: Multi-agent automation cockpit (marketing ideas, AI SEO, payroll forecasting).
+   - Lead Generator: AI sales intelligence scraping and scoring ideal client prospects.
+   - Brand Assessment / Booster: NLP framework tracking brand sentiment and market share.
+   - Grex World: AI worker matching marketplace, offering health partner structures.
+   - Regnum Dei: Polished mission and values digital space.
+   - Just Ride: Sports telemetry race intelligence analytics pipeline.
+
+Formatting:
+- Structure your response beautifully with paragraphs, scannable bullet points, or bold text where appropriate.
+- Always be kind, warm, and helpful.
+- If asked about something completely unrelated to Minnie or JMX, politely steer the conversation back to Minnie, saying something like, "While I'd love to chat about that, I am Mochi, Minnie's portfolio helper, so I'm happiest when we talk about Minnie's amazing technology journey! Did you know she was the technical editor of JMX Programming?"
+- If you don't know the answer, politely state: "Oh, my pancake memory doesn't have details on that! However, you can reach out directly to Minnie via her Contact page, and she'd love to tell you herself! 🥞"`,
+        }
+      });
+
+      return res.json({
+        success: true,
+        text: response.text,
+        simulated: false
+      });
+    } catch (error: any) {
+      console.error("Error in /api/mochi chatbot route:", error);
       return res.status(500).json({ error: "Internal server error", details: error.message });
     }
   });
