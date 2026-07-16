@@ -70,8 +70,8 @@ export default function App() {
       <footer id="main-site-footer" className="bg-neutral-50 border-t border-gray-100 py-12">
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col gap-1 text-center md:text-left">
-            <span id="footer-brand" className="font-display font-bold text-gray-900 text-sm">
-              Minerva Tanglao Ott
+            <span id="footer-brand" className="font-display font-normal text-gray-900 text-sm">
+              Minerva Tanglao Ott (Minnie)
             </span>
             <span id="footer-tagline" className="font-mono text-[10px] text-gray-400 mt-0.5 uppercase tracking-wider">
               Technology Transformation Leader
@@ -80,7 +80,7 @@ export default function App() {
 
           <div className="flex flex-col md:flex-row items-center gap-4">
             <p id="footer-copyright" className="font-mono text-[10px] text-gray-400 text-center md:text-right">
-              © {new Date().getFullYear()} Minerva Tanglao Ott. All Rights Reserved. Deployed with Lavender Accents.
+              © {new Date().getFullYear()} Minerva Tanglao Ott (Minnie). All Rights Reserved. Deployed with Lavender Accents.
             </p>
           </div>
         </div>

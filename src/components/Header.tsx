@@ -51,14 +51,21 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     }
   }, [currentPath]);
 
+  const isNavActive = (itemId: string) => {
+    if (itemId === 'blog') return activeSection === 'blog';
+    if (itemId === 'portfolio') return activeSection === 'portfolio';
+    if (itemId === 'contact') return activeSection === 'contact';
+    if (itemId === 'home') {
+      return ['home', 'experience', 'skills', 'credentials'].includes(activeSection);
+    }
+    return false;
+  };
+
   const navItems = [
     { label: 'Blog', href: '/', id: 'blog' },
-    { label: 'Story', href: '/story#home', id: 'home' },
-    { label: 'Apps', href: '/story#portfolio', id: 'portfolio' },
-    { label: 'Experience', href: '/story#experience', id: 'experience' },
-    { label: 'Skills', href: '/story#skills', id: 'skills' },
-    { label: 'Education & Patents', href: '/story#credentials', id: 'credentials' },
-    { label: 'Contact', href: '/story#contact', id: 'contact' },
+    { label: 'Work', href: '/about#portfolio', id: 'portfolio' },
+    { label: 'About', href: '/about#home', id: 'home' },
+    { label: 'Contact', href: '/about#contact', id: 'contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { label: string; href: string; id: string }) => {
@@ -70,10 +77,10 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
         onNavigate('/');
       }
     } else {
-      // It's a story section: /story#id
-      if (currentPath && !currentPath.startsWith('/story')) {
+      // It's an about/work/contact section: /about#id
+      if (currentPath && !currentPath.startsWith('/about')) {
         if (onNavigate) {
-          onNavigate('/story');
+          onNavigate('/about');
           // Give the DOM a moment to mount the sections before scrolling
           setTimeout(() => {
             const el = document.getElementById(item.id);
@@ -125,7 +132,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
           </div>
           <div className="flex flex-col">
             <span id="logo-text-name" className="font-display font-bold text-gray-900 leading-none text-base">
-              Minerva T. Ott
+              Minerva T. Ott (Minnie)
             </span>
             <span id="logo-text-title" className="text-[10px] text-gray-500 font-mono mt-0.5 uppercase tracking-wider">
               Technology Transformation Leader
@@ -145,11 +152,11 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
               href={item.href}
               onClick={(e) => handleNavClick(e, item)}
               className={`font-sans text-sm font-medium transition-all duration-200 relative py-1 hover:text-gray-950 ${
-                activeSection === item.id ? 'text-gray-950 font-semibold text-[#3333FF]' : 'text-gray-500'
+                isNavActive(item.id) ? 'text-gray-950 font-semibold text-[#3333FF]' : 'text-gray-500'
               }`}
             >
               {item.label}
-              {activeSection === item.id && (
+              {isNavActive(item.id) && (
                 <span
                   id={`nav-active-indicator-${item.id}`}
                   className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-dark rounded-full"
@@ -184,7 +191,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
                 className={`font-sans text-base font-medium py-1.5 border-b border-gray-50 ${
-                  activeSection === item.id ? 'text-gray-950 pl-2 border-l-2 border-accent-dark' : 'text-gray-500'
+                  isNavActive(item.id) ? 'text-gray-950 pl-2 border-l-2 border-accent-dark' : 'text-gray-500'
                 }`}
               >
                 {item.label}

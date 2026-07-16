@@ -1,7 +1,7 @@
 import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, CertificationItem, EducationItem, SpeakerEvent } from '../types';
 
 export const personalInfo = {
-  name: 'Minerva Tanglao Ott',
+  name: 'Minerva Tanglao Ott (Minnie)',
   title: 'Technology Transformation Leader',
   email: '',
   phone: '',
@@ -11,7 +11,7 @@ export const personalInfo = {
   tagline: 'Bridging Engineering Operations & Agentic AI Transformation',
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley.
 
-Since then, I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a daughter who is now forging her own path in software engineering. [Mochi is our Samoyed dog](https://youtu.be/NzH5PaEgjOs) which inspired the chatbot agent on this website.
+Since then, I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a daughter who is now forging her own path in software engineering.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
   companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems', 'Oracle']
@@ -85,7 +85,7 @@ export const portfolioApps: AppPortfolioItem[] = [
   },
   {
     name: 'Just Ride',
-    url: '#',
+    url: 'https://just-ride.ai.studio',
     description: 'An advanced athletic-intelligence framework designed to aggregate, unify, and analyze cycling race data across the global peloton with a single source of truth.',
     role: 'AI Architect',
     bulletPoints: [
@@ -100,10 +100,10 @@ export const portfolioApps: AppPortfolioItem[] = [
 
 export const experiences: ExperienceItem[] = [
   {
-    role: 'Head of Technology (Contractor)',
+    role: 'Head of Technology',
     company: 'Creative Blue',
     period: 'Nov 2025 – Present',
-    type: 'Full-time Contractor',
+    type: 'Contractor',
     description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms (GrowthOS, Lead Generator, Brand Booster) that automate enterprise workflows with human-in-the-loop oversight.',
     bullets: [
       'Organized unstructured workflows by building GrowthOS, integrating marketing campaigns, AI SEO, and lead generation.',

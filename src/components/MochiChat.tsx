@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2 } from 'lucide-react';
+import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2, Mic, MicOff } from 'lucide-react';
 
 interface ChatMessage {
   id: string;
@@ -13,7 +13,7 @@ const SUGGESTIONS = [
   { text: 'Who is Minnie?', id: 'sugg-who-is-minnie' },
   { text: 'What is JMX Programming? 📘', id: 'sugg-jmx' },
   { text: 'Tell me about her Google career', id: 'sugg-google' },
-  { text: 'Book a meeting 📅', id: 'sugg-book' },
+  { text: 'Education & Patents 🎓', id: 'sugg-edu' },
 ];
 
 // Helper to parse inline styles like **bold**, *italic*, `code`, and [text](url)
@@ -21,24 +21,24 @@ function parseInline(text: string): React.ReactNode[] {
   // Matches **bold**, *italic*, `code`, [text](url)
   const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|\[.*?\]\(.*?\))/g;
   const parts = text.split(regex);
-  return parts.flatMap((part, idx) => {
+  return parts.map((part, idx) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong key={`bold-${idx}`} className="font-bold">
-          {parseInline(part.slice(2, -2))}
+        <strong key={idx} className="font-bold">
+          {part.slice(2, -2)}
         </strong>
       );
     }
     if (part.startsWith('*') && part.endsWith('*')) {
       return (
-        <em key={`italic-${idx}`} className="italic">
-          {parseInline(part.slice(1, -1))}
+        <em key={idx} className="italic">
+          {part.slice(1, -1)}
         </em>
       );
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
-        <code key={`code-${idx}`} className="bg-neutral-100 font-mono text-[11px] px-1.5 py-0.5 rounded text-[#3333FF] font-semibold">
+        <code key={idx} className="bg-neutral-100 font-mono text-[11px] px-1.5 py-0.5 rounded text-[#3333FF] font-semibold">
           {part.slice(1, -1)}
         </code>
       );
@@ -48,40 +48,17 @@ function parseInline(text: string): React.ReactNode[] {
       if (match) {
         return (
           <a
-            key={`link-${idx}`}
+            key={idx}
             href={match[2]}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#3333FF] hover:underline font-semibold"
           >
-            {parseInline(match[1])}
+            {match[1]}
           </a>
         );
       }
     }
-    
-    // Auto-link raw URLs in plain text parts
-    const urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\s])/g;
-    const textParts = part.split(urlRegex);
-    if (textParts.length > 1) {
-      return textParts.map((tPart, tIdx) => {
-        if (tPart.match(/^https?:\/\//)) {
-          return (
-            <a
-              key={`raw-link-${idx}-${tIdx}`}
-              href={tPart}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#3333FF] hover:underline font-semibold break-all"
-            >
-              {tPart}
-            </a>
-          );
-        }
-        return tPart;
-      });
-    }
-
     return part;
   });
 }
@@ -221,6 +198,95 @@ export default function MochiChat() {
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  // Speech to text states
+  const [isListening, setIsListening] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
+  // Check speech support on mount
+  useEffect(() => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      setSpeechSupported(true);
+    }
+  }, []);
+
+  // Clean up speech recognition on unmount
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
+
+  // Automatically stop listening if chat is closed
+  useEffect(() => {
+    if (!isOpen && isListening) {
+      stopListening();
+    }
+  }, [isOpen]);
+
+  const startListening = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    try {
+      const rec = new SpeechRecognition();
+      rec.continuous = false;
+      rec.interimResults = false;
+      rec.lang = 'en-US';
+
+      rec.onstart = () => {
+        setIsListening(true);
+      };
+
+      rec.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) {
+          setInputValue((prev) => {
+            const space = prev ? ' ' : '';
+            return prev + space + transcript;
+          });
+        }
+      };
+
+      rec.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+      };
+
+      rec.onend = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = rec;
+      rec.start();
+    } catch (error) {
+      console.error('Error starting speech recognition:', error);
+      setIsListening(false);
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (err) {
+        console.error('Error stopping recognition:', err);
+      }
+    }
+    setIsListening(false);
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+  };
+
   // Initialize messages from localStorage if available, else load welcome message
   useEffect(() => {
     const saved = localStorage.getItem('mochi_chat_history');
@@ -266,6 +332,10 @@ export default function MochiChat() {
 
   const handleSendMessage = async (textToSend: string) => {
     if (!textToSend.trim() || isLoading) return;
+
+    if (isListening) {
+      stopListening();
+    }
 
     const userMsg: ChatMessage = {
       id: `user-${Date.now()}`,
@@ -532,12 +602,31 @@ export default function MochiChat() {
               <input
                 id="mochi-chat-input-field"
                 type="text"
-                placeholder="Ask about Minnie's skills, JMX..."
+                placeholder={isListening ? "Listening... Speak now" : "Ask about Minnie's skills, JMX..."}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 disabled={isLoading}
                 className="flex-1 bg-neutral-50 border border-gray-200 focus:border-[#3333FF] focus:outline-hidden text-sm rounded-xl px-3.5 py-2 transition-all disabled:opacity-50"
               />
+              {speechSupported && (
+                <button
+                  id="mochi-chat-mic-btn"
+                  type="button"
+                  onClick={toggleListening}
+                  className={`p-2 rounded-xl transition-all duration-200 cursor-pointer shrink-0 ${
+                    isListening 
+                      ? 'bg-red-500 text-white shadow-md shadow-red-200' 
+                      : 'bg-neutral-50 hover:bg-neutral-100 text-gray-500 hover:text-gray-800 border border-gray-200'
+                  }`}
+                  title={isListening ? 'Stop listening' : 'Start voice typing'}
+                >
+                  {isListening ? (
+                    <MicOff className="w-4 h-4 animate-pulse" />
+                  ) : (
+                    <Mic className="w-4 h-4" />
+                  )}
+                </button>
+              )}
               <button
                 id="mochi-chat-send-btn"
                 type="submit"

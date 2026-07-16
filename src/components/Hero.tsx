@@ -26,42 +26,6 @@ export default function Hero() {
     },
   };
 
-  const renderMarkdownLinks = (str: string) => {
-    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-    const result = [];
-    let lastIndex = 0;
-    let match;
-    
-    while ((match = linkRegex.exec(str)) !== null) {
-      const [_, label, url] = match;
-      const matchIndex = match.index;
-      
-      if (matchIndex > lastIndex) {
-        result.push(str.substring(lastIndex, matchIndex));
-      }
-      
-      result.push(
-        <a 
-          key={url + matchIndex} 
-          href={url} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-[#3333FF] hover:underline hover:text-indigo-800 font-medium inline-flex items-center gap-0.5"
-        >
-          {label}
-        </a>
-      );
-      
-      lastIndex = linkRegex.lastIndex;
-    }
-    
-    if (lastIndex < str.length) {
-      result.push(str.substring(lastIndex));
-    }
-    
-    return result.length > 0 ? result : str;
-  };
-
   const renderAboutText = (text: string) => {
     return text.split('\n\n').map((paragraph, pIdx) => {
       const parts = paragraph.split('##');
@@ -71,11 +35,11 @@ export default function Hero() {
             if (partIdx % 2 === 1) {
               return (
                 <strong key={partIdx} className="font-semibold text-indigo-950 bg-indigo-50/70 px-1.5 py-0.5 rounded-md border border-indigo-100/60">
-                  {renderMarkdownLinks(part)}
+                  {part}
                 </strong>
               );
             }
-            return renderMarkdownLinks(part);
+            return part;
           })}
         </p>
       );
@@ -147,7 +111,7 @@ export default function Hero() {
             <motion.h1
               id="hero-main-name"
               variants={itemVariants}
-              className="font-display font-bold text-4xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight leading-none mb-4"
+              className="font-display font-normal text-3xl sm:text-4xl md:text-5xl text-gray-900 tracking-tight leading-none mb-4"
             >
               {personalInfo.name}
             </motion.h1>

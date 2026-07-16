@@ -69,7 +69,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
     content: '',
     category: 'Technology',
     readTime: '',
-    author: 'Minerva Tanglao Ott'
+    author: 'Minerva Tanglao Ott (Minnie)'
   });
 
   const stopEditing = () => {
@@ -85,7 +85,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       content: '',
       category: 'Technology',
       readTime: '',
-      author: 'Minerva Tanglao Ott'
+      author: 'Minerva Tanglao Ott (Minnie)'
     });
   };
 
@@ -129,7 +129,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           setCurrentUser(null);
           setIdToken(null);
           setIsAuthenticated(false);
-          setAuthError('Access Denied: Only Minerva Tanglao Ott is authorized to access the Workspace.');
+          setAuthError('Access Denied: Only Minerva Tanglao Ott (Minnie) is authorized to access the Workspace.');
           sessionStorage.removeItem('minerva_portfolio_unlocked');
           sessionStorage.removeItem('minerva_portfolio_id_token');
         }
@@ -174,7 +174,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
         sessionStorage.setItem('minerva_portfolio_id_token', token);
       } else {
         await firebaseSignOut(auth);
-        setAuthError('Access Denied: Only Minerva Tanglao Ott is authorized to access the Workspace.');
+        setAuthError('Access Denied: Only Minerva Tanglao Ott (Minnie) is authorized to access the Workspace.');
       }
     } catch (err: any) {
       console.error('Google Sign-In Error:', err);
@@ -443,7 +443,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               </div>
               <div>
                 <p className="text-xs text-gray-400 font-mono">WRITTEN BY</p>
-                <h4 className="font-display font-bold text-gray-900 text-sm mt-1">{activePost.author}</h4>
+                <h4 className="font-display font-normal text-gray-900 text-sm mt-1">{activePost.author}</h4>
                 <p className="text-xs text-gray-500 mt-0.5">Technology Transformation Leader</p>
               </div>
             </div>
@@ -787,16 +787,16 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
         /* Blog Index View */
         <div id="blog-index">
           <div id="blog-header-banner" className="flex flex-col gap-6 mb-12 text-left">
-            <div className="relative rounded-3xl overflow-hidden shadow-sm border border-gray-100 w-full bg-neutral-100">
+            <div className="relative rounded-3xl overflow-hidden shadow-sm border border-gray-100 w-full md:w-3/4 bg-neutral-100 mx-auto">
               <img 
-                src="/architecting-humanity-banner.gif" 
+                src="/architecting-humanity-horizontal.png" 
                 alt="Architecting Humanity" 
-                className="w-full h-auto object-cover max-h-[350px] min-h-[160px] block"
+                className="w-full h-auto object-cover block mx-auto"
               />
             </div>
             
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-              <div className="max-w-xl space-y-3">
+              <div className="w-full space-y-3">
                 <h1 className="font-display font-bold text-gray-900 text-2xl sm:text-3xl tracking-tight">
                   Elevating people at the center of progress.
                 </h1>
