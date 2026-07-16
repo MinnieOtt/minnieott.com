@@ -11,7 +11,7 @@ export const personalInfo = {
   tagline: 'Bridging Engineering Operations & Agentic AI Transformation',
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley.
 
-Since then, I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a daughter who is now forging her own path in software engineering.
+Since then, I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a daughter who is now forging her own path in software engineering. [Mochi is our Samoyed dog](https://youtu.be/NzH5PaEgjOs) which inspired the chatbot agent on this website.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
   companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems', 'Oracle']

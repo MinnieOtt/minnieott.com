@@ -13,7 +13,7 @@ const SUGGESTIONS = [
   { text: 'Who is Minnie?', id: 'sugg-who-is-minnie' },
   { text: 'What is JMX Programming? 📘', id: 'sugg-jmx' },
   { text: 'Tell me about her Google career', id: 'sugg-google' },
-  { text: 'Education & Patents 🎓', id: 'sugg-edu' },
+  { text: 'Book a meeting 📅', id: 'sugg-book' },
 ];
 
 // Helper to parse inline styles like **bold**, *italic*, `code`, and [text](url)
@@ -21,24 +21,24 @@ function parseInline(text: string): React.ReactNode[] {
   // Matches **bold**, *italic*, `code`, [text](url)
   const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|\[.*?\]\(.*?\))/g;
   const parts = text.split(regex);
-  return parts.map((part, idx) => {
+  return parts.flatMap((part, idx) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong key={idx} className="font-bold">
-          {part.slice(2, -2)}
+        <strong key={`bold-${idx}`} className="font-bold">
+          {parseInline(part.slice(2, -2))}
         </strong>
       );
     }
     if (part.startsWith('*') && part.endsWith('*')) {
       return (
-        <em key={idx} className="italic">
-          {part.slice(1, -1)}
+        <em key={`italic-${idx}`} className="italic">
+          {parseInline(part.slice(1, -1))}
         </em>
       );
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
-        <code key={idx} className="bg-neutral-100 font-mono text-[11px] px-1.5 py-0.5 rounded text-[#3333FF] font-semibold">
+        <code key={`code-${idx}`} className="bg-neutral-100 font-mono text-[11px] px-1.5 py-0.5 rounded text-[#3333FF] font-semibold">
           {part.slice(1, -1)}
         </code>
       );
@@ -48,17 +48,40 @@ function parseInline(text: string): React.ReactNode[] {
       if (match) {
         return (
           <a
-            key={idx}
+            key={`link-${idx}`}
             href={match[2]}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[#3333FF] hover:underline font-semibold"
           >
-            {match[1]}
+            {parseInline(match[1])}
           </a>
         );
       }
     }
+    
+    // Auto-link raw URLs in plain text parts
+    const urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\s])/g;
+    const textParts = part.split(urlRegex);
+    if (textParts.length > 1) {
+      return textParts.map((tPart, tIdx) => {
+        if (tPart.match(/^https?:\/\//)) {
+          return (
+            <a
+              key={`raw-link-${idx}-${tIdx}`}
+              href={tPart}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#3333FF] hover:underline font-semibold break-all"
+            >
+              {tPart}
+            </a>
+          );
+        }
+        return tPart;
+      });
+    }
+
     return part;
   });
 }
