@@ -1,4 +1,4 @@
-import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, CertificationItem, EducationItem } from '../types';
+import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, CertificationItem, EducationItem, SpeakerEvent } from '../types';
 
 export const personalInfo = {
   name: 'Minerva Tanglao Ott',
@@ -230,16 +230,22 @@ export const certifications: CertificationItem[] = [
   {
     title: 'AI Agent Development & LLM Fluency (Model Context Protocol)',
     issuer: 'Vanderbilt University',
+    link: 'https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3',
     badgeType: 'ai'
   },
   {
-    title: 'Google AI (Professional, Essentials)',
+    title: 'Google AI (Professional & Essentials)',
     issuer: 'Google Cloud',
+    links: [
+      { label: 'Professional', url: 'https://www.coursera.org/account/accomplishments/specialization/ESJ09OCIXG9Y' },
+      { label: 'Essentials', url: 'https://www.credly.com/badges/d101f754-d0e8-4da3-b787-c464320df9a6/public_url' }
+    ],
     badgeType: 'ai'
   },
   {
-    title: 'PRINCE2 Foundation (Project Management)',
+    title: 'PRINCE2 Foundation Project Management',
     issuer: 'Office of Government Commerce',
+    link: 'https://drive.google.com/file/d/0B_9ZUKe9gx67eThhbDRFZGptYTJ2c2c0T1k4N01RRTctcXdN/view?resourcekey=0-XbfvNl996HCzEJeou3W8AA',
     badgeType: 'pm'
   }
 ];
@@ -256,5 +262,23 @@ export const education: EducationItem[] = [
     degree: 'BS Computer Science',
     honors: ['Dean’s List', 'Lourdes Evangelista Scholarship Award'],
     details: 'Rigorous foundation in computer systems, object-oriented architecture, data structures, and algorithms.'
+  }
+];
+
+export const speakerEvents: SpeakerEvent[] = [
+  {
+    event: 'SF Bay Area Filipino American Professionals Networking Day',
+    description: 'Shared executive career lineage and engineering program insights from roles at Google, Apple, and Sun Microsystems. Focused on bridging cultural leadership patterns with technical transformations in Silicon Valley.',
+    links: [
+      { label: 'Inquirer.net', url: 'https://globalnation.inquirer.net/138791/fil-am-professionals-in-sf-bay-area-to-gather-for-networking-day' },
+      { label: 'Positively Filipino', url: 'https://www.positivelyfilipino.com/community-news/speaker-series-and-fil-am-networking-working-day' }
+    ]
+  },
+  {
+    event: 'Ohlone College STEM Summit',
+    description: 'Presented keynote guidance and technical mentorship for student pathways in computing and engineering. Spoke about bridging academia and industry, fostering diverse pipelines, and leading with technological curiosity.',
+    links: [
+      { label: 'Ohlone STEM Summit Facebook Post', url: 'https://www.facebook.com/ohlonecollege/posts/pfbid037txouR56THqakGJ4CUAi9P5VovxwnweMRpK5mppqetWfGuFG65Scsb8ZhqJBq51Ml' }
+    ]
   }
 ];

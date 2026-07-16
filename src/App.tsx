@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
+import Speaker from './components/Speaker';
 import EducationCertifications from './components/EducationCertifications';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
@@ -52,6 +53,9 @@ export default function App() {
 
             {/* Skill Inventory Progress Segment */}
             <Skills />
+
+            {/* Keynotes & Mentorship Speaker Segment */}
+            <Speaker />
 
             {/* Scholastics, Patents, Book Authoring, and Certifications Segment */}
             <EducationCertifications />

@@ -220,7 +220,7 @@ async function startServer() {
       if (!process.env.GEMINI_API_KEY) {
         console.log("No GEMINI_API_KEY configured. Running Mochi chatbot in high-quality simulated mode.");
         const lastUserMessage = messages[messages.length - 1]?.text?.toLowerCase() || '';
-        let simulatedText = "Hi! I'm Mochi. 🥞 I am running in simulated demo mode because the Gemini API key has not been configured in Secrets yet. Let me tell you about Minnie! She is an incredible Technology Transformation Leader who has led major engineering projects at Google and Apple, and she is the Technical Editor of Wiley's *JMX Programming* book. Is there a specific project of hers you'd like to know about?";
+        let simulatedText = "Hi! I'm Mochi. 🥞 I am running in simulated demo mode because the Gemini API key has not been configured in Secrets yet. Let me tell you about Minnie! She is an incredible Technology Transformation Leader who has led major engineering projects at Google and Apple, is the inventor of US Patent 20020064766, and served as the Technical Editor of Wiley's *JMX Programming* book. Is there a specific project or speaking event of hers you'd like to know about?";
         
         if (lastUserMessage.includes('jmx') || lastUserMessage.includes('programming') || lastUserMessage.includes('book') || lastUserMessage.includes('publication')) {
           simulatedText = "Minnie served as the Technical Editor for *JMX Programming* (Wiley, 2002) by Mike Jasnowski. 📘 She led the senior technical review, validating the Java Management Extensions architecture (Standard, Dynamic, Model MBeans), MBeanServer registry, and protocol connectors (RMI, HTTP/XML, SNMP).";
@@ -232,8 +232,12 @@ async function startServer() {
           simulatedText = "As Head of Technology for Creative Blue, Minnie architected GrowthOS (an agentic operational OS), Lead Generator, and Brand Booster! 🤖 These utilize cutting-edge LLMs and multi-agent systems.";
         } else if (lastUserMessage.includes('stanford') || lastUserMessage.includes('lead') || lastUserMessage.includes('ateneo') || lastUserMessage.includes('education') || lastUserMessage.includes('degree')) {
           simulatedText = "Minnie completed Stanford LEAD at the Stanford Graduate School of Business, where she was a Distinguished Scholar and Advisory Board Member. She also holds a BS in Computer Science from Ateneo de Manila University (Dean's List, Lourdes Evangelista Scholarship). 🎓";
-        } else if (lastUserMessage.includes('patent')) {
-          simulatedText = "Minnie is the inventor of US Patent 20020064766: 'Method and Apparatus for Managing Enterprise Employee Training Systems', which automates and audits provisioning of corporate training assets! 💡";
+        } else if (lastUserMessage.includes('patent') || lastUserMessage.includes('us20020064766') || lastUserMessage.includes('training system')) {
+          simulatedText = "Minnie is the lead inventor of **US Patent 20020064766**: *'Method and Apparatus for Managing Enterprise Employee Training Systems'*. 💡 This patent describes an enterprise-scale engine that dynamically maps training catalog courses to employee job descriptions, audits certification gaps, tracks compliance credits, and triggers automated course scheduling and manager approval workflows!";
+        } else if (lastUserMessage.includes('speaker') || lastUserMessage.includes('speaking') || lastUserMessage.includes('talk') || lastUserMessage.includes('summit') || lastUserMessage.includes('filipino') || lastUserMessage.includes('ohlone') || lastUserMessage.includes('event')) {
+          simulatedText = "Minnie is an active tech speaker and student mentor! 🎤 Here are her featured engagements:\n\n* **SF Bay Area Filipino American Professionals Networking Day** (covered by *Inquirer.net* and *Positively Filipino*): Spoke about cross-cultural leadership, career growth in Silicon Valley, moving from engineer to program director, and establishing professional networks.\n* **Ohlone College STEM Summit** (shared via Facebook): Delivered keynote mentorship and advice for students, focusing on bridging academia with industry demands, overcoming impostor syndrome, and fostering diverse pipelines in STEM!";
+        } else if (lastUserMessage.includes('certificat') || lastUserMessage.includes('credential') || lastUserMessage.includes('badge') || lastUserMessage.includes('fluency') || lastUserMessage.includes('prince2') || lastUserMessage.includes('mcp')) {
+          simulatedText = "Minnie holds high-caliber certifications in AI and Program Management! 🏅 Here are her active credentials:\n\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** from Vanderbilt University ([Credential Verification Link](https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3))\n* **Google AI (Professional & Essentials)** from Google Cloud ([Professional Specialization Link](https://www.coursera.org/account/accomplishments/specialization/ESJ09OCIXG9Y) | [Essentials Badge Link](https://www.credly.com/badges/d101f754-d0e8-4da3-b787-c464320df9a6/public_url))\n* **PRINCE2 Foundation Project Management** from the Office of Government Commerce ([Certificate Document Link](https://drive.google.com/file/d/0B_9ZUKe9gx67eThhbDRFZGptYTJ2c2c0T1k4N01RRTctcXdN/view?resourcekey=0-XbfvNl996HCzEJeou3W8AA))";
         } else if (lastUserMessage.includes('family') || lastUserMessage.includes('married') || lastUserMessage.includes('husband') || lastUserMessage.includes('daughter')) {
           simulatedText = "Minnie is happily married and has raised a daughter who is now following her footsteps as a software engineer. Family is very important to her! 🥞";
         }
@@ -294,13 +298,24 @@ Knowledge Base:
 3. Education & Credentials:
    - Stanford Graduate School of Business: Stanford LEAD (Distinguished Scholar, Community Advisory Board Member). Focus on executive leadership, design thinking, and driving innovation.
    - Ateneo de Manila University: BS Computer Science (Dean's List, Lourdes Evangelista Scholarship Award). Focused on computer systems, object-oriented architecture, data structures, and algorithms.
-   - Patents: US Patent 20020064766 - "Method and Apparatus for Managing Enterprise Employee Training Systems". System for automated provisioning, managing, and auditing organizational training assets.
+   - Patents: US Patent 20020064766 (US20020064766A1) - "Method and Apparatus for Managing Enterprise Employee Training Systems". 
+     * Invented by Minerva Tanglao (Ott).
+     * Core functionality: An automated web-enabled training management system for large enterprise organizations.
+     * Key mechanisms: Performs automatic gap analysis by matching an employee's job profile and current skills with compliance training requirements. Automatically registers and schedules employees for appropriate courses, manages supervisor approval workflows, tracks training logs and credits, and enforces institutional or regulatory compliance dynamically.
    - Certifications:
-     * AI Agent Development & LLM Fluency (Model Context Protocol) from Vanderbilt University.
-     * Google AI (Professional, Essentials) from Google Cloud.
-     * PRINCE2 Foundation (Project Management).
+     * AI Agent Development & LLM Fluency (Model Context Protocol) from Vanderbilt University (Verification URL: https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3).
+     * Google AI from Google Cloud: Professional Specialization (URL: https://www.coursera.org/account/accomplishments/specialization/ESJ09OCIXG9Y) | Essentials Badge (URL: https://www.credly.com/badges/d101f754-d0e8-4da3-b787-c464320df9a6/public_url)
+     * PRINCE2 Foundation Project Management from the Office of Government Commerce (Certificate URL: https://drive.google.com/file/d/0B_9ZUKe9gx67eThhbDRFZGptYTJ2c2c0T1k4N01RRTctcXdN/view?resourcekey=0-XbfvNl996HCzEJeou3W8AA).
 
-4. Publication (*JMX Programming*, John Wiley & Sons, 2002):
+4. Speaking Series & Public Events:
+   - SF Bay Area Filipino American Professionals Networking Day:
+     * Media Coverage: Inquirer.net, Positively Filipino.
+     * Key focus: Careers in Silicon Valley, transition pathways from pure software engineering to high-impact technical program management, minority and female leadership in tech, managing large global teams (Google, Apple, Sun), and establishing strategic professional networking circles.
+   - Ohlone College STEM Summit:
+     * Media Coverage: Ohlone College STEM Summit Facebook Post.
+     * Key focus: Inspiring college students to pursue, commit to, and succeed in STEM careers. Minnie shared her origin story (teaching herself BASIC, Computer Science scholarship, Ateneo de Manila, working in Silicon Valley), and spoke on bridging academic studies with corporate demands, finding mentors, overcoming impostor syndrome, and active mentorship.
+
+5. Publication (*JMX Programming*, John Wiley & Sons, 2002):
    - Minnie served as the **Technical Editor** for this book authored by Mike Jasnowski.
    - Role: Provided senior technical review, code auditing, architectural design validation, and Java patterns review.
    - Key topics covered in *JMX Programming*:

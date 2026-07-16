@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, BookOpen, GraduationCap, Scale, ChevronRight, Bookmark } from 'lucide-react';
+import { Award, BookOpen, GraduationCap, Scale, ChevronRight, Bookmark, ExternalLink } from 'lucide-react';
 import { patents, books, certifications, education } from '../data/resumeData';
 
 export default function EducationCertifications() {
@@ -152,19 +152,52 @@ export default function EducationCertifications() {
                   <div
                     key={cert.title}
                     id={`cert-item-${idx}`}
-                    className="flex gap-3.5 p-4 rounded-xl border border-gray-50 hover:border-[#3333FF] bg-neutral-50/50 hover:bg-white transition-all duration-200"
+                    className="flex flex-col p-4 rounded-xl border border-gray-50 hover:border-[#3333FF]/30 bg-neutral-50/50 hover:bg-white transition-all duration-200"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-white border border-gray-100 flex items-center justify-center shrink-0">
-                      <Award className="w-4.5 h-4.5 text-[#3333FF]" />
+                    <div className="flex gap-3.5 items-start">
+                      <div className="w-8 h-8 rounded-lg bg-white border border-gray-100 flex items-center justify-center shrink-0">
+                        <Award className="w-4.5 h-4.5 text-[#3333FF]" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        {cert.link ? (
+                          <a
+                            href={cert.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/link inline-flex items-center gap-1 hover:text-[#3333FF] transition-colors"
+                          >
+                            <h4 className="font-sans font-bold text-xs text-gray-900 leading-normal group-hover/link:text-[#3333FF] transition-colors">
+                              {cert.title}
+                            </h4>
+                            <ExternalLink className="w-3.5 h-3.5 text-gray-400 shrink-0 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                          </a>
+                        ) : (
+                          <h4 className="font-sans font-bold text-xs text-gray-900 leading-normal">
+                            {cert.title}
+                          </h4>
+                        )}
+                        <p className="font-mono text-[10px] text-gray-400 mt-1">
+                          Issued by {cert.issuer}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-sans font-bold text-xs text-gray-900 leading-normal">
-                        {cert.title}
-                      </h4>
-                      <p className="font-mono text-[10px] text-gray-400 mt-1">
-                        Issued by {cert.issuer}
-                      </p>
-                    </div>
+                    {/* Render secondary links if they exist */}
+                    {cert.links && cert.links.length > 0 && (
+                      <div className="mt-3 pl-11 flex flex-wrap gap-2">
+                        {cert.links.map((lnk) => (
+                          <a
+                            key={lnk.url}
+                            href={lnk.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 font-mono text-[10px] text-[#3333FF] hover:text-indigo-800 bg-white hover:bg-[#F0F0FF] border border-gray-100 hover:border-[#3333FF]/30 px-2.5 py-1 rounded transition-all"
+                          >
+                            <span>{lnk.label}</span>
+                            <ExternalLink className="w-2.5 h-2.5" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

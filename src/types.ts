@@ -35,6 +35,7 @@ export interface CertificationItem {
   title: string;
   issuer: string;
   link?: string;
+  links?: { label: string; url: string }[];
   badgeType: 'ai' | 'pm' | 'tech';
 }
 
@@ -44,4 +45,11 @@ export interface EducationItem {
   period?: string;
   honors?: string[];
   details?: string;
+}
+
+export interface SpeakerEvent {
+  event: string;
+  links: { label: string; url: string }[];
+  description: string;
+  date?: string;
 }
