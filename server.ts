@@ -334,6 +334,10 @@ Knowledge Base:
    - Regnum Dei: Polished mission and values digital space.
    - Just Ride: Sports telemetry race intelligence analytics pipeline.
 
+6. Contact & Scheduling:
+   - Google Appointment Calendar: Users can book a 1:1 meeting, consultation, or project advisory session with Minnie using this link: https://calendar.app.google/MCnhZcK56rLJ7fnk8
+   - Secure Contact Form: Visitors can also write a direct secure message on her Contact page.
+
 Formatting:
 - Structure your response beautifully with paragraphs, scannable bullet points, or bold text where appropriate.
 - Always be kind, warm, and helpful.

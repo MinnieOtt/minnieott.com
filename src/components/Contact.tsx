@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, MessageSquare, Trash2 } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, MessageSquare, Trash2, Calendar, ExternalLink } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
 
 interface Message {
@@ -188,6 +188,40 @@ export default function Contact() {
                 </div>
               </div>
 
+            </div>
+
+            {/* Google Appointment Calendar Booking Card */}
+            <div id="contact-booking-card" className="bg-neutral-50 rounded-2xl border border-gray-100 p-8 flex flex-col gap-5 relative overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#3333FF]" />
+              
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-[#F0F0FF] border border-[#3333FF]/10 flex items-center justify-center text-[#3333FF] shrink-0 shadow-3xs">
+                  <Calendar className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-display font-bold text-gray-900 text-lg">
+                    Book an Appointment
+                  </h3>
+                  <p className="font-mono text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">
+                    Google Appointment Calendar
+                  </p>
+                </div>
+              </div>
+
+              <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                Schedule a 1:1 consultation, advisory session, or project sync directly via Minnie's calendar. Select a time that fits your schedule.
+              </p>
+
+              <a
+                id="booking-calendar-link"
+                href="https://calendar.app.google/MCnhZcK56rLJ7fnk8"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-[#F0F0FF] text-[#3333FF] font-sans font-semibold text-sm rounded-lg border border-[#3333FF]/30 hover:border-[#3333FF] shadow-3xs transition-all duration-200 hover:scale-[1.01]"
+              >
+                <span>Schedule a Session</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
             </div>
 
           </div>
