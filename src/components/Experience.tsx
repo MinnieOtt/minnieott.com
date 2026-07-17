@@ -1,10 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Briefcase, MapPin, ChevronRight, Award } from 'lucide-react';
 import { experiences } from '../data/resumeData';
 import { ExperienceItem } from '../types';
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState(0);
+
+  useEffect(() => {
+    const handleSelectCompany = (e: Event) => {
+      const customEvent = e as CustomEvent<{ index: number }>;
+      if (customEvent.detail && typeof customEvent.detail.index === 'number') {
+        setActiveTab(customEvent.detail.index);
+      }
+    };
+
+    window.addEventListener('select-experience-company', handleSelectCompany);
+    return () => window.removeEventListener('select-experience-company', handleSelectCompany);
+  }, []);
+
+  const getCompanyFavicon = (companyName: string) => {
+    if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.png';
+    if (companyName.includes('Google')) return '/google-favicon.png';
+    if (companyName.includes('Apple')) return '/apple-favicon.png';
+    if (companyName.includes('Sun Microsystems') || companyName.includes('Oracle')) return '/sun-favicon.png';
+    return null;
+  };
+
+  const renderCompanyLinks = (companyName: string) => {
+    if (companyName.includes(',')) {
+      const parts = companyName.split(',');
+      return (
+        <span>
+          {parts.map((part, index) => {
+            const trimmed = part.trim();
+            let url = '';
+            if (trimmed === 'IBM') url = 'https://www.ibm.com/';
+            else if (trimmed === 'DHL') url = 'https://www.dhl.com/';
+            else if (trimmed === 'Infogain') url = 'https://www.tenarai.com/';
+
+            return (
+              <React.Fragment key={trimmed}>
+                {index > 0 && <span className="text-gray-400">, </span>}
+                {url ? (
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-indigo-600 hover:text-[#3333FF] hover:underline transition-colors duration-200"
+                  >
+                    {trimmed}
+                  </a>
+                ) : (
+                  <span>{trimmed}</span>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </span>
+      );
+    }
+
+    let url = '';
+    if (companyName.includes('Creative Blue')) {
+      url = 'https://www.creativeblue.agency/';
+    } else if (companyName.includes('Google')) {
+      url = 'https://www.google.com/';
+    } else if (companyName.includes('Apple')) {
+      url = 'https://www.apple.com/';
+    } else if (companyName.includes('Sun Microsystems') || companyName.includes('Oracle')) {
+      url = 'https://www.oracle.com/';
+    }
+
+    if (url) {
+      return (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-600 hover:text-[#3333FF] hover:underline transition-colors duration-200"
+        >
+          {companyName}
+        </a>
+      );
+    }
+
+    return <span>{companyName}</span>;
+  };
 
   return (
     <section id="experience" className="py-24 bg-neutral-50 border-b border-gray-100">
@@ -36,28 +117,45 @@ export default function Experience() {
                 key={exp.company}
                 id={`exp-tab-btn-${idx}`}
                 onClick={() => setActiveTab(idx)}
-                className={`flex flex-col items-start p-4 rounded-xl text-left border transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-[#3333FF] ${
+                className={`flex items-center gap-4.5 p-4 rounded-xl text-left border transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-[#3333FF] w-full ${
                   activeTab === idx
-                    ? 'bg-white border-[#3333FF] shadow-sm pl-6'
+                    ? 'bg-white border-[#3333FF] shadow-sm'
                     : 'bg-transparent border-transparent hover:bg-white/50 text-gray-500 hover:text-gray-900'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`w-2 h-2 rounded-full ${
-                      activeTab === idx ? 'bg-[#3333FF]' : 'bg-gray-300'
-                    }`}
-                  />
-                  <span className="font-display font-bold text-sm tracking-tight text-gray-900">
+                {/* 3-line spanning circular favicon */}
+                <div className="flex-shrink-0">
+                  {getCompanyFavicon(exp.company) ? (
+                    <img
+                      src={getCompanyFavicon(exp.company)!}
+                      alt={`${exp.company} favicon`}
+                      className="w-12 h-12 rounded-full object-cover border border-gray-200 p-0.5 bg-white shadow-2xs"
+                    />
+                  ) : (
+                    <div
+                      className={`w-12 h-12 rounded-full border border-gray-200 bg-white flex items-center justify-center shadow-2xs`}
+                    >
+                      <span
+                        className={`w-3 h-3 rounded-full ${
+                          activeTab === idx ? 'bg-[#3333FF]' : 'bg-gray-300'
+                        }`}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Right side: 3 lines of structured content */}
+                <div className="flex-1 min-w-0">
+                  <span className="block font-display font-bold text-sm tracking-tight text-gray-900">
                     {exp.company}
                   </span>
+                  <span className="block font-sans text-xs text-gray-500 mt-1 leading-snug">
+                    {exp.role}
+                  </span>
+                  <span className="flex items-center gap-1 font-mono text-[10px] text-gray-400 mt-1.5 leading-none">
+                    <Calendar className="w-3 h-3 flex-shrink-0" /> {exp.period}
+                  </span>
                 </div>
-                <span className="font-sans text-xs text-gray-500 mt-1 pl-4 leading-none">
-                  {exp.role}
-                </span>
-                <span className="font-mono text-[10px] text-gray-400 mt-1.5 pl-4 flex items-center gap-1">
-                  <Calendar className="w-3 h-3" /> {exp.period}
-                </span>
               </button>
             ))}
           </div>
@@ -78,7 +176,14 @@ export default function Experience() {
                   {experiences[activeTab].role}
                 </h3>
                 <h4 className="font-display text-base font-semibold text-gray-600 mt-1 flex items-center gap-2">
-                  {experiences[activeTab].company}
+                  {getCompanyFavicon(experiences[activeTab].company) && (
+                    <img
+                      src={getCompanyFavicon(experiences[activeTab].company)!}
+                      alt={`${experiences[activeTab].company} favicon`}
+                      className="w-5 h-5 rounded-full object-contain border border-gray-200"
+                    />
+                  )}
+                  {renderCompanyLinks(experiences[activeTab].company)}
                 </h4>
               </div>
 

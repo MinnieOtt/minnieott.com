@@ -26,6 +26,42 @@ export default function Hero() {
     },
   };
 
+  const renderTextWithLinks = (text: string) => {
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const elements = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = linkRegex.exec(text)) !== null) {
+      const [_, label, url] = match;
+      const index = match.index;
+
+      if (index > lastIndex) {
+        elements.push(text.substring(lastIndex, index));
+      }
+
+      elements.push(
+        <a
+          key={index}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-indigo-600 hover:text-indigo-800 underline transition-colors"
+        >
+          {label}
+        </a>
+      );
+
+      lastIndex = linkRegex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      elements.push(text.substring(lastIndex));
+    }
+
+    return elements.length > 0 ? elements : text;
+  };
+
   const renderAboutText = (text: string) => {
     return text.split('\n\n').map((paragraph, pIdx) => {
       const parts = paragraph.split('##');
@@ -35,15 +71,24 @@ export default function Hero() {
             if (partIdx % 2 === 1) {
               return (
                 <strong key={partIdx} className="font-semibold text-indigo-950 bg-indigo-50/70 px-1.5 py-0.5 rounded-md border border-indigo-100/60">
-                  {part}
+                  {renderTextWithLinks(part)}
                 </strong>
               );
             }
-            return part;
+            return renderTextWithLinks(part);
           })}
         </p>
       );
     });
+  };
+
+  const handleCompanyClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    const el = document.getElementById('experience');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+    window.dispatchEvent(new CustomEvent('select-experience-company', { detail: { index } }));
   };
 
   return (
@@ -130,45 +175,57 @@ export default function Hero() {
               variants={itemVariants}
               className="w-full flex flex-wrap items-center gap-2 mb-8 text-[11px] font-mono text-gray-500"
             >
-              <a
+              <button
                 id="link-creative-blue"
-                href="https://www.creativeblue.agency/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-gray-800 hover:text-[#5B5BFF] transition-all duration-200 hover:scale-[1.04]"
+                onClick={(e) => handleCompanyClick(e, 0)}
+                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-gray-800 hover:text-[#5B5BFF] transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
+                <img
+                  src="/creativeblue-favicon.png"
+                  alt="Creative Blue"
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
+                />
                 Creative Blue
-              </a>
+              </button>
               <span className="text-gray-300">←</span>
-              <a
+              <button
                 id="link-google"
-                href="https://www.google.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-600 hover:text-blue-800 transition-all duration-200 hover:scale-[1.04]"
+                onClick={(e) => handleCompanyClick(e, 1)}
+                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-600 hover:text-blue-800 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
-                Google (14 yrs)
-              </a>
+                <img
+                  src="/google-favicon.png"
+                  alt="Google"
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
+                />
+                Google
+              </button>
               <span className="text-gray-300">←</span>
-              <a
+              <button
                 id="link-apple"
-                href="https://www.apple.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-red-500 hover:text-red-700 transition-all duration-200 hover:scale-[1.04]"
+                onClick={(e) => handleCompanyClick(e, 2)}
+                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-red-500 hover:text-red-700 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
+                <img
+                  src="/apple-favicon.png"
+                  alt="Apple"
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
+                />
                 Apple
-              </a>
+              </button>
               <span className="text-gray-300">←</span>
-              <a
+              <button
                 id="link-sun-oracle"
-                href="https://www.oracle.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-orange-500 hover:text-orange-700 transition-all duration-200 hover:scale-[1.04]"
+                onClick={(e) => handleCompanyClick(e, 3)}
+                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-orange-500 hover:text-orange-700 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
+                <img
+                  src="/sun-favicon.png"
+                  alt="Sun / Oracle"
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
+                />
                 Sun / Oracle
-              </a>
+              </button>
             </motion.div>
 
             {/* Structured About Summary */}

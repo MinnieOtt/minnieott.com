@@ -292,13 +292,28 @@ export default function MochiChat() {
     const saved = localStorage.getItem('mochi_chat_history');
     if (saved) {
       try {
-        setMessages(JSON.parse(saved));
+        const parsed = JSON.parse(saved) as ChatMessage[];
+        // Auto-update old welcome message text if it exists
+        if (parsed.length > 0 && parsed[0].id === 'welcome-msg') {
+          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI companion, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)";
+        }
+        setMessages(parsed);
       } catch (e) {
         loadWelcomeMessage();
       }
     } else {
       loadWelcomeMessage();
     }
+  }, []);
+
+  // Listen to open-mochi-chat event to open the panel from other components
+  useEffect(() => {
+    const handleOpenChat = () => {
+      setIsOpen(true);
+      setHasNewMessage(false);
+    };
+    window.addEventListener('open-mochi-chat', handleOpenChat);
+    return () => window.removeEventListener('open-mochi-chat', handleOpenChat);
   }, []);
 
   // Save messages to localStorage when updated
@@ -319,7 +334,7 @@ export default function MochiChat() {
     const welcome: ChatMessage = {
       id: 'welcome-msg',
       role: 'model',
-      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI companion. I can answer any questions you have about Minnie's software engineering background, leadership experience, her publication *JMX Programming*, or anything else! Ask me anything.",
+      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI companion, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages([welcome]);
@@ -415,50 +430,63 @@ export default function MochiChat() {
   }, [isOpen, messages]);
 
   return (
-    <div id="mochi-chatbot-wrapper" className="fixed bottom-6 right-6 z-50 font-sans">
+    <div id="mochi-chatbot-wrapper" className="font-sans">
       {/* Floating Action Button */}
-      <motion.button
-        id="mochi-chat-toggle-btn"
-        onClick={toggleChat}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={`w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-lg relative ${
-          isOpen ? 'bg-gray-800 text-white' : 'bg-[#3333FF] text-white'
-        } transition-colors duration-300`}
-        aria-label="Toggle chat companion"
-      >
-        {isOpen ? (
-          <Minimize2 id="mochi-toggle-icon-close" className="w-6 h-6" />
-        ) : (
-          <div id="mochi-avatar-container" className="relative w-full h-full flex items-center justify-center">
-            <img
-              id="mochi-btn-avatar"
-              src="/mochi-pancake-ott.png"
-              alt="Mochi"
-              className="w-10 h-10 rounded-full object-cover border-2 border-white/20 shadow-inner"
-              referrerPolicy="no-referrer"
-            />
-            {hasNewMessage && (
-              <span
-                id="mochi-notif-dot"
-                className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full animate-pulse"
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            id="mochi-chat-toggle-btn"
+            onClick={toggleChat}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-lg z-40 bg-[#3333FF] text-white transition-colors duration-300 animate-fade-in"
+            aria-label="Toggle chat companion"
+          >
+            <div id="mochi-avatar-container" className="relative w-full h-full flex items-center justify-center">
+              <img
+                id="mochi-btn-avatar"
+                src="/mochi-pancake-ott.png"
+                alt="Mochi"
+                className="w-10 h-10 rounded-full object-cover border-2 border-white/20 shadow-inner"
+                referrerPolicy="no-referrer"
               />
-            )}
-          </div>
+              {hasNewMessage && (
+                <span
+                  id="mochi-notif-dot"
+                  className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full animate-pulse"
+                />
+              )}
+            </div>
+          </motion.button>
         )}
-      </motion.button>
+      </AnimatePresence>
 
-      {/* Floating Chat Panel */}
+      {/* Sliding Retractable Chat Panel */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            id="mochi-chat-window"
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.95 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="absolute bottom-16 right-0 w-[92vw] sm:w-[400px] h-[550px] bg-white rounded-3xl border border-gray-100 shadow-2xl flex flex-col overflow-hidden accent-glow"
-          >
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
+              id="mochi-chat-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-xs cursor-pointer animate-fade-in"
+            />
+
+            {/* Slide-out Sidebar Panel */}
+            <motion.div
+              id="mochi-chat-window"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.35, ease: 'easeOut' }}
+              className="fixed top-0 right-0 h-screen w-full sm:w-[460px] bg-white shadow-2xl flex flex-col overflow-hidden z-[70] border-l border-gray-100"
+            >
             {/* Header */}
             <div
               id="mochi-chat-header"
@@ -483,7 +511,7 @@ export default function MochiChat() {
                     Mochi AI <Sparkles className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
                   </span>
                   <span id="mochi-header-sub" className="text-[10px] text-gray-400 font-mono uppercase tracking-wider">
-                    Minnie's Digital Companion
+                    Minnie's Digital Assistant
                   </span>
                 </div>
               </div>
@@ -637,6 +665,7 @@ export default function MochiChat() {
               </button>
             </form>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

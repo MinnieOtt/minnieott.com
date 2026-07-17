@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, FileText } from 'lucide-react';
+import { Menu, X, FileText, Sparkles } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
 
 interface HeaderProps {
@@ -94,6 +94,11 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     }
   };
 
+  const handleAskMochi = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('open-mochi-chat'));
+  };
+
   return (
     <header
       id="main-site-header"
@@ -143,38 +148,61 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
           </div>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav id="desktop-nav-menu" className="hidden lg:flex items-center gap-8 animate-fade-in">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              id={`nav-link-${item.id}`}
-              href={item.href}
-              onClick={(e) => handleNavClick(e, item)}
-              className={`font-sans text-sm font-medium transition-all duration-200 relative py-1 hover:text-gray-950 ${
-                isNavActive(item.id) ? 'text-gray-950 font-semibold text-[#3333FF]' : 'text-gray-500'
-              }`}
+        {/* Right side Actions (Menu links + Ask Mochi) */}
+        <div className="flex items-center gap-4 lg:gap-8">
+          {/* Desktop Navigation */}
+          <nav id="desktop-nav-menu" className="hidden lg:flex items-center gap-8 animate-fade-in">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                id={`nav-link-${item.id}`}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item)}
+                className={`font-sans text-sm font-medium transition-all duration-200 relative py-1 hover:text-gray-950 ${
+                  isNavActive(item.id) ? 'text-gray-950 font-semibold text-[#3333FF]' : 'text-gray-500'
+                }`}
+              >
+                {item.label}
+                {isNavActive(item.id) && (
+                  <span
+                    id={`nav-active-indicator-${item.id}`}
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-dark rounded-full"
+                  />
+                )}
+              </a>
+            ))}
+            
+            {/* Ask Mochi Button on same line as menu */}
+            <button
+              id="header-ask-mochi-btn-desktop"
+              onClick={handleAskMochi}
+              className="px-3.5 py-1.5 bg-[#3333FF]/10 hover:bg-[#3333FF] text-[#3333FF] hover:text-white font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 hover:scale-[1.03] cursor-pointer shadow-3xs"
             >
-              {item.label}
-              {isNavActive(item.id) && (
-                <span
-                  id={`nav-active-indicator-${item.id}`}
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent-dark rounded-full"
-                />
-              )}
-            </a>
-          ))}
-        </nav>
+              <Sparkles className="w-3.5 h-3.5" />
+              Ask Mochi
+            </button>
+          </nav>
 
-        {/* Mobile Toggle */}
-        <button
-          id="mobile-nav-toggle-btn"
-          className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+          {/* Ask Mochi Mobile Button (shows right on the header line) */}
+          <button
+            id="header-ask-mochi-btn-mobile"
+            onClick={handleAskMochi}
+            className="lg:hidden px-3 py-1.5 bg-[#3333FF]/10 hover:bg-[#3333FF] text-[#3333FF] hover:text-white font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-3xs"
+          >
+            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+            Ask Mochi
+          </button>
+
+          {/* Mobile Toggle */}
+          <button
+            id="mobile-nav-toggle-btn"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
@@ -197,6 +225,19 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
                 {item.label}
               </a>
             ))}
+
+            {/* Mobile Drawer Ask Mochi Link */}
+            <button
+              id="mobile-nav-drawer-ask-mochi-btn"
+              onClick={(e) => {
+                setIsOpen(false);
+                handleAskMochi(e);
+              }}
+              className="mt-2 w-full py-2 bg-[#3333FF] hover:bg-[#1919FF] text-white font-sans text-sm font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+            >
+              <Sparkles className="w-4 h-4" />
+              Ask Mochi AI
+            </button>
           </div>
         </div>
       )}

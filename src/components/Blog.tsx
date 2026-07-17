@@ -787,9 +787,9 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
         /* Blog Index View */
         <div id="blog-index">
           <div id="blog-header-banner" className="flex flex-col gap-6 mb-12 text-left">
-            <div className="relative rounded-3xl overflow-hidden shadow-sm border border-gray-100 w-full md:w-3/4 bg-neutral-100 mx-auto">
+            <div className="relative rounded-3xl overflow-hidden shadow-sm border border-gray-100 w-full md:w-3/4 bg-neutral-100 mx-auto flex justify-center">
               <img 
-                src="/architecting-humanity-horizontal.png" 
+                src="/architecting-humanity.png" 
                 alt="Architecting Humanity" 
                 className="w-full h-auto object-cover block mx-auto"
               />
