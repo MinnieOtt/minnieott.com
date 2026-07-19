@@ -114,6 +114,35 @@ function writePostsToFile(posts: BlogPost[]): boolean {
   }
 }
 
+// Paths and helpers to manage subscribers
+const subscribersFilePath = path.join(process.cwd(), "src", "data", "subscribers.json");
+
+function readSubscribersFromFile(): string[] {
+  try {
+    if (fs.existsSync(subscribersFilePath)) {
+      const data = fs.readFileSync(subscribersFilePath, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error("Error reading subscribers.json, returning empty list:", error);
+  }
+  return [];
+}
+
+function writeSubscribersToFile(subscribers: string[]): boolean {
+  try {
+    const dir = path.dirname(subscribersFilePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(subscribersFilePath, JSON.stringify(subscribers, null, 2), "utf-8");
+    return true;
+  } catch (error) {
+    console.error("Error writing to subscribers.json:", error);
+    return false;
+  }
+}
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -122,6 +151,73 @@ async function startServer() {
   app.use(express.json());
 
   // API routes FIRST
+  app.post("/api/subscribe", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+
+      console.log(`[Newsletter Subscription] Joined: ${email}`);
+
+      const subscribers = readSubscribersFromFile();
+      if (!subscribers.includes(email)) {
+        subscribers.push(email);
+        writeSubscribersToFile(subscribers);
+      }
+
+      // Send email to Minnie (minnie.ott@gmail.com) asking to subscribe to the newsletter
+      const apiKey = process.env.RESEND_API_KEY;
+      const subject = "New Newsletter Subscription Request";
+      const name = "Newsletter Subscriber";
+      const message = `Please add me to the newsletter: ${email}`;
+
+      if (!apiKey) {
+        console.log("No RESEND_API_KEY set. Simulating subscription email dispatch.");
+      } else {
+        try {
+          const emailResponse = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${apiKey}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              from: "Minerva Portfolio <onboarding@resend.dev>",
+              to: ["minnie.ott@gmail.com"],
+              cc: [email],
+              reply_to: email,
+              subject: subject,
+              html: `
+                <h3>New Portfolio Message (Newsletter Subscription)</h3>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Message:</strong></p>
+                <div style="white-space: pre-wrap; font-family: sans-serif; background: #f9f9f9; padding: 12px; border-left: 4px solid #CCCCFF;">${message}</div>
+              `
+            })
+          });
+
+          if (!emailResponse.ok) {
+            const errorData = await emailResponse.json();
+            console.error("Resend API error sending subscription notice:", errorData);
+          } else {
+            const responseData = await emailResponse.json();
+            console.log("Subscription email sent successfully via Resend:", responseData);
+          }
+        } catch (emailErr) {
+          console.error("Failed to send subscription email:", emailErr);
+        }
+      }
+
+      return res.json({ success: true, message: "Successfully subscribed to the newsletter!" });
+    } catch (error: any) {
+      console.error("Error in /api/subscribe endpoint:", error);
+      return res.status(500).json({ error: "Internal server error", details: error.message });
+    }
+  });
+
   app.post("/api/send-email", async (req, res) => {
     try {
       const { name, email, subject, message } = req.body;

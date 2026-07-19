@@ -278,7 +278,8 @@ export const speakerEvents: SpeakerEvent[] = [
     event: 'Ohlone College STEM Summit',
     description: 'Presented keynote guidance and technical mentorship for student pathways in computing and engineering. Spoke about bridging academia and industry, fostering diverse pipelines, and leading with technological curiosity.',
     links: [
-      { label: 'Ohlone STEM Summit Facebook Post', url: 'https://www.facebook.com/ohlonecollege/posts/pfbid037txouR56THqakGJ4CUAi9P5VovxwnweMRpK5mppqetWfGuFG65Scsb8ZhqJBq51Ml' }
+      { label: 'Ohlone STEM Summit Facebook Post', url: 'https://www.facebook.com/ohlonecollege/posts/pfbid037txouR56THqakGJ4CUAi9P5VovxwnweMRpK5mppqetWfGuFG65Scsb8ZhqJBq51Ml' },
+      { label: 'Ohlone STEM Summit Instagram Post', url: 'https://www.instagram.com/p/DQXvB2OjJ8k/?img_index=2&igsh=NTc4MTIwNjQ2YQ==' }
     ]
   }
 ];

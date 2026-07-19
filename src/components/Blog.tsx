@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Search, ArrowLeft, Calendar, Clock, User, Plus, Check, Send, Trash2, ShieldCheck, Lock, Unlock, Eye, Sparkles, Pencil } from 'lucide-react';
+import { BookOpen, Search, ArrowLeft, Calendar, Clock, User, Plus, Check, Send, Trash2, ShieldCheck, Lock, Unlock, Eye, Sparkles, Pencil, Linkedin, Twitter, Link } from 'lucide-react';
 import { signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 
@@ -28,6 +28,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
   const [error, setError] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [copied, setCopied] = useState(false);
   
   // Admin Editor States
   const [showEditor, setShowEditor] = useState(false);
@@ -424,6 +425,55 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           {/* Post Content */}
           <div className="prose max-w-none text-left">
             {renderFormattedContent(activePost.content)}
+          </div>
+
+          {/* Social Share Panel */}
+          <div className="mt-12 p-6 bg-neutral-50 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
+            <div>
+              <h4 className="font-display font-bold text-gray-950 text-sm">Enjoyed this article?</h4>
+              <p className="font-sans text-xs text-gray-500 mt-1">Share it with your professional network or developer community.</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + '/blog/' + activePost.slug)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white border border-gray-200 hover:border-[#0077b5] text-gray-500 hover:text-[#0077b5] flex items-center justify-center transition-all duration-200 hover:scale-[1.05] cursor-pointer"
+                title="Share on LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.origin + '/blog/' + activePost.slug)}&text=${encodeURIComponent(activePost.title)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-xl bg-white border border-gray-200 hover:border-[#1DA1F2] text-gray-500 hover:text-[#1DA1F2] flex items-center justify-center transition-all duration-200 hover:scale-[1.05] cursor-pointer"
+                title="Share on Twitter"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.origin + '/blog/' + activePost.slug);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
+                }}
+                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl bg-white border border-gray-200 text-gray-500 hover:text-gray-900 hover:border-gray-300 transition-all duration-200 hover:scale-[1.03] text-xs font-sans font-medium cursor-pointer"
+                title="Copy article link"
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-emerald-500 animate-pulse" />
+                    <span className="text-emerald-600 font-semibold">Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Link className="w-3.5 h-3.5" />
+                    <span>Copy Link</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Footer of Post */}

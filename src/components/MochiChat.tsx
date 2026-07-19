@@ -16,10 +16,10 @@ const SUGGESTIONS = [
   { text: 'Education & Patents 🎓', id: 'sugg-edu' },
 ];
 
-// Helper to parse inline styles like **bold**, *italic*, `code`, and [text](url)
-function parseInline(text: string): React.ReactNode[] {
-  // Matches **bold**, *italic*, `code`, [text](url)
-  const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|\[.*?\]\(.*?\))/g;
+// Helper to parse inline styles like **bold**, *italic*, `code`, [text](url), and raw URLs
+function parseInline(text: string, isModel: boolean = true): React.ReactNode[] {
+  // Matches **bold**, *italic*, `code`, [text](url), and raw URLs
+  const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|\[.*?\]\(.*?\)|https?:\/\/[^\s)\].,]+)/g;
   const parts = text.split(regex);
   return parts.map((part, idx) => {
     if (part.startsWith('**') && part.endsWith('**')) {
@@ -52,12 +52,25 @@ function parseInline(text: string): React.ReactNode[] {
             href={match[2]}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#3333FF] hover:underline font-semibold"
+            className={`${isModel ? 'text-[#3333FF] hover:underline' : 'text-white underline hover:text-neutral-100'} font-semibold break-all`}
           >
             {match[1]}
           </a>
         );
       }
+    }
+    if (part.startsWith('http://') || part.startsWith('https://')) {
+      return (
+        <a
+          key={idx}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${isModel ? 'text-[#3333FF] hover:underline' : 'text-white underline hover:text-neutral-100'} font-semibold break-all`}
+        >
+          {part}
+        </a>
+      );
     }
     return part;
   });
@@ -82,7 +95,7 @@ function renderMarkdown(text: string, isModel: boolean): React.ReactNode {
         <ul key={listKey} className="list-disc pl-4 my-2 space-y-1.5 text-[13px]">
           {items.map((item, idx) => (
             <li key={idx} className="leading-relaxed">
-              {parseInline(item)}
+              {parseInline(item, isModel)}
             </li>
           ))}
         </ul>
@@ -92,7 +105,7 @@ function renderMarkdown(text: string, isModel: boolean): React.ReactNode {
         <ol key={listKey} className="list-decimal pl-4 my-2 space-y-1.5 text-[13px]">
           {items.map((item, idx) => (
             <li key={idx} className="leading-relaxed">
-              {parseInline(item)}
+              {parseInline(item, isModel)}
             </li>
           ))}
         </ol>
@@ -157,26 +170,26 @@ function renderMarkdown(text: string, isModel: boolean): React.ReactNode {
     if (trimmed.startsWith('### ')) {
       elements.push(
         <h4 key={i} className={`font-display font-bold text-xs mt-3 mb-1.5 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
-          {parseInline(trimmed.slice(4))}
+          {parseInline(trimmed.slice(4), isModel)}
         </h4>
       );
     } else if (trimmed.startsWith('## ')) {
       elements.push(
         <h3 key={i} className={`font-display font-bold text-sm mt-4 mb-2 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
-          {parseInline(trimmed.slice(3))}
+          {parseInline(trimmed.slice(3), isModel)}
         </h3>
       );
     } else if (trimmed.startsWith('# ')) {
       elements.push(
         <h2 key={i} className={`font-display font-bold text-base mt-4 mb-2 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
-          {parseInline(trimmed.slice(2))}
+          {parseInline(trimmed.slice(2), isModel)}
         </h2>
       );
     } else {
       // Normal paragraph line
       elements.push(
         <p key={i} className="text-[13px] leading-relaxed mb-2 last:mb-0">
-          {parseInline(line)}
+          {parseInline(line, isModel)}
         </p>
       );
     }
@@ -295,7 +308,7 @@ export default function MochiChat() {
         const parsed = JSON.parse(saved) as ChatMessage[];
         // Auto-update old welcome message text if it exists
         if (parsed.length > 0 && parsed[0].id === 'welcome-msg') {
-          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI companion, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)";
+          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)";
         }
         setMessages(parsed);
       } catch (e) {
@@ -334,7 +347,7 @@ export default function MochiChat() {
     const welcome: ChatMessage = {
       id: 'welcome-msg',
       role: 'model',
-      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI companion, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)",
+      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages([welcome]);

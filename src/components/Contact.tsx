@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, MessageSquare, Trash2, Calendar, ExternalLink } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
+import { trackEvent } from '../lib/analytics';
 
 interface Message {
   id: string;
@@ -88,6 +89,9 @@ export default function Contact() {
       } catch (err) {
         console.error('Failed to save to localStorage', err);
       }
+
+      // Track contact form submission event
+      trackEvent('contact_form_submit', 'engagement', formData.subject || 'General Inquiry');
 
       setSubmitStatus(isReal ? 'sent' : 'simulated');
       setSubmitSuccess(true);

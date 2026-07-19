@@ -10,9 +10,21 @@ import Contact from './components/Contact';
 import Blog from './components/Blog';
 import { personalInfo } from './data/resumeData';
 import MochiChat from './components/MochiChat';
+import Newsletter from './components/Newsletter';
+import { initGA, trackPageView } from './lib/analytics';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  // Initialize Google Analytics on mount
+  useEffect(() => {
+    initGA();
+  }, []);
+
+  // Track page view on route/path changes
+  useEffect(() => {
+    trackPageView(currentPath);
+  }, [currentPath]);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -65,6 +77,9 @@ export default function App() {
           </>
         )}
       </main>
+
+      {/* Newsletter Subscription Component */}
+      <Newsletter />
 
       {/* Modern Minimalist Footer */}
       <footer id="main-site-footer" className="bg-neutral-50 border-t border-gray-100 py-12">
