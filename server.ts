@@ -114,35 +114,6 @@ function writePostsToFile(posts: BlogPost[]): boolean {
   }
 }
 
-// Paths and helpers to manage subscribers
-const subscribersFilePath = path.join(process.cwd(), "src", "data", "subscribers.json");
-
-function readSubscribersFromFile(): string[] {
-  try {
-    if (fs.existsSync(subscribersFilePath)) {
-      const data = fs.readFileSync(subscribersFilePath, "utf-8");
-      return JSON.parse(data);
-    }
-  } catch (error) {
-    console.error("Error reading subscribers.json, returning empty list:", error);
-  }
-  return [];
-}
-
-function writeSubscribersToFile(subscribers: string[]): boolean {
-  try {
-    const dir = path.dirname(subscribersFilePath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-    fs.writeFileSync(subscribersFilePath, JSON.stringify(subscribers, null, 2), "utf-8");
-    return true;
-  } catch (error) {
-    console.error("Error writing to subscribers.json:", error);
-    return false;
-  }
-}
-
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -159,12 +130,6 @@ async function startServer() {
       }
 
       console.log(`[Newsletter Subscription] Joined: ${email}`);
-
-      const subscribers = readSubscribersFromFile();
-      if (!subscribers.includes(email)) {
-        subscribers.push(email);
-        writeSubscribersToFile(subscribers);
-      }
 
       // Send email to Minnie (minnie.ott@gmail.com) asking to subscribe to the newsletter
       const apiKey = process.env.RESEND_API_KEY;
@@ -183,13 +148,12 @@ async function startServer() {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              from: "minnieott.com message <onboarding@resend.dev>",
+              from: "minnieott.com <onboarding@resend.dev>",
               to: ["minnie.ott@gmail.com"],
-              cc: [email],
               reply_to: email,
               subject: subject,
               html: `
-                <h3>minnieott.com Newsletter Subscription</h3>
+                <h3>New Portfolio Message (Newsletter Subscription)</h3>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Subject:</strong> ${subject}</p>
@@ -249,9 +213,8 @@ async function startServer() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          from: "minnieott.com message <onboarding@resend.dev>",
+          from: "minnieott.com <onboarding@resend.dev>",
           to: ["minnie.ott@gmail.com"],
-          cc: [email],
           reply_to: email,
           subject: subject || `Portfolio Message from ${name}`,
           html: `
