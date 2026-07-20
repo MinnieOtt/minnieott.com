@@ -248,6 +248,21 @@ export default function Hero({ onNavigate }: HeroProps) {
               className="flex flex-wrap gap-4 items-center"
             >
               <a
+                id="cta-blog-btn"
+                href="/blog"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) {
+                    onNavigate('/blog');
+                  } else {
+                    window.location.href = '/blog';
+                  }
+                }}
+                className="px-6 py-3 bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] font-sans font-medium text-sm rounded-lg shadow-sm border border-[#3333FF] transition-all duration-200 accent-glow hover:accent-glow-strong hover:scale-[1.01]"
+              >
+                Architecting Humanity
+              </a>
+              <a
                 id="cta-portfolio-btn"
                 href="/work"
                 onClick={(e) => {
@@ -258,9 +273,9 @@ export default function Hero({ onNavigate }: HeroProps) {
                     window.location.href = '/work';
                   }
                 }}
-                className="px-6 py-3 bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] font-sans font-medium text-sm rounded-lg shadow-sm border border-[#3333FF] transition-all duration-200 accent-glow hover:accent-glow-strong hover:scale-[1.01]"
+                className="px-6 py-3 bg-[#E4F0E7] hover:bg-[#d6eade] text-[#3333FF] font-sans font-medium text-sm rounded-lg shadow-sm border border-[#3333FF]/10 transition-all duration-200 hover:scale-[1.01]"
               >
-                Explore App Portfolio
+                App Portfolio
               </a>
               <a
                 id="cta-contact-btn"
