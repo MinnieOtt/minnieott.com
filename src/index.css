@@ -306,6 +306,32 @@ html.dark .hover\:bg-\[\#e4f0e7\]:hover [class*="text-"] {
   color: #3333FF !important;
 }
 
+/* Ensure #ccccff backgrounds look great in dark mode with readable dark text */
+html.dark .bg-\[\#ccccff\],
+html.dark .bg-\[\#CCCCFF\],
+html.dark .hover\:bg-\[\#ccccff\]:hover,
+html.dark .hover\:bg-\[\#CCCCFF\]:hover {
+  background-color: #ccccff !important;
+  color: #111827 !important;
+  border-color: #3333FF !important;
+}
+
+/* Ensure all descendant elements inside a #ccccff highlight have a readable dark color in dark mode */
+html.dark .bg-\[\#ccccff\] *,
+html.dark .bg-\[\#CCCCFF\] *,
+html.dark .hover\:bg-\[\#ccccff\]:hover *,
+html.dark .hover\:bg-\[\#CCCCFF\]:hover * {
+  color: #111827 !important;
+}
+
+/* Override any potential text color utility class on or inside the #ccccff highlight in dark mode */
+html.dark .bg-\[\#ccccff\][class*="text-"],
+html.dark .bg-\[\#CCCCFF\][class*="text-"],
+html.dark .bg-\[\#ccccff\] [class*="text-"],
+html.dark .bg-\[\#CCCCFF\] [class*="text-"] {
+  color: #111827 !important;
+}
+
 /* Force dark mode text selection to use the brand highlight background with a highly readable dark blue color */
 html.dark ::selection {
   background-color: #E4F0E7 !important;

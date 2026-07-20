@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { BookOpen, Search, ArrowLeft, Calendar, Clock, User, Plus, Check, Send, Trash2, ShieldCheck, Lock, Unlock, Eye, Sparkles, Pencil, Linkedin, Twitter, Link, ExternalLink } from 'lucide-react';
 import { signInWithPopup, signOut as firebaseSignOut, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
+import ReactMarkdown from 'react-markdown';
 
 interface BlogPost {
   id: string;
@@ -310,50 +311,73 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
   const activePost = currentSlug ? posts.find(p => p.slug === currentSlug) : null;
 
-  // Simple clean renderer that converts paragraphs and headings
+  // Simple clean renderer that converts paragraphs and headings using markdown
   const renderFormattedContent = (content: string) => {
-    return content.split('\n\n').map((paragraph, index) => {
-      const trimmed = paragraph.trim();
-      if (trimmed.startsWith('### ')) {
-        return (
-          <h3 key={index} className="font-display font-bold text-gray-900 text-lg sm:text-xl tracking-tight mt-6 mb-3">
-            {trimmed.replace('### ', '')}
-          </h3>
-        );
-      }
-      if (trimmed.startsWith('## ')) {
-        return (
-          <h2 key={index} className="font-display font-bold text-gray-900 text-xl sm:text-2xl tracking-tight mt-8 mb-4">
-            {trimmed.replace('## ', '')}
-          </h2>
-        );
-      }
-      if (trimmed.startsWith('* ')) {
-        const items = trimmed.split('\n').map(line => line.replace('* ', ''));
-        return (
-          <ul key={index} className="list-disc pl-5 my-4 space-y-2 text-gray-700 font-sans text-base leading-relaxed">
-            {items.map((item, itemIdx) => (
-              <li key={itemIdx}>{item}</li>
-            ))}
-          </ul>
-        );
-      }
-      if (trimmed.startsWith('1. ')) {
-        const items = trimmed.split('\n').map(line => line.replace(/^\d+\.\s+/, ''));
-        return (
-          <ol key={index} className="list-decimal pl-5 my-4 space-y-2 text-gray-700 font-sans text-base leading-relaxed">
-            {items.map((item, itemIdx) => (
-              <li key={itemIdx}>{item}</li>
-            ))}
-          </ol>
-        );
-      }
-      return (
-        <p key={index} className="font-sans text-gray-700 text-base leading-relaxed mb-4 whitespace-pre-wrap">
-          {paragraph}
-        </p>
-      );
-    });
+    return (
+      <div className="markdown-body text-left">
+        <ReactMarkdown
+          components={{
+            h1: ({ children }) => (
+              <h1 className="font-display font-bold text-gray-900 dark:text-gray-100 text-2xl sm:text-3xl tracking-tight mt-8 mb-4">
+                {children}
+              </h1>
+            ),
+            h2: ({ children }) => (
+              <h2 className="font-display font-bold text-gray-900 dark:text-gray-100 text-xl sm:text-2xl tracking-tight mt-8 mb-4">
+                {children}
+              </h2>
+            ),
+            h3: ({ children }) => (
+              <h3 className="font-display font-bold text-gray-900 dark:text-gray-100 text-lg sm:text-xl tracking-tight mt-6 mb-3">
+                {children}
+              </h3>
+            ),
+            p: ({ children }) => (
+              <p className="font-sans text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-4 whitespace-pre-wrap">
+                {children}
+              </p>
+            ),
+            ul: ({ children }) => (
+              <ul className="list-disc pl-5 my-4 space-y-2 text-gray-700 dark:text-gray-300 font-sans text-base leading-relaxed">
+                {children}
+              </ul>
+            ),
+            ol: ({ children }) => (
+              <ol className="list-decimal pl-5 my-4 space-y-2 text-gray-700 dark:text-gray-300 font-sans text-base leading-relaxed">
+                {children}
+              </ol>
+            ),
+            li: ({ children }) => (
+              <li className="font-sans text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+                {children}
+              </li>
+            ),
+            blockquote: ({ children }) => (
+              <blockquote className="border-l-4 border-gray-300 dark:border-gray-700 pl-4 italic text-gray-600 dark:text-gray-400 my-4">
+                {children}
+              </blockquote>
+            ),
+            code: ({ children }) => (
+              <code className="bg-neutral-100 dark:bg-gray-800 text-[#3333FF] dark:text-[#A5B4FC] font-mono text-sm px-1.5 py-0.5 rounded font-semibold">
+                {children}
+              </code>
+            ),
+            a: ({ children, href }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#3333FF] dark:text-[#A5B4FC] hover:underline font-medium inline-flex items-center gap-0.5"
+              >
+                {children}
+              </a>
+            ),
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
+    );
   };
 
   return (
@@ -850,7 +874,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             {/* Right Column: Definitions */}
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4">
               {/* Architecting Card */}
-              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-white p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
+              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-[#E4F0E7] p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-radial-gradient(circle_at_top_right,rgba(51,51,255,0.03),transparent) pointer-events-none" />
                 
                 <div>
@@ -888,7 +912,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               </div>
 
               {/* Humanity Card */}
-              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-white p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
+              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-[#ccccff] p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-radial-gradient(circle_at_top_right,rgba(228,240,231,0.06),transparent) pointer-events-none" />
 
                 <div>
