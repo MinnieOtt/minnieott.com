@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2, Mic, MicOff } from 'lucide-react';
+import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2, Mic, MicOff, Calendar } from 'lucide-react';
+
+interface MochiChatProps {
+  currentPath?: string;
+  onNavigate?: (path: string) => void;
+}
 
 interface ChatMessage {
   id: string;
@@ -203,7 +208,7 @@ function renderMarkdown(text: string, isModel: boolean): React.ReactNode {
   return <div className="space-y-1">{elements}</div>;
 }
 
-export default function MochiChat() {
+export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -616,6 +621,74 @@ export default function MochiChat() {
                 </div>
               )}
               <div ref={chatEndRef} />
+            </div>
+
+            {/* Quick Actions (Meet & Message) */}
+            <div id="mochi-quick-actions-bar" className="px-4 py-2 bg-neutral-50 border-t border-gray-100 flex gap-2 justify-stretch shrink-0">
+              <a
+                id="mochi-quick-action-meet"
+                href="https://calendar.app.google/MCnhZcK56rLJ7fnk8"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  const userMsg: ChatMessage = {
+                    id: `user-meet-${Date.now()}`,
+                    role: 'user',
+                    text: 'Meet with Minnie',
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  };
+                  const modelMsg: ChatMessage = {
+                    id: `model-meet-${Date.now()}`,
+                    role: 'model',
+                    text: "I've opened Minnie's [Google Appointment Calendar](https://calendar.app.google/MCnhZcK56rLJ7fnk8) in a new tab to help you book a session! 🥞 Please check your new browser tab or window to proceed.",
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  };
+                  setMessages((prev) => [...prev, userMsg, modelMsg]);
+                }}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#E4F0E7] text-[#3333FF] hover:text-indigo-800 hover:bg-emerald-100/70 border border-[#3333FF]/20 rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>Meet with Minnie</span>
+              </a>
+              <button
+                id="mochi-quick-action-message"
+                type="button"
+                onClick={() => {
+                  const userMsg: ChatMessage = {
+                    id: `user-msg-${Date.now()}`,
+                    role: 'user',
+                    text: 'Message Minnie',
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  };
+                  const modelMsg: ChatMessage = {
+                    id: `model-msg-${Date.now()}`,
+                    role: 'model',
+                    text: "Navigating you to Minnie's secure contact form so you can send her a direct message! 🥞",
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  };
+                  setMessages((prev) => [...prev, userMsg, modelMsg]);
+                  
+                  if (onNavigate) {
+                    onNavigate('/work');
+                  } else {
+                    window.history.pushState({}, '', '/work');
+                    window.dispatchEvent(new Event('popstate'));
+                  }
+                  
+                  setTimeout(() => {
+                    const el = document.getElementById('contact');
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 200);
+
+                  setIsOpen(false);
+                }}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#3333FF] text-[#E4F0E7] hover:bg-[#1A1AFF] rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer border border-[#3333FF]/10"
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                <span>Message Minnie</span>
+              </button>
             </div>
 
             {/* Suggestions/Helper Chips */}

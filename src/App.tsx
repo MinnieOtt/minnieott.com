@@ -103,7 +103,7 @@ export default function App() {
           </div>
         </div>
       </footer>
-      <MochiChat />
+      <MochiChat currentPath={currentPath} onNavigate={navigate} />
     </div>
   );
 }

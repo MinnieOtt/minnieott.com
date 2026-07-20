@@ -183,13 +183,13 @@ async function startServer() {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              from: "Minerva Portfolio <onboarding@resend.dev>",
+              from: "minnieott.com message <onboarding@resend.dev>",
               to: ["minnie.ott@gmail.com"],
               cc: [email],
               reply_to: email,
               subject: subject,
               html: `
-                <h3>New Portfolio Message (Newsletter Subscription)</h3>
+                <h3>minnieott.com Newsletter Subscription</h3>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Subject:</strong> ${subject}</p>
@@ -249,8 +249,9 @@ async function startServer() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          from: "Minerva Portfolio <onboarding@resend.dev>",
+          from: "minnieott.com message <onboarding@resend.dev>",
           to: ["minnie.ott@gmail.com"],
+          cc: [email],
           reply_to: email,
           subject: subject || `Portfolio Message from ${name}`,
           html: `
