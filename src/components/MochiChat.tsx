@@ -308,7 +308,7 @@ export default function MochiChat() {
         const parsed = JSON.parse(saved) as ChatMessage[];
         // Auto-update old welcome message text if it exists
         if (parsed.length > 0 && parsed[0].id === 'welcome-msg') {
-          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)";
+          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by [real-life Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs).   I can answer questions regarding this website. How can I help?";
         }
         setMessages(parsed);
       } catch (e) {
@@ -347,7 +347,7 @@ export default function MochiChat() {
     const welcome: ChatMessage = {
       id: 'welcome-msg',
       role: 'model',
-      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by Minnie's real-life [Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs)",
+      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by [real-life Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs).   I can answer questions regarding this website. How can I help?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages([welcome]);

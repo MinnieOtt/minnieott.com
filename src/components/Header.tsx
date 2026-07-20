@@ -62,6 +62,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [currentPath]);
 
@@ -77,7 +78,10 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
       return !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
     }
     if (itemId === 'portfolio') {
-      return currentPath && currentPath.startsWith('/work') && activeSection !== 'contact';
+      return currentPath && currentPath.startsWith('/work') && (activeSection === 'portfolio' || !['experience', 'skills', 'credentials', 'contact'].includes(activeSection));
+    }
+    if (itemId === 'experience') {
+      return currentPath && currentPath.startsWith('/work') && ['experience', 'skills', 'credentials'].includes(activeSection);
     }
     if (itemId === 'home') {
       return currentPath && currentPath.startsWith('/about');
@@ -91,6 +95,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   const navItems = [
     { label: 'Blog', href: '/', id: 'blog' },
     { label: 'Work', href: '/work', id: 'portfolio' },
+    { label: 'Resume', href: '/work#experience', id: 'experience' },
     { label: 'About', href: '/about', id: 'home' },
     { label: 'Contact', href: '/work#contact', id: 'contact' },
   ];
