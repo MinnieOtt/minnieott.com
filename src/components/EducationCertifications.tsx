@@ -9,7 +9,7 @@ export default function EducationCertifications() {
         
         {/* Section Header */}
         <div id="credentials-section-header" className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#F0F0FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Scholastics & IP
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
@@ -35,7 +35,7 @@ export default function EducationCertifications() {
               {patents.map((pat) => (
                 <div key={pat.id} id={`patent-item-${pat.id.replace(/\s+/g, '-').toLowerCase()}`} className="flex flex-col gap-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="font-mono text-[10px] font-bold text-[#3333FF] bg-[#E6E6FF] px-2 py-0.5 rounded">
+                    <span className="font-mono text-[10px] font-bold text-[#3333FF] bg-[#E4F0E7] px-2 py-0.5 rounded">
                       {pat.id}
                     </span>
                     <a
@@ -65,7 +65,7 @@ export default function EducationCertifications() {
                 <BookOpen className="w-5 h-5 text-indigo-500" /> Publications
               </h3>
               <div className="flex gap-4">
-                <div className="w-12 h-16 bg-[#F0F0FF] rounded-md border border-[#3333FF] flex items-center justify-center shrink-0">
+                <div className="w-12 h-16 bg-[#E4F0E7] rounded-md border border-[#3333FF] flex items-center justify-center shrink-0">
                   <Bookmark className="w-6 h-6 text-[#3333FF]" />
                 </div>
                 <div className="flex flex-col justify-center">
@@ -123,7 +123,7 @@ export default function EducationCertifications() {
                       {edu.honors?.map((honor) => (
                         <span
                           key={honor}
-                          className="px-2 py-0.5 bg-[#F0F0FF] border border-[#3333FF] rounded-md text-[10px] font-mono text-gray-600"
+                          className="px-2 py-0.5 bg-[#E4F0E7] border border-[#3333FF] rounded-md text-[10px] font-mono text-gray-600"
                         >
                           {honor}
                         </span>
@@ -190,7 +190,7 @@ export default function EducationCertifications() {
                             href={lnk.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 font-mono text-[10px] text-[#3333FF] hover:text-indigo-800 bg-white hover:bg-[#F0F0FF] border border-gray-100 hover:border-[#3333FF]/30 px-2.5 py-1 rounded transition-all"
+                            className="inline-flex items-center gap-1 font-mono text-[10px] text-[#3333FF] hover:text-indigo-800 bg-white hover:bg-[#E4F0E7] border border-gray-100 hover:border-[#3333FF]/30 px-2.5 py-1 rounded transition-all"
                           >
                             <span>{lnk.label}</span>
                             <ExternalLink className="w-2.5 h-2.5" />

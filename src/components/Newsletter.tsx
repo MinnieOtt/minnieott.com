@@ -68,14 +68,14 @@ export default function Newsletter() {
     <section id="newsletter-subscription-section" className="py-16 bg-neutral-900 text-white relative overflow-hidden border-t border-gray-800">
       {/* Decorative background gradients to feel highly crafted and custom */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,rgba(51,51,255,0.12),transparent_50%)] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_-20%,rgba(204,204,255,0.05),transparent_40%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_10%_-20%,rgba(228,240,231,0.05),transparent_40%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Text Information column */}
           <div className="lg:col-span-6 text-left">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-[#CCCCFF] rounded-full text-xs font-mono font-bold uppercase tracking-wider mb-4 border border-white/5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-[#E4F0E7] rounded-full text-xs font-mono font-bold uppercase tracking-wider mb-4 border border-white/5">
               <Mail className="w-3.5 h-3.5" />
               Newsletter
             </div>
@@ -103,7 +103,7 @@ export default function Newsletter() {
                   </p>
                   <button
                     onClick={() => setStatus('idle')}
-                    className="mt-4 text-xs font-mono font-bold text-[#CCCCFF] hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+                    className="mt-4 text-xs font-mono font-bold text-[#E4F0E7] hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
                     <RefreshCw className="w-3 h-3" />
                     Subscribe another email
@@ -137,11 +137,11 @@ export default function Newsletter() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="px-6 py-3 bg-[#3333FF] hover:bg-[#2222DD] text-white font-sans font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-sm cursor-pointer hover:scale-[1.02] active:scale-95 disabled:opacity-50 select-none shrink-0"
+                        className="px-6 py-3 bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] font-sans font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-sm cursor-pointer hover:scale-[1.02] active:scale-95 disabled:opacity-50 select-none shrink-0"
                       >
                         {isSubmitting ? (
                           <>
-                            <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <span className="w-4 h-4 border-2 border-[#E4F0E7]/30 border-t-[#E4F0E7] rounded-full animate-spin" />
                             <span>Joining...</span>
                           </>
                         ) : (

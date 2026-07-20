@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Layers, Target, ShieldCheck, Globe, Bike, Award, Sparkles, Check } from 'lucide-react';
+import { ExternalLink, Layers, Target, ShieldCheck, Globe, Bike, Award, Sparkles, Check, CheckCircle } from 'lucide-react';
 import { portfolioApps } from '../data/resumeData';
 import { AppPortfolioItem } from '../types';
 
@@ -30,7 +30,7 @@ export default function Portfolio() {
         
         {/* Section Header */}
         <div id="portfolio-section-header" className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#F0F0FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Technical Case Studies
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
@@ -41,17 +41,97 @@ export default function Portfolio() {
           </p>
         </div>
 
+        {/* Key Impact Summary */}
+        <div id="key-impact-summary" className="mb-16 p-8 bg-neutral-50 rounded-2xl border border-gray-100 relative overflow-hidden">
+          {/* Subtle top border decorative accent */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#3333FF]" />
+          
+          <h3 className="font-display font-bold text-gray-900 text-lg mb-6 flex items-center gap-2">
+            <Award className="w-5 h-5 text-gray-700" /> Key Impact Summary
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Highlight 1 */}
+            <div id="impact-item-1" className="bg-white p-5 rounded-xl border border-gray-100 flex gap-4 hover:shadow-xs transition-shadow duration-200">
+              <div className="w-10 h-10 shrink-0 rounded-lg bg-[#E4F0E7] flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-[#3333FF]" />
+              </div>
+              <div>
+                <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
+                  50+ Google Maps Features
+                </h4>
+                <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
+                  Led end-to-end SDLC from requirements to global production with Gemini Voice Navigation.
+                </p>
+              </div>
+            </div>
+
+            {/* Highlight 2 */}
+            <div id="impact-item-2" className="bg-white p-5 rounded-xl border border-gray-100 flex gap-4 hover:shadow-xs transition-shadow duration-200">
+              <div className="w-10 h-10 shrink-0 rounded-lg bg-[#E4F0E7] flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-[#3333FF]" />
+              </div>
+              <div>
+                <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
+                  $150M Operational Efficiencies
+                </h4>
+                <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
+                  Drove AI Service Desk transformation, optimizing tickets with intelligent automated routing.
+                </p>
+              </div>
+            </div>
+
+            {/* Highlight 3 */}
+            <div id="impact-item-3" className="bg-white p-5 rounded-xl border border-gray-100 flex gap-4 hover:shadow-xs transition-shadow duration-200">
+              <div className="w-10 h-10 shrink-0 rounded-lg bg-[#E4F0E7] flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-[#3333FF]" />
+              </div>
+              <div>
+                <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
+                  Agentic Workflows Specialist
+                </h4>
+                <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
+                  Pioneered <a href="#portfolio-creative-blue-growthos" className="text-[#3333FF] hover:underline font-medium">GrowthOS</a>, <a href="#portfolio-lead-generator" className="text-[#3333FF] hover:underline font-medium">Lead Generator</a>, and <a href="https://creative-blue-brand-assessment-553545205591.us-west1.run.app/" target="_blank" rel="noopener noreferrer" className="text-[#3333FF] hover:underline font-medium">Brand Booster</a> platforms using advanced LLM pipelines.
+                </p>
+              </div>
+            </div>
+
+            {/* Highlight 4 */}
+            <div id="impact-item-4" className="bg-white p-5 rounded-xl border border-gray-100 flex gap-4 hover:shadow-xs transition-shadow duration-200">
+              <div className="w-10 h-10 shrink-0 rounded-lg bg-[#E4F0E7] flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-[#3333FF]" />
+              </div>
+              <div>
+                <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
+                  Stanford LEAD Scholar
+                </h4>
+                <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
+                  Distinguished GSB Scholar, serving on the Community Advisory Board.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Bento Grid */}
         <div id="portfolio-bento-grid" className="grid grid-cols-1 lg:grid-cols-6 gap-8">
           {portfolioApps.map((app: AppPortfolioItem, index: number) => {
             const isFlagship = app.isFlagship;
             const hasLiveUrl = app.url && app.url !== '#';
             
+            const cardId = app.name === 'Creative Blue GrowthOS' 
+              ? 'portfolio-creative-blue-growthos' 
+              : app.name === 'Lead Generator' 
+              ? 'portfolio-lead-generator' 
+              : app.name === 'Brand Assessment' 
+              ? 'portfolio-brand-assessment' 
+              : `portfolio-card-${index}`;
+
             return (
               <div
                 key={app.name}
-                id={`portfolio-card-${index}`}
-                className={`group bg-neutral-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-accent shadow-2xs hover:shadow-md transition-all duration-300 p-8 flex flex-col justify-between relative overflow-hidden ${
+                id={cardId}
+                className={`group bg-neutral-50 hover:bg-white rounded-2xl border border-gray-100 hover:border-accent shadow-2xs hover:shadow-md transition-all duration-300 p-8 flex flex-col justify-between relative overflow-hidden scroll-mt-24 ${
                   isFlagship ? 'lg:col-span-4' : 'lg:col-span-2'
                 }`}
               >
@@ -78,7 +158,7 @@ export default function Portfolio() {
                     </div>
 
                     {isFlagship && (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#E6E6FF] text-[#3333FF] border border-[#3333FF] font-mono">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#E4F0E7] text-[#3333FF] border border-[#3333FF] font-mono">
                         Flagship Platform
                       </span>
                     )}

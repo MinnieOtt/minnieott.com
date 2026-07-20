@@ -407,7 +407,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       setEditingPostId(activePost.id);
                       onNavigate('/blog/author');
                     }}
-                    className="text-indigo-600 hover:text-indigo-800 flex items-center gap-1.5 cursor-pointer font-bold border border-indigo-100 bg-indigo-50/30 hover:bg-indigo-50 px-3 py-1 rounded-md text-xs transition-all"
+                    className="text-[#3333FF] hover:text-[#1A1AFF] flex items-center gap-1.5 cursor-pointer font-bold border border-[#C9DFCE] bg-[#E4F0E7]/30 hover:bg-[#E4F0E7] px-3 py-1 rounded-md text-xs transition-all"
                   >
                     <Pencil className="w-3 h-3" /> Edit
                   </button>
@@ -458,7 +458,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
                 }}
-                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl bg-white border border-gray-200 text-gray-500 hover:text-gray-900 hover:border-gray-300 transition-all duration-200 hover:scale-[1.03] text-xs font-sans font-medium cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl bg-white border border-gray-200 text-[#3333FF] hover:text-[#1A1AFF] hover:border-gray-300 transition-all duration-200 hover:scale-[1.03] text-xs font-sans font-medium cursor-pointer"
                 title="Copy article link"
               >
                 {copied ? (
@@ -500,7 +500,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             
             <button
               onClick={() => onNavigate('/blog')}
-              className="px-5 py-2.5 rounded-xl border border-gray-200 hover:border-gray-950 font-sans font-semibold text-xs text-gray-800 hover:text-gray-950 transition-all cursor-pointer shadow-3xs"
+              className="px-5 py-2.5 rounded-xl border border-gray-200 hover:border-gray-950 font-sans font-semibold text-xs text-[#3333FF] hover:text-[#1A1AFF] transition-all cursor-pointer shadow-3xs"
             >
               See More Articles
             </button>
@@ -538,7 +538,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             {isAuthenticated && (
               <button
                 onClick={handleLogout}
-                className="text-[10px] font-mono border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-neutral-50 px-3 py-2 rounded-xl transition-all cursor-pointer self-start sm:self-auto"
+                className="text-[10px] font-mono border border-gray-200 text-[#3333FF] hover:text-[#1A1AFF] hover:bg-neutral-50 px-3 py-2 rounded-xl transition-all cursor-pointer self-start sm:self-auto"
               >
                 Lock Studio
               </button>
@@ -561,7 +561,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 <button
                   onClick={handleGoogleSignIn}
                   type="button"
-                  className="inline-flex items-center justify-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 text-sm font-bold text-gray-700 hover:bg-gray-50 hover:border-gray-300 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#3333FF] shadow-3xs cursor-pointer transition-all w-full"
+                  className="inline-flex items-center justify-center gap-3 bg-white border border-gray-200 rounded-xl px-5 py-3 text-sm font-bold text-[#3333FF] hover:text-[#1A1AFF] hover:bg-gray-50 hover:border-gray-300 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#3333FF] shadow-3xs cursor-pointer transition-all w-full"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path
@@ -622,7 +622,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                               alert('Incorrect Admin Passcode.');
                             }
                           }}
-                          className="bg-[#3333FF] hover:bg-[#2222DD] text-white px-3.5 py-1.5 rounded-lg font-sans text-xs font-bold transition-all cursor-pointer"
+                          className="bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] px-3.5 py-1.5 rounded-lg font-sans text-xs font-bold transition-all cursor-pointer"
                         >
                           Unlock
                         </button>
@@ -757,7 +757,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="inline-flex items-center gap-1.5 bg-[#3333FF] hover:bg-[#2222DD] text-white px-6 py-2.5 rounded-xl font-sans font-bold text-xs transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] px-6 py-2.5 rounded-xl font-sans font-bold text-xs transition-colors shadow-sm cursor-pointer disabled:opacity-50"
                       >
                         {isSubmitting ? (
                           editingPostId ? 'Saving Changes...' : 'Publishing...'
@@ -814,7 +814,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                               setEditingPostId(post.id);
                               document.getElementById('author-form-anchor')?.scrollIntoView({ behavior: 'smooth' });
                             }}
-                            className="inline-flex items-center gap-1 text-xs font-bold font-sans border border-gray-200 hover:border-indigo-200 bg-white hover:bg-indigo-50/30 text-indigo-600 hover:text-indigo-800 px-3 py-1.5 rounded-xl cursor-pointer transition-colors"
+                            className="inline-flex items-center gap-1 text-xs font-bold font-sans border border-gray-200 hover:border-[#C9DFCE] bg-white hover:bg-[#E4F0E7]/30 text-[#3333FF] hover:text-[#1A1AFF] px-3 py-1.5 rounded-xl cursor-pointer transition-colors"
                           >
                             <Pencil className="w-3 h-3" /> Edit
                           </button>
@@ -842,6 +842,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               <img 
                 src="/architecting-humanity.png" 
                 alt="Architecting Humanity" 
+                referrerPolicy="no-referrer"
                 className="w-full h-auto lg:h-full object-cover block mx-auto rounded-3xl"
               />
             </div>
@@ -888,7 +889,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
               {/* Humanity Card */}
               <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-white p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
-                <div className="absolute top-0 right-0 w-24 h-24 bg-radial-gradient(circle_at_top_right,rgba(204,204,255,0.06),transparent) pointer-events-none" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-radial-gradient(circle_at_top_right,rgba(228,240,231,0.06),transparent) pointer-events-none" />
 
                 <div>
                   <div className="flex items-center justify-between gap-3 mb-2">
@@ -933,7 +934,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 Elevating people at the center of progress.
               </h1>
               <p className="font-sans text-sm text-gray-600 leading-relaxed">
-                I’m an engineering leader whose tech journey started with self-taught BASIC as a teen and led to directing global enterprise transformations from Silicon Valley. As a mentor, mother to a fellow software engineer, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
+                I’m an engineering leader whose tech journey started with self-taught BASIC as a teen and led to directing global enterprise transformations from Silicon Valley. As a mentor, <a href="https://carissaott.com" target="_blank" rel="noopener noreferrer" className="text-[#3333FF] hover:underline font-medium">mother to a fellow software engineer</a>, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
               </p>
             </div>
             
@@ -942,7 +943,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               <div className="flex items-center gap-3 shrink-0">
                 <button
                   onClick={handleLogout}
-                  className="text-[10px] font-mono border border-gray-200 text-gray-500 hover:text-gray-900 hover:bg-neutral-50 px-2.5 py-2 rounded-xl transition-all cursor-pointer"
+                  className="text-[10px] font-mono border border-gray-200 text-[#3333FF] hover:text-[#1A1AFF] hover:bg-neutral-50 px-2.5 py-2 rounded-xl transition-all cursor-pointer"
                 >
                   Lock Studio
                 </button>
@@ -961,7 +962,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   className={`px-3.5 py-1.5 rounded-xl font-sans font-medium text-xs whitespace-nowrap transition-all cursor-pointer ${
                     selectedCategory === cat
                       ? 'bg-accent-dark text-white shadow-3xs'
-                      : 'text-gray-500 hover:text-gray-950 bg-white border border-gray-100 hover:border-gray-200'
+                      : 'text-[#3333FF] hover:text-[#1A1AFF] bg-white border border-gray-100 hover:border-gray-200'
                   }`}
                 >
                   {cat}

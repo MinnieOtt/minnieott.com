@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, FileText, Sparkles } from 'lucide-react';
+import { Menu, X, FileText, Sparkles, Sun, Moon } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
 
 interface HeaderProps {
@@ -12,6 +12,27 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [imageError, setImageError] = useState(false);
+
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') {
+        return saved;
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,20 +73,26 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   }, [currentPath]);
 
   const isNavActive = (itemId: string) => {
-    if (itemId === 'blog') return activeSection === 'blog';
-    if (itemId === 'portfolio') return activeSection === 'portfolio';
-    if (itemId === 'contact') return activeSection === 'contact';
+    if (itemId === 'blog') {
+      return !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
+    }
+    if (itemId === 'portfolio') {
+      return currentPath && currentPath.startsWith('/work') && activeSection !== 'contact';
+    }
     if (itemId === 'home') {
-      return ['home', 'experience', 'skills', 'credentials'].includes(activeSection);
+      return currentPath && currentPath.startsWith('/about');
+    }
+    if (itemId === 'contact') {
+      return activeSection === 'contact';
     }
     return false;
   };
 
   const navItems = [
     { label: 'Blog', href: '/', id: 'blog' },
-    { label: 'Work', href: '/about#portfolio', id: 'portfolio' },
-    { label: 'About', href: '/about#home', id: 'home' },
-    { label: 'Contact', href: '/about#contact', id: 'contact' },
+    { label: 'Work', href: '/work', id: 'portfolio' },
+    { label: 'About', href: '/about', id: 'home' },
+    { label: 'Contact', href: '/work#contact', id: 'contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { label: string; href: string; id: string }) => {
@@ -77,19 +104,27 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
         onNavigate('/');
       }
     } else {
-      // It's an about/work/contact section: /about#id
-      if (currentPath && !currentPath.startsWith('/about')) {
+      const targetPath = item.href.split('#')[0]; // '/work' or '/about'
+      const targetHash = item.href.split('#')[1]; // 'contact' or undefined
+      
+      if (currentPath && !currentPath.startsWith(targetPath)) {
         if (onNavigate) {
-          onNavigate('/about');
-          // Give the DOM a moment to mount the sections before scrolling
-          setTimeout(() => {
-            const el = document.getElementById(item.id);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }, 150);
+          onNavigate(targetPath);
+          if (targetHash) {
+            // Give the DOM a moment to mount the sections before scrolling
+            setTimeout(() => {
+              const el = document.getElementById(targetHash);
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 150);
+          }
         }
       } else {
-        const el = document.getElementById(item.id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        if (targetHash) {
+          const el = document.getElementById(targetHash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     }
   };
@@ -176,18 +211,39 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
             <button
               id="header-ask-mochi-btn-desktop"
               onClick={handleAskMochi}
-              className="px-3.5 py-1.5 bg-[#3333FF]/10 hover:bg-[#3333FF] text-[#3333FF] hover:text-white font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 hover:scale-[1.03] cursor-pointer shadow-3xs"
+              className="px-3.5 py-1.5 bg-[#3333FF] hover:bg-[#1A1AFF] text-[#E4F0E7] font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 hover:scale-[1.03] cursor-pointer shadow-3xs"
             >
               <Sparkles className="w-3.5 h-3.5" />
               Ask Mochi
             </button>
+
+            {/* Theme Toggle Button Desktop */}
+            <button
+              id="theme-toggle-btn-desktop"
+              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+              className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-[#3333FF] dark:hover:text-[#E4F0E7] transition-all cursor-pointer flex items-center justify-center border border-transparent dark:border-gray-800"
+              aria-label="Toggle dark mode"
+              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+            >
+              {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+            </button>
           </nav>
+
+          {/* Theme Toggle Button Mobile */}
+          <button
+            id="theme-toggle-btn-mobile"
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+            className="lg:hidden p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-[#3333FF] dark:hover:text-[#E4F0E7] transition-all cursor-pointer flex items-center justify-center"
+            aria-label="Toggle dark mode"
+          >
+            {theme === 'light' ? <Moon className="w-4.5 h-4.5" /> : <Sun className="w-4.5 h-4.5" />}
+          </button>
 
           {/* Ask Mochi Mobile Button (shows right on the header line) */}
           <button
             id="header-ask-mochi-btn-mobile"
             onClick={handleAskMochi}
-            className="lg:hidden px-3 py-1.5 bg-[#3333FF]/10 hover:bg-[#3333FF] text-[#3333FF] hover:text-white font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-3xs"
+            className="lg:hidden px-3 py-1.5 bg-[#3333FF] hover:bg-[#1A1AFF] text-[#E4F0E7] font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-3xs"
           >
             <Sparkles className="w-3.5 h-3.5 animate-pulse" />
             Ask Mochi
@@ -233,7 +289,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
                 setIsOpen(false);
                 handleAskMochi(e);
               }}
-              className="mt-2 w-full py-2 bg-[#3333FF] hover:bg-[#1919FF] text-white font-sans text-sm font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              className="mt-2 w-full py-2 bg-[#3333FF] hover:bg-[#1A1AFF] text-[#E4F0E7] font-sans text-sm font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
             >
               <Sparkles className="w-4 h-4" />
               Ask Mochi AI

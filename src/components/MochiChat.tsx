@@ -455,7 +455,7 @@ export default function MochiChat() {
             exit={{ scale: 0, opacity: 0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-lg z-40 bg-[#3333FF] text-white transition-colors duration-300 animate-fade-in"
+            className="fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-lg z-40 bg-[#3333FF] text-[#E4F0E7] transition-colors duration-300 animate-fade-in"
             aria-label="Toggle chat companion"
           >
             <div id="mochi-avatar-container" className="relative w-full h-full flex items-center justify-center">
@@ -672,7 +672,7 @@ export default function MochiChat() {
                 id="mochi-chat-send-btn"
                 type="submit"
                 disabled={!inputValue.trim() || isLoading}
-                className="p-2 bg-[#3333FF] hover:bg-[#1A1AFF] text-white rounded-xl disabled:opacity-40 disabled:hover:bg-[#3333FF] transition-all cursor-pointer shrink-0"
+                className="p-2 bg-[#3333FF] hover:bg-[#1A1AFF] text-[#E4F0E7] rounded-xl disabled:opacity-40 disabled:hover:bg-[#3333FF] transition-all cursor-pointer shrink-0"
               >
                 <Send className="w-4 h-4" />
               </button>

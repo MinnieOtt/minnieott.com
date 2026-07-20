@@ -42,6 +42,7 @@ export default function App() {
 
   const isBlog = currentPath === '/' || currentPath.startsWith('/blog');
   const blogSlug = currentPath.match(/^\/blog\/([^/]+)/)?.[1] || null;
+  const isWork = currentPath.startsWith('/work');
 
   return (
     <div id="personal-website-root" className="min-h-screen bg-neutral-bg selection:bg-accent selection:text-white flex flex-col justify-between">
@@ -52,11 +53,8 @@ export default function App() {
       <main id="main-content-regions">
         {isBlog ? (
           <Blog currentSlug={blogSlug} onNavigate={navigate} />
-        ) : (
+        ) : isWork ? (
           <>
-            {/* Hero Segment */}
-            <Hero />
-
             {/* Apps Portfolio Bento Segment */}
             <Portfolio />
 
@@ -74,6 +72,11 @@ export default function App() {
 
             {/* Contact form & direct information channels */}
             <Contact />
+          </>
+        ) : (
+          <>
+            {/* Hero Segment */}
+            <Hero onNavigate={navigate} />
           </>
         )}
       </main>

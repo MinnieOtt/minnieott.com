@@ -3,7 +3,11 @@ import { motion } from 'motion/react';
 import { ArrowDown, Mail, Briefcase, Award, CheckCircle } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
 
-export default function Hero() {
+interface HeroProps {
+  onNavigate?: (path: string) => void;
+}
+
+export default function Hero({ onNavigate }: HeroProps) {
   const [imageError, setImageError] = useState(false);
 
   const containerVariants = {
@@ -115,7 +119,7 @@ export default function Hero() {
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
         >
           {/* Text/Intro Column */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          <div className="lg:col-span-9 flex flex-col items-start text-left">
             {/* Profile Picture */}
             <motion.div
               id="hero-profile-container"
@@ -245,96 +249,38 @@ export default function Hero() {
             >
               <a
                 id="cta-portfolio-btn"
-                href="#portfolio"
-                className="px-6 py-3 bg-[#3333FF] hover:bg-[#2222DD] text-white font-sans font-medium text-sm rounded-lg shadow-sm border border-[#3333FF] transition-all duration-200 accent-glow hover:accent-glow-strong hover:scale-[1.01]"
+                href="/work"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) {
+                    onNavigate('/work');
+                  } else {
+                    window.location.href = '/work';
+                  }
+                }}
+                className="px-6 py-3 bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] font-sans font-medium text-sm rounded-lg shadow-sm border border-[#3333FF] transition-all duration-200 accent-glow hover:accent-glow-strong hover:scale-[1.01]"
               >
                 Explore App Portfolio
               </a>
               <a
                 id="cta-contact-btn"
-                href="#contact"
+                href="/work#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onNavigate) {
+                    onNavigate('/work');
+                    setTimeout(() => {
+                      const el = document.getElementById('contact');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }, 150);
+                  } else {
+                    window.location.href = '/work#contact';
+                  }
+                }}
                 className="px-6 py-3 bg-white hover:bg-gray-50 text-gray-700 font-sans font-medium text-sm rounded-lg border border-gray-200 shadow-2xs transition-all duration-200 hover:scale-[1.01]"
               >
                 Get in Touch
               </a>
-            </motion.div>
-          </div>
-
-          {/* Core Highlights Column (Bento Card Layout) */}
-          <div className="lg:col-span-5 relative">
-            <motion.div
-              id="hero-highlights-card"
-              variants={itemVariants}
-              className="p-8 bg-white/75 backdrop-blur-md rounded-2xl border border-gray-100 shadow-md relative overflow-hidden"
-            >
-              {/* Top Accent Strip */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-accent" />
-
-              <h3 className="font-display font-bold text-gray-900 text-lg mb-6 flex items-center gap-2">
-                <Award className="w-5 h-5 text-gray-700" /> Key Impact Summary
-              </h3>
-
-              <div className="flex flex-col gap-5">
-                {/* Highlight 1 */}
-                <div id="highlight-item-1" className="flex gap-4">
-                  <div className="w-10 h-10 shrink-0 rounded-lg bg-accent-light flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-gray-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
-                      50+ Google Maps Features
-                    </h4>
-                    <p className="font-sans text-xs text-gray-500 mt-1">
-                      Led end-to-end SDLC from requirements to global production with Gemini Voice Navigation.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Highlight 2 */}
-                <div id="highlight-item-2" className="flex gap-4">
-                  <div className="w-10 h-10 shrink-0 rounded-lg bg-accent-light flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-gray-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
-                      $150M Operational Efficiencies
-                    </h4>
-                    <p className="font-sans text-xs text-gray-500 mt-1">
-                      Drove AI Service Desk transformation, optimizing tickets with intelligent automated routing.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Highlight 3 */}
-                <div id="highlight-item-3" className="flex gap-4">
-                  <div className="w-10 h-10 shrink-0 rounded-lg bg-accent-light flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-gray-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
-                      Agentic Workflows Specialist
-                    </h4>
-                    <p className="font-sans text-xs text-gray-500 mt-1">
-                      Pioneered GrowthOS, Lead Generator, and Brand Booster platforms using advanced LLM pipelines.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Highlight 4 */}
-                <div id="highlight-item-4" className="flex gap-4">
-                  <div className="w-10 h-10 shrink-0 rounded-lg bg-accent-light flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-gray-700" />
-                  </div>
-                  <div>
-                    <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
-                      Stanford LEAD Scholar
-                    </h4>
-                    <p className="font-sans text-xs text-gray-500 mt-1">
-                      Distinguished GSB Scholar, serving on the Community Advisory Board.
-                    </p>
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </div>
         </motion.div>
@@ -342,7 +288,15 @@ export default function Hero() {
         {/* Scroll Indicator */}
         <div id="scroll-down-indicator" className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:block">
           <a
-            href="#portfolio"
+            href="/work"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigate) {
+                onNavigate('/work');
+              } else {
+                window.location.href = '/work';
+              }
+            }}
             aria-label="Scroll down"
             className="flex flex-col items-center gap-2 text-xs text-gray-400 font-mono tracking-widest hover:text-gray-600 transition-colors"
           >

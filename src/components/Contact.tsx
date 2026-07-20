@@ -132,7 +132,7 @@ export default function Contact() {
         
         {/* Section Header */}
         <div id="contact-section-header" className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#F0F0FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Inquiries & Collaborations
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
@@ -199,7 +199,7 @@ export default function Contact() {
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#3333FF]" />
               
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#F0F0FF] border border-[#3333FF]/10 flex items-center justify-center text-[#3333FF] shrink-0 shadow-3xs">
+                <div className="w-10 h-10 rounded-xl bg-[#E4F0E7] border border-[#3333FF]/10 flex items-center justify-center text-[#3333FF] shrink-0 shadow-3xs">
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
@@ -221,7 +221,7 @@ export default function Contact() {
                 href="https://calendar.app.google/MCnhZcK56rLJ7fnk8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-[#F0F0FF] text-[#3333FF] font-sans font-semibold text-sm rounded-lg border border-[#3333FF]/30 hover:border-[#3333FF] shadow-3xs transition-all duration-200 hover:scale-[1.01]"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-white hover:bg-[#E4F0E7] text-[#3333FF] font-sans font-semibold text-sm rounded-lg border border-[#3333FF]/30 hover:border-[#3333FF] shadow-3xs transition-all duration-200 hover:scale-[1.01]"
               >
                 <span>Schedule a Session</span>
                 <ExternalLink className="w-4 h-4" />
@@ -353,7 +353,7 @@ export default function Contact() {
                   type="submit"
                   id="form-submit-btn"
                   disabled={isSubmitting}
-                  className="mt-2 w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-[#3333FF] hover:bg-[#2222DD] text-white font-sans font-semibold text-sm rounded-lg border border-[#3333FF] shadow-xs cursor-pointer select-none transition-all duration-200 disabled:opacity-50 accent-glow hover:accent-glow-strong"
+                  className="mt-2 w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-[#3333FF] hover:bg-[#2222DD] text-[#E4F0E7] font-sans font-semibold text-sm rounded-lg border border-[#3333FF] shadow-xs cursor-pointer select-none transition-all duration-200 disabled:opacity-50 accent-glow hover:accent-glow-strong"
                 >
                   {isSubmitting ? (
                     'Sending...'

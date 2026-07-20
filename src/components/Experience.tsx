@@ -87,13 +87,60 @@ export default function Experience() {
     return <span>{companyName}</span>;
   };
 
+  const renderTextWithLinks = (text: string) => {
+    if (!text) return '';
+    const parts = text.split(/(GrowthOS|Lead Generator|Brand Booster)/g);
+    return (
+      <>
+        {parts.map((part, index) => {
+          if (part === 'GrowthOS') {
+            return (
+              <a
+                key={index}
+                href="#portfolio-creative-blue-growthos"
+                className="text-[#3333FF] hover:underline font-semibold"
+              >
+                GrowthOS
+              </a>
+            );
+          }
+          if (part === 'Lead Generator') {
+            return (
+              <a
+                key={index}
+                href="#portfolio-lead-generator"
+                className="text-[#3333FF] hover:underline font-semibold"
+              >
+                Lead Generator
+              </a>
+            );
+          }
+          if (part === 'Brand Booster') {
+            return (
+              <a
+                key={index}
+                href="https://creative-blue-brand-assessment-553545205591.us-west1.run.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#3333FF] hover:underline font-semibold"
+              >
+                Brand Booster
+              </a>
+            );
+          }
+          return part;
+        })}
+      </>
+    );
+  };
+
   return (
     <section id="experience" className="py-24 bg-neutral-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
         <div id="experience-section-header" className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#F0F0FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             15+ Year Career Path
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
@@ -199,8 +246,8 @@ export default function Experience() {
 
             {/* Experience Paragraph */}
             <div className="mt-6">
-              <p className="font-sans text-sm text-gray-700 leading-relaxed italic bg-[#F0F0FF]/30 p-4 rounded-lg border-l-4 border-[#3333FF]">
-                {experiences[activeTab].description}
+              <p className="font-sans text-sm text-gray-700 leading-relaxed italic bg-[#E4F0E7]/30 p-4 rounded-lg border-l-4 border-[#3333FF]">
+                {renderTextWithLinks(experiences[activeTab].description)}
               </p>
             </div>
 
@@ -215,7 +262,7 @@ export default function Experience() {
                   <li key={bIdx} className="flex gap-3 items-start">
                     <ChevronRight className="w-4.5 h-4.5 text-[#3333FF] shrink-0 mt-0.5" />
                     <span className="font-sans text-sm text-gray-600 leading-relaxed">
-                      {bullet}
+                      {renderTextWithLinks(bullet)}
                     </span>
                   </li>
                 ))}
@@ -231,7 +278,7 @@ export default function Experience() {
                 {experiences[activeTab].skillsUsed.map((skill) => (
                   <span
                     key={skill}
-                    className="px-2.5 py-1 bg-[#F0F0FF] hover:bg-[#E6E6FF] text-[#3333FF] border border-[#3333FF] rounded-lg text-xs font-medium transition-colors"
+                    className="px-2.5 py-1 bg-[#E4F0E7] hover:bg-[#D4E6D9] text-[#3333FF] border border-[#3333FF] rounded-lg text-xs font-medium transition-colors"
                   >
                     {skill}
                   </span>

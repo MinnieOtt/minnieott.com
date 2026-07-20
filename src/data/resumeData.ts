@@ -46,7 +46,7 @@ export const portfolioApps: AppPortfolioItem[] = [
   },
   {
     name: 'Brand Assessment',
-    url: 'https://creative-blue-brand-assessment-553545205591.us-west1.run.app',
+    url: 'https://creative-blue-brand-assessment-553545205591.us-west1.run.app/',
     description: 'An analytical agentic engine (also referred to as Brand Booster) that measures a brand\'s market share, sentiment score, and cross-channel visibility, providing direct recommendations for optimization.',
     role: 'Head of Technology / System Designer',
     bulletPoints: [

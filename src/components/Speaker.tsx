@@ -9,7 +9,7 @@ export default function Speaker() {
         
         {/* Section Header */}
         <div id="speaker-section-header" className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#F0F0FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Keynotes & Mentorship
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
@@ -34,7 +34,7 @@ export default function Speaker() {
               <div>
                 {/* Icon and Title */}
                 <div className="flex items-start gap-4 mb-5">
-                  <div className="w-10 h-10 rounded-xl bg-[#F0F0FF] border border-[#3333FF]/10 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#E4F0E7] border border-[#3333FF]/10 flex items-center justify-center shrink-0">
                     {idx === 0 ? (
                       <Presentation className="w-5 h-5 text-[#3333FF]" />
                     ) : (

@@ -15,7 +15,7 @@ export default function Skills() {
         
         {/* Section Header */}
         <div id="skills-section-header" className="max-w-3xl mb-16">
-          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#F0F0FF] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Technical Stack & Core Focus
           </span>
           <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
@@ -71,7 +71,7 @@ export default function Skills() {
         </div>
 
         {/* Methodology Footer Quote */}
-        <div id="skills-methodology-quote" className="mt-12 bg-[#F0F0FF]/30 border border-[#3333FF]/40 rounded-xl p-6 flex flex-col md:flex-row items-center gap-5 max-w-4xl mx-auto">
+        <div id="skills-methodology-quote" className="mt-12 bg-[#E4F0E7]/30 border border-[#3333FF]/40 rounded-xl p-6 flex flex-col md:flex-row items-center gap-5 max-w-4xl mx-auto">
           <div className="w-12 h-12 shrink-0 rounded-full bg-white border border-[#3333FF] flex items-center justify-center shadow-3xs">
             <BookOpen className="w-6 h-6 text-[#3333FF]" />
           </div>

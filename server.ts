@@ -194,7 +194,7 @@ async function startServer() {
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Subject:</strong> ${subject}</p>
                 <p><strong>Message:</strong></p>
-                <div style="white-space: pre-wrap; font-family: sans-serif; background: #f9f9f9; padding: 12px; border-left: 4px solid #CCCCFF;">${message}</div>
+                <div style="white-space: pre-wrap; font-family: sans-serif; background: #f9f9f9; padding: 12px; border-left: 4px solid #E4F0E7;">${message}</div>
               `
             })
           });
@@ -259,7 +259,7 @@ async function startServer() {
             <p><strong>Email:</strong> ${email}</p>
             <p><strong>Subject:</strong> ${subject || 'No Subject'}</p>
             <p><strong>Message:</strong></p>
-            <div style="white-space: pre-wrap; font-family: sans-serif; background: #f9f9f9; padding: 12px; border-left: 4px solid #CCCCFF;">${message}</div>
+            <div style="white-space: pre-wrap; font-family: sans-serif; background: #f9f9f9; padding: 12px; border-left: 4px solid #E4F0E7;">${message}</div>
           `
         })
       });
