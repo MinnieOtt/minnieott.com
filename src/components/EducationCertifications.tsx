@@ -108,7 +108,27 @@ export default function EducationCertifications() {
                   <div key={edu.school} id={`edu-item-${idx}`} className="flex flex-col gap-1 pb-6 last:pb-0 last:border-b-0 border-b border-gray-100/60">
                     <div className="flex justify-between items-start flex-wrap gap-2">
                       <h4 className="font-display font-bold text-sm text-gray-900">
-                        {edu.school}
+                        {edu.school === 'Stanford Graduate School of Business' ? (
+                          <a 
+                            href="https://grow.stanford.edu/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="hover:text-[#3333FF] hover:underline transition-colors"
+                          >
+                            {edu.school}
+                          </a>
+                        ) : edu.school === 'Ateneo de Manila University' ? (
+                          <a 
+                            href="https://www.ateneo.edu/" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="hover:text-[#3333FF] hover:underline transition-colors"
+                          >
+                            {edu.school}
+                          </a>
+                        ) : (
+                          edu.school
+                        )}
                       </h4>
                       {edu.period && (
                         <span className="font-mono text-[10px] text-gray-400">
@@ -117,17 +137,57 @@ export default function EducationCertifications() {
                       )}
                     </div>
                     <p className="font-sans text-xs font-semibold text-[#3333FF] mt-0.5">
-                      {edu.degree}
+                      {edu.degree === 'Stanford LEAD' ? (
+                        <a 
+                          href="https://grow.stanford.edu/browse/stanford-lead-online-business-program" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="hover:text-[#3333FF] hover:underline transition-colors"
+                        >
+                          {edu.degree}
+                        </a>
+                      ) : (
+                        edu.degree
+                      )}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-2">
-                      {edu.honors?.map((honor) => (
-                        <span
-                          key={honor}
-                          className="px-2 py-0.5 bg-[#E4F0E7] border border-[#3333FF] rounded-md text-[10px] font-mono text-gray-600"
-                        >
-                          {honor}
-                        </span>
-                      ))}
+                      {edu.honors?.map((honor) => {
+                        const getHonorContent = () => {
+                          if (honor === 'Distinguished Scholar') {
+                            return (
+                              <a 
+                                href="https://drive.google.com/file/d/1c7rR9-_DKWr6xtb830n2grkC4RVNF1LE/view" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:underline text-indigo-600 font-medium"
+                              >
+                                {honor}
+                              </a>
+                            );
+                          }
+                          if (honor === 'Community Advisory Board Member') {
+                            return (
+                              <a 
+                                href="https://drive.google.com/file/d/1gVjsnaXSuVHlDPTtdT2gzDKJiPtSEikt/view?usp=sharing" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:underline text-indigo-600 font-medium"
+                              >
+                                {honor}
+                              </a>
+                            );
+                          }
+                          return honor;
+                        };
+                        return (
+                          <span
+                            key={honor}
+                            className="px-2 py-0.5 bg-[#E4F0E7] border border-[#3333FF] rounded-md text-[10px] font-mono text-gray-600"
+                          >
+                            {getHonorContent()}
+                          </span>
+                        );
+                      })}
                     </div>
                     <p className="font-sans text-xs text-gray-500 mt-3 leading-relaxed">
                       {edu.details}

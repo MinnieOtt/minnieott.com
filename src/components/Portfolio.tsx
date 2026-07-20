@@ -490,7 +490,24 @@ export default function Portfolio() {
                     </div>
                     <span className="font-bold text-xs font-mono">{grexMatch.bounty.split(' ')[0]}</span>
                   </div>
-                  <p className="text-[10px] text-gray-500 leading-normal font-sans">{grexMatch.desc}</p>
+                  <p className="text-[10px] text-gray-500 leading-normal font-sans">
+                    {grexMatch.desc.includes("Stanford LEAD") ? (
+                      <>
+                        {grexMatch.desc.split("Stanford LEAD")[0]}
+                        <a 
+                          href="https://grow.stanford.edu/browse/stanford-lead-online-business-program" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-[#3333FF] hover:underline font-medium"
+                        >
+                          Stanford LEAD
+                        </a>
+                        {grexMatch.desc.split("Stanford LEAD")[1]}
+                      </>
+                    ) : (
+                      grexMatch.desc
+                    )}
+                  </p>
                 </div>
               )}
             </div>
@@ -723,10 +740,31 @@ export default function Portfolio() {
               </div>
               <div>
                 <h4 className="font-sans font-bold text-sm text-gray-900 leading-tight">
-                  Stanford LEAD Scholar
+                  <a 
+                    href="https://grow.stanford.edu/browse/stanford-lead-online-business-program" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-[#3333FF] hover:underline transition-colors"
+                  >
+                    Stanford LEAD
+                  </a> Scholar
                 </h4>
                 <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
-                  Distinguished GSB Scholar, serving on the Community Advisory Board.
+                  <a 
+                    href="https://drive.google.com/file/d/1c7rR9-_DKWr6xtb830n2grkC4RVNF1LE/view" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-[#3333FF] hover:underline transition-colors"
+                  >
+                    Distinguished GSB Scholar
+                  </a>, serving on the <a 
+                    href="https://drive.google.com/file/d/1gVjsnaXSuVHlDPTtdT2gzDKJiPtSEikt/view?usp=sharing" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-[#3333FF] hover:underline transition-colors"
+                  >
+                    Community Advisory Board
+                  </a>.
                 </p>
               </div>
             </div>
