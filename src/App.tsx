@@ -40,7 +40,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const isBlog = currentPath === '/' || currentPath.startsWith('/blog');
+  const isBlog = currentPath.startsWith('/blog');
   const blogSlug = currentPath.match(/^\/blog\/([^/]+)/)?.[1] || null;
   const isWork = currentPath.startsWith('/work');
 

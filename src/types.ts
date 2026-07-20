@@ -53,3 +53,13 @@ export interface SpeakerEvent {
   description: string;
   date?: string;
 }
+
+export interface EndorsementItem {
+  id: string;
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+  relation?: string;
+}
+

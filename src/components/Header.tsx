@@ -38,8 +38,8 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const isHomeBlog = !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
-      if (isHomeBlog) {
+      const isBlogPage = currentPath && currentPath.startsWith('/blog');
+      if (isBlogPage) {
         setActiveSection('blog');
         return;
       }
@@ -67,15 +67,15 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   }, [currentPath]);
 
   useEffect(() => {
-    const isHomeBlog = !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
-    if (isHomeBlog) {
+    const isBlogPage = currentPath && currentPath.startsWith('/blog');
+    if (isBlogPage) {
       setActiveSection('blog');
     }
   }, [currentPath]);
 
   const isNavActive = (itemId: string) => {
     if (itemId === 'blog') {
-      return !currentPath || currentPath === '/' || currentPath.startsWith('/blog');
+      return currentPath && currentPath.startsWith('/blog');
     }
     if (itemId === 'portfolio') {
       return currentPath && currentPath.startsWith('/work') && (activeSection === 'portfolio' || !['experience', 'skills', 'credentials', 'contact'].includes(activeSection));
@@ -84,7 +84,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
       return currentPath && currentPath.startsWith('/work') && ['experience', 'skills', 'credentials'].includes(activeSection);
     }
     if (itemId === 'home') {
-      return currentPath && currentPath.startsWith('/about');
+      return currentPath && (currentPath === '/' || currentPath.startsWith('/about'));
     }
     if (itemId === 'contact') {
       return activeSection === 'contact';
@@ -93,10 +93,9 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   };
 
   const navItems = [
-    { label: 'Blog', href: '/', id: 'blog' },
+    { label: 'Blog', href: '/blog', id: 'blog' },
     { label: 'Work', href: '/work', id: 'portfolio' },
     { label: 'Resume', href: '/work#experience', id: 'experience' },
-    { label: 'About', href: '/about', id: 'home' },
     { label: 'Contact', href: '/work#contact', id: 'contact' },
   ];
 
@@ -106,7 +105,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     
     if (item.id === 'blog') {
       if (onNavigate) {
-        onNavigate('/');
+        onNavigate('/blog');
       }
     } else {
       const targetPath = item.href.split('#')[0]; // '/work' or '/about'
