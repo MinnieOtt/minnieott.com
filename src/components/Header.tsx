@@ -72,7 +72,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
       return currentPath && (currentPath === '/' || currentPath.startsWith('/about'));
     }
     if (itemId === 'contact') {
-      return activeSection === 'contact';
+      return (currentPath && currentPath.startsWith('/contact')) || activeSection === 'contact';
     }
     return false;
   };
@@ -81,7 +81,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     { label: 'Blog', href: '/blog', id: 'blog' },
     { label: 'Work', href: '/work', id: 'portfolio' },
     { label: 'Resume', href: '/work#experience', id: 'experience' },
-    { label: 'Contact', href: '/work#contact', id: 'contact' },
+    { label: 'Contact', href: '/contact', id: 'contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: { label: string; href: string; id: string }) => {
@@ -91,6 +91,10 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     if (item.id === 'blog') {
       if (onNavigate) {
         onNavigate('/blog');
+      }
+    } else if (item.id === 'contact') {
+      if (onNavigate) {
+        onNavigate('/contact');
       }
     } else {
       const targetPath = item.href.split('#')[0]; // '/work' or '/about'

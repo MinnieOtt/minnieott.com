@@ -669,9 +669,9 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                   setMessages((prev) => [...prev, userMsg, modelMsg]);
                   
                   if (onNavigate) {
-                    onNavigate('/work');
+                    onNavigate('/contact');
                   } else {
-                    window.history.pushState({}, '', '/work');
+                    window.history.pushState({}, '', '/contact');
                     window.dispatchEvent(new Event('popstate'));
                   }
                   

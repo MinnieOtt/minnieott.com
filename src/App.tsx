@@ -34,15 +34,29 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  useEffect(() => {
+    if (currentPath.startsWith('/contact')) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById('contact');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [currentPath]);
+
   const navigate = (path: string) => {
     window.history.pushState({}, '', path);
     setCurrentPath(path);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (!path.startsWith('/contact')) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const isBlog = currentPath.startsWith('/blog');
   const blogSlug = currentPath.match(/^\/blog\/([^/]+)/)?.[1] || null;
-  const isWork = currentPath.startsWith('/work');
+  const isWork = currentPath.startsWith('/work') || currentPath.startsWith('/contact');
 
   return (
     <div id="personal-website-root" className="min-h-screen bg-neutral-bg selection:bg-accent selection:text-white flex flex-col justify-between">

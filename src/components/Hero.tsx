@@ -313,17 +313,13 @@ export default function Hero({ onNavigate }: HeroProps) {
               </a>
               <a
                 id="cta-contact-btn"
-                href="/work#contact"
+                href="/contact"
                 onClick={(e) => {
                   e.preventDefault();
                   if (onNavigate) {
-                    onNavigate('/work');
-                    setTimeout(() => {
-                      const el = document.getElementById('contact');
-                      if (el) el.scrollIntoView({ behavior: 'smooth' });
-                    }, 150);
+                    onNavigate('/contact');
                   } else {
-                    window.location.href = '/work#contact';
+                    window.location.href = '/contact';
                   }
                 }}
                 className="px-6 py-3 bg-white hover:bg-gray-50 text-gray-700 font-sans font-medium text-sm rounded-lg border border-gray-200 shadow-2xs transition-all duration-200 hover:scale-[1.01]"

@@ -3,15 +3,8 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
-import { initializeApp } from "firebase/app";
-import { 
-  getFirestore, 
-  collection, 
-  getDocs, 
-  doc, 
-  setDoc, 
-  deleteDoc 
-} from "firebase/firestore";
+import { initializeApp, getApps } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
 interface BlogPost {
   id: string;
@@ -36,15 +29,17 @@ try {
   console.error("Error reading firebase-applet-config.json:", err);
 }
 
-// Initialize Firestore
+// Initialize Firestore with Admin SDK
 let db: any = null;
-if (firebaseConfig) {
+if (firebaseConfig && firebaseConfig.projectId) {
   try {
-    const firebaseApp = initializeApp(firebaseConfig);
-    db = getFirestore(firebaseApp, firebaseConfig.firestoreDatabaseId);
-    console.log("Firebase Firestore initialized successfully on backend.");
+    const adminApp = getApps().length === 0
+      ? initializeApp({ projectId: firebaseConfig.projectId })
+      : getApps()[0];
+    db = getFirestore(adminApp, firebaseConfig.firestoreDatabaseId || "(default)");
+    console.log("Firebase Firestore (Admin SDK) initialized successfully on backend.");
   } catch (err) {
-    console.error("Failed to initialize Firestore on backend:", err);
+    console.error("Failed to initialize Firebase Admin on backend:", err);
   }
 }
 
@@ -143,20 +138,20 @@ async function getPostsFromFirestore(): Promise<BlogPost[]> {
   }
 
   try {
-    const postsCol = collection(db, "posts");
-    const snapshot = await getDocs(postsCol);
+    const postsCol = db.collection("posts");
+    const snapshot = await postsCol.get();
     
     if (snapshot.empty) {
       console.log("Firestore posts collection is empty. Seeding default posts from posts.json...");
       const defaultPosts = readPostsFromFile();
       for (const post of defaultPosts) {
-        await setDoc(doc(db, "posts", post.id), post);
+        await db.collection("posts").doc(post.id).set(post);
       }
       return defaultPosts;
     }
 
     const posts: BlogPost[] = [];
-    snapshot.forEach((doc) => {
+    snapshot.forEach((doc: any) => {
       posts.push(doc.data() as BlogPost);
     });
 
@@ -555,7 +550,7 @@ Formatting:
 
     if (db) {
       try {
-        await setDoc(doc(db, "posts", newPost.id), newPost);
+        await db.collection("posts").doc(newPost.id).set(newPost);
         const updatedPosts = await getPostsFromFirestore();
         return res.json({ success: true, post: newPost, posts: updatedPosts });
       } catch (error) {
@@ -618,7 +613,7 @@ Formatting:
 
     if (db) {
       try {
-        await setDoc(doc(db, "posts", id), updatedPost);
+        await db.collection("posts").doc(id).set(updatedPost);
         const updatedPosts = await getPostsFromFirestore();
         return res.json({ success: true, post: updatedPost, posts: updatedPosts });
       } catch (error) {
@@ -645,7 +640,7 @@ Formatting:
 
     if (db) {
       try {
-        await deleteDoc(doc(db, "posts", id));
+        await db.collection("posts").doc(id).delete();
         const updatedPosts = await getPostsFromFirestore();
         return res.json({ success: true, posts: updatedPosts });
       } catch (error) {
