@@ -24,6 +24,8 @@ try {
   const configPath = path.join(process.cwd(), "firebase-applet-config.json");
   if (fs.existsSync(configPath)) {
     firebaseConfig = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+  } else if (process.env.FIREBASE_CONFIG) {
+    firebaseConfig = JSON.parse(process.env.FIREBASE_CONFIG);
   }
 } catch (err) {
   console.error("Error reading firebase-applet-config.json:", err);
@@ -31,15 +33,27 @@ try {
 
 // Initialize Firestore with Admin SDK
 let db: any = null;
-if (firebaseConfig && firebaseConfig.projectId) {
+const projectId = firebaseConfig?.projectId || process.env.FIREBASE_PROJECT_ID || process.env.GOOGLE_CLOUD_PROJECT || process.env.GCP_PROJECT;
+const databaseId = firebaseConfig?.firestoreDatabaseId || process.env.FIREBASE_DATABASE_ID || process.env.FIRESTORE_DATABASE_ID || "(default)";
+
+if (projectId) {
   try {
     const adminApp = getApps().length === 0
-      ? initializeApp({ projectId: firebaseConfig.projectId })
+      ? initializeApp({ projectId })
       : getApps()[0];
-    db = getFirestore(adminApp, firebaseConfig.firestoreDatabaseId || "(default)");
-    console.log("Firebase Firestore (Admin SDK) initialized successfully on backend.");
+    db = getFirestore(adminApp, databaseId);
+    console.log(`Firebase Firestore (Admin SDK) initialized successfully on backend. Project: ${projectId}, Database: ${databaseId}`);
   } catch (err) {
     console.error("Failed to initialize Firebase Admin on backend:", err);
+  }
+} else {
+  // Try default initialization (works perfectly on Google Cloud Run with Application Default Credentials)
+  try {
+    const adminApp = getApps().length === 0 ? initializeApp() : getApps()[0];
+    db = getFirestore(adminApp, databaseId);
+    console.log(`Firebase Firestore initialized using Application Default Credentials on GCP. Database: ${databaseId}`);
+  } catch (err) {
+    console.warn("No Firebase config detected and ADC initialization was not possible. Falling back to local posts.json.", err);
   }
 }
 
@@ -465,6 +479,59 @@ Formatting:
       console.error("Error in /api/mochi chatbot route:", error);
       return res.status(500).json({ error: "Internal server error", details: error.message });
     }
+  });
+
+  // Serving llms.txt dynamically to include latest blog posts for AI search engines
+  app.get("/llms.txt", async (req, res) => {
+    try {
+      const publicPath = path.join(process.cwd(), "public", "llms.txt");
+      let content = "";
+      if (fs.existsSync(publicPath)) {
+        content = fs.readFileSync(publicPath, "utf-8");
+      } else {
+        content = "# Minerva Tanglao Ott (Minnie) - Portfolio & LLM Map\n\n";
+      }
+
+      // Append dynamic blog posts for AI search engines!
+      try {
+        const posts = await getPostsFromFirestore();
+        if (posts && posts.length > 0) {
+          content += "\n## Latest Publications & Blog Posts\n";
+          posts.forEach((post) => {
+            const postUrl = `https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/${post.slug || post.id}`;
+            content += `- [${post.title}](${postUrl}): ${post.excerpt || 'Insightful publication on enterprise AI and leadership.'} (${new Date(post.date).toLocaleDateString()})\n`;
+          });
+        }
+      } catch (err) {
+        console.error("Failed to append dynamic blog posts to llms.txt:", err);
+      }
+
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      return res.send(content);
+    } catch (error) {
+      console.error("Error serving llms.txt:", error);
+      return res.status(500).send("Internal server error");
+    }
+  });
+
+  // Serving robots.txt
+  app.get("/robots.txt", (req, res) => {
+    const robotsPath = path.join(process.cwd(), "public", "robots.txt");
+    if (fs.existsSync(robotsPath)) {
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      return res.sendFile(robotsPath);
+    }
+    return res.status(404).send("Not found");
+  });
+
+  // Serving sitemap.xml
+  app.get("/sitemap.xml", (req, res) => {
+    const sitemapPath = path.join(process.cwd(), "public", "sitemap.xml");
+    if (fs.existsSync(sitemapPath)) {
+      res.setHeader("Content-Type", "application/xml; charset=utf-8");
+      return res.sendFile(sitemapPath);
+    }
+    return res.status(404).send("Not found");
   });
 
   // GET: Fetch all blog posts

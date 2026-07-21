@@ -1,0 +1,68 @@
+# Minerva Tanglao Ott (Minnie) - Portfolio & LLM Map
+
+> Minerva Tanglao Ott is a Silicon Valley engineering leader, Head of Technology, and Technical Program Management (TPM) Specialist. She specializes in bridging engineering operations and Agentic AI transformations.
+
+## Core Background & Lineage
+- **Stanford LEAD** Executive Education Program Graduate (Stanford Graduate School of Business).
+- **BS Computer Science** from Ateneo de Manila University.
+- **Google**: Spearheaded Maps voice navigation features integrated with Gemini AI.
+- **Apple**: Managed global IS&T corporate and HR portal software deployments.
+- **Sun Microsystems / Oracle**: Directed Java Management Extensions (JMX) program architectures and was the Technical Editor of the book *JMX Programming*.
+
+---
+
+## Navigation & Dynamic Routes
+- [/](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/) - Personal profile page with professional summary, career timeline, patents, speaking events, and recommendations.
+- [/work](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/work) - Portfolio of deployed software platforms, engineering projects, and detailed timeline of experiences at Google, Apple, and Creative Blue.
+- [/contact](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/contact) - Connection, collaboration, booking, and email intake form.
+- [/blog](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog) - Technology insights and publications authored by Minnie.
+- [/blog/author](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/author) - Author panel for managing, drafting, editing, and publishing blog articles.
+
+---
+
+## Deployed Software & AI Solutions
+
+### 1. Creative Blue GrowthOS
+- **Status**: Ready to use
+- **Type**: Flagship Platform
+- **Focus**: Strategic AI-driven operations platform for agencies.
+- **Tech Stack**: Generative AI, Agentic Workflows, React, TypeScript.
+
+### 2. Lead Generator
+- **Status**: Ready to use
+- **Focus**: AI agents and sales intelligence to streamline lead prospecting.
+- **Tech Stack**: AI Agents, Google Cloud Platform, Lead Qualification.
+
+### 3. Brand Assessment
+- **Status**: Ready to use
+- **Focus**: NLP-driven sentiment analysis dashboard for enterprise brand monitoring.
+- **Tech Stack**: NLP, Brand Intelligence, Sentiment Analysis, Executive Dashboard.
+
+### 4. Regnum Dei
+- **Status**: Ready to use
+- **Focus**: Digital platform for community building, high-fidelity design standards, and engagement.
+- **Tech Stack**: Web Design, Digital Platform, Responsive Design, CSS Grid.
+
+### 5. Grex World
+- **Status**: Work In Progress
+- **Focus**: A conceptual AI-matching and health partnership framework designed to incubate individual gig-economy contributions into investable ventures.
+- **Tech Stack**: Gig Economy, AI Market Matching, Health Partnerships, Investments.
+
+### 6. Just Ride
+- **Status**: Work In Progress
+- **Focus**: High-speed sports telemetry ingestion pipeline and race analytics platform.
+- **Tech Stack**: Sports Analytics, Telemetry Processing, Data Pipeline, Race Intelligence.
+
+---
+
+## Academic Credentials, Books & Patents
+- **US Patent 20020064766**: Method and Apparatus for Managing Enterprise Employee Training Systems (auditing and automatic provisioning of organizational learning assets).
+- **Book (Technical Editor)**: *JMX Programming* by Mike Jasnowski.
+- **Vanderbilt University Certificate**: AI Agent Development & LLM Fluency (Model Context Protocol).
+- **Google Cloud AI Certificate**: Professional & Essentials specializations.
+- **PRINCE2 Certification**: Project Management Foundation.
+
+---
+
+## AI Agent Integration (Mochi AI Chatbot)
+The website features an interactive AI chatbot companion named **Mochi Pancake**, inspired by Minnie's Samoyed dog. Mochi is fully capable of answering questions about Minnie's career, architecture, and technology insights.

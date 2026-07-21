@@ -1,0 +1,43 @@
+# Robots.txt for Minerva Tanglao Ott (Minnie) Portfolio
+# Highly optimized for standard search engines and AI Search Agents (Gemini, ChatGPT, Claude, Perplexity, Grok)
+
+# Allow all search bots
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Explicitly allow AI crawler agents to index the portfolio and blog posts
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Claude-Web
+Allow: /
+Allow: /llms.txt
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+
+User-agent: Omgilibot
+Allow: /
+Allow: /llms.txt
+
+User-agent: FacebookBot
+Allow: /
+
+# Sitemap & LLMs location
+Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/sitemap.xml
+Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms.txt
