@@ -44,17 +44,30 @@ export default function Hero({ onNavigate }: HeroProps) {
         elements.push(text.substring(lastIndex, index));
       }
 
-      elements.push(
-        <a
-          key={index}
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-indigo-600 hover:text-indigo-800 underline transition-colors"
-        >
-          {label}
-        </a>
-      );
+      if (url.startsWith('company:')) {
+        const companyIndex = parseInt(url.split(':')[1], 10);
+        elements.push(
+          <button
+            key={index}
+            onClick={(e) => handleCompanyClick(e, companyIndex)}
+            className="text-[#3333FF] hover:text-[#1A1AFF] hover:underline transition-colors cursor-pointer font-semibold bg-transparent border-none p-0 inline align-baseline"
+          >
+            {label}
+          </button>
+        );
+      } else {
+        elements.push(
+          <a
+            key={index}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-600 hover:text-indigo-800 underline transition-colors"
+          >
+            {label}
+          </a>
+        );
+      }
 
       lastIndex = linkRegex.lastIndex;
     }
@@ -91,8 +104,23 @@ export default function Hero({ onNavigate }: HeroProps) {
     const el = document.getElementById('experience');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
+      window.dispatchEvent(new CustomEvent('select-experience-company', { detail: { index } }));
+    } else if (onNavigate) {
+      onNavigate('/work');
+      
+      let attempts = 0;
+      const interval = setInterval(() => {
+        const newEl = document.getElementById('experience');
+        attempts++;
+        if (newEl) {
+          newEl.scrollIntoView({ behavior: 'smooth' });
+          window.dispatchEvent(new CustomEvent('select-experience-company', { detail: { index } }));
+          clearInterval(interval);
+        } else if (attempts > 20) {
+          clearInterval(interval);
+        }
+      }, 50);
     }
-    window.dispatchEvent(new CustomEvent('select-experience-company', { detail: { index } }));
   };
 
   return (
@@ -152,7 +180,13 @@ export default function Hero({ onNavigate }: HeroProps) {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
               </span>
               <span className="text-[11px] font-mono text-gray-600 font-semibold uppercase tracking-wider">
-                Now Scaling Agentic Workflows @ Creative Blue
+                Now Scaling Agentic Workflows @{' '}
+                <button
+                  onClick={(e) => handleCompanyClick(e, 0)}
+                  className="font-bold text-[#3333FF] hover:text-[#1A1AFF] hover:underline cursor-pointer inline align-baseline font-mono uppercase text-[11px]"
+                >
+                  Creative Blue
+                </button>
               </span>
             </motion.div>
 

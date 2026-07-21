@@ -9,7 +9,7 @@ export const personalInfo = {
   github: '#', // placeholder as none listed
   location: 'San Francisco Bay Area, CA',
   tagline: 'Bridging Engineering Operations & Agentic AI Transformation',
-  about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like Google who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
+  about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first [Apple](company:2) computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a daughter who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://youtu.be/NzH5PaEgjOs), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner.
 
@@ -46,8 +46,8 @@ export const portfolioApps: AppPortfolioItem[] = [
   },
   {
     name: 'Brand Assessment',
-    url: 'https://creative-blue-brand-assessment-553545205591.us-west1.run.app/',
-    description: 'An analytical agentic engine (also referred to as Brand Booster) that measures a brand\'s market share, sentiment score, and cross-channel visibility, providing direct recommendations for optimization.',
+    url: 'https://creative-blue-brand-assessment-553545205591.us-west1.run.app',
+    description: 'An analytical agentic engine (also referred to as Brand Assessment) that measures a brand\'s market share, sentiment score, and cross-channel visibility, providing direct recommendations for optimization.',
     role: 'Head of Technology / System Designer',
     bulletPoints: [
       'Designed NLP frameworks to analyze social, search, and marketing signals.',
@@ -104,7 +104,7 @@ export const experiences: ExperienceItem[] = [
     company: 'Creative Blue',
     period: 'Nov 2025 – Present',
     type: 'Contractor',
-    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms (GrowthOS, Lead Generator, Brand Booster) that automate enterprise workflows with human-in-the-loop oversight.',
+    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms (GrowthOS, Lead Generator, Brand Assessment) that automate enterprise workflows with human-in-the-loop oversight.',
     bullets: [
       'Organized unstructured workflows by building GrowthOS, integrating marketing campaigns, AI SEO, and lead generation.',
       'Improved payroll forecasting precision using multi-source cloud data dashboard integrations.',

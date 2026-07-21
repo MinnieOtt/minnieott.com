@@ -89,7 +89,7 @@ export default function Experience() {
 
   const renderTextWithLinks = (text: string) => {
     if (!text) return '';
-    const parts = text.split(/(GrowthOS|Lead Generator|Brand Booster)/g);
+    const parts = text.split(/(GrowthOS|Lead Generator|Brand Assessment)/g);
     return (
       <>
         {parts.map((part, index) => {
@@ -115,16 +115,16 @@ export default function Experience() {
               </a>
             );
           }
-          if (part === 'Brand Booster') {
+          if (part === 'Brand Assessment') {
             return (
               <a
                 key={index}
-                href="https://creative-blue-brand-assessment-553545205591.us-west1.run.app/"
+                href="https://creative-blue-brand-assessment-553545205591.us-west1.run.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#3333FF] hover:underline font-semibold"
               >
-                Brand Booster
+                Brand Assessment
               </a>
             );
           }
