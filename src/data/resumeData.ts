@@ -29,7 +29,8 @@ export const portfolioApps: AppPortfolioItem[] = [
       'Pioneered human-in-the-loop agency models ensuring guardrails, safety, and transparency.'
     ],
     tags: ['Generative AI', 'Agentic Workflows', 'Business Automation', 'React', 'TypeScript'],
-    isFlagship: true
+    isFlagship: true,
+    status: 'Ready to use'
   },
   {
     name: 'Lead Generator',
@@ -42,7 +43,8 @@ export const portfolioApps: AppPortfolioItem[] = [
       'Streamlined business development workflow, reducing manual prospecting by over 80%.'
     ],
     tags: ['AI Agents', 'Sales Intelligence', 'Lead Qualification', 'Google Cloud Platform'],
-    isFlagship: false
+    isFlagship: false,
+    status: 'Ready to use'
   },
   {
     name: 'Brand Assessment',
@@ -55,7 +57,8 @@ export const portfolioApps: AppPortfolioItem[] = [
       'Provided clear visual representation of brand metrics for marketing executives.'
     ],
     tags: ['NLP', 'Brand Intelligence', 'Sentiment Analysis', 'Executive Dashboard'],
-    isFlagship: false
+    isFlagship: false,
+    status: 'Ready to use'
   },
   {
     name: 'Grex World',
@@ -68,7 +71,8 @@ export const portfolioApps: AppPortfolioItem[] = [
       'Created a framework that nurtures individual worker contributions into seed-investable ventures.'
     ],
     tags: ['Gig Economy', 'AI Market Matching', 'Health Partnerships', 'Investments'],
-    isFlagship: false
+    isFlagship: false,
+    status: 'Work In Progress'
   },
   {
     name: 'Regnum Dei',
@@ -81,7 +85,8 @@ export const portfolioApps: AppPortfolioItem[] = [
       'Maintained extreme visual focus, alignment, and high-quality typographic standard.'
     ],
     tags: ['Web Design', 'Digital Platform', 'Community Engagement', 'Responsive Design'],
-    isFlagship: false
+    isFlagship: false,
+    status: 'Ready to use'
   },
   {
     name: 'Just Ride',
@@ -94,7 +99,8 @@ export const portfolioApps: AppPortfolioItem[] = [
       'Built data pipelines supporting race analysis, weather impacts, and team strategy simulations.'
     ],
     tags: ['Sports Analytics', 'Telemetry Processing', 'Data Pipeline', 'Race Intelligence'],
-    isFlagship: false
+    isFlagship: false,
+    status: 'Work In Progress'
   }
 ];
 

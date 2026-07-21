@@ -131,11 +131,23 @@ export default function Portfolio() {
                         </div>
                       </div>
 
-                      {isFlagship && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#E4F0E7] text-[#3333FF] border border-[#3333FF]/40 font-mono">
-                          Flagship Platform
-                        </span>
-                      )}
+                      <div className="flex flex-col sm:flex-row items-end gap-2">
+                        {app.status && (
+                          <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium font-mono border ${
+                            app.status === 'Ready to use'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200/60'
+                              : 'bg-amber-50 text-amber-700 border-amber-200/60'
+                          }`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${app.status === 'Ready to use' ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
+                            {app.status}
+                          </span>
+                        )}
+                        {isFlagship && (
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#E4F0E7] text-[#3333FF] border border-[#3333FF]/40 font-mono">
+                            Flagship Platform
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* App Description */}

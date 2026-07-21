@@ -6,6 +6,7 @@ export interface AppPortfolioItem {
   bulletPoints: string[];
   tags: string[];
   isFlagship?: boolean;
+  status?: 'Ready to use' | 'Work In Progress';
 }
 
 export interface ExperienceItem {
