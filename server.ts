@@ -3,6 +3,15 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
+import { initializeApp } from "firebase/app";
+import { 
+  getFirestore, 
+  collection, 
+  getDocs, 
+  doc, 
+  setDoc, 
+  deleteDoc 
+} from "firebase/firestore";
 
 interface BlogPost {
   id: string;
@@ -25,6 +34,18 @@ try {
   }
 } catch (err) {
   console.error("Error reading firebase-applet-config.json:", err);
+}
+
+// Initialize Firestore
+let db: any = null;
+if (firebaseConfig) {
+  try {
+    const firebaseApp = initializeApp(firebaseConfig);
+    db = getFirestore(firebaseApp, firebaseConfig.firestoreDatabaseId);
+    console.log("Firebase Firestore initialized successfully on backend.");
+  } catch (err) {
+    console.error("Failed to initialize Firestore on backend:", err);
+  }
 }
 
 async function isAdminAuthenticated(req: any): Promise<boolean> {
@@ -111,6 +132,40 @@ function writePostsToFile(posts: BlogPost[]): boolean {
   } catch (error) {
     console.error("Error writing to posts.json:", error);
     return false;
+  }
+}
+
+// Helper to get posts from Firestore with automatic seeding
+async function getPostsFromFirestore(): Promise<BlogPost[]> {
+  if (!db) {
+    console.warn("Firestore not initialized, falling back to local posts.json");
+    return readPostsFromFile();
+  }
+
+  try {
+    const postsCol = collection(db, "posts");
+    const snapshot = await getDocs(postsCol);
+    
+    if (snapshot.empty) {
+      console.log("Firestore posts collection is empty. Seeding default posts from posts.json...");
+      const defaultPosts = readPostsFromFile();
+      for (const post of defaultPosts) {
+        await setDoc(doc(db, "posts", post.id), post);
+      }
+      return defaultPosts;
+    }
+
+    const posts: BlogPost[] = [];
+    snapshot.forEach((doc) => {
+      posts.push(doc.data() as BlogPost);
+    });
+
+    // Sort posts by date descending
+    posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return posts;
+  } catch (error) {
+    console.error("Error reading posts from Firestore:", error);
+    return readPostsFromFile();
   }
 }
 
@@ -418,8 +473,8 @@ Formatting:
   });
 
   // GET: Fetch all blog posts
-  app.get("/api/posts", (req, res) => {
-    const posts = readPostsFromFile();
+  app.get("/api/posts", async (req, res) => {
+    const posts = await getPostsFromFirestore();
     return res.json({ posts });
   });
 
@@ -470,7 +525,7 @@ Formatting:
       return res.status(400).json({ error: "Title and content are required." });
     }
 
-    const posts = readPostsFromFile();
+    const posts = await getPostsFromFirestore();
     const slug = slugify(title);
 
     // Check for duplicate slugs and append a suffix if needed
@@ -498,11 +553,22 @@ Formatting:
       published: published !== false
     };
 
-    posts.unshift(newPost);
-    if (writePostsToFile(posts)) {
-      return res.json({ success: true, post: newPost, posts });
+    if (db) {
+      try {
+        await setDoc(doc(db, "posts", newPost.id), newPost);
+        const updatedPosts = await getPostsFromFirestore();
+        return res.json({ success: true, post: newPost, posts: updatedPosts });
+      } catch (error) {
+        console.error("Error writing post to Firestore:", error);
+        return res.status(500).json({ error: "Failed to write post to Firestore." });
+      }
     } else {
-      return res.status(500).json({ error: "Failed to write post to file." });
+      posts.unshift(newPost);
+      if (writePostsToFile(posts)) {
+        return res.json({ success: true, post: newPost, posts });
+      } else {
+        return res.status(500).json({ error: "Failed to write post to file." });
+      }
     }
   });
 
@@ -519,7 +585,7 @@ Formatting:
       return res.status(400).json({ error: "Title and content are required." });
     }
 
-    const posts = readPostsFromFile();
+    const posts = await getPostsFromFirestore();
     const index = posts.findIndex(p => p.id === id);
 
     if (index === -1) {
@@ -538,7 +604,7 @@ Formatting:
       }
     }
 
-    posts[index] = {
+    const updatedPost: BlogPost = {
       ...posts[index],
       title,
       slug: finalSlug,
@@ -550,10 +616,22 @@ Formatting:
       published: published !== false
     };
 
-    if (writePostsToFile(posts)) {
-      return res.json({ success: true, post: posts[index], posts });
+    if (db) {
+      try {
+        await setDoc(doc(db, "posts", id), updatedPost);
+        const updatedPosts = await getPostsFromFirestore();
+        return res.json({ success: true, post: updatedPost, posts: updatedPosts });
+      } catch (error) {
+        console.error("Error updating post in Firestore:", error);
+        return res.status(500).json({ error: "Failed to update post in Firestore." });
+      }
     } else {
-      return res.status(500).json({ error: "Failed to write update to file." });
+      posts[index] = updatedPost;
+      if (writePostsToFile(posts)) {
+        return res.json({ success: true, post: posts[index], posts });
+      } else {
+        return res.status(500).json({ error: "Failed to write update to file." });
+      }
     }
   });
 
@@ -564,18 +642,30 @@ Formatting:
     }
 
     const { id } = req.params;
-    const posts = readPostsFromFile();
-    const index = posts.findIndex(p => p.id === id);
 
-    if (index !== -1) {
-      posts.splice(index, 1);
-      if (writePostsToFile(posts)) {
-        return res.json({ success: true, posts });
-      } else {
-        return res.status(500).json({ error: "Failed to write update to file." });
+    if (db) {
+      try {
+        await deleteDoc(doc(db, "posts", id));
+        const updatedPosts = await getPostsFromFirestore();
+        return res.json({ success: true, posts: updatedPosts });
+      } catch (error) {
+        console.error("Error deleting post from Firestore:", error);
+        return res.status(500).json({ error: "Failed to delete post from Firestore." });
       }
+    } else {
+      const posts = readPostsFromFile();
+      const index = posts.findIndex(p => p.id === id);
+
+      if (index !== -1) {
+        posts.splice(index, 1);
+        if (writePostsToFile(posts)) {
+          return res.json({ success: true, posts });
+        } else {
+          return res.status(500).json({ error: "Failed to write update to file." });
+        }
+      }
+      return res.status(404).json({ error: "Blog post not found" });
     }
-    return res.status(404).json({ error: "Blog post not found" });
   });
 
   // Vite middleware for development

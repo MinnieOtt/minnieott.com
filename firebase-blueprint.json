@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "BlogPost": {
+      "title": "BlogPost",
+      "description": "A blog post entry on Minnie's professional portfolio website",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the post"
+        },
+        "title": {
+          "type": "string",
+          "description": "The heading/title of the blog post",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly URL identifier for the blog post",
+          "pattern": "^[a-z0-9_-]+$"
+        },
+        "excerpt": {
+          "type": "string",
+          "description": "A short preview/summary of the post"
+        },
+        "content": {
+          "type": "string",
+          "description": "Full body text of the blog post in markdown format"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the post (e.g., Leadership, Technology)"
+        },
+        "readTime": {
+          "type": "string",
+          "description": "Reading duration estimate (e.g., '5 min read')"
+        },
+        "date": {
+          "type": "string",
+          "description": "Published date representation"
+        },
+        "author": {
+          "type": "string",
+          "description": "The author of the post"
+        },
+        "published": {
+          "type": "boolean",
+          "description": "Whether the post is active and published"
+        }
+      },
+      "required": ["id", "title", "slug", "content"]
+    }
+  },
+  "firestore": {
+    "/posts/{postId}": {
+      "schema": "BlogPost",
+      "description": "Collection of blog posts published by the administrator"
+    }
+  }
+}

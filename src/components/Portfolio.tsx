@@ -56,9 +56,6 @@ export default function Portfolio() {
               <p className="text-sm text-gray-600 leading-relaxed">
                 As a hands-on, full-stack systems architect, I balance strategic leadership with tactical software execution. I specialize in building custom ingestion brokers, high-frequency lead routing, automated outreach pipelines, and highly optimized UI environments.
               </p>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                My architectural philosophy is centered around <strong>Zero Latency, absolute layout fidelity, and deterministic state management</strong>.
-              </p>
             </div>
             <div className="bg-white border border-gray-150 p-6 rounded-xl space-y-4 shadow-3xs">
               <h4 className="font-mono text-xs font-bold text-gray-400 uppercase tracking-widest">

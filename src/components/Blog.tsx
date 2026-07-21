@@ -357,11 +357,26 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 {children}
               </blockquote>
             ),
-            code: ({ children }) => (
-              <code className="bg-neutral-100 dark:bg-gray-800 text-[#3333FF] dark:text-[#A5B4FC] font-mono text-sm px-1.5 py-0.5 rounded font-semibold">
+            pre: ({ children }) => (
+              <pre className="bg-neutral-100 border border-gray-200 rounded-xl p-4 my-4 overflow-x-auto text-black font-mono text-sm leading-relaxed">
                 {children}
-              </code>
+              </pre>
             ),
+            code: ({ className, children }) => {
+              const isBlock = className && className.includes('language-');
+              if (isBlock) {
+                return (
+                  <code className="text-black font-mono text-sm font-medium bg-transparent border-0 p-0">
+                    {children}
+                  </code>
+                );
+              }
+              return (
+                <code className="bg-neutral-100 border border-gray-200 text-black font-mono text-xs sm:text-sm px-1.5 py-0.5 rounded font-medium">
+                  {children}
+                </code>
+              );
+            },
             a: ({ children, href }) => (
               <a
                 href={href}
@@ -750,8 +765,8 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       <label className="text-xs font-mono font-bold text-gray-600 uppercase">
                         Content (Markdown Format Supported)
                       </label>
-                      <span className="text-[10px] text-gray-400 font-sans">
-                        Use <code className="bg-neutral-100 px-1 py-0.5 rounded">### Title</code> for headings and <code className="bg-neutral-100 px-1 py-0.5 rounded">* list item</code> for bullet points.
+                      <span className="text-[10px] text-gray-500 font-sans">
+                        Use <code className="bg-neutral-100 border border-gray-200 text-black px-1.5 py-0.5 rounded font-mono text-[10px] font-medium">### Title</code> for headings and <code className="bg-neutral-100 border border-gray-200 text-black px-1.5 py-0.5 rounded font-mono text-[10px] font-medium">* list item</code> for bullet points.
                       </span>
                     </div>
                     <textarea
