@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Briefcase, MapPin, ChevronRight, Award, Quote, MessageSquare } from 'lucide-react';
-import { experiences, endorsements } from '../data/resumeData';
+import { Calendar, Briefcase, MapPin, ChevronRight, Award } from 'lucide-react';
+import { experiences } from '../data/resumeData';
 import { ExperienceItem } from '../types';
 
 export default function Experience() {
   const [activeTab, setActiveTab] = useState(0);
-  const [expandedQuotes, setExpandedQuotes] = useState<Record<string, boolean>>({});
-
-  const toggleQuote = (id: string) => {
-    setExpandedQuotes((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   useEffect(() => {
     const handleSelectCompany = (e: Event) => {
@@ -294,77 +286,6 @@ export default function Experience() {
               </div>
             </div>
 
-          </div>
-        </div>
-
-        {/* Endorsements Section */}
-        <div id="experience-endorsements-section" className="mt-24 pt-16 border-t border-gray-200">
-          <div id="endorsements-header" className="max-w-3xl mb-12">
-            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
-              What Colleagues Say
-            </span>
-            <h3 className="font-display font-bold text-2xl sm:text-3xl text-gray-900 tracking-tight mt-3 mb-3">
-              Professional Endorsements
-            </h3>
-            <p className="font-sans text-sm text-gray-600 leading-relaxed">
-              A collection of recommendations from product directors, architects, and engineering managers reflecting Minnie's impact, collaboration, and high-performance execution.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {endorsements.map((item) => {
-              const isExpanded = expandedQuotes[item.id];
-              const maxChar = 160;
-              const shouldTruncate = item.quote.length > maxChar;
-              const displayQuote = (!shouldTruncate || isExpanded) 
-                ? item.quote 
-                : `${item.quote.slice(0, maxChar)}...`;
-
-              return (
-                <div 
-                  key={item.id}
-                  id={`endorsement-card-${item.id}`}
-                  className="bg-white border border-gray-100 rounded-2xl p-6 md:p-8 shadow-3xs hover:shadow-2xs transition-all duration-300 relative flex flex-col justify-between"
-                >
-                  {/* Top Quote Icon Accent */}
-                  <div className="absolute top-6 right-6 text-[#E4F0E7]">
-                    <Quote className="w-8 h-8 opacity-70" />
-                  </div>
-
-                  <div className="flex-1">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded-md mb-4">
-                      <MessageSquare className="w-3 h-3" /> {item.relation || 'Recommendation'}
-                    </span>
-                    <p className="font-sans text-sm text-gray-700 leading-relaxed italic pr-6 transition-all duration-300">
-                      "{displayQuote}"
-                      {shouldTruncate && (
-                        <button
-                          onClick={() => toggleQuote(item.id)}
-                          className="inline-flex items-center text-xs font-bold text-[#3333FF] hover:underline ml-1 focus:outline-none focus:ring-1 focus:ring-indigo-300 rounded"
-                        >
-                          {isExpanded ? 'Show less' : 'Read more'}
-                        </button>
-                      )}
-                    </p>
-                  </div>
-
-                  {/* Author info */}
-                  <div className="mt-6 pt-4 border-t border-gray-50 flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#E4F0E7] flex items-center justify-center font-display font-bold text-xs text-[#3333FF] border border-gray-200">
-                      {item.company.charAt(0)}
-                    </div>
-                    <div>
-                      <h5 className="font-display font-bold text-xs text-gray-900">
-                        {item.author}
-                      </h5>
-                      <p className="font-mono text-[10px] text-gray-400">
-                        {item.role} at <span className="font-semibold text-gray-600">{item.company}</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
 

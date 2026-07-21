@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, FileText, Sparkles, Sun, Moon } from 'lucide-react';
+import { Menu, X, FileText, Sparkles } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
 
 interface HeaderProps {
@@ -13,26 +13,11 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   const [activeSection, setActiveSection] = useState('home');
   const [imageError, setImageError] = useState(false);
 
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark' || saved === 'light') {
-        return saved;
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light';
-  });
-
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    root.classList.remove('dark');
+    localStorage.removeItem('theme');
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -220,28 +205,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
               <Sparkles className="w-3.5 h-3.5" />
               Ask Mochi
             </button>
-
-            {/* Theme Toggle Button Desktop */}
-            <button
-              id="theme-toggle-btn-desktop"
-              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-              className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-[#3333FF] dark:hover:text-[#E4F0E7] transition-all cursor-pointer flex items-center justify-center border border-transparent dark:border-gray-800"
-              aria-label="Toggle dark mode"
-              title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
-            >
-              {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-            </button>
           </nav>
-
-          {/* Theme Toggle Button Mobile */}
-          <button
-            id="theme-toggle-btn-mobile"
-            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            className="lg:hidden p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-[#3333FF] dark:hover:text-[#E4F0E7] transition-all cursor-pointer flex items-center justify-center"
-            aria-label="Toggle dark mode"
-          >
-            {theme === 'light' ? <Moon className="w-4.5 h-4.5" /> : <Sun className="w-4.5 h-4.5" />}
-          </button>
 
           {/* Ask Mochi Mobile Button (shows right on the header line) */}
           <button
