@@ -35,6 +35,10 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (currentPath.startsWith('/resume')) {
+      window.location.href = 'https://minnieott.com/work#experience';
+      return;
+    }
     if (currentPath.startsWith('/contact')) {
       const timer = setTimeout(() => {
         const el = document.getElementById('contact');
@@ -47,6 +51,10 @@ export default function App() {
   }, [currentPath]);
 
   const navigate = (path: string) => {
+    if (path.startsWith('/resume')) {
+      window.location.href = 'https://minnieott.com/work#experience';
+      return;
+    }
     window.history.pushState({}, '', path);
     setCurrentPath(path);
     if (!path.startsWith('/contact')) {

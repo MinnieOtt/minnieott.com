@@ -32,29 +32,34 @@ try {
 }
 
 // Initialize Firestore with Admin SDK
-let db: any = null;
+let dbPrimary: any = null;
+let dbDefault: any = null;
+let useDefaultDatabase = false;
+let firestoreAvailable: boolean | null = null; // null = untested, true = working, false = unavailable
+
 const projectId = firebaseConfig?.projectId || process.env.FIREBASE_PROJECT_ID || process.env.GOOGLE_CLOUD_PROJECT || process.env.GCP_PROJECT;
-const databaseId = firebaseConfig?.firestoreDatabaseId || process.env.FIREBASE_DATABASE_ID || process.env.FIRESTORE_DATABASE_ID || "(default)";
+const customDatabaseId = firebaseConfig?.firestoreDatabaseId || process.env.FIREBASE_DATABASE_ID || process.env.FIRESTORE_DATABASE_ID;
 
 if (projectId) {
   try {
     const adminApp = getApps().length === 0
       ? initializeApp({ projectId })
       : getApps()[0];
-    db = getFirestore(adminApp, databaseId);
-    console.log(`Firebase Firestore (Admin SDK) initialized successfully on backend. Project: ${projectId}, Database: ${databaseId}`);
+
+    if (customDatabaseId && customDatabaseId !== "(default)") {
+      dbPrimary = getFirestore(adminApp, customDatabaseId);
+    }
+    dbDefault = getFirestore(adminApp, "(default)");
+    console.log(`Firebase Admin initialized for project: ${projectId}`);
   } catch (err) {
-    console.error("Failed to initialize Firebase Admin on backend:", err);
+    console.warn("Failed to initialize Firebase Admin on backend:", err);
   }
-} else {
-  // Try default initialization (works perfectly on Google Cloud Run with Application Default Credentials)
-  try {
-    const adminApp = getApps().length === 0 ? initializeApp() : getApps()[0];
-    db = getFirestore(adminApp, databaseId);
-    console.log(`Firebase Firestore initialized using Application Default Credentials on GCP. Database: ${databaseId}`);
-  } catch (err) {
-    console.warn("No Firebase config detected and ADC initialization was not possible. Falling back to local posts.json.", err);
-  }
+}
+
+function getActiveDb() {
+  if (firestoreAvailable === false) return null;
+  if (useDefaultDatabase) return dbDefault;
+  return dbPrimary || dbDefault;
 }
 
 async function isAdminAuthenticated(req: any): Promise<boolean> {
@@ -144,22 +149,23 @@ function writePostsToFile(posts: BlogPost[]): boolean {
   }
 }
 
-// Helper to get posts from Firestore with automatic seeding
+// Helper to get posts from Firestore with automatic fallback and seeding
 async function getPostsFromFirestore(): Promise<BlogPost[]> {
-  if (!db) {
-    console.warn("Firestore not initialized, falling back to local posts.json");
+  const currentDb = getActiveDb();
+  if (!currentDb) {
     return readPostsFromFile();
   }
 
   try {
-    const postsCol = db.collection("posts");
+    const postsCol = currentDb.collection("posts");
     const snapshot = await postsCol.get();
+    firestoreAvailable = true;
     
     if (snapshot.empty) {
       console.log("Firestore posts collection is empty. Seeding default posts from posts.json...");
       const defaultPosts = readPostsFromFile();
       for (const post of defaultPosts) {
-        await db.collection("posts").doc(post.id).set(post);
+        await currentDb.collection("posts").doc(post.id).set(post);
       }
       return defaultPosts;
     }
@@ -171,9 +177,43 @@ async function getPostsFromFirestore(): Promise<BlogPost[]> {
 
     // Sort posts by date descending
     posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    
+    // Maintain local backup
+    writePostsToFile(posts);
     return posts;
-  } catch (error) {
-    console.error("Error reading posts from Firestore:", error);
+  } catch (error: any) {
+    // If NOT_FOUND error occurs on custom database ID, attempt fallback to (default) database ID
+    if (!useDefaultDatabase && dbPrimary && dbDefault && (error?.code === 5 || error?.message?.includes("NOT_FOUND") || error?.message?.includes("does not exist"))) {
+      console.warn(`Custom Firestore database '${customDatabaseId}' not found. Fallback to '(default)' database...`);
+      useDefaultDatabase = true;
+      try {
+        const snapshot = await dbDefault.collection("posts").get();
+        firestoreAvailable = true;
+        
+        if (snapshot.empty) {
+          const defaultPosts = readPostsFromFile();
+          for (const post of defaultPosts) {
+            await dbDefault.collection("posts").doc(post.id).set(post);
+          }
+          return defaultPosts;
+        }
+
+        const posts: BlogPost[] = [];
+        snapshot.forEach((doc: any) => {
+          posts.push(doc.data() as BlogPost);
+        });
+        posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        writePostsToFile(posts);
+        return posts;
+      } catch (defaultErr) {
+        console.warn("Firestore default database also not available. Using local posts.json storage.");
+        firestoreAvailable = false;
+        return readPostsFromFile();
+      }
+    }
+
+    console.warn("Firestore database not available or not provisioned. Using local posts.json storage.");
+    firestoreAvailable = false;
     return readPostsFromFile();
   }
 }
@@ -534,6 +574,11 @@ Formatting:
     return res.status(404).send("Not found");
   });
 
+  // Redirect /resume to https://minnieott.com/work#experience
+  app.get(["/resume", "/resume/"], (req, res) => {
+    return res.redirect(301, "https://minnieott.com/work#experience");
+  });
+
   // GET: Fetch all blog posts
   app.get("/api/posts", async (req, res) => {
     const posts = await getPostsFromFirestore();
@@ -615,23 +660,21 @@ Formatting:
       published: published !== false
     };
 
-    if (db) {
+    // Always save locally to posts.json
+    posts.unshift(newPost);
+    writePostsToFile(posts);
+
+    // Save to Firestore if available
+    const activeDb = getActiveDb();
+    if (activeDb) {
       try {
-        await db.collection("posts").doc(newPost.id).set(newPost);
-        const updatedPosts = await getPostsFromFirestore();
-        return res.json({ success: true, post: newPost, posts: updatedPosts });
+        await activeDb.collection("posts").doc(newPost.id).set(newPost);
       } catch (error) {
-        console.error("Error writing post to Firestore:", error);
-        return res.status(500).json({ error: "Failed to write post to Firestore." });
-      }
-    } else {
-      posts.unshift(newPost);
-      if (writePostsToFile(posts)) {
-        return res.json({ success: true, post: newPost, posts });
-      } else {
-        return res.status(500).json({ error: "Failed to write post to file." });
+        console.warn("Could not sync new post to Firestore, preserved in local storage:", error);
       }
     }
+
+    return res.json({ success: true, post: newPost, posts });
   });
 
   // PUT: Update an existing blog post
@@ -678,23 +721,21 @@ Formatting:
       published: published !== false
     };
 
-    if (db) {
+    // Always update local posts.json
+    posts[index] = updatedPost;
+    writePostsToFile(posts);
+
+    // Sync to Firestore if available
+    const activeDb = getActiveDb();
+    if (activeDb) {
       try {
-        await db.collection("posts").doc(id).set(updatedPost);
-        const updatedPosts = await getPostsFromFirestore();
-        return res.json({ success: true, post: updatedPost, posts: updatedPosts });
+        await activeDb.collection("posts").doc(id).set(updatedPost);
       } catch (error) {
-        console.error("Error updating post in Firestore:", error);
-        return res.status(500).json({ error: "Failed to update post in Firestore." });
-      }
-    } else {
-      posts[index] = updatedPost;
-      if (writePostsToFile(posts)) {
-        return res.json({ success: true, post: posts[index], posts });
-      } else {
-        return res.status(500).json({ error: "Failed to write update to file." });
+        console.warn("Could not sync post update to Firestore, preserved in local storage:", error);
       }
     }
+
+    return res.json({ success: true, post: updatedPost, posts });
   });
 
   // DELETE: Remove a blog post
@@ -704,30 +745,25 @@ Formatting:
     }
 
     const { id } = req.params;
+    const posts = readPostsFromFile();
+    const index = posts.findIndex(p => p.id === id);
 
-    if (db) {
-      try {
-        await db.collection("posts").doc(id).delete();
-        const updatedPosts = await getPostsFromFirestore();
-        return res.json({ success: true, posts: updatedPosts });
-      } catch (error) {
-        console.error("Error deleting post from Firestore:", error);
-        return res.status(500).json({ error: "Failed to delete post from Firestore." });
-      }
-    } else {
-      const posts = readPostsFromFile();
-      const index = posts.findIndex(p => p.id === id);
+    if (index !== -1) {
+      posts.splice(index, 1);
+      writePostsToFile(posts);
 
-      if (index !== -1) {
-        posts.splice(index, 1);
-        if (writePostsToFile(posts)) {
-          return res.json({ success: true, posts });
-        } else {
-          return res.status(500).json({ error: "Failed to write update to file." });
+      const activeDb = getActiveDb();
+      if (activeDb) {
+        try {
+          await activeDb.collection("posts").doc(id).delete();
+        } catch (error) {
+          console.warn("Could not sync post deletion to Firestore, deleted from local storage:", error);
         }
       }
-      return res.status(404).json({ error: "Blog post not found" });
+
+      return res.json({ success: true, posts });
     }
+    return res.status(404).json({ error: "Blog post not found" });
   });
 
   // Vite middleware for development

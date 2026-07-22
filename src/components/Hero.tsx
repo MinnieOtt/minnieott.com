@@ -62,7 +62,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-indigo-600 hover:text-indigo-800 underline transition-colors"
+            className="text-[#3333FF] hover:text-[#1A1AFF] hover:underline transition-colors font-semibold cursor-pointer inline align-baseline"
           >
             {label}
           </a>

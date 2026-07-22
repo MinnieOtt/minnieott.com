@@ -53,6 +53,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
   const [bypassPasscode, setBypassPasscode] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [activeEditorTab, setActiveEditorTab] = useState<'write' | 'preview'>('write');
 
   const isAuthorPage = currentSlug === 'author';
 
@@ -81,6 +82,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       console.error(e);
     }
     setEditingPostId(null);
+    setActiveEditorTab('write');
     setNewPost({
       title: '',
       excerpt: '',
@@ -761,22 +763,77 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   </div>
 
                   <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-mono font-bold text-gray-600 uppercase">
-                        Content (Markdown Format Supported)
-                      </label>
-                      <span className="text-[10px] text-gray-500 font-sans">
+                    <div className="flex flex-wrap justify-between items-center gap-2 mb-2">
+                      <div className="flex items-center gap-3">
+                        <label className="text-xs font-mono font-bold text-gray-600 uppercase">
+                          Content
+                        </label>
+                        <div className="inline-flex p-0.5 bg-neutral-100 rounded-lg border border-gray-200">
+                          <button
+                            type="button"
+                            onClick={() => setActiveEditorTab('write')}
+                            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                              activeEditorTab === 'write'
+                                ? 'bg-white text-gray-900 shadow-2xs border border-gray-200/60'
+                                : 'text-gray-500 hover:text-gray-900'
+                            }`}
+                          >
+                            <Pencil className="w-3 h-3" />
+                            Write
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setActiveEditorTab('preview')}
+                            className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
+                              activeEditorTab === 'preview'
+                                ? 'bg-[#3333FF] text-white shadow-2xs'
+                                : 'text-gray-500 hover:text-gray-900'
+                            }`}
+                          >
+                            <Eye className="w-3 h-3" />
+                            Preview
+                          </button>
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-gray-500 font-sans hidden sm:inline">
                         Use <code className="bg-neutral-100 border border-gray-200 text-black px-1.5 py-0.5 rounded font-mono text-[10px] font-medium">### Title</code> for headings and <code className="bg-neutral-100 border border-gray-200 text-black px-1.5 py-0.5 rounded font-mono text-[10px] font-medium">* list item</code> for bullet points.
                       </span>
                     </div>
-                    <textarea
-                      rows={12}
-                      placeholder="Write your brilliant ideas here... Use double-enters (\n\n) to separate paragraphs."
-                      value={newPost.content}
-                      onChange={(e) => setNewPost({...newPost, content: e.target.value})}
-                      required
-                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-hidden focus:border-[#3333FF] text-sm font-sans leading-relaxed"
-                    />
+
+                    {activeEditorTab === 'write' ? (
+                      <textarea
+                        rows={12}
+                        placeholder="Write your brilliant ideas here... Use double-enters (\n\n) to separate paragraphs."
+                        value={newPost.content}
+                        onChange={(e) => setNewPost({...newPost, content: e.target.value})}
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-hidden focus:border-[#3333FF] text-sm font-sans leading-relaxed"
+                      />
+                    ) : (
+                      <div className="w-full min-h-[300px] max-h-[500px] overflow-y-auto p-5 sm:p-6 bg-neutral-50/70 border border-gray-200 rounded-xl text-left">
+                        {newPost.title && (
+                          <div className="border-b border-gray-200 pb-4 mb-5">
+                            <span className="inline-block text-[10px] bg-accent-light text-gray-900 font-mono font-bold px-2.5 py-0.5 rounded-full mb-2 uppercase tracking-wider">
+                              {newPost.category || 'Technology'}
+                            </span>
+                            <h2 className="font-display font-bold text-gray-900 text-xl sm:text-2xl tracking-tight">
+                              {newPost.title}
+                            </h2>
+                            {newPost.excerpt && (
+                              <p className="font-sans text-xs text-gray-500 italic mt-1.5">
+                                {newPost.excerpt}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                        {newPost.content && newPost.content.trim() ? (
+                          renderFormattedContent(newPost.content)
+                        ) : (
+                          <div className="py-12 text-center text-gray-400 font-sans text-sm italic">
+                            No content written yet. Switch to the "Write" tab to start composing your article.
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex justify-between items-center border-t border-gray-100 pt-4">
