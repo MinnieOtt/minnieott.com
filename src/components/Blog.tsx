@@ -149,15 +149,73 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
     return () => unsubscribe();
   }, []);
 
+  const LOCAL_STORAGE_POSTS_KEY = 'minerva_portfolio_blog_posts_v1';
+
+  const savePostsToLocalStorage = (postsToSave: BlogPost[]) => {
+    try {
+      localStorage.setItem(LOCAL_STORAGE_POSTS_KEY, JSON.stringify(postsToSave));
+    } catch (err) {
+      console.warn('Could not save posts to localStorage:', err);
+    }
+  };
+
+  const getPostsFromLocalStorage = (): BlogPost[] => {
+    try {
+      const stored = localStorage.getItem(LOCAL_STORAGE_POSTS_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch (err) {
+      console.warn('Could not read posts from localStorage:', err);
+    }
+    return [];
+  };
+
   const fetchPosts = async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/posts');
       if (!res.ok) throw new Error('Failed to load blog posts');
       const data = await res.json();
-      setPosts(data.posts || []);
+      const serverPosts: BlogPost[] = data.posts || [];
+      const localPosts = getPostsFromLocalStorage();
+
+      // Merge server posts and local posts (server overrides if present)
+      const postMap = new Map<string, BlogPost>();
+      localPosts.forEach(p => postMap.set(p.id, p));
+      serverPosts.forEach(p => postMap.set(p.id, p));
+
+      const mergedPosts = Array.from(postMap.values());
+      mergedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+      setPosts(mergedPosts);
+      savePostsToLocalStorage(mergedPosts);
+
+      // Re-sync any custom local posts missing on server
+      const missingOnServer = localPosts.filter(lp => !serverPosts.some(sp => sp.id === lp.id));
+      if (missingOnServer.length > 0) {
+        for (const missingPost of missingOnServer) {
+          try {
+            await fetch('/api/posts', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Admin-Passcode': 'minnie'
+              },
+              body: JSON.stringify(missingPost)
+            });
+          } catch (e) {
+            console.warn('Failed to sync missing post to server:', e);
+          }
+        }
+      }
     } catch (err: any) {
-      setError(err.message || 'Error loading posts');
+      const cachedPosts = getPostsFromLocalStorage();
+      if (cachedPosts.length > 0) {
+        setPosts(cachedPosts);
+      } else {
+        setError(err.message || 'Error loading posts');
+      }
     } finally {
       setLoading(false);
     }
@@ -241,7 +299,9 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       }
 
       const data = await res.json();
-      setPosts(data.posts || []);
+      const updatedPosts = data.posts || [];
+      setPosts(updatedPosts);
+      savePostsToLocalStorage(updatedPosts);
       setSubmitSuccess(true);
       
       // Reset form and editing state
@@ -285,7 +345,9 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       }
 
       const data = await res.json();
-      setPosts(data.posts || []);
+      const updatedPosts = data.posts || [];
+      setPosts(updatedPosts);
+      savePostsToLocalStorage(updatedPosts);
       
       // If we are currently reading this post, navigate back to list
       if (currentSlug && currentSlug !== 'author') {
@@ -675,9 +737,9 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             </div>
           ) : (
             /* Authenticated Workspace */
-            <div className="space-y-10 text-left">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start text-left">
               {/* Form Section */}
-              <div id="author-form-anchor" className="bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-xs">
+              <div id="author-form-anchor" className="lg:col-span-9 bg-white rounded-3xl border border-gray-200 p-6 sm:p-8 shadow-xs">
                 <form onSubmit={handleSavePost} className="flex flex-col gap-6">
                   <div className="flex justify-between items-center border-b border-gray-100 pb-4">
                     <div className="flex items-center gap-2">
@@ -873,7 +935,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               </div>
 
               {/* Management List Section */}
-              <div className="bg-neutral-50/50 rounded-3xl border border-gray-200 p-6 sm:p-8">
+              <div className="lg:col-span-3 bg-neutral-50/50 rounded-3xl border border-gray-200 p-6 sm:p-8">
                 <div className="border-b border-gray-200 pb-4 mb-6">
                   <h3 className="font-display font-bold text-gray-950 text-base">
                     Manage Publications ({posts.length})
@@ -890,35 +952,35 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 ) : (
                   <div className="divide-y divide-gray-150">
                     {posts.map((post) => (
-                      <div key={post.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                      <div key={post.id} className="py-3.5 space-y-2">
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[9px] bg-accent-light text-gray-900 font-mono font-bold px-2.5 py-0.5 rounded-full uppercase">
+                            <span className="text-[9px] bg-accent-light text-gray-900 font-mono font-bold px-2 py-0.5 rounded-full uppercase">
                               {post.category}
                             </span>
                             <span className="text-[10px] text-gray-400 font-mono">
                               {post.date}
                             </span>
                           </div>
-                          <h4 className="font-display font-bold text-gray-900 text-sm">
+                          <h4 className="font-display font-bold text-gray-900 text-sm leading-snug">
                             {post.title}
                           </h4>
                         </div>
-                        <div className="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                        <div className="flex items-center gap-2 pt-0.5">
                           <button
                             onClick={() => {
                               setEditingPostId(post.id);
                               document.getElementById('author-form-anchor')?.scrollIntoView({ behavior: 'smooth' });
                             }}
-                            className="inline-flex items-center gap-1 text-xs font-bold font-sans border border-gray-200 hover:border-[#C9DFCE] bg-white hover:bg-[#E4F0E7]/30 text-[#3333FF] hover:text-[#1A1AFF] px-3 py-1.5 rounded-xl cursor-pointer transition-colors"
+                            className="inline-flex items-center gap-1 text-[11px] font-bold font-sans border border-gray-200 hover:border-[#C9DFCE] bg-white hover:bg-[#E4F0E7]/30 text-[#3333FF] hover:text-[#1A1AFF] px-2.5 py-0.5 rounded-md cursor-pointer transition-colors shadow-2xs"
                           >
-                            <Pencil className="w-3 h-3" /> Edit
+                            <Pencil className="w-2.5 h-2.5" /> Edit
                           </button>
                           <button
                             onClick={() => handleDeletePost(post.id)}
-                            className="inline-flex items-center gap-1 text-xs font-bold font-sans border border-rose-100 hover:border-rose-200 bg-white hover:bg-rose-50/50 text-rose-600 hover:text-rose-800 px-3 py-1.5 rounded-xl cursor-pointer transition-colors"
+                            className="inline-flex items-center gap-1 text-[11px] font-bold font-sans border border-rose-100 hover:border-rose-200 bg-white hover:bg-rose-50/50 text-rose-600 hover:text-rose-800 px-2.5 py-0.5 rounded-md cursor-pointer transition-colors shadow-2xs"
                           >
-                            <Trash2 className="w-3 h-3" /> Delete
+                            <Trash2 className="w-2.5 h-2.5" /> Delete
                           </button>
                         </div>
                       </div>

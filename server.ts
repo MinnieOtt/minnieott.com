@@ -149,73 +149,94 @@ function writePostsToFile(posts: BlogPost[]): boolean {
   }
 }
 
-// Helper to get posts from Firestore with automatic fallback and seeding
-async function getPostsFromFirestore(): Promise<BlogPost[]> {
-  const currentDb = getActiveDb();
-  if (!currentDb) {
-    return readPostsFromFile();
-  }
+// Helper functions to interact with Firestore with automatic database fallback and retry
+async function savePostToFirestore(post: BlogPost): Promise<boolean> {
+  const dbsToTry = [];
+  if (!useDefaultDatabase && dbPrimary) dbsToTry.push(dbPrimary);
+  if (dbDefault && !dbsToTry.includes(dbDefault)) dbsToTry.push(dbDefault);
 
-  try {
-    const postsCol = currentDb.collection("posts");
-    const snapshot = await postsCol.get();
-    firestoreAvailable = true;
-    
-    if (snapshot.empty) {
-      console.log("Firestore posts collection is empty. Seeding default posts from posts.json...");
-      const defaultPosts = readPostsFromFile();
-      for (const post of defaultPosts) {
-        await currentDb.collection("posts").doc(post.id).set(post);
+  for (const db of dbsToTry) {
+    try {
+      await db.collection("posts").doc(post.id).set(post);
+      if (db === dbDefault && dbPrimary && !useDefaultDatabase) {
+        useDefaultDatabase = true;
       }
-      return defaultPosts;
+      firestoreAvailable = true;
+      console.log(`Successfully saved post ${post.id} to Firestore.`);
+      return true;
+    } catch (err: any) {
+      console.warn(`Failed writing post ${post.id} to Firestore:`, err?.message || err);
     }
+  }
+  return false;
+}
 
-    const posts: BlogPost[] = [];
-    snapshot.forEach((doc: any) => {
-      posts.push(doc.data() as BlogPost);
-    });
+async function deletePostFromFirestore(id: string): Promise<boolean> {
+  const dbsToTry = [];
+  if (!useDefaultDatabase && dbPrimary) dbsToTry.push(dbPrimary);
+  if (dbDefault && !dbsToTry.includes(dbDefault)) dbsToTry.push(dbDefault);
 
-    // Sort posts by date descending
-    posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    
-    // Maintain local backup
-    writePostsToFile(posts);
-    return posts;
-  } catch (error: any) {
-    // If NOT_FOUND error occurs on custom database ID, attempt fallback to (default) database ID
-    if (!useDefaultDatabase && dbPrimary && dbDefault && (error?.code === 5 || error?.message?.includes("NOT_FOUND") || error?.message?.includes("does not exist"))) {
-      console.warn(`Custom Firestore database '${customDatabaseId}' not found. Fallback to '(default)' database...`);
-      useDefaultDatabase = true;
-      try {
-        const snapshot = await dbDefault.collection("posts").get();
-        firestoreAvailable = true;
-        
-        if (snapshot.empty) {
-          const defaultPosts = readPostsFromFile();
-          for (const post of defaultPosts) {
-            await dbDefault.collection("posts").doc(post.id).set(post);
-          }
-          return defaultPosts;
-        }
+  for (const db of dbsToTry) {
+    try {
+      await db.collection("posts").doc(id).delete();
+      if (db === dbDefault && dbPrimary && !useDefaultDatabase) {
+        useDefaultDatabase = true;
+      }
+      firestoreAvailable = true;
+      console.log(`Successfully deleted post ${id} from Firestore.`);
+      return true;
+    } catch (err: any) {
+      console.warn(`Failed deleting post ${id} from Firestore:`, err?.message || err);
+    }
+  }
+  return false;
+}
 
-        const posts: BlogPost[] = [];
+// Helper to get posts from Firestore with automatic fallback and local file sync
+async function getPostsFromFirestore(): Promise<BlogPost[]> {
+  const dbsToTry = [];
+  if (!useDefaultDatabase && dbPrimary) dbsToTry.push(dbPrimary);
+  if (dbDefault && !dbsToTry.includes(dbDefault)) dbsToTry.push(dbDefault);
+
+  for (const db of dbsToTry) {
+    try {
+      const postsCol = db.collection("posts");
+      const snapshot = await postsCol.get();
+      if (db === dbDefault && dbPrimary && !useDefaultDatabase) {
+        useDefaultDatabase = true;
+      }
+      firestoreAvailable = true;
+
+      const posts: BlogPost[] = [];
+      if (!snapshot.empty) {
         snapshot.forEach((doc: any) => {
           posts.push(doc.data() as BlogPost);
         });
-        posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        writePostsToFile(posts);
-        return posts;
-      } catch (defaultErr) {
-        console.warn("Firestore default database also not available. Using local posts.json storage.");
-        firestoreAvailable = false;
-        return readPostsFromFile();
       }
-    }
 
-    console.warn("Firestore database not available or not provisioned. Using local posts.json storage.");
-    firestoreAvailable = false;
-    return readPostsFromFile();
+      // Merge any local posts from posts.json that aren't in Firestore yet
+      const localPosts = readPostsFromFile();
+      for (const localP of localPosts) {
+        if (!posts.some(p => p.id === localP.id)) {
+          posts.push(localP);
+          try {
+            await db.collection("posts").doc(localP.id).set(localP);
+          } catch (e) {
+            console.warn(`Failed to seed local post ${localP.id} to Firestore:`, e);
+          }
+        }
+      }
+
+      posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      writePostsToFile(posts);
+      return posts;
+    } catch (error: any) {
+      console.warn("Firestore fetch error:", error?.message || error);
+    }
   }
+
+  firestoreAvailable = false;
+  return readPostsFromFile();
 }
 
 async function startServer() {
@@ -664,15 +685,8 @@ Formatting:
     posts.unshift(newPost);
     writePostsToFile(posts);
 
-    // Save to Firestore if available
-    const activeDb = getActiveDb();
-    if (activeDb) {
-      try {
-        await activeDb.collection("posts").doc(newPost.id).set(newPost);
-      } catch (error) {
-        console.warn("Could not sync new post to Firestore, preserved in local storage:", error);
-      }
-    }
+    // Sync to Firestore cloud database
+    await savePostToFirestore(newPost);
 
     return res.json({ success: true, post: newPost, posts });
   });
@@ -725,15 +739,8 @@ Formatting:
     posts[index] = updatedPost;
     writePostsToFile(posts);
 
-    // Sync to Firestore if available
-    const activeDb = getActiveDb();
-    if (activeDb) {
-      try {
-        await activeDb.collection("posts").doc(id).set(updatedPost);
-      } catch (error) {
-        console.warn("Could not sync post update to Firestore, preserved in local storage:", error);
-      }
-    }
+    // Sync to Firestore cloud database
+    await savePostToFirestore(updatedPost);
 
     return res.json({ success: true, post: updatedPost, posts });
   });
@@ -752,14 +759,8 @@ Formatting:
       posts.splice(index, 1);
       writePostsToFile(posts);
 
-      const activeDb = getActiveDb();
-      if (activeDb) {
-        try {
-          await activeDb.collection("posts").doc(id).delete();
-        } catch (error) {
-          console.warn("Could not sync post deletion to Firestore, deleted from local storage:", error);
-        }
-      }
+      // Sync deletion to Firestore cloud database
+      await deletePostFromFirestore(id);
 
       return res.json({ success: true, posts });
     }
