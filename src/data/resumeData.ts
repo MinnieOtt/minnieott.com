@@ -108,7 +108,7 @@ export const experiences: ExperienceItem[] = [
   {
     role: 'Head of Technology',
     company: 'Creative Blue',
-    period: 'Nov 2025 – Present',
+    period: 'Dec 2025 – Present',
     type: 'Contractor',
     description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms (GrowthOS, Lead Generator, Brand Assessment) that automate enterprise workflows with human-in-the-loop oversight.',
     bullets: [
