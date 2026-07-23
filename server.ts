@@ -647,16 +647,39 @@ Formatting:
       return res.status(401).json({ error: "Unauthorized access. Invalid credentials." });
     }
 
-    const { title, excerpt, content, category, readTime, author, published } = req.body;
+    const { id, title, slug: customSlug, excerpt, content, category, readTime, author, published } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({ error: "Title and content are required." });
     }
 
     const posts = await getPostsFromFirestore();
-    const slug = slugify(title);
 
-    // Check for duplicate slugs and append a suffix if needed
+    // Check if updating an existing post by ID or slug
+    const existingIndex = posts.findIndex(p => (id && p.id === id) || (customSlug && p.slug === customSlug));
+
+    if (existingIndex !== -1) {
+      const existingPost = posts[existingIndex];
+      const updatedPost: BlogPost = {
+        ...existingPost,
+        title,
+        excerpt: excerpt || (content.length > 150 ? content.substring(0, 150) + "..." : content),
+        content,
+        category: category || "Uncategorized",
+        readTime: readTime || `${Math.max(1, Math.ceil(content.split(/\s+/).length / 200))} min read`,
+        author: author || "Minerva Tanglao Ott",
+        published: published !== false
+      };
+
+      posts[existingIndex] = updatedPost;
+      writePostsToFile(posts);
+      await savePostToFirestore(updatedPost);
+
+      return res.json({ success: true, post: updatedPost, posts });
+    }
+
+    // New post creation
+    const slug = customSlug || slugify(title);
     let finalSlug = slug;
     let suffix = 1;
     while (posts.some(p => p.slug === finalSlug)) {
@@ -665,7 +688,7 @@ Formatting:
     }
 
     const newPost: BlogPost = {
-      id: Math.random().toString(36).substring(2, 9),
+      id: id || Math.random().toString(36).substring(2, 9),
       title,
       slug: finalSlug,
       excerpt: excerpt || (content.length > 150 ? content.substring(0, 150) + "..." : content),
@@ -705,23 +728,18 @@ Formatting:
     }
 
     const posts = await getPostsFromFirestore();
-    const index = posts.findIndex(p => p.id === id);
+    let index = posts.findIndex(p => p.id === id);
+
+    if (index === -1 && req.body.slug) {
+      index = posts.findIndex(p => p.slug === req.body.slug);
+    }
 
     if (index === -1) {
       return res.status(404).json({ error: "Blog post not found" });
     }
 
-    // Update slug if title changed, while ensuring uniqueness
-    let finalSlug = posts[index].slug;
-    if (posts[index].title !== title) {
-      const slug = slugify(title);
-      finalSlug = slug;
-      let suffix = 1;
-      while (posts.some((p, idx) => idx !== index && p.slug === finalSlug)) {
-        finalSlug = `${slug}-${suffix}`;
-        suffix++;
-      }
-    }
+    // Preserve the original URL (slug) and ID when updating
+    const finalSlug = posts[index].slug;
 
     const updatedPost: BlogPost = {
       ...posts[index],

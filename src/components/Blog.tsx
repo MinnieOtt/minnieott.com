@@ -66,7 +66,15 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
   });
 
   // Form States
-  const [newPost, setNewPost] = useState({
+  const [newPost, setNewPost] = useState<{
+    title: string;
+    excerpt: string;
+    content: string;
+    category: string;
+    readTime: string;
+    author: string;
+    slug?: string;
+  }>({
     title: '',
     excerpt: '',
     content: '',
@@ -89,7 +97,8 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       content: '',
       category: 'Technology',
       readTime: '',
-      author: 'Minerva Tanglao Ott (Minnie)'
+      author: 'Minerva Tanglao Ott (Minnie)',
+      slug: undefined
     });
   };
 
@@ -103,7 +112,8 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           content: postToEdit.content,
           category: postToEdit.category,
           readTime: postToEdit.readTime,
-          author: postToEdit.author
+          author: postToEdit.author,
+          slug: postToEdit.slug
         });
         setShowEditor(true);
       }
@@ -182,17 +192,25 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
       // Merge server posts and local posts (server overrides if present)
       const postMap = new Map<string, BlogPost>();
-      localPosts.forEach(p => postMap.set(p.id, p));
-      serverPosts.forEach(p => postMap.set(p.id, p));
+      localPosts.forEach(p => { if (p.id) postMap.set(p.id, p); });
+      serverPosts.forEach(p => { if (p.id) postMap.set(p.id, p); });
 
-      const mergedPosts = Array.from(postMap.values());
-      mergedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      // Deduplicate by slug as well to prevent any duplicate entries
+      const slugMap = new Map<string, BlogPost>();
+      const deduplicated: BlogPost[] = [];
+      Array.from(postMap.values()).forEach(p => {
+        if (p.slug && slugMap.has(p.slug)) return;
+        if (p.slug) slugMap.set(p.slug, p);
+        deduplicated.push(p);
+      });
 
-      setPosts(mergedPosts);
-      savePostsToLocalStorage(mergedPosts);
+      deduplicated.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+      setPosts(deduplicated);
+      savePostsToLocalStorage(deduplicated);
 
       // Re-sync any custom local posts missing on server
-      const missingOnServer = localPosts.filter(lp => !serverPosts.some(sp => sp.id === lp.id));
+      const missingOnServer = localPosts.filter(lp => !serverPosts.some(sp => sp.id === lp.id || sp.slug === lp.slug));
       if (missingOnServer.length > 0) {
         for (const missingPost of missingOnServer) {
           try {
