@@ -205,7 +205,7 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Google AI/ML & LLM Ops', level: 95 },
       { name: 'Agentic Workflows & Multi-Agent systems', level: 98 },
       { name: 'Google Cloud Platform (GCP)', level: 92 },
-      { name: 'Python & LLM Integration', level: 90 },
+      { name: 'Model Context Protocol (MCP)', level: 90 },
       { name: 'SQL & Database Architecture', level: 85 },
       { name: 'API Integration & Middleware', level: 94 },
       { name: 'Software Development Lifecycle (SDLC)', level: 96 }
