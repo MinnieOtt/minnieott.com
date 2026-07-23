@@ -5,6 +5,18 @@ import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
 import { initializeApp, getApps } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
+import {
+  personalInfo,
+  portfolioApps,
+  experiences,
+  skillCategories,
+  patents,
+  books,
+  certifications,
+  education,
+  speakerEvents,
+  endorsements
+} from "./src/data/resumeData";
 
 interface BlogPost {
   id: string;
@@ -484,6 +496,166 @@ async function startServer() {
     return mochiAiClient;
   }
 
+  // Function to dynamically assemble Mochi's system instruction with the latest app content
+  async function buildMochiSystemInstruction(): Promise<string> {
+    let posts: BlogPost[] = [];
+    try {
+      posts = await getPostsFromFirestore();
+    } catch (e) {
+      console.warn("Could not fetch posts for Mochi instruction:", e);
+      posts = readPostsFromFile();
+    }
+
+    const postsFormatted = posts.length > 0
+      ? posts.map(p => `- Title: "${p.title}" (Category: ${p.category || 'General'}, Date: ${p.date || 'N/A'})\n  Excerpt: ${p.excerpt || ''}\n  Link: /blog/${p.slug || p.id}\n  Content Preview: ${(p.content || '').replace(/<[^>]*>/g, '').slice(0, 350)}...`).join('\n\n')
+      : 'No blog posts published yet.';
+
+    const appsFormatted = portfolioApps.map(app => 
+      `- Name: ${app.name} (${app.url})\n  Role: ${app.role} | Status: ${app.status}\n  Description: ${app.description}\n  Key Accomplishments:\n${app.bulletPoints.map(b => `    * ${b}`).join('\n')}\n  Tech Stack: ${app.tags.join(', ')}`
+    ).join('\n\n');
+
+    const expFormatted = experiences.map(exp =>
+      `- Role: ${exp.role} at ${exp.company} (${exp.period}, ${exp.type})\n  Description: ${exp.description}\n  Key Achievements:\n${exp.bullets.map(b => `    * ${b}`).join('\n')}\n  Skills: ${exp.skillsUsed.join(', ')}`
+    ).join('\n\n');
+
+    const eduFormatted = education.map(e =>
+      `- ${e.school}: ${e.degree} (${e.honors.join(', ')})\n  Details: ${e.details}`
+    ).join('\n');
+
+    const certsFormatted = certifications.map(c => {
+      if (c.links) {
+        return `- ${c.title} (${c.issuer}): ${c.links.map(l => `${l.label} (${l.url})`).join(', ')}`;
+      }
+      return `- ${c.title} (${c.issuer}): ${c.link || ''}`;
+    }).join('\n');
+
+    const patentsFormatted = patents.map(p =>
+      `- Title: "${p.title}" (${p.id})\n  Link: ${p.link}\n  Description: ${p.description}`
+    ).join('\n');
+
+    const speakersFormatted = speakerEvents.map(s =>
+      `- Event: ${s.event}\n  Description: ${s.description}\n  Links: ${s.links.map(l => `${l.label} (${l.url})`).join(', ')}`
+    ).join('\n');
+
+    const endorsementsFormatted = endorsements.map(e =>
+      `- ${e.author} (${e.role}, ${e.company}): "${e.quote}"`
+    ).join('\n');
+
+    return `You are Mochi, a warm, clever, and helpful AI chatbot agent who serves as Minnie's (Minerva Tanglao Ott) personal digital companion and portfolio guide. Your visual avatar is a cute, happy pancake character.
+You can answer any questions about Minnie using her latest portfolio information, dynamic experience details, blog posts, education, certifications, patents, speaking engagements, and her publication "JMX Programming" (published by Wiley in 2002, authored by Mike Jasnowski, for which Minerva Tanglao Ott served as the Technical Editor).
+
+IMPORTANT: You must keep all responses strictly aligned with her real, up-to-date experience and details provided below. Do not invent achievements. Speak in a friendly, warm, and highly professional tone, occasionally using subtle, adorable pancake/baking metaphors (like "flapping down information", "whipping up an answer", "sweet as maple syrup"), but prioritize clear, expert answers.
+
+=== LATEST REAL-TIME KNOWLEDGE BASE (RE-TRAINED & UPDATED) ===
+
+1. Personal Information & Overview:
+   - Name: ${personalInfo.name}
+   - Title: ${personalInfo.title}
+   - Location: ${personalInfo.location}
+   - Tagline: "${personalInfo.tagline}"
+   - LinkedIn: ${personalInfo.linkedin}
+   - Bio & Journey: ${personalInfo.about}
+   - Company Lineage: ${personalInfo.companiesLineage.join(' -> ')}
+
+2. Professional Experience & Leadership (Up-to-Date):
+${expFormatted}
+
+3. Portfolio Projects & Platforms (Up-to-Date):
+${appsFormatted}
+
+4. Latest Blog Posts (Live Updated):
+${postsFormatted}
+
+5. Education:
+${eduFormatted}
+
+6. Patents:
+${patentsFormatted}
+
+7. Book Publication (*JMX Programming*, John Wiley & Sons, 2002):
+   - Title: ${books.title} (${books.link})
+   - Role: ${books.role} (Author: ${books.author})
+   - Description: ${books.description}
+   - Technical Highlights: Java Management Extensions (JMX) architecture, Standard/Dynamic/Open/Model MBeans, MBeanServer registry, Protocol adaptors/connectors (RMI, HTTP/XML, SNMP), Event-driven notification model, application monitoring & connection pools.
+
+8. Certifications:
+${certsFormatted}
+
+9. Speaking Engagements & Public Events:
+${speakersFormatted}
+
+10. Executive Endorsements:
+${endorsementsFormatted}
+
+11. Contact & Scheduling:
+    - Google Appointment Calendar: Users can book a 1:1 meeting, consultation, or project advisory session with Minnie using this link: https://calendar.app.google/MCnhZcK56rLJ7fnk8
+    - Secure Contact Form: Visitors can write a direct secure message on her Contact page.
+
+Formatting & Guidelines:
+- Structure your response beautifully with clear paragraphs, bullet points, markdown links, or bold key terms.
+- Always be kind, warm, and helpful.
+- If asked about something completely unrelated to Minnie or her work/blog/JMX, politely steer the conversation back to Minnie, saying something like, "While I'd love to chat about that, I am Mochi, Minnie's portfolio helper, so I'm happiest when we talk about Minnie's amazing technology journey!"
+- If you don't know the answer, politely state: "Oh, my pancake memory doesn't have details on that! However, you can reach out directly to Minnie via her Contact page, and she'd love to tell you herself! 🥞"`;
+  }
+
+  // Dynamic simulated response generator using up-to-date app data
+  async function generateSimulatedResponse(userQuery: string): Promise<string> {
+    const query = userQuery.toLowerCase();
+    let posts: BlogPost[] = [];
+    try {
+      posts = await getPostsFromFirestore();
+    } catch (e) {
+      posts = readPostsFromFile();
+    }
+
+    if (query.includes('blog') || query.includes('post') || query.includes('article') || query.includes('writing') || query.includes('thought')) {
+      if (posts.length > 0) {
+        const postList = posts.slice(0, 5).map(p => `* **[${p.title}](/blog/${p.slug || p.id})** (${p.category || 'Tech'}): ${p.excerpt}`).join('\n');
+        return `Here are Minnie's latest published articles and insights! 📝\n\n${postList}\n\nYou can click on any title to read the full article! 🥞`;
+      } else {
+        return "Minnie writes articles on AI transformation, engineering leadership, and product strategy! Check out her Blog section on the website. 🥞";
+      }
+    }
+
+    if (query.includes('creative blue') || query.includes('growthos') || query.includes('lead generator') || query.includes('brand booster') || query.includes('grex') || query.includes('just ride')) {
+      const cbExp = experiences.find(e => e.company === 'Creative Blue');
+      const bullets = cbExp ? cbExp.bullets.map(b => `* ${b}`).join('\n') : '';
+      return `At **Creative Blue**, Minnie serves as Head of Technology! 🤖 Here are her latest achievements:\n\n${bullets}\n\nKey platforms include [GrowthOS](https://cb-growthos-hub-553545205591.us-west1.run.app/), [Lead Generator](https://creative-blue-lead-gen-1029286255981.us-west1.run.app/), [Brand Booster](https://creative-blue-brand-assessment-553545205591.us-west1.run.app/), [Grex](https://grex.world), and [Just Ride](https://just-ride.ai.studio)!`;
+    }
+
+    if (query.includes('google') || query.includes('maps') || query.includes('voice') || query.includes('tpm') || query.includes('service desk')) {
+      const googleExp = experiences.find(e => e.company === 'Google');
+      const topBullets = googleExp ? googleExp.bullets.slice(0, 6).map(b => `* ${b}`).join('\n') : '';
+      return `At **Google** (Jun 2011 – Nov 2025), Minnie served as Senior Engineering Program Manager! 🗺️ Here are highlights of her leadership:\n\n${topBullets}\n\n...plus leading 20+ portfolio programs, establishing Stanford LEAD @ Google, and driving vendor infrastructure transformations!`;
+    }
+
+    if (query.includes('apple') || query.includes('job') || query.includes('recruiting')) {
+      return `At **Apple** (Jun 2009 – Jun 2011), Minnie served as Technical Project Manager in IS&T! 🍏 She led the software development and launch of Apple HR recruiting systems, including the **Apple Job Search** user interface localized and deployed across 80+ countries!`;
+    }
+
+    if (query.includes('jmx') || query.includes('programming') || query.includes('book') || query.includes('publication') || query.includes('wiley')) {
+      return `Minnie served as the **Technical Editor** for *JMX Programming* (Wiley, 2002) by Mike Jasnowski! 📘 She provided senior technical review and structural validation of core Java Management Extensions architecture (Standard, Dynamic, Model MBeans), MBeanServer registry, and protocol connectors (RMI, HTTP/XML, SNMP).`;
+    }
+
+    if (query.includes('stanford') || query.includes('lead') || query.includes('ateneo') || query.includes('education') || query.includes('degree') || query.includes('school')) {
+      return `Minnie holds impressive academic credentials! 🎓\n\n* **Stanford Graduate School of Business**: Stanford LEAD (Distinguished Scholar & Community Advisory Board Member)\n* **Ateneo de Manila University**: BS Computer Science (Dean's List & Lourdes Evangelista Scholarship Award)`;
+    }
+
+    if (query.includes('patent') || query.includes('us20020064766') || query.includes('training system')) {
+      return `Minnie is the lead inventor of **US Patent 20020064766**: *'Method and Apparatus for Managing Enterprise Employee Training Systems'*. 💡 It covers an automated enterprise training management system that performs skill gap analysis, course scheduling, and compliance tracking.`;
+    }
+
+    if (query.includes('speaker') || query.includes('speaking') || query.includes('talk') || query.includes('summit') || query.includes('filipino') || query.includes('ohlone')) {
+      return `Minnie is an active tech speaker and student mentor! 🎤\n\n* **SF Bay Area Filipino American Professionals Networking Day** (Covered by Inquirer.net and Positively Filipino)\n* **Ohlone College STEM Summit**: Keynote guidance on bridging academia and industry in STEM.`;
+    }
+
+    if (query.includes('certificat') || query.includes('credential') || query.includes('badge') || query.includes('prince2') || query.includes('vanderbilt') || query.includes('mcp')) {
+      return `Minnie's active certifications include:\n\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google Cloud\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
+    }
+
+    return `Hi! I'm Mochi. 🥞 I'm Minnie's AI companion! Minnie is a **Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun Microsystems.\n\nYou can ask me about her AI agent platforms (GrowthOS, Lead Generator, Brand Booster), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
+  }
+
   // POST: Chatbot agent Mochi endpoint
   app.post("/api/mochi", async (req, res) => {
     try {
@@ -493,31 +665,12 @@ async function startServer() {
         return res.status(400).json({ error: "Messages array is required." });
       }
 
+      const lastUserMessage = messages[messages.length - 1]?.text || '';
+
       // Check for GEMINI_API_KEY presence
       if (!process.env.GEMINI_API_KEY) {
-        console.log("No GEMINI_API_KEY configured. Running Mochi chatbot in high-quality simulated mode.");
-        const lastUserMessage = messages[messages.length - 1]?.text?.toLowerCase() || '';
-        let simulatedText = "Hi! I'm Mochi. 🥞 I am running in simulated demo mode because the Gemini API key has not been configured in Secrets yet. Let me tell you about Minnie! She is an incredible Technology Transformation Leader who has led major engineering projects at Google and Apple, is the inventor of US Patent 20020064766, and served as the Technical Editor of Wiley's *JMX Programming* book. Is there a specific project or speaking event of hers you'd like to know about?";
-        
-        if (lastUserMessage.includes('jmx') || lastUserMessage.includes('programming') || lastUserMessage.includes('book') || lastUserMessage.includes('publication')) {
-          simulatedText = "Minnie served as the Technical Editor for *JMX Programming* (Wiley, 2002) by Mike Jasnowski. 📘 She led the senior technical review, validating the Java Management Extensions architecture (Standard, Dynamic, Model MBeans), MBeanServer registry, and protocol connectors (RMI, HTTP/XML, SNMP).";
-        } else if (lastUserMessage.includes('google') || lastUserMessage.includes('maps') || lastUserMessage.includes('voice')) {
-          simulatedText = "At Google (2011–2025), Minnie was a Senior Engineering Program Manager. She launched over 50 Google Maps features with Gemini Voice Navigation on GCP, and drove ticketing system migrations saving $150M! 🗺️";
-        } else if (lastUserMessage.includes('apple') || lastUserMessage.includes('job') || lastUserMessage.includes('search')) {
-          simulatedText = "At Apple (2009–2011), Minnie managed IS&T global HR systems, including the Apple Job Search user interface, localized and deployed across 80+ countries. 🍏";
-        } else if (lastUserMessage.includes('creative blue') || lastUserMessage.includes('growthos') || lastUserMessage.includes('leads') || lastUserMessage.includes('agent')) {
-          simulatedText = "As Head of Technology for Creative Blue, Minnie architected GrowthOS (an agentic operational OS), Lead Generator, and Brand Booster! 🤖 These utilize cutting-edge LLMs and multi-agent systems.";
-        } else if (lastUserMessage.includes('stanford') || lastUserMessage.includes('lead') || lastUserMessage.includes('ateneo') || lastUserMessage.includes('education') || lastUserMessage.includes('degree')) {
-          simulatedText = "Minnie completed Stanford LEAD at the Stanford Graduate School of Business, where she was a Distinguished Scholar and Advisory Board Member. She also holds a BS in Computer Science from Ateneo de Manila University (Dean's List, Lourdes Evangelista Scholarship). 🎓";
-        } else if (lastUserMessage.includes('patent') || lastUserMessage.includes('us20020064766') || lastUserMessage.includes('training system')) {
-          simulatedText = "Minnie is the lead inventor of **US Patent 20020064766**: *'Method and Apparatus for Managing Enterprise Employee Training Systems'*. 💡 This patent describes an enterprise-scale engine that dynamically maps training catalog courses to employee job descriptions, audits certification gaps, tracks compliance credits, and triggers automated course scheduling and manager approval workflows!";
-        } else if (lastUserMessage.includes('speaker') || lastUserMessage.includes('speaking') || lastUserMessage.includes('talk') || lastUserMessage.includes('summit') || lastUserMessage.includes('filipino') || lastUserMessage.includes('ohlone') || lastUserMessage.includes('event')) {
-          simulatedText = "Minnie is an active tech speaker and student mentor! 🎤 Here are her featured engagements:\n\n* **SF Bay Area Filipino American Professionals Networking Day** (covered by *Inquirer.net* and *Positively Filipino*): Spoke about cross-cultural leadership, career growth in Silicon Valley, moving from engineer to program director, and establishing professional networks.\n* **Ohlone College STEM Summit** (shared via Facebook): Delivered keynote mentorship and advice for students, focusing on bridging academia with industry demands, overcoming impostor syndrome, and fostering diverse pipelines in STEM!";
-        } else if (lastUserMessage.includes('certificat') || lastUserMessage.includes('credential') || lastUserMessage.includes('badge') || lastUserMessage.includes('fluency') || lastUserMessage.includes('prince2') || lastUserMessage.includes('mcp')) {
-          simulatedText = "Minnie holds high-caliber certifications in AI and Program Management! 🏅 Here are her active credentials:\n\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** from Vanderbilt University ([Credential Verification Link](https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3))\n* **Google AI (Professional & Essentials)** from Google Cloud ([Professional Specialization Link](https://www.coursera.org/account/accomplishments/specialization/ESJ09OCIXG9Y) | [Essentials Badge Link](https://www.credly.com/badges/d101f754-d0e8-4da3-b787-c464320df9a6/public_url))\n* **PRINCE2 Foundation Project Management** from the Office of Government Commerce ([Certificate Document Link](https://drive.google.com/file/d/0B_9ZUKe9gx67eThhbDRFZGptYTJ2c2c0T1k4N01RRTctcXdN/view?resourcekey=0-XbfvNl996HCzEJeou3W8AA))";
-        } else if (lastUserMessage.includes('family') || lastUserMessage.includes('married') || lastUserMessage.includes('husband') || lastUserMessage.includes('daughter')) {
-          simulatedText = "Minnie is happily married and has raised a daughter who is now following her footsteps as a software engineer. Family is very important to her! 🥞";
-        }
+        console.log("No GEMINI_API_KEY configured. Running Mochi chatbot in dynamic simulated mode using latest content.");
+        const simulatedText = await generateSimulatedResponse(lastUserMessage);
         
         return res.json({
           success: true,
@@ -532,94 +685,15 @@ async function startServer() {
         parts: [{ text: m.text }]
       }));
 
+      // Dynamically build Mochi system instruction using latest content
+      const dynamicSystemInstruction = await buildMochiSystemInstruction();
+
       const ai = getMochiAi();
       const response = await ai.models.generateContent({
         model: "gemini-3.5-flash",
         contents,
         config: {
-          systemInstruction: `You are Mochi, a warm, clever, and helpful AI chatbot agent who serves as Minnie's (Minerva Tanglao Ott) personal digital companion and portfolio guide. Your visual avatar is a cute, happy pancake character.
-You can answer any questions about Minnie using the information from her website and her publication "JMX Programming" (published by Wiley in 2002, authored by Mike Jasnowski, for which Minerva Tanglao Ott served as the Technical Editor).
-
-IMPORTANT: You must keep all responses strictly aligned with her real experience and details. Do not invent achievements. Speak in a friendly, warm, and highly professional tone, occasionally using subtle, adorable pancake/baking metaphors (like "flapping down information", "whipping up an answer", "sweet as maple syrup"), but prioritize clear, expert answers.
-
-Knowledge Base:
-1. Minerva Tanglao Ott (Minnie):
-   - Title: Technology Transformation Leader
-   - Subtitle: Bridging Engineering Operations & Agentic AI Transformation
-   - Tagline: "Bridging Engineering Operations & Agentic AI Transformation"
-   - Origin: Started in tech by helping a high school friend set up her first Apple computer and teaching herself BASIC. This led to a full-ride scholarship in Computer Science and a move to Silicon Valley.
-   - Personal Life: Married, has a daughter who is also a software engineer!
-   - Values: Puts people at the center of progress. Focuses on practical AI upskilling, operational excellence, and human-in-the-loop AI systems.
-
-2. Professional Experience Lineage:
-   - Creative Blue (Nov 2025 - Present): Head of Technology (Contractor).
-     * Leads product tech strategy and agentic AI workflow deployments.
-     * Engineered platforms: GrowthOS (centralized manager cockpit), Lead Generator (AI prospect intelligence), Brand Assessment/Booster (market share & sentiment analysis).
-     * Led team upskilling workshops on practical AI integration and LLM-driven decisions.
-   - Google (Jun 2011 - Nov 2025): Senior Engineering Program Manager.
-     * Managed full lifecycle of 50+ Google Maps features with Gemini Voice Navigation on GCP.
-     * Spearheaded AI Service Desk transformation, migrating ticketing routing workflows, achieving $150M in organizational efficiencies.
-     * Led Finance SDLC governance for SAP on GCP for 40+ TPMs, improving compliance to 82+% and reducing defects by 21,000+.
-     * Directed AI evaluation workshops for 30+ TPMs to build practical AI fluency.
-     * Established executive program reviews for a portfolio of 20+ programs.
-   - Apple (Jun 2009 - Jun 2011): Technical Project Manager.
-     * Managed software development and global deployment of Apple Job Search UI and HR IS&T recruiting platforms across 80+ countries.
-   - Sun Microsystems / Oracle (Apr 2000 - Jun 2009): Technical Project Manager / Consultant.
-     * Managed Sun Java Center architecture and led implementations of HP Project & Portfolio Management (PPM).
-     * Senior Java architect for premier clients (eBay, American Express, Chicago Board Options Exchange).
-   - Prior Experience (IBM, DHL, Infogain): Software Engineering Consultant.
-     * IBM: Enhanced TECSYS Financials & Distribution.
-     * DHL: Co-developed the global Shipment Control tracking system.
-     * Infogain: Built loan collection and data transfer systems.
-
-3. Education & Credentials:
-   - Stanford Graduate School of Business: Stanford LEAD (Distinguished Scholar, Community Advisory Board Member). Focus on executive leadership, design thinking, and driving innovation.
-   - Ateneo de Manila University: BS Computer Science (Dean's List, Lourdes Evangelista Scholarship Award). Focused on computer systems, object-oriented architecture, data structures, and algorithms.
-   - Patents: US Patent 20020064766 (US20020064766A1) - "Method and Apparatus for Managing Enterprise Employee Training Systems". 
-     * Invented by Minerva Tanglao (Ott).
-     * Core functionality: An automated web-enabled training management system for large enterprise organizations.
-     * Key mechanisms: Performs automatic gap analysis by matching an employee's job profile and current skills with compliance training requirements. Automatically registers and schedules employees for appropriate courses, manages supervisor approval workflows, tracks training logs and credits, and enforces institutional or regulatory compliance dynamically.
-   - Certifications:
-     * AI Agent Development & LLM Fluency (Model Context Protocol) from Vanderbilt University (Verification URL: https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3).
-     * Google AI from Google Cloud: Professional Specialization (URL: https://www.coursera.org/account/accomplishments/specialization/ESJ09OCIXG9Y) | Essentials Badge (URL: https://www.credly.com/badges/d101f754-d0e8-4da3-b787-c464320df9a6/public_url)
-     * PRINCE2 Foundation Project Management from the Office of Government Commerce (Certificate URL: https://drive.google.com/file/d/0B_9ZUKe9gx67eThhbDRFZGptYTJ2c2c0T1k4N01RRTctcXdN/view?resourcekey=0-XbfvNl996HCzEJeou3W8AA).
-
-4. Speaking Series & Public Events:
-   - SF Bay Area Filipino American Professionals Networking Day:
-     * Media Coverage: Inquirer.net, Positively Filipino.
-     * Key focus: Careers in Silicon Valley, transition pathways from pure software engineering to high-impact technical program management, minority and female leadership in tech, managing large global teams (Google, Apple, Sun), and establishing strategic professional networking circles.
-   - Ohlone College STEM Summit:
-     * Media Coverage: Ohlone College STEM Summit Facebook Post.
-     * Key focus: Inspiring college students to pursue, commit to, and succeed in STEM careers. Minnie shared her origin story (teaching herself BASIC, Computer Science scholarship, Ateneo de Manila, working in Silicon Valley), and spoke on bridging academic studies with corporate demands, finding mentors, overcoming impostor syndrome, and active mentorship.
-
-5. Publication (*JMX Programming*, John Wiley & Sons, 2002):
-   - Minnie served as the **Technical Editor** for this book authored by Mike Jasnowski.
-   - Role: Provided senior technical review, code auditing, architectural design validation, and Java patterns review.
-   - Key topics covered in *JMX Programming*:
-     * Java Management Extensions (JMX): A standard technology for managing and monitoring Java applications, JVM, system objects, devices, and service-oriented networks.
-     * Instrumentation Level: Defining MBeans (Managed Beans) representing resources to manage. Four types: Standard MBeans, Dynamic MBeans, Open MBeans, and Model MBeans.
-     * Agent Level: The MBeanServer registry which acts as the core controller where MBeans are registered.
-     * Distributed Services Level: Protocol adaptors and connectors (RMI, HTTP/XML, SNMP connectors/adaptors) allowing management systems to connect to the MBeanServer.
-     * Notification model: Event-driven broadcast system where MBeans can notify listeners of state changes or errors.
-     * Application instrumentation, monitoring thread pools, memory, database connection pools, and runtime configuration.
-
-5. Portfolio Projects on her Website:
-   - Creative Blue GrowthOS: Multi-agent automation cockpit (marketing ideas, AI SEO, payroll forecasting).
-   - Lead Generator: AI sales intelligence scraping and scoring ideal client prospects.
-   - Brand Assessment / Booster: NLP framework tracking brand sentiment and market share.
-   - Grex World: AI worker matching marketplace, offering health partner structures.
-   - Regnum Dei: Polished mission and values digital space.
-   - Just Ride: Sports telemetry race intelligence analytics pipeline.
-
-6. Contact & Scheduling:
-   - Google Appointment Calendar: Users can book a 1:1 meeting, consultation, or project advisory session with Minnie using this link: https://calendar.app.google/MCnhZcK56rLJ7fnk8
-   - Secure Contact Form: Visitors can also write a direct secure message on her Contact page.
-
-Formatting:
-- Structure your response beautifully with paragraphs, scannable bullet points, or bold text where appropriate.
-- Always be kind, warm, and helpful.
-- If asked about something completely unrelated to Minnie or JMX, politely steer the conversation back to Minnie, saying something like, "While I'd love to chat about that, I am Mochi, Minnie's portfolio helper, so I'm happiest when we talk about Minnie's amazing technology journey! Did you know she was the technical editor of JMX Programming?"
-- If you don't know the answer, politely state: "Oh, my pancake memory doesn't have details on that! However, you can reach out directly to Minnie via her Contact page, and she'd love to tell you herself! 🥞"`,
+          systemInstruction: dynamicSystemInstruction,
         }
       });
 
