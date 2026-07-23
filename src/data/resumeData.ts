@@ -110,12 +110,12 @@ export const experiences: ExperienceItem[] = [
     company: 'Creative Blue',
     period: 'Dec 2025 – Present',
     type: 'Contractor',
-    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms (GrowthOS, Lead Generator, Brand Assessment) that automate enterprise workflows with human-in-the-loop oversight.',
+    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms ([GrowthOS](https://cb-growthos-hub-553545205591.us-west1.run.app/), [Lead Generator](https://creative-blue-lead-gen-1029286255981.us-west1.run.app/), [Brand Booster](https://creative-blue-brand-assessment-553545205591.us-west1.run.app/)) that automate enterprise workflows with human-in-the-loop oversight.',
     bullets: [
-      'Organized unstructured workflows by building GrowthOS, integrating marketing campaigns, AI SEO, and lead generation.',
-      'Improved payroll forecasting precision using multi-source cloud data dashboard integrations.',
-      'Leading hands-on AI upskilling sprints for engineering teams, focusing on practical automations and LLM-driven decision-making.',
-      'Spearheading the design, deployment, and ethical governance of agentic AI transformation frameworks.'
+      'Organized unstructured workflows by building [GrowthOS](https://cb-growthos-hub-553545205591.us-west1.run.app/) as an integrated platform that generates marketing campaign ideas, AI search engine optimization (SEO), lead generation. Improved payroll forecasting using dashboards with data from various sources. Leading hands-on AI upskilling sprints focused on practical automation.',
+      'Spearheading the design and deployment of agentic AI transformation frameworks and advising on ethical policy considerations for emerging AI solutions, including [Lead Generator](https://creative-blue-lead-gen-1029286255981.us-west1.run.app/) (AI finds leads based on ideal client profile) and [Brand Booster](https://creative-blue-brand-assessment-553545205591.us-west1.run.app/) (AI measures brand score and provides recommendations for improvement).',
+      'Pioneered [Grex](https://grex.world) which uses AI for companies to post problems that can be solved by workers, which can potentially become investable opportunities. Defining partnerships for independent workers to obtain health insurance.',
+      'Architecting the AI framework for Just Ride to unify cycling race data with automated pro intelligence and a single source of truth for the global peloton.'
     ],
     skillsUsed: ['Generative AI', 'Agentic Workflows', 'LLM Ops', 'Python', 'Cloud Dashboards', 'Team Upskilling'],
     logoColor: 'text-[#3333FF]'
@@ -127,12 +127,30 @@ export const experiences: ExperienceItem[] = [
     type: 'Full-time',
     description: 'Led large-scale engineering operations and full lifecycle program management within Google Engineering, delivering crucial features for Google Maps and leading massive infrastructure and SDLC transformations.',
     bullets: [
-      'Managed full product lifecycle from requirements to production for 50+ Google Maps features with Gemini Voice Navigation on GCP.',
+      'Managed full product lifecycle from requirements to production for 50+ Google Maps features with Gemini Voice Navigation on Google Cloud Platform.',
       'Led cross-functional execution across engineering, product, QA, and release stakeholders to deliver scaled launches on time.',
-      'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building fluency in AI-driven program management.',
-      'Drove AI Service Desk transformation, migrating ticket routing workflows, contributing to $150M in organization-wide efficiencies.',
-      'Led transformation of Finance SDLC governance for SAP on GCP for 40+ TPMs, improving compliance to 82+% and reducing defects by 21,000+.',
-      'Established executive program review cadences for a portfolio of 20+ programs, driving cross-functional visibility into risks and dependencies.'
+      'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building fluency in AI-driven program management. Provided consultation on leveraging Google AI tools for SDLC governance.',
+      'Built TPM culture centered on technical rigor, mentoring, and execution, contributing to the promotion of senior TPM talent.',
+      'Drove AI Service Desk transformation, migrating ticket routing workflows contributing to $150M in organization-wide efficiencies.',
+      'Led transformation of Finance SDLC governance for SAP on Google Cloud Platform, providing consultation service for 40+ TPMs; improved time-to-market to 90+%, compliance to 82+%, and reduced defects by 21,000+.',
+      'Established program review cadences for a portfolio of 20+ programs, driving cross-functional executive visibility into status, risks, dependencies, and prioritization decisions.',
+      'Led infrastructure programs with 50+ TPMs at scale: SAP entity automation with 98% SLO, 67% testing cost reduction via server consolidation, and global IT standardization for vendor offices that reduced millions in operational cost.',
+      'Pioneered portfolio management for Finance Engineering using a single source of truth that enabled dashboard reporting for managing projects/programs and identifying risks that need leadership attention.',
+      'Led cross-functional teams in implementing lightweight SDLC which improves compliance, timeliness, quality and traceability of Finance system releases.',
+      'Built dashboards to monitor monthly releases, building AI/ML solutions for efficiency.',
+      'Led 12 cross-functional teams in completing configurations and dashboards for 100 new entities with 304 subledger requests. Improved closure rate to 96%, accelerated burn rate by 65%.',
+      'Established Stanford LEAD @ Google to challenge employees to change lives, change organizations, change the world. Negotiated with Stanford GSB, leveraged Google Educational Reimbursement to provide employees up to 72% savings after reimbursement. Participants improved leadership skills which resulted in some promotions.',
+      'Improved HR Engineering intake closure to 96%, burn rate 84% with simple intake/backlog management process for 200+ customers from 91 product areas. Automated intake ticket generation, built dashboards to improve service levels.',
+      'Built Return to Office dashboard and led full cycle enhancement of Staffing Requests, internal and external job sites to show remote work locations.',
+      'Led cross-functional teams in retrofitting 126 HR systems for the Oracle to SAP chart of accounts migration in May 2021.',
+      'Led cross-functional teams in implementing integrations for Workday, SAP and homegrown payroll systems in Ireland, Poland, Singapore.',
+      'Led cross-functional team from CorpEng, People Operations, Legal, and Information Security to ensure that HR systems are compliant to General Data Protection Regulation (EU GDPR).',
+      'Managed software releases for Google\'s HR integration platform, Workday Payroll integrations and HR Ops API.',
+      'Led a cross-functional team from Corporate Engineering, Extended Workforce Solutions, Finance, Legal, and Product Areas to implement a new vendor management system from inception through design. The mission was to drive value, reduce risk, and make it simpler to manage contingent workers.',
+      'Delivered XWM Business Intelligence to provide a single source of truth for managing cost, risk, and operational efficiency in contingent workforce engagements.',
+      'Brought together subject matter experts from REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security, and Finance to standardize Google Owned Vendor Offices (GOVO) and efficiently build them at a lower cost than Googler offices. Streamlined GOVO operations by creating a guide for GOVO Site Managers to manage Temp/Vendor/Contractor (TVC) migrations and have Equipment Maintenance Technicians as the "smart hands onsite". This saved thousands of dollars in travel cost for Vendor Solutions as it allowed escalations to be handled remotely.',
+      'Spearheaded cross-functional collaboration among BizApps, REWS, xWS, PeopleOps, Vendor Solutions, Googler Experience, SecOps, Compliance, and FieldTechs to define the method for tracking information about facilities where TVCs work. This made it possible to verify if TVC facilities follow Google\'s Vendor Site Checklist with adherence to the User Data Access Policy.',
+      'Conceptualized PSH+ to automatically determine TVC access by job function and upload application list into Lantern for provisioning, thus reducing manual work for managers.'
     ],
     skillsUsed: ['Google Cloud Platform', 'Google Maps', 'Gemini AI', 'SDLC Governance', 'SAP Integration', 'Program Portfolio Management'],
     logoColor: 'text-blue-500'

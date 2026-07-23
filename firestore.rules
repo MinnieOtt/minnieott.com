@@ -34,6 +34,12 @@ service cloud.firestore {
       allow delete: if isAdmin() && isValidId(postId);
     }
 
+    // Rules for deleted_posts tracking collection
+    match /deleted_posts/{deletedId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Strict validation blueprint for a BlogPost
     function isValidBlogPost(data) {
       return data.keys().hasAll(['id', 'title', 'slug', 'content']) &&

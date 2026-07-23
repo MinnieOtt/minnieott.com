@@ -106,6 +106,43 @@ async function isAdminAuthenticated(req: any): Promise<boolean> {
 
 // Paths to the posts JSON
 const postsFilePath = path.join(process.cwd(), "src", "data", "posts.json");
+const deletedPostsFilePath = path.join(process.cwd(), "src", "data", "deleted_posts.json");
+
+interface DeletedPostEntry {
+  id: string;
+  slug?: string;
+  deletedAt: string;
+}
+
+function readDeletedPostsFromFile(): DeletedPostEntry[] {
+  try {
+    if (fs.existsSync(deletedPostsFilePath)) {
+      const data = fs.readFileSync(deletedPostsFilePath, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error("Error reading deleted_posts.json:", error);
+  }
+  return [];
+}
+
+function writeDeletedPostToFile(id: string, slug?: string): boolean {
+  try {
+    const list = readDeletedPostsFromFile();
+    if (!list.some(item => item.id === id || (slug && item.slug === slug))) {
+      list.push({ id, slug, deletedAt: new Date().toISOString() });
+      const dir = path.dirname(deletedPostsFilePath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      fs.writeFileSync(deletedPostsFilePath, JSON.stringify(list, null, 2), "utf-8");
+    }
+    return true;
+  } catch (error) {
+    console.error("Error writing deleted_posts.json:", error);
+    return false;
+  }
+}
 
 // Helper function to slugify titles
 function slugify(text: string): string {
@@ -171,7 +208,10 @@ async function savePostToFirestore(post: BlogPost): Promise<boolean> {
   return false;
 }
 
-async function deletePostFromFirestore(id: string): Promise<boolean> {
+async function deletePostFromFirestore(id: string, slug?: string): Promise<boolean> {
+  // Always record deletion locally
+  writeDeletedPostToFile(id, slug);
+
   const dbsToTry = [];
   if (!useDefaultDatabase && dbPrimary) dbsToTry.push(dbPrimary);
   if (dbDefault && !dbsToTry.includes(dbDefault)) dbsToTry.push(dbDefault);
@@ -179,11 +219,16 @@ async function deletePostFromFirestore(id: string): Promise<boolean> {
   for (const db of dbsToTry) {
     try {
       await db.collection("posts").doc(id).delete();
+      await db.collection("deleted_posts").doc(id).set({
+        id,
+        slug: slug || "",
+        deletedAt: new Date().toISOString()
+      });
       if (db === dbDefault && dbPrimary && !useDefaultDatabase) {
         useDefaultDatabase = true;
       }
       firestoreAvailable = true;
-      console.log(`Successfully deleted post ${id} from Firestore.`);
+      console.log(`Successfully deleted post ${id} (${slug || ''}) from Firestore.`);
       return true;
     } catch (err: any) {
       console.warn(`Failed deleting post ${id} from Firestore:`, err?.message || err);
@@ -194,6 +239,10 @@ async function deletePostFromFirestore(id: string): Promise<boolean> {
 
 // Helper to get posts from Firestore with automatic fallback and local file sync
 async function getPostsFromFirestore(): Promise<BlogPost[]> {
+  const localDeleted = readDeletedPostsFromFile();
+  const deletedIds = new Set<string>(localDeleted.map(d => d.id));
+  const deletedSlugs = new Set<string>(localDeleted.filter(d => d.slug).map(d => d.slug!));
+
   const dbsToTry = [];
   if (!useDefaultDatabase && dbPrimary) dbsToTry.push(dbPrimary);
   if (dbDefault && !dbsToTry.includes(dbDefault)) dbsToTry.push(dbDefault);
@@ -207,17 +256,38 @@ async function getPostsFromFirestore(): Promise<BlogPost[]> {
       }
       firestoreAvailable = true;
 
-      const posts: BlogPost[] = [];
+      // Read deleted_posts from Firestore
+      try {
+        const deletedSnapshot = await db.collection("deleted_posts").get();
+        if (!deletedSnapshot.empty) {
+          deletedSnapshot.forEach((doc: any) => {
+            const data = doc.data();
+            if (data.id) deletedIds.add(data.id);
+            if (data.slug) deletedSlugs.add(data.slug);
+            if (data.id) writeDeletedPostToFile(data.id, data.slug);
+          });
+        }
+      } catch (delErr) {
+        console.warn("Could not fetch deleted_posts collection:", delErr);
+      }
+
+      const rawPosts: BlogPost[] = [];
       if (!snapshot.empty) {
         snapshot.forEach((doc: any) => {
-          posts.push(doc.data() as BlogPost);
+          rawPosts.push(doc.data() as BlogPost);
         });
       }
 
-      // Merge any local posts from posts.json that aren't in Firestore yet
+      // Filter out posts that were marked deleted
+      const posts = rawPosts.filter(p => !deletedIds.has(p.id) && (!p.slug || !deletedSlugs.has(p.slug)));
+
+      // Merge any local posts from posts.json that aren't in Firestore yet AND aren't deleted
       const localPosts = readPostsFromFile();
       for (const localP of localPosts) {
-        if (!posts.some(p => p.id === localP.id)) {
+        const isDeleted = deletedIds.has(localP.id) || (localP.slug && deletedSlugs.has(localP.slug));
+        const isAlreadyInPosts = posts.some(p => p.id === localP.id || p.slug === localP.slug);
+
+        if (!isDeleted && !isAlreadyInPosts) {
           posts.push(localP);
           try {
             await db.collection("posts").doc(localP.id).set(localP);
@@ -236,7 +306,8 @@ async function getPostsFromFirestore(): Promise<BlogPost[]> {
   }
 
   firestoreAvailable = false;
-  return readPostsFromFile();
+  const filePosts = readPostsFromFile().filter(p => !deletedIds.has(p.id) && (!p.slug || !deletedSlugs.has(p.slug)));
+  return filePosts;
 }
 
 async function startServer() {
@@ -770,15 +841,16 @@ Formatting:
     }
 
     const { id } = req.params;
-    const posts = readPostsFromFile();
-    const index = posts.findIndex(p => p.id === id);
+    const posts = await getPostsFromFirestore();
+    const index = posts.findIndex(p => p.id === id || p.slug === id);
 
     if (index !== -1) {
+      const postToDelete = posts[index];
       posts.splice(index, 1);
       writePostsToFile(posts);
 
-      // Sync deletion to Firestore cloud database
-      await deletePostFromFirestore(id);
+      // Record deletion locally and in Firestore cloud database
+      await deletePostFromFirestore(postToDelete.id, postToDelete.slug);
 
       return res.json({ success: true, posts });
     }

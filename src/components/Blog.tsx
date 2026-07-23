@@ -188,17 +188,12 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       if (!res.ok) throw new Error('Failed to load blog posts');
       const data = await res.json();
       const serverPosts: BlogPost[] = data.posts || [];
-      const localPosts = getPostsFromLocalStorage();
 
-      // Merge server posts and local posts (server overrides if present)
-      const postMap = new Map<string, BlogPost>();
-      localPosts.forEach(p => { if (p.id) postMap.set(p.id, p); });
-      serverPosts.forEach(p => { if (p.id) postMap.set(p.id, p); });
-
-      // Deduplicate by slug as well to prevent any duplicate entries
+      // Deduplicate by id and slug to ensure clean list
       const slugMap = new Map<string, BlogPost>();
       const deduplicated: BlogPost[] = [];
-      Array.from(postMap.values()).forEach(p => {
+      serverPosts.forEach(p => {
+        if (!p.id) return;
         if (p.slug && slugMap.has(p.slug)) return;
         if (p.slug) slugMap.set(p.slug, p);
         deduplicated.push(p);
@@ -208,25 +203,6 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
       setPosts(deduplicated);
       savePostsToLocalStorage(deduplicated);
-
-      // Re-sync any custom local posts missing on server
-      const missingOnServer = localPosts.filter(lp => !serverPosts.some(sp => sp.id === lp.id || sp.slug === lp.slug));
-      if (missingOnServer.length > 0) {
-        for (const missingPost of missingOnServer) {
-          try {
-            await fetch('/api/posts', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'X-Admin-Passcode': 'minnie'
-              },
-              body: JSON.stringify(missingPost)
-            });
-          } catch (e) {
-            console.warn('Failed to sync missing post to server:', e);
-          }
-        }
-      }
     } catch (err: any) {
       const cachedPosts = getPostsFromLocalStorage();
       if (cachedPosts.length > 0) {

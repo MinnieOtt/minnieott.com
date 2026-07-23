@@ -89,49 +89,42 @@ export default function Experience() {
 
   const renderTextWithLinks = (text: string) => {
     if (!text) return '';
-    const parts = text.split(/(GrowthOS|Lead Generator|Brand Assessment)/g);
-    return (
-      <>
-        {parts.map((part, index) => {
-          if (part === 'GrowthOS') {
-            return (
-              <a
-                key={index}
-                href="#portfolio-creative-blue-growthos"
-                className="text-[#3333FF] hover:underline font-semibold"
-              >
-                GrowthOS
-              </a>
-            );
-          }
-          if (part === 'Lead Generator') {
-            return (
-              <a
-                key={index}
-                href="#portfolio-lead-generator"
-                className="text-[#3333FF] hover:underline font-semibold"
-              >
-                Lead Generator
-              </a>
-            );
-          }
-          if (part === 'Brand Assessment') {
-            return (
-              <a
-                key={index}
-                href="https://creative-blue-brand-assessment-553545205591.us-west1.run.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#3333FF] hover:underline font-semibold"
-              >
-                Brand Assessment
-              </a>
-            );
-          }
-          return part;
-        })}
-      </>
-    );
+
+    // Match markdown links: [label](url)
+    const regex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    const elements: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      if (match.index > lastIndex) {
+        elements.push(text.substring(lastIndex, match.index));
+      }
+
+      const label = match[1];
+      const url = match[2];
+      const isInternal = url.startsWith('#');
+
+      elements.push(
+        <a
+          key={`link-${match.index}`}
+          href={url}
+          target={isInternal ? undefined : "_blank"}
+          rel={isInternal ? undefined : "noopener noreferrer"}
+          className="text-[#3333FF] hover:underline font-semibold"
+        >
+          {label}
+        </a>
+      );
+
+      lastIndex = regex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      elements.push(text.substring(lastIndex));
+    }
+
+    return <>{elements}</>;
   };
 
   return (
