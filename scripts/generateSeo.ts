@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { marked } from 'marked';
 import {
   personalInfo,
   portfolioApps,
@@ -28,13 +29,17 @@ interface BlogPost {
 
 function parseMarkdownToHtml(text: string): string {
   if (!text) return '';
-  let html = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
-    const isInternal = url.startsWith('#');
-    return `<a href="${url}" ${isInternal ? '' : 'target="_blank" rel="noopener noreferrer"'} style="color: #2563eb; font-weight: 600; text-decoration: underline;">${label}</a>`;
-  });
-  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-  return html;
+  try {
+    return marked.parse(text, { async: false }) as string;
+  } catch (e) {
+    let html = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
+      const isInternal = url.startsWith('#');
+      return `<a href="${url}" ${isInternal ? '' : 'target="_blank" rel="noopener noreferrer"'} style="color: #2563eb; font-weight: 600; text-decoration: underline;">${label}</a>`;
+    });
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return html;
+  }
 }
 
 export function generateSeoHtml(): string {
@@ -131,7 +136,7 @@ export function generateSeoHtml(): string {
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Technology Transformation & TPM Leader" />
-  <meta property="og:description" content="Explore the full career portfolio, AI frameworks (GrowthOS, Lead Generator, Brand Booster), Google Maps leadership, JMX publication, and tech insights of Minerva Tanglao Ott." />
+  <meta property="og:description" content="Explore the full career portfolio, AI frameworks (GrowthOS, Lead Generator, Brand Assessment), Google Maps leadership, JMX publication, and tech insights of Minerva Tanglao Ott." />
   <meta property="og:image" content="${baseUrl}/minnieott.jpg" />
   <meta property="og:url" content="${baseUrl}/index-seo.html" />
   <meta property="og:site_name" content="Minerva Tanglao Ott Portfolio" />
@@ -250,6 +255,69 @@ export function generateSeoHtml(): string {
     .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
     .blog-post { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.25rem; }
     .blog-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .blog-content {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.75;
+      background: #f8fafc;
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4 {
+      color: #0f172a;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .blog-content h1 { font-size: 1.4rem; }
+    .blog-content h2 { font-size: 1.25rem; }
+    .blog-content h3 { font-size: 1.1rem; }
+    .blog-content p {
+      margin-bottom: 1rem;
+    }
+    .blog-content p:last-child {
+      margin-bottom: 0;
+    }
+    .blog-content ul, .blog-content ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .blog-content li {
+      margin-bottom: 0.35rem;
+    }
+    .blog-content blockquote {
+      border-left: 4px solid #cbd5e1;
+      padding-left: 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: #475569;
+    }
+    .blog-content code {
+      background: #e2e8f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.85em;
+    }
+    .blog-content pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .blog-content pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+    }
+    .blog-content a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: underline;
+    }
     footer {
       background: #0f172a;
       color: #94a3b8;
@@ -336,9 +404,11 @@ export function generateSeoHtml(): string {
             <ul class="bullet-list" style="margin-left: 1rem; font-size: 0.875rem;">
               ${app.bulletPoints.map(b => `<li>${parseMarkdownToHtml(b)}</li>`).join('')}
             </ul>
+            ${app.cta ? `
             <div style="margin-top: 1rem;">
-              <a href="${app.url}" target="_blank" rel="noopener noreferrer" style="font-weight: 600; font-size: 0.9rem;">Launch Application &rarr;</a>
+              <a href="${app.cta.url}" target="_blank" rel="noopener noreferrer" style="font-weight: 600; font-size: 0.9rem;">${app.cta.label} &rarr;</a>
             </div>
+            ` : ''}
           </div>
         `).join('')}
       </div>
@@ -449,8 +519,8 @@ export function generateSeoHtml(): string {
           <div class="blog-meta">${post.date} &bull; ${post.category} &bull; ${post.readTime} &bull; By ${post.author || personalInfo.name}</div>
           <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">${post.title}</h3>
           <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; font-weight: 500;">${post.excerpt}</p>
-          <div style="font-size: 0.9rem; color: #334155; line-height: 1.7; background: #f8fafc; padding: 1.25rem; border-radius: 8px; border: 1px solid #e2e8f0;">
-            ${parseMarkdownToHtml(post.content).replace(/\n/g, '<br/>')}
+          <div class="blog-content">
+            ${parseMarkdownToHtml(post.content)}
           </div>
         </article>
       `).join('') : '<p style="color: var(--text-muted);">No blog posts published yet.</p>'}

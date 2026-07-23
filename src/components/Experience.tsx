@@ -103,15 +103,27 @@ export default function Experience() {
 
       const label = match[1];
       const url = match[2];
-      const isInternal = url.startsWith('#');
+      const isInternal = url.startsWith('#') || url.startsWith('/');
+
+      const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (url.includes('#')) {
+          e.preventDefault();
+          const targetId = url.split('#')[1];
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      };
 
       elements.push(
         <a
           key={`link-${match.index}`}
           href={url}
+          onClick={handleClick}
           target={isInternal ? undefined : "_blank"}
           rel={isInternal ? undefined : "noopener noreferrer"}
-          className="text-[#3333FF] hover:underline font-semibold"
+          className="text-[#3333FF] hover:underline font-semibold cursor-pointer"
         >
           {label}
         </a>

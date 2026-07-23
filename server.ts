@@ -586,7 +586,7 @@ ${speakersFormatted}
     - Secure Contact Form: Visitors can write a direct secure message on her Contact page.
 
 Formatting & Guidelines:
-- Structure your response beautifully with clear paragraphs, bullet points, markdown links, or bold key terms.
+- Structure your response beautifully with clear paragraphs, bullet points, bold key terms, and standard markdown hyperlinks like [Link Title](https://url) or [Blog Post](/blog/slug). ALWAYS ensure links are formatted as clean markdown links and never enclosed in code backticks.
 - Always be kind, warm, and helpful.
 - If asked about something completely unrelated to Minnie or her work/blog/JMX, politely steer the conversation back to Minnie, saying something like, "While I'd love to chat about that, I am Mochi, Minnie's portfolio helper, so I'm happiest when we talk about Minnie's amazing technology journey!"
 - If you don't know the answer, politely state: "Oh, my pancake memory doesn't have details on that! However, you can reach out directly to Minnie via her Contact page, and she'd love to tell you herself! 🥞"`;
@@ -611,10 +611,10 @@ Formatting & Guidelines:
       }
     }
 
-    if (query.includes('creative blue') || query.includes('growthos') || query.includes('lead generator') || query.includes('brand booster') || query.includes('grex') || query.includes('just ride')) {
+    if (query.includes('creative blue') || query.includes('growthos') || query.includes('lead generator') || query.includes('brand booster') || query.includes('brand assessment') || query.includes('grex') || query.includes('just ride')) {
       const cbExp = experiences.find(e => e.company === 'Creative Blue');
       const bullets = cbExp ? cbExp.bullets.map(b => `* ${b}`).join('\n') : '';
-      return `At **Creative Blue**, Minnie serves as Head of Technology! 🤖 Here are her latest achievements:\n\n${bullets}\n\nKey platforms include [GrowthOS](https://cb-growthos-hub-553545205591.us-west1.run.app/), [Lead Generator](https://creative-blue-lead-gen-1029286255981.us-west1.run.app/), [Brand Booster](https://creative-blue-brand-assessment-553545205591.us-west1.run.app/), [Grex](https://grex.world), and [Just Ride](https://just-ride.ai.studio)!`;
+      return `At **Creative Blue**, Minnie serves as Head of Technology! 🤖 Here are her latest achievements:\n\n${bullets}\n\nKey platforms include [GrowthOS](/work#portfolio-creative-blue-growthos), [Lead Generator](/work#portfolio-lead-generator), [Brand Assessment](/work#portfolio-brand-assessment), [Grex](/work#portfolio-grex-world), and [Just Ride](/work#portfolio-just-ride)!`;
     }
 
     if (query.includes('google') || query.includes('maps') || query.includes('voice') || query.includes('tpm') || query.includes('service desk')) {
@@ -647,7 +647,7 @@ Formatting & Guidelines:
       return `Minnie's active certifications include:\n\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google Cloud\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
     }
 
-    return `Hi! I'm Mochi. 🥞 I'm Minnie's AI companion! Minnie is a **Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun Microsystems.\n\nYou can ask me about her AI agent platforms (GrowthOS, Lead Generator, Brand Booster), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
+    return `Hi! I'm Mochi. 🥞 I'm Minnie's AI companion! Minnie is a **Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun Microsystems.\n\nYou can ask me about her AI agent platforms (GrowthOS, Lead Generator, Brand Assessment), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
   }
 
   // POST: Chatbot agent Mochi endpoint

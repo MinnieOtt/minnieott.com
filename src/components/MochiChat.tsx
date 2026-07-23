@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2, Mic, MicOff, Calendar } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface MochiChatProps {
   currentPath?: string;
@@ -21,191 +23,145 @@ const SUGGESTIONS = [
   { text: 'Education & Patents 🎓', id: 'sugg-edu' },
 ];
 
-// Helper to parse inline styles like **bold**, *italic*, `code`, [text](url), and raw URLs
-function parseInline(text: string, isModel: boolean = true): React.ReactNode[] {
-  // Matches **bold**, *italic*, `code`, [text](url), and raw URLs
-  const regex = /(\*\*.*?\*\*|\*.*?\*|`.*?`|\[.*?\]\(.*?\)|https?:\/\/[^\s)\].,]+)/g;
-  const parts = text.split(regex);
-  return parts.map((part, idx) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return (
-        <strong key={idx} className="font-bold">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return (
-        <em key={idx} className="italic">
-          {part.slice(1, -1)}
-        </em>
-      );
-    }
-    if (part.startsWith('`') && part.endsWith('`')) {
-      return (
-        <code key={idx} className="bg-neutral-100 font-mono text-[11px] px-1.5 py-0.5 rounded text-[#3333FF] font-semibold">
-          {part.slice(1, -1)}
-        </code>
-      );
-    }
-    if (part.startsWith('[') && part.includes('](')) {
-      const match = part.match(/\[(.*?)\]\((.*?)\)/);
-      if (match) {
-        return (
-          <a
-            key={idx}
-            href={match[2]}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${isModel ? 'text-[#3333FF] hover:underline' : 'text-white underline hover:text-neutral-100'} font-semibold break-all`}
-          >
-            {match[1]}
-          </a>
-        );
-      }
-    }
-    if (part.startsWith('http://') || part.startsWith('https://')) {
-      return (
-        <a
-          key={idx}
-          href={part}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${isModel ? 'text-[#3333FF] hover:underline' : 'text-white underline hover:text-neutral-100'} font-semibold break-all`}
-        >
-          {part}
-        </a>
-      );
-    }
-    return part;
-  });
-}
+// Helper to render markdown paragraphs, lists, bold text, and clickable hyperlinks
+function renderMarkdown(text: string, isModel: boolean, onNavigate?: (path: string) => void): React.ReactNode {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        p: ({ children }) => (
+          <p className="text-[13px] leading-relaxed mb-2 last:mb-0">
+            {children}
+          </p>
+        ),
+        h1: ({ children }) => (
+          <h2 className={`font-display font-bold text-base mt-3 mb-1.5 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
+            {children}
+          </h2>
+        ),
+        h2: ({ children }) => (
+          <h3 className={`font-display font-bold text-sm mt-3 mb-1.5 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
+            {children}
+          </h3>
+        ),
+        h3: ({ children }) => (
+          <h4 className={`font-display font-bold text-xs mt-2 mb-1 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
+            {children}
+          </h4>
+        ),
+        ul: ({ children }) => (
+          <ul className="list-disc pl-4 my-2 space-y-1 text-[13px] leading-relaxed">
+            {children}
+          </ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="list-decimal pl-4 my-2 space-y-1 text-[13px] leading-relaxed">
+            {children}
+          </ol>
+        ),
+        li: ({ children }) => (
+          <li className="leading-relaxed">
+            {children}
+          </li>
+        ),
+        strong: ({ children }) => (
+          <strong className="font-bold">{children}</strong>
+        ),
+        em: ({ children }) => (
+          <em className="italic">{children}</em>
+        ),
+        code: ({ children, className }) => {
+          const codeStr = String(children || '').trim();
+          const isUrl = /^https?:\/\/[^\s]+$/i.test(codeStr);
+          const isMdLink = /^\[(.*?)\]\((.*?)\)$/.test(codeStr);
 
-// Helper to render basic markdown paragraphs, lists, and headers
-function renderMarkdown(text: string, isModel: boolean): React.ReactNode {
-  const lines = text.split('\n');
-  const elements: React.ReactNode[] = [];
-  
-  let currentList: { type: 'ul' | 'ol'; items: string[] } | null = null;
-  
-  const flushList = (key: string | number) => {
-    if (!currentList) return null;
-    const listKey = `list-${key}`;
-    const listType = currentList.type;
-    const items = currentList.items;
-    currentList = null;
-    
-    if (listType === 'ul') {
-      return (
-        <ul key={listKey} className="list-disc pl-4 my-2 space-y-1.5 text-[13px]">
-          {items.map((item, idx) => (
-            <li key={idx} className="leading-relaxed">
-              {parseInline(item, isModel)}
-            </li>
-          ))}
-        </ul>
-      );
-    } else {
-      return (
-        <ol key={listKey} className="list-decimal pl-4 my-2 space-y-1.5 text-[13px]">
-          {items.map((item, idx) => (
-            <li key={idx} className="leading-relaxed">
-              {parseInline(item, isModel)}
-            </li>
-          ))}
-        </ol>
-      );
-    }
-  };
-  
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const trimmed = line.trim();
-    
-    if (!trimmed) {
-      if (currentList) {
-        const listEl = flushList(i);
-        if (listEl) elements.push(listEl);
-      }
-      continue;
-    }
-    
-    // Check if line is a bullet item (starts with - or * or • or +)
-    const isBullet = trimmed.match(/^[-*•+]\s+(.*)/);
-    // Check if line is a sub-bullet starting with spaces then - or *
-    const isIndentBullet = line.match(/^\s+[-*•+]\s+(.*)/);
-    
-    if (isBullet || isIndentBullet) {
-      const content = isBullet ? isBullet[1] : (isIndentBullet ? isIndentBullet[1] : '');
-      if (currentList && currentList.type === 'ul') {
-        currentList.items.push(content);
-      } else {
-        if (currentList) {
-          const listEl = flushList(i);
-          if (listEl) elements.push(listEl);
-        }
-        currentList = { type: 'ul', items: [content] };
-      }
-      continue;
-    }
-    
-    // Check if line is a numbered item
-    const isNumbered = trimmed.match(/^\d+\.\s+(.*)/);
-    if (isNumbered) {
-      const content = isNumbered[1];
-      if (currentList && currentList.type === 'ol') {
-        currentList.items.push(content);
-      } else {
-        if (currentList) {
-          const listEl = flushList(i);
-          if (listEl) elements.push(listEl);
-        }
-        currentList = { type: 'ol', items: [content] };
-      }
-      continue;
-    }
-    
-    // If not a list item, flush any existing list
-    if (currentList) {
-      const listEl = flushList(i);
-      if (listEl) elements.push(listEl);
-    }
-    
-    // Check for headings
-    if (trimmed.startsWith('### ')) {
-      elements.push(
-        <h4 key={i} className={`font-display font-bold text-xs mt-3 mb-1.5 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
-          {parseInline(trimmed.slice(4), isModel)}
-        </h4>
-      );
-    } else if (trimmed.startsWith('## ')) {
-      elements.push(
-        <h3 key={i} className={`font-display font-bold text-sm mt-4 mb-2 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
-          {parseInline(trimmed.slice(3), isModel)}
-        </h3>
-      );
-    } else if (trimmed.startsWith('# ')) {
-      elements.push(
-        <h2 key={i} className={`font-display font-bold text-base mt-4 mb-2 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
-          {parseInline(trimmed.slice(2), isModel)}
-        </h2>
-      );
-    } else {
-      // Normal paragraph line
-      elements.push(
-        <p key={i} className="text-[13px] leading-relaxed mb-2 last:mb-0">
-          {parseInline(line, isModel)}
-        </p>
-      );
-    }
-  }
-  
-  if (currentList) {
-    const listEl = flushList('final');
-    if (listEl) elements.push(listEl);
-  }
-  
-  return <div className="space-y-1">{elements}</div>;
+          if (isUrl) {
+            return (
+              <a
+                href={codeStr}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${isModel ? 'text-[#3333FF] hover:underline font-semibold' : 'text-white underline font-semibold'} break-all`}
+              >
+                {codeStr}
+              </a>
+            );
+          }
+
+          if (isMdLink) {
+            const match = codeStr.match(/^\[(.*?)\]\((.*?)\)$/);
+            if (match) {
+              const url = match[2];
+              const isExt = url.startsWith('http://') || url.startsWith('https://');
+              return (
+                <a
+                  href={url}
+                  onClick={(e) => {
+                    if (!isExt && onNavigate) {
+                      e.preventDefault();
+                      onNavigate(url);
+                    }
+                  }}
+                  target={isExt ? '_blank' : '_self'}
+                  rel={isExt ? 'noopener noreferrer' : undefined}
+                  className={`${isModel ? 'text-[#3333FF] hover:underline font-semibold' : 'text-white underline font-semibold'} break-all`}
+                >
+                  {match[1]}
+                </a>
+              );
+            }
+          }
+
+          return (
+            <code className="bg-neutral-100 font-mono text-[11px] px-1.5 py-0.5 rounded text-[#3333FF] font-semibold break-all">
+              {children}
+            </code>
+          );
+        },
+        a: ({ href, children }) => {
+          if (!href) return <span>{children}</span>;
+
+          const isExternal = href.startsWith('http://') || href.startsWith('https://');
+          const isInternal = href.startsWith('/') || href.startsWith('#');
+
+          const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+            if (isInternal && onNavigate) {
+              e.preventDefault();
+              if (href.startsWith('#')) {
+                const targetId = href.slice(1);
+                const element = document.getElementById(targetId);
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  onNavigate(href);
+                }
+              } else {
+                onNavigate(href);
+              }
+            }
+          };
+
+          return (
+            <a
+              href={href}
+              onClick={handleClick}
+              target={isExternal ? '_blank' : '_self'}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
+              className={`${
+                isModel
+                  ? 'text-[#3333FF] hover:underline font-semibold'
+                  : 'text-white underline hover:text-neutral-100 font-semibold'
+              } break-all cursor-pointer`}
+            >
+              {children}
+            </a>
+          );
+        },
+      }}
+    >
+      {text}
+    </ReactMarkdown>
+  );
 }
 
 export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
@@ -586,7 +542,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                             : 'bg-[#3333FF] text-white rounded-br-xs'
                         }`}
                       >
-                        {renderMarkdown(msg.text, isModel)}
+                        {renderMarkdown(msg.text, isModel, onNavigate)}
                       </div>
                       <span
                         id={`mochi-msg-time-${msg.id}`}

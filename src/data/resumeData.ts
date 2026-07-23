@@ -30,7 +30,7 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['Generative AI', 'Agentic Workflows', 'Business Automation', 'React', 'TypeScript'],
     isFlagship: true,
-    status: 'Ready to use'
+    status: 'Work in progress'
   },
   {
     name: 'Lead Generator',
@@ -44,7 +44,11 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['AI Agents', 'Sales Intelligence', 'Lead Qualification', 'Google Cloud Platform'],
     isFlagship: false,
-    status: 'Ready to use'
+    status: 'Ready to use',
+    cta: {
+      label: 'Request Demo',
+      url: 'https://www.creativeblue.agency/contact'
+    }
   },
   {
     name: 'Brand Assessment',
@@ -58,7 +62,11 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['NLP', 'Brand Intelligence', 'Sentiment Analysis', 'Executive Dashboard'],
     isFlagship: false,
-    status: 'Ready to use'
+    status: 'Ready to use',
+    cta: {
+      label: 'Request Demo',
+      url: 'https://www.creativeblue.agency/contact'
+    }
   },
   {
     name: 'Grex World',
@@ -86,7 +94,11 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['Web Design', 'Digital Platform', 'Community Engagement', 'Responsive Design'],
     isFlagship: false,
-    status: 'Ready to use'
+    status: 'Ready to use',
+    cta: {
+      label: 'Launch App',
+      url: 'https://regnumdei.co/'
+    }
   },
   {
     name: 'Just Ride',
@@ -110,12 +122,12 @@ export const experiences: ExperienceItem[] = [
     company: 'Creative Blue',
     period: 'Dec 2025 – Present',
     type: 'Contractor',
-    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms ([GrowthOS](https://cb-growthos-hub-553545205591.us-west1.run.app/), [Lead Generator](https://creative-blue-lead-gen-1029286255981.us-west1.run.app/), [Brand Booster](https://creative-blue-brand-assessment-553545205591.us-west1.run.app/)) that automate enterprise workflows with human-in-the-loop oversight.',
+    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms ([GrowthOS](/work#portfolio-creative-blue-growthos), [Lead Generator](/work#portfolio-lead-generator), [Brand Assessment](/work#portfolio-brand-assessment)) that automate enterprise workflows with human-in-the-loop oversight.',
     bullets: [
-      'Organized unstructured workflows by building [GrowthOS](https://cb-growthos-hub-553545205591.us-west1.run.app/) as an integrated platform that generates marketing campaign ideas, AI search engine optimization (SEO), lead generation. Improved payroll forecasting using dashboards with data from various sources. Leading hands-on AI upskilling sprints focused on practical automation.',
-      'Spearheading the design and deployment of agentic AI transformation frameworks and advising on ethical policy considerations for emerging AI solutions, including [Lead Generator](https://creative-blue-lead-gen-1029286255981.us-west1.run.app/) (AI finds leads based on ideal client profile) and [Brand Booster](https://creative-blue-brand-assessment-553545205591.us-west1.run.app/) (AI measures brand score and provides recommendations for improvement).',
-      'Pioneered [Grex](https://grex.world) which uses AI for companies to post problems that can be solved by workers, which can potentially become investable opportunities. Defining partnerships for independent workers to obtain health insurance.',
-      'Architecting the AI framework for Just Ride to unify cycling race data with automated pro intelligence and a single source of truth for the global peloton.'
+      'Organized unstructured workflows by building [GrowthOS](/work#portfolio-creative-blue-growthos) as an integrated platform that generates marketing campaign ideas, AI search engine optimization (SEO), lead generation. Improved payroll forecasting using dashboards with data from various sources. Leading hands-on AI upskilling sprints focused on practical automation.',
+      'Spearheading the design and deployment of agentic AI transformation frameworks and advising on ethical policy considerations for emerging AI solutions, including [Lead Generator](/work#portfolio-lead-generator) (AI finds leads based on ideal client profile) and [Brand Assessment](/work#portfolio-brand-assessment) (AI measures brand score and provides recommendations for improvement).',
+      'Pioneered [Grex](/work#portfolio-grex-world) which uses AI for companies to post problems that can be solved by workers, which can potentially become investable opportunities. Defining partnerships for independent workers to obtain health insurance.',
+      'Architecting the AI framework for [Just Ride](/work#portfolio-just-ride) to unify cycling race data with automated pro intelligence and a single source of truth for the global peloton.'
     ],
     skillsUsed: ['Generative AI', 'Agentic Workflows', 'LLM Ops', 'Python', 'Cloud Dashboards', 'Team Upskilling'],
     logoColor: 'text-[#3333FF]'

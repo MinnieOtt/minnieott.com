@@ -99,6 +99,12 @@ export default function Portfolio() {
               ? 'portfolio-lead-generator' 
               : app.name === 'Brand Assessment' 
               ? 'portfolio-brand-assessment' 
+              : app.name === 'Grex World'
+              ? 'portfolio-grex-world'
+              : app.name === 'Regnum Dei'
+              ? 'portfolio-regnum-dei'
+              : app.name === 'Just Ride'
+              ? 'portfolio-just-ride'
               : `portfolio-card-${index}`;
 
             return (
@@ -189,23 +195,26 @@ export default function Portfolio() {
 
                     {/* Action Links */}
                     <div className="flex items-center gap-3">
-                      {/* Launch Link Button */}
-                      {hasLiveUrl ? (
+                      {app.cta ? (
                         <a
                           id={`portfolio-link-${index}`}
-                          href={app.url}
+                          href={app.cta.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-800 hover:text-[#6666FF] transition-colors group/btn"
+                          className={`inline-flex items-center gap-1.5 text-xs font-semibold transition-colors px-3.5 py-1.5 rounded-lg shadow-2xs group/btn ${
+                            app.cta.label === 'Request Demo'
+                              ? 'bg-[#3333FF] text-white hover:bg-[#2525D0]'
+                              : 'text-gray-800 hover:text-[#3333FF] bg-white border border-gray-200 hover:border-[#3333FF]'
+                          }`}
                         >
-                          Launch App
+                          {app.cta.label}
                           <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                         </a>
-                      ) : (
+                      ) : app.name === 'Just Ride' ? (
                         <span className="text-[11px] font-mono font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded">
                           Just Ride Framework
                         </span>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>
