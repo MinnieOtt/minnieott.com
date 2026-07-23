@@ -308,38 +308,5 @@ export const speakerEvents: SpeakerEvent[] = [
   }
 ];
 
-export const endorsements: EndorsementItem[] = [
-  {
-    id: 'google-rec',
-    author: 'Director of Product Management',
-    role: 'Product Lead',
-    company: 'Google',
-    quote: 'Minnie is a powerhouse of execution and strategic vision. At Google, she spearheaded complex features for Google Maps with Gemini Voice Navigation. Her unique ability to bridge highly technical systems with cross-functional team alignment saved months of engineering cycles. She brings an empathetic, people-first leadership style to the most demanding technology environments.',
-    relation: 'Collaborated on Google Maps Gemini integrations'
-  },
-  {
-    id: 'cb-rec',
-    author: 'Managing Director & Co-Founder',
-    role: 'Managing Director',
-    company: 'Creative Blue',
-    quote: "Minnie's introduction of the agentic AI transformation framework was a turning point for our company. As Head of Technology, she didn't just architect high-performance platforms like GrowthOS, but also ran hands-on upskilling sprints that empowered our entire development team. She has a rare, brilliant capability to turn speculative AI concepts into real, highly-optimized enterprise operations.",
-    relation: 'Worked directly as head agency partners'
-  },
-  {
-    id: 'apple-rec',
-    author: 'Senior Manager, IS&T Division',
-    role: 'IS&T Program Director',
-    company: 'Apple',
-    quote: 'During her time as a TPM at Apple, Minnie successfully managed the software development and international rollouts of our major global HR and recruitment platforms. Her attention to detail, strong grasp of system architecture, and ability to coordinate across cross-functional engineering teams in 80+ countries were absolutely stellar.',
-    relation: 'Supervised Minnie on corporate portal rollouts'
-  },
-  {
-    id: 'sun-rec',
-    author: 'Senior Partner & Director',
-    role: 'Java Center Principal Architect',
-    company: 'Sun Microsystems / Oracle',
-    quote: 'Minnie was an exceptional consultant and technical architect. Her work building enterprise-scale architectures for premier clients like the Chicago Board Options Exchange and eBay proved her deep understanding of robust Java EE systems and organizational scalability. She is a consummate professional who excels under complex constraints.',
-    relation: 'Managed Minnie on strategic consulting engagements'
-  }
-];
+export const endorsements: EndorsementItem[] = [];
 

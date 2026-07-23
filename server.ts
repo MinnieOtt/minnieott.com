@@ -17,6 +17,7 @@ import {
   speakerEvents,
   endorsements
 } from "./src/data/resumeData";
+import { writeSeoHtmlFile } from "./scripts/generateSeo";
 
 interface BlogPost {
   id: string;
@@ -537,10 +538,6 @@ async function startServer() {
       `- Event: ${s.event}\n  Description: ${s.description}\n  Links: ${s.links.map(l => `${l.label} (${l.url})`).join(', ')}`
     ).join('\n');
 
-    const endorsementsFormatted = endorsements.map(e =>
-      `- ${e.author} (${e.role}, ${e.company}): "${e.quote}"`
-    ).join('\n');
-
     return `You are Mochi, a warm, clever, and helpful AI chatbot agent who serves as Minnie's (Minerva Tanglao Ott) personal digital companion and portfolio guide. Your visual avatar is a cute, happy pancake character.
 You can answer any questions about Minnie using her latest portfolio information, dynamic experience details, blog posts, education, certifications, patents, speaking engagements, and her publication "JMX Programming" (published by Wiley in 2002, authored by Mike Jasnowski, for which Minerva Tanglao Ott served as the Technical Editor).
 
@@ -584,10 +581,7 @@ ${certsFormatted}
 9. Speaking Engagements & Public Events:
 ${speakersFormatted}
 
-10. Executive Endorsements:
-${endorsementsFormatted}
-
-11. Contact & Scheduling:
+10. Contact & Scheduling:
     - Google Appointment Calendar: Users can book a 1:1 meeting, consultation, or project advisory session with Minnie using this link: https://calendar.app.google/MCnhZcK56rLJ7fnk8
     - Secure Contact Form: Visitors can write a direct secure message on her Contact page.
 
@@ -877,6 +871,9 @@ Formatting & Guidelines:
     // Sync to Firestore cloud database
     await savePostToFirestore(newPost);
 
+    // Regenerate SEO HTML export
+    try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
+
     return res.json({ success: true, post: newPost, posts });
   });
 
@@ -926,6 +923,9 @@ Formatting & Guidelines:
     // Sync to Firestore cloud database
     await savePostToFirestore(updatedPost);
 
+    // Regenerate SEO HTML export
+    try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
+
     return res.json({ success: true, post: updatedPost, posts });
   });
 
@@ -947,10 +947,29 @@ Formatting & Guidelines:
       // Record deletion locally and in Firestore cloud database
       await deletePostFromFirestore(postToDelete.id, postToDelete.slug);
 
+      // Regenerate SEO HTML export
+      try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
+
       return res.json({ success: true, posts });
     }
     return res.status(404).json({ error: "Blog post not found" });
   });
+
+  // Serve SEO HTML directly
+  app.get("/index-seo.html", (req, res) => {
+    const seoPath = path.join(process.cwd(), "index-seo.html");
+    if (!fs.existsSync(seoPath)) {
+      writeSeoHtmlFile();
+    }
+    res.sendFile(seoPath);
+  });
+
+  // Generate initial SEO HTML export on startup
+  try {
+    writeSeoHtmlFile();
+  } catch (err) {
+    console.error("Failed to generate initial index-seo.html on startup:", err);
+  }
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
