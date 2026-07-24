@@ -449,7 +449,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               <img
                 src={src}
                 alt={alt || ''}
-                className="rounded-xl border border-gray-200 dark:border-gray-700 my-6 max-w-full h-auto shadow-sm mx-auto"
+                className="rounded-xl border border-gray-200 dark:border-gray-700 my-4 max-w-full max-h-[380px] w-auto h-auto object-contain shadow-sm mx-auto"
                 referrerPolicy="no-referrer"
               />
             ),

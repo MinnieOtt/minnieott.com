@@ -318,6 +318,17 @@ export function generateSeoHtml(): string {
       font-weight: 600;
       text-decoration: underline;
     }
+    .blog-content img {
+      max-width: 100%;
+      max-height: 380px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      margin: 1.25rem auto;
+      display: block;
+      border: 1px solid var(--border);
+    }
     footer {
       background: #0f172a;
       color: #94a3b8;
@@ -335,7 +346,7 @@ export function generateSeoHtml(): string {
 <body>
 
   <header>
-    <h1>Minerva Tanglao Ott (Minnie)</h1>
+    <h1><a href="https://minnieott.com" style="color: #ffffff; text-decoration: none;">Minerva Tanglao Ott (Minnie)</a></h1>
     <nav>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -530,7 +541,7 @@ export function generateSeoHtml(): string {
     <section id="contact">
       <h2 class="section-title">Contact & Advisory Scheduling</h2>
       <div class="card" style="text-align: center; padding: 3rem 1.5rem;">
-        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Connect with Minerva Tanglao Ott</h3>
+        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Connect with <a href="https://minnieott.com" style="color: #2563eb; text-decoration: underline;">Minerva Tanglao Ott (Minnie)</a></h3>
         <p style="color: var(--text-muted); margin-bottom: 1.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
           Interested in technology transformation consulting, agentic AI frameworks, or executive advisory? Book a 1:1 session or connect via LinkedIn.
         </p>
@@ -544,8 +555,8 @@ export function generateSeoHtml(): string {
   </div>
 
   <footer>
-    <p>&copy; ${new Date().getFullYear()} Minerva Tanglao Ott (Minnie). All rights reserved.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #64748b;">SEO-Optimized Static & Dynamic Web Export for ${personalInfo.name}</p>
+    <p>&copy; ${new Date().getFullYear()} <a href="https://minnieott.com" style="color: #cbd5e1; text-decoration: underline;">Minerva Tanglao Ott (Minnie)</a>. All rights reserved.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #64748b;">SEO-Optimized Static & Dynamic Web Export for <a href="https://minnieott.com" style="color: #94a3b8; text-decoration: underline;">${personalInfo.name}</a></p>
   </footer>
 
   <div id="root"></div>
