@@ -30,7 +30,11 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['Generative AI', 'Agentic Workflows', 'Business Automation', 'React', 'TypeScript'],
     isFlagship: true,
-    status: 'Work in progress'
+    status: 'Work in progress',
+    cta: {
+      label: 'Request Demo',
+      url: 'https://www.creativeblue.agency/contact'
+    }
   },
   {
     name: 'Lead Generator',
@@ -80,7 +84,11 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['Gig Economy', 'AI Market Matching', 'Health Partnerships', 'Investments'],
     isFlagship: false,
-    status: 'Work In Progress'
+    status: 'Work In Progress',
+    cta: {
+      label: 'Check it out',
+      url: 'https://grex.world'
+    }
   },
   {
     name: 'Regnum Dei',
@@ -112,7 +120,11 @@ export const portfolioApps: AppPortfolioItem[] = [
     ],
     tags: ['Sports Analytics', 'Telemetry Processing', 'Data Pipeline', 'Race Intelligence'],
     isFlagship: false,
-    status: 'Work In Progress'
+    status: 'Work In Progress',
+    cta: {
+      label: 'Check it out',
+      url: 'https://just-ride.ai.studio/'
+    }
   }
 ];
 
