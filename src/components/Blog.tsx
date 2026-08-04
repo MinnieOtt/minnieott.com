@@ -203,6 +203,10 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
       setPosts(deduplicated);
       savePostsToLocalStorage(deduplicated);
+      if (data.lastUpdated) {
+        localStorage.setItem('minerva_portfolio_last_update', data.lastUpdated);
+        window.dispatchEvent(new CustomEvent('blog-updated', { detail: { timestamp: data.lastUpdated } }));
+      }
     } catch (err: any) {
       const cachedPosts = getPostsFromLocalStorage();
       if (cachedPosts.length > 0) {
@@ -296,6 +300,11 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       const updatedPosts = data.posts || [];
       setPosts(updatedPosts);
       savePostsToLocalStorage(updatedPosts);
+
+      const timestamp = data.lastUpdated || new Date().toISOString();
+      localStorage.setItem('minerva_portfolio_last_update', timestamp);
+      window.dispatchEvent(new CustomEvent('blog-updated', { detail: { timestamp } }));
+
       setSubmitSuccess(true);
       
       // Reset form and editing state
@@ -342,6 +351,10 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       const updatedPosts = data.posts || [];
       setPosts(updatedPosts);
       savePostsToLocalStorage(updatedPosts);
+
+      const timestamp = data.lastUpdated || new Date().toISOString();
+      localStorage.setItem('minerva_portfolio_last_update', timestamp);
+      window.dispatchEvent(new CustomEvent('blog-updated', { detail: { timestamp } }));
       
       // If we are currently reading this post, navigate back to list
       if (currentSlug && currentSlug !== 'author') {
@@ -996,50 +1009,50 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
       ) : (
         /* Blog Index View */
         <div id="blog-index">
-          <div id="blog-header-banner" className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8 text-left items-stretch">
-            {/* Left Column: Banner Image */}
-            <div className="lg:col-span-8 relative rounded-3xl overflow-hidden shadow-xs border border-gray-100 bg-neutral-100 flex items-stretch">
+          <div id="blog-header-banner" className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-6 mb-8 text-left items-stretch min-h-[220px]">
+            {/* Left Column: Banner Image (60% width = 3 cols out of 5) */}
+            <div className="lg:col-span-3 relative rounded-3xl overflow-hidden shadow-xs border border-gray-100 bg-neutral-100 flex items-center justify-center p-3 sm:p-4">
               <img 
-                src="/architecting-humanity.png" 
+                src="/architecting-humanity-logo.png" 
                 alt="Architecting Humanity" 
                 referrerPolicy="no-referrer"
-                className="w-full h-auto lg:h-full object-cover block mx-auto rounded-3xl"
+                className="max-w-full max-h-full object-contain block mx-auto rounded-2xl"
               />
             </div>
             
-            {/* Right Column: Definitions */}
-            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4">
+            {/* Right Column: Definitions (40% width = 2 cols out of 5, vertically stacked) */}
+            <div className="lg:col-span-2 flex flex-col gap-2.5 overflow-hidden">
               {/* Architecting Card */}
-              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-[#E4F0E7] p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
+              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-[#E4F0E7] p-2.5 sm:p-3 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-radial-gradient(circle_at_top_right,rgba(51,51,255,0.03),transparent) pointer-events-none" />
                 
                 <div>
-                  <div className="flex items-center justify-between gap-3 mb-2">
+                  <div className="flex items-center justify-between gap-2 mb-1">
                     <div className="flex items-baseline gap-1.5">
-                      <h2 className="font-display font-bold text-gray-900 text-sm tracking-tight">architecting</h2>
+                      <h2 className="font-display font-bold text-gray-900 text-xs sm:text-sm tracking-tight">architecting</h2>
                       <span className="font-sans italic text-[10px] text-gray-500">verb</span>
                     </div>
                     <a 
                       href="https://www.dictionary.com/browse/architect" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-1.5 rounded-xl bg-neutral-50 hover:bg-neutral-100 border border-gray-100 hover:border-gray-200 text-gray-400 hover:text-[#3333FF] transition-all cursor-pointer shadow-3xs flex items-center justify-center shrink-0"
+                      className="p-1 rounded-lg bg-neutral-50 hover:bg-neutral-100 border border-gray-100 hover:border-gray-200 text-gray-400 hover:text-[#3333FF] transition-all cursor-pointer shadow-3xs flex items-center justify-center shrink-0"
                       title="View on Dictionary.com"
                     >
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
 
-                  <div className="space-y-1.5 font-sans text-[11px] text-gray-600 leading-relaxed border-t border-gray-100 pt-2.5">
-                    <p className="flex gap-2">
+                  <div className="space-y-0.5 font-sans text-[10px] sm:text-[11px] text-gray-600 leading-tight border-t border-gray-100/60 pt-1.5">
+                    <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">1.</span>
                       <span>To design, devise, or plan: <span className="italic text-gray-400">to architect a system.</span></span>
                     </p>
-                    <p className="flex gap-2">
+                    <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">2.</span>
                       <span>To act as an architect; design.</span>
                     </p>
-                    <p className="flex gap-2">
+                    <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">3.</span>
                       <span>Deliberately structuring complex processes.</span>
                     </p>
@@ -1048,36 +1061,36 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               </div>
 
               {/* Humanity Card */}
-              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-[#ccccff] p-4 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
+              <div className="relative overflow-hidden rounded-2xl border border-gray-150 bg-[#ccccff] p-2.5 sm:p-3 hover:shadow-xs transition-all duration-300 flex-1 flex flex-col justify-between">
                 <div className="absolute top-0 right-0 w-24 h-24 bg-radial-gradient(circle_at_top_right,rgba(228,240,231,0.06),transparent) pointer-events-none" />
 
                 <div>
-                  <div className="flex items-center justify-between gap-3 mb-2">
+                  <div className="flex items-center justify-between gap-2 mb-1">
                     <div className="flex items-baseline gap-1.5">
-                      <h2 className="font-display font-bold text-gray-900 text-sm tracking-tight">humanity</h2>
+                      <h2 className="font-display font-bold text-gray-900 text-xs sm:text-sm tracking-tight">humanity</h2>
                       <span className="font-sans italic text-[10px] text-gray-500">noun</span>
                     </div>
                     <a 
                       href="https://www.dictionary.com/browse/humanity" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-1.5 rounded-xl bg-neutral-50 hover:bg-neutral-100 border border-gray-100 hover:border-gray-200 text-gray-400 hover:text-[#3333FF] transition-all cursor-pointer shadow-3xs flex items-center justify-center shrink-0"
+                      className="p-1 rounded-lg bg-neutral-50 hover:bg-neutral-100 border border-gray-100 hover:border-gray-200 text-gray-400 hover:text-[#3333FF] transition-all cursor-pointer shadow-3xs flex items-center justify-center shrink-0"
                       title="View on Dictionary.com"
                     >
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
 
-                  <div className="space-y-1.5 font-sans text-[11px] text-gray-600 leading-relaxed border-t border-gray-100 pt-2.5">
-                    <p className="flex gap-2">
+                  <div className="space-y-0.5 font-sans text-[10px] sm:text-[11px] text-gray-600 leading-tight border-t border-gray-100/60 pt-1.5">
+                    <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">1.</span>
                       <span>All human beings collectively; humankind.</span>
                     </p>
-                    <p className="flex gap-2">
+                    <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">2.</span>
                       <span>The quality or state of being human.</span>
                     </p>
-                    <p className="flex gap-2">
+                    <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">3.</span>
                       <span>Kindness, benevolence, or compassion.</span>
                     </p>

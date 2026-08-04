@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, FileText, Sparkles } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
+import { BUILD_TIME } from '../version';
 
 interface HeaderProps {
   currentPath?: string;
@@ -12,6 +13,40 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [imageError, setImageError] = useState(false);
+  const [lastUpdateText, setLastUpdateText] = useState<string>('');
+
+  useEffect(() => {
+    const updateTime = (customTime?: string) => {
+      const storedTime = typeof customTime === 'string' ? customTime : localStorage.getItem('minerva_portfolio_last_update');
+      const timeToUse = storedTime || BUILD_TIME;
+      try {
+        const date = new Date(timeToUse);
+        setLastUpdateText(date.toLocaleString());
+      } catch {
+        setLastUpdateText(new Date().toLocaleString());
+      }
+    };
+
+    updateTime();
+
+    const handleBlogUpdated = (e: Event) => {
+      const customEv = e as CustomEvent<{ timestamp?: string }>;
+      const newTime = customEv.detail?.timestamp || new Date().toISOString();
+      updateTime(newTime);
+    };
+
+    const handleStorageChange = () => {
+      updateTime();
+    };
+
+    window.addEventListener('blog-updated', handleBlogUpdated);
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('blog-updated', handleBlogUpdated);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -173,6 +208,11 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
             <span id="logo-text-companies" className="text-[9px] text-gray-400 font-mono mt-1 tracking-wide">
               Creative Blue &larr; Google &larr; Apple &larr; Sun / Oracle
             </span>
+            {lastUpdateText && (
+              <span id="logo-text-last-update" className="text-[9px] text-gray-400 font-mono mt-0.5 tracking-wide">
+                Last update: {lastUpdateText}
+              </span>
+            )}
           </div>
         </a>
 

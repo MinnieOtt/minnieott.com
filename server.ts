@@ -185,6 +185,20 @@ function readPostsFromFile(): BlogPost[] {
 }
 
 // Helper to write posts to JSON file safely
+let lastBlogUpdateTimestamp = new Date().toISOString();
+try {
+  if (fs.existsSync(postsFilePath)) {
+    const stats = fs.statSync(postsFilePath);
+    lastBlogUpdateTimestamp = stats.mtime.toISOString();
+  }
+} catch (e) {
+  // fallback
+}
+
+function updateBlogTimestamp() {
+  lastBlogUpdateTimestamp = new Date().toISOString();
+}
+
 function writePostsToFile(posts: BlogPost[]): boolean {
   try {
     const dir = path.dirname(postsFilePath);
@@ -192,6 +206,7 @@ function writePostsToFile(posts: BlogPost[]): boolean {
       fs.mkdirSync(dir, { recursive: true });
     }
     fs.writeFileSync(postsFilePath, JSON.stringify(posts, null, 2), "utf-8");
+    updateBlogTimestamp();
     return true;
   } catch (error) {
     console.error("Error writing to posts.json:", error);
@@ -763,7 +778,7 @@ Formatting & Guidelines:
   // GET: Fetch all blog posts
   app.get("/api/posts", async (req, res) => {
     const posts = await getPostsFromFirestore();
-    return res.json({ posts });
+    return res.json({ posts, lastUpdated: lastBlogUpdateTimestamp });
   });
 
   // POST: Verify Firebase ID Token and check if authorized
@@ -835,7 +850,7 @@ Formatting & Guidelines:
       writePostsToFile(posts);
       await savePostToFirestore(updatedPost);
 
-      return res.json({ success: true, post: updatedPost, posts });
+      return res.json({ success: true, post: updatedPost, posts, lastUpdated: lastBlogUpdateTimestamp });
     }
 
     // New post creation
@@ -874,7 +889,7 @@ Formatting & Guidelines:
     // Regenerate SEO HTML export
     try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
 
-    return res.json({ success: true, post: newPost, posts });
+    return res.json({ success: true, post: newPost, posts, lastUpdated: lastBlogUpdateTimestamp });
   });
 
   // PUT: Update an existing blog post
@@ -926,7 +941,7 @@ Formatting & Guidelines:
     // Regenerate SEO HTML export
     try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
 
-    return res.json({ success: true, post: updatedPost, posts });
+    return res.json({ success: true, post: updatedPost, posts, lastUpdated: lastBlogUpdateTimestamp });
   });
 
   // DELETE: Remove a blog post
@@ -950,7 +965,7 @@ Formatting & Guidelines:
       // Regenerate SEO HTML export
       try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
 
-      return res.json({ success: true, posts });
+      return res.json({ success: true, posts, lastUpdated: lastBlogUpdateTimestamp });
     }
     return res.status(404).json({ error: "Blog post not found" });
   });

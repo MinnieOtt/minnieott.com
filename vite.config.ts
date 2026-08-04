@@ -3,8 +3,14 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 
+const buildTime = new Date().toISOString();
+process.env.VITE_BUILD_TIME = process.env.VITE_BUILD_TIME || buildTime;
+
 export default defineConfig(() => {
   return {
+    define: {
+      'import.meta.env.VITE_BUILD_TIME': JSON.stringify(process.env.VITE_BUILD_TIME),
+    },
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
