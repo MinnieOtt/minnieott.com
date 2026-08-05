@@ -43,7 +43,7 @@ function parseMarkdownToHtml(text: string): string {
 }
 
 export function generateSitemapXml(posts: BlogPost[] = []): string {
-  const baseUrl = 'https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app';
+  const baseUrl = 'https://minnieott.com';
   const today = new Date().toISOString().split('T')[0];
 
   const staticUrls = [
@@ -100,7 +100,7 @@ export function generateSeoHtml(): string {
     console.error('Error loading posts for SEO generator:', e);
   }
 
-  const baseUrl = 'https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app';
+  const baseUrl = 'https://minnieott.com';
 
   // Rich JSON-LD Schemas for GEO / AI Search Engines
 

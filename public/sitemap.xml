@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/</loc>
+    <loc>https://minnieott.com/</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/work</loc>
+    <loc>https://minnieott.com/work</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/resume</loc>
+    <loc>https://minnieott.com/resume</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/contact</loc>
+    <loc>https://minnieott.com/contact</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog</loc>
+    <loc>https://minnieott.com/blog</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/author</loc>
+    <loc>https://minnieott.com/blog/author</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms.txt</loc>
+    <loc>https://minnieott.com/llms.txt</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms-full.txt</loc>
+    <loc>https://minnieott.com/llms-full.txt</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/index-seo.html</loc>
+    <loc>https://minnieott.com/index-seo.html</loc>
     <lastmod>2026-08-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/genai-built-this-website-chatbot-blogger</loc>
+    <loc>https://minnieott.com/blog/genai-built-this-website-chatbot-blogger</loc>
     <lastmod>2026-07-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/scaling-engineering-teams</loc>
+    <loc>https://minnieott.com/blog/scaling-engineering-teams</loc>
     <lastmod>2026-07-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/migrating-legacy-architectures</loc>
+    <loc>https://minnieott.com/blog/migrating-legacy-architectures</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/understanding-jmx-patterns</loc>
+    <loc>https://minnieott.com/blog/understanding-jmx-patterns</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

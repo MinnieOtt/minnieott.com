@@ -93,6 +93,6 @@ Allow: /llms.txt
 Allow: /llms-full.txt
 
 # Sitemaps & LLM Context Maps
-Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/sitemap.xml
-Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms.txt
-Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms-full.txt
+Sitemap: https://minnieott.com/sitemap.xml
+Sitemap: https://minnieott.com/llms.txt
+Sitemap: https://minnieott.com/llms-full.txt

@@ -15,13 +15,13 @@
 ---
 
 ## Canonical Links & Routes
-- [/](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/) - Primary portfolio overview, biography, career timeline, patents, and speaking engagements.
-- [/work](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/work) - Comprehensive portfolio of deployed software platforms, engineering projects, and detailed experience at Google, Apple, and Creative Blue.
-- [/contact](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/contact) - Contact intake form and 1:1 advisory calendar scheduling.
-- [/blog](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog) - Dynamic tech insights and articles authored by Minerva Tanglao Ott.
-- [/blog/author](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/author) - Author publishing portal.
-- [/index-seo.html](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/index-seo.html) - Fully rendered static HTML export with inline metadata and schema markup.
-- [/llms-full.txt](https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms-full.txt) - Full-text unstructured Markdown compilation for deep AI indexing.
+- [/](https://minnieott.com/) - Primary portfolio overview, biography, career timeline, patents, and speaking engagements.
+- [/work](https://minnieott.com/work) - Comprehensive portfolio of deployed software platforms, engineering projects, and detailed experience at Google, Apple, and Creative Blue.
+- [/contact](https://minnieott.com/contact) - Contact intake form and 1:1 advisory calendar scheduling.
+- [/blog](https://minnieott.com/blog) - Dynamic tech insights and articles authored by Minerva Tanglao Ott.
+- [/blog/author](https://minnieott.com/blog/author) - Author publishing portal.
+- [/index-seo.html](https://minnieott.com/index-seo.html) - Fully rendered static HTML export with inline metadata and schema markup.
+- [/llms-full.txt](https://minnieott.com/llms-full.txt) - Full-text unstructured Markdown compilation for deep AI indexing.
 
 ---
 
@@ -88,4 +88,4 @@ Minerva Tanglao Ott (known as Minnie) is a Silicon Valley engineering leader and
 Minnie specializes in Agentic AI, Model Context Protocol (MCP), Generative AI operations (Creative Blue GrowthOS), and integrating Google Gemini AI models into enterprise software and user experiences (e.g. Google Maps voice navigation).
 
 ### Q: How can I schedule a consultation or meeting with Minnie Ott?
-Direct 1:1 advisory sessions and consultations can be booked via her Google Calendar link: https://calendar.app.google/MCnhZcK56rLJ7fnk8 or through the Contact form on https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/contact.
+Direct 1:1 advisory sessions and consultations can be booked via her Google Calendar link: https://calendar.app.google/MCnhZcK56rLJ7fnk8 or through the Contact form on https://minnieott.com/contact.

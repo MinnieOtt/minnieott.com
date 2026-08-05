@@ -734,7 +734,7 @@ Formatting & Guidelines:
         if (posts && posts.length > 0) {
           content += "\n## Latest Publications & Blog Posts\n";
           posts.forEach((post) => {
-            const postUrl = `https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/blog/${post.slug || post.id}`;
+            const postUrl = `https://minnieott.com/blog/${post.slug || post.id}`;
             content += `- [${post.title}](${postUrl}): ${post.excerpt || 'Insightful publication on enterprise AI and leadership.'} (${new Date(post.date).toLocaleDateString()})\n`;
           });
         }
