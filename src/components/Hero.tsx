@@ -126,7 +126,7 @@ export default function Hero({ onNavigate }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-screen pt-32 pb-24 md:pt-40 md:pb-32 bg-radial from-white via-neutral-50 to-neutral-100 flex items-center overflow-hidden"
+      className="relative min-h-screen pt-32 pb-24 md:pt-40 md:pb-32 bg-transparent flex items-center overflow-hidden"
     >
       {/* Decorative clean background subtle accent blob */}
       <div

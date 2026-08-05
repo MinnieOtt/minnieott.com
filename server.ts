@@ -750,6 +750,21 @@ Formatting & Guidelines:
     }
   });
 
+  // Serving llms-full.txt for deep AI unstructured context
+  app.get("/llms-full.txt", async (req, res) => {
+    try {
+      const fullPath = path.join(process.cwd(), "public", "llms-full.txt");
+      if (fs.existsSync(fullPath)) {
+        res.setHeader("Content-Type", "text/plain; charset=utf-8");
+        return res.sendFile(fullPath);
+      }
+      return res.status(404).send("Not found");
+    } catch (error) {
+      console.error("Error serving llms-full.txt:", error);
+      return res.status(500).send("Internal server error");
+    }
+  });
+
   // Serving robots.txt
   app.get("/robots.txt", (req, res) => {
     const robotsPath = path.join(process.cwd(), "public", "robots.txt");

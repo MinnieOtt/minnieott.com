@@ -4,7 +4,7 @@ import { patents, books, certifications, education } from '../data/resumeData';
 
 export default function EducationCertifications() {
   return (
-    <section id="credentials" className="py-24 bg-neutral-50 border-b border-gray-100">
+    <section id="credentials" className="py-24 bg-transparent border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
@@ -169,6 +169,18 @@ export default function EducationCertifications() {
                             return (
                               <a 
                                 href="https://drive.google.com/file/d/1gVjsnaXSuVHlDPTtdT2gzDKJiPtSEikt/view?usp=sharing" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="hover:underline text-indigo-600 font-medium"
+                              >
+                                {honor}
+                              </a>
+                            );
+                          }
+                          if (honor === 'Stanford LEAD Certificate') {
+                            return (
+                              <a 
+                                href="https://drive.google.com/file/d/12LXUR3qUhNOdXMqFfvqxiZecgSmlZ8lB/view" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 className="hover:underline text-indigo-600 font-medium"

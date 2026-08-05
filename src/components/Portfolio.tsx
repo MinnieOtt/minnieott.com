@@ -27,7 +27,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-24 bg-white border-y border-gray-100">
+    <section id="portfolio" className="py-24 bg-transparent border-y border-gray-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}

@@ -67,65 +67,76 @@ export default function App() {
   const isWork = currentPath.startsWith('/work') || currentPath.startsWith('/contact');
 
   return (
-    <div id="personal-website-root" className="min-h-screen bg-neutral-bg selection:bg-accent selection:text-white flex flex-col justify-between">
-      {/* Dynamic Header */}
-      <Header currentPath={currentPath} onNavigate={navigate} />
+    <div id="personal-website-root" className="min-h-screen bg-neutral-bg selection:bg-accent selection:text-white flex flex-col justify-between relative overflow-x-hidden">
+      {/* Animated Iris Flowers Background */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+        <div 
+          className="absolute -inset-16 bg-cover bg-center animate-slow-bg opacity-30 sm:opacity-40 transition-opacity duration-1000"
+          style={{ backgroundImage: "url('/iris-flowers-background.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/45 to-white/70 backdrop-blur-[0.5px]" />
+      </div>
 
-      {/* Main Sections */}
-      <main id="main-content-regions">
-        {isBlog ? (
-          <Blog currentSlug={blogSlug} onNavigate={navigate} />
-        ) : isWork ? (
-          <>
-            {/* Apps Portfolio Bento Segment */}
-            <Portfolio />
+      <div className="relative z-10 flex flex-col min-h-screen justify-between">
+        {/* Dynamic Header */}
+        <Header currentPath={currentPath} onNavigate={navigate} />
 
-            {/* Interactive Staggered Experience Segment */}
-            <Experience />
+        {/* Main Sections */}
+        <main id="main-content-regions">
+          {isBlog ? (
+            <Blog currentSlug={blogSlug} onNavigate={navigate} />
+          ) : isWork ? (
+            <>
+              {/* Apps Portfolio Bento Segment */}
+              <Portfolio />
 
-            {/* Skill Inventory Progress Segment */}
-            <Skills />
+              {/* Interactive Staggered Experience Segment */}
+              <Experience />
 
-            {/* Keynotes & Mentorship Speaker Segment */}
-            <Speaker />
+              {/* Skill Inventory Progress Segment */}
+              <Skills />
 
-            {/* Scholastics, Patents, Book Authoring, and Certifications Segment */}
-            <EducationCertifications />
+              {/* Keynotes & Mentorship Speaker Segment */}
+              <Speaker />
 
-            {/* Contact form & direct information channels */}
-            <Contact />
-          </>
-        ) : (
-          <>
-            {/* Hero Segment */}
-            <Hero onNavigate={navigate} />
-          </>
-        )}
-      </main>
+              {/* Scholastics, Patents, Book Authoring, and Certifications Segment */}
+              <EducationCertifications />
 
-      {/* Newsletter Subscription Component */}
-      <Newsletter />
+              {/* Contact form & direct information channels */}
+              <Contact />
+            </>
+          ) : (
+            <>
+              {/* Hero Segment */}
+              <Hero onNavigate={navigate} />
+            </>
+          )}
+        </main>
 
-      {/* Modern Minimalist Footer */}
-      <footer id="main-site-footer" className="bg-neutral-50 border-t border-gray-100 py-12">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex flex-col gap-1 text-center md:text-left">
-            <span id="footer-brand" className="font-display font-normal text-gray-900 text-sm">
-              Minerva Tanglao Ott (Minnie)
-            </span>
-            <span id="footer-tagline" className="font-mono text-[10px] text-gray-400 mt-0.5 uppercase tracking-wider">
-              Technology Transformation Leader
-            </span>
+        {/* Newsletter Subscription Component */}
+        <Newsletter />
+
+        {/* Modern Minimalist Footer */}
+        <footer id="main-site-footer" className="bg-neutral-50/90 border-t border-gray-100 py-12 backdrop-blur-xs">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex flex-col gap-1 text-center md:text-left">
+              <span id="footer-brand" className="font-display font-normal text-gray-900 text-sm">
+                Minerva Tanglao Ott (Minnie)
+              </span>
+              <span id="footer-tagline" className="font-mono text-[10px] text-gray-400 mt-0.5 uppercase tracking-wider">
+                Technology Transformation Leader
+              </span>
+            </div>
+
+            <div className="flex flex-col md:flex-row items-center gap-4">
+              <p id="footer-copyright" className="font-mono text-[10px] text-gray-400 text-center md:text-right">
+                © {new Date().getFullYear()} Minerva Tanglao Ott (Minnie). All Rights Reserved. Deployed with Iris Accents.
+              </p>
+            </div>
           </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <p id="footer-copyright" className="font-mono text-[10px] text-gray-400 text-center md:text-right">
-              © {new Date().getFullYear()} Minerva Tanglao Ott (Minnie). All Rights Reserved. Deployed with Lavender Accents.
-            </p>
-          </div>
-        </div>
-      </footer>
-      <MochiChat currentPath={currentPath} onNavigate={navigate} />
+        </footer>
+        <MochiChat currentPath={currentPath} onNavigate={navigate} />
+      </div>
     </div>
   );
 }

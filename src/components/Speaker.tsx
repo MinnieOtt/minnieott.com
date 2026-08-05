@@ -4,7 +4,7 @@ import { speakerEvents } from '../data/resumeData';
 
 export default function Speaker() {
   return (
-    <section id="speaker" className="py-24 bg-neutral-50 border-b border-gray-100">
+    <section id="speaker" className="py-24 bg-transparent border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}

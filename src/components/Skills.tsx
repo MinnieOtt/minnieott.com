@@ -10,7 +10,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 bg-white border-b border-gray-100">
+    <section id="skills" className="py-24 bg-transparent border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}

@@ -78,3 +78,23 @@ button[style*="background-color: rgb(228, 240, 231)"] {
 ::-moz-selection {
   color: #FFFFFF !important;
 }
+
+/* Slow animated background keyframes */
+@keyframes slowPanZoom {
+  0% {
+    transform: scale(1) translate(0%, 0%);
+  }
+  33% {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+  66% {
+    transform: scale(1.12) translate(1%, -1.5%);
+  }
+  100% {
+    transform: scale(1.04) translate(-0.5%, 1%);
+  }
+}
+
+.animate-slow-bg {
+  animation: slowPanZoom 35s ease-in-out infinite alternate;
+}

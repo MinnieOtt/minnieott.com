@@ -127,7 +127,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-white">
+    <section id="contact" className="py-24 bg-transparent">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}

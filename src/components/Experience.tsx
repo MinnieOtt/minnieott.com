@@ -140,7 +140,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="py-24 bg-neutral-50 border-b border-gray-100">
+    <section id="experience" className="py-24 bg-transparent border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}

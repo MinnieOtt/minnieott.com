@@ -42,6 +42,53 @@ function parseMarkdownToHtml(text: string): string {
   }
 }
 
+export function generateSitemapXml(posts: BlogPost[] = []): string {
+  const baseUrl = 'https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app';
+  const today = new Date().toISOString().split('T')[0];
+
+  const staticUrls = [
+    { loc: `${baseUrl}/`, priority: '1.0', changefreq: 'weekly' },
+    { loc: `${baseUrl}/work`, priority: '0.9', changefreq: 'weekly' },
+    { loc: `${baseUrl}/resume`, priority: '0.9', changefreq: 'weekly' },
+    { loc: `${baseUrl}/contact`, priority: '0.8', changefreq: 'monthly' },
+    { loc: `${baseUrl}/blog`, priority: '0.9', changefreq: 'daily' },
+    { loc: `${baseUrl}/blog/author`, priority: '0.5', changefreq: 'monthly' },
+    { loc: `${baseUrl}/llms.txt`, priority: '0.8', changefreq: 'weekly' },
+    { loc: `${baseUrl}/llms-full.txt`, priority: '0.8', changefreq: 'weekly' },
+    { loc: `${baseUrl}/index-seo.html`, priority: '0.9', changefreq: 'daily' },
+  ];
+
+  const postUrls = posts
+    .filter(p => p.published !== false)
+    .map(p => {
+      const postSlug = p.slug || p.id;
+      const postDate = p.date ? new Date(p.date).toISOString().split('T')[0] : today;
+      return `  <url>
+    <loc>${baseUrl}/blog/${postSlug}</loc>
+    <lastmod>${postDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+    });
+
+  const staticXml = staticUrls
+    .map(
+      u => `  <url>
+    <loc>${u.loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`
+    )
+    .join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+${staticXml}
+${postUrls.join('\n')}
+</urlset>`;
+}
+
 export function generateSeoHtml(): string {
   const postsFilePath = path.join(process.cwd(), 'src', 'data', 'posts.json');
   let posts: BlogPost[] = [];
@@ -55,60 +102,195 @@ export function generateSeoHtml(): string {
 
   const baseUrl = 'https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app';
 
-  // JSON-LD Schemas
+  // Rich JSON-LD Schemas for GEO / AI Search Engines
+
+  // 1. Person Schema
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${baseUrl}/#person`,
     "name": personalInfo.name,
-    "alternateName": "Minnie Ott",
+    "givenName": "Minerva",
+    "familyName": "Ott",
+    "alternateName": ["Minnie Ott", "Minerva Ott"],
     "jobTitle": personalInfo.title,
     "description": personalInfo.tagline,
     "image": `${baseUrl}/minnieott.jpg`,
     "url": baseUrl,
-    "sameAs": [personalInfo.linkedin],
-    "knowsAbout": [
-      "Technical Program Management",
-      "Artificial Intelligence",
-      "Agentic Workflows",
-      "Model Context Protocol (MCP)",
-      "Google Cloud Platform",
-      "Global Team Leadership",
-      "Software Development Lifecycle (SDLC)"
+    "sameAs": [
+      personalInfo.linkedin,
+      "https://minnieott.com"
     ],
-    "worksFor": experiences.map(exp => ({
-      "@type": "Organization",
-      "name": exp.company,
-      "jobTitle": exp.role
-    }))
+    "publishingPrinciples": `${baseUrl}/llms.txt`,
+    "alumniOf": [
+      {
+        "@type": "EducationalOrganization",
+        "name": "Stanford Graduate School of Business",
+        "description": "Stanford LEAD Executive Education Program Graduate & Community Advisory Board Member"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "Ateneo de Manila University",
+        "description": "BS Computer Science (Dean's List, Lourdes Evangelista Scholarship Award)"
+      }
+    ],
+    "hasCredential": certifications.map(c => ({
+      "@type": "EducationalOccupationalCredential",
+      "credentialCategory": "Professional Certification",
+      "name": c.title,
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": c.issuer
+      }
+    })),
+    "knowsAbout": [
+      "Technical Program Management (TPM)",
+      "Agentic AI & Agent Workflows",
+      "Model Context Protocol (MCP)",
+      "Google Cloud Platform (GCP)",
+      "Enterprise Software Development Lifecycle (SDLC)",
+      "Java Management Extensions (JMX)",
+      "Voice Navigation & Gemini AI Integration",
+      "Natural Language Processing & Sentiment Analysis",
+      "Global Team Leadership"
+    ],
+    "worksFor": [
+      {
+        "@type": "Organization",
+        "name": "Creative Blue",
+        "jobTitle": "Head of Technology & Executive Strategy"
+      },
+      ...experiences.map(exp => ({
+        "@type": "Organization",
+        "name": exp.company,
+        "jobTitle": exp.role
+      }))
+    ]
   };
 
+  // 2. WebSite Schema
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Minerva Tanglao Ott Portfolio",
+    "@id": `${baseUrl}/#website`,
+    "name": "Minerva Tanglao Ott (Minnie) Portfolio & AI Knowledge Base",
     "url": baseUrl,
-    "description": personalInfo.tagline,
+    "description": "Official GEO-Optimized Portfolio, Technology Insights, and AI Frameworks of Minerva Tanglao Ott (Minnie).",
+    "publisher": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "@id": `${baseUrl}/#person`
+    },
     "author": {
       "@type": "Person",
-      "name": personalInfo.name
+      "name": personalInfo.name,
+      "@id": `${baseUrl}/#person`
     }
   };
 
-  const blogPostsSchema = posts.map(post => ({
+  // 3. Organization Schema (Creative Blue)
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
+    "name": "Creative Blue",
+    "url": "https://creativeblue.com",
+    "description": "Enterprise AI operations platform and agency transformation leader, producing GrowthOS, Lead Generator, and Brand Assessment.",
+    "member": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "jobTitle": "Head of Technology"
+    }
+  };
+
+  // 4. FAQPage Schema for Direct AI Answers (Google AI Overviews, Perplexity, ChatGPT Search, Claude)
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${baseUrl}/#faq`,
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is Minerva Tanglao Ott (Minnie)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Minerva Tanglao Ott (Minnie) is a Silicon Valley engineering leader, Head of Technology at Creative Blue, and Senior Technical Program Management (TPM) leader with 20+ years of executive experience spanning Google, Apple, Sun Microsystems, and enterprise startups."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What was Minerva Tanglao Ott's role at Google and Apple?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At Google (2011–2025), Minnie served as Senior Engineering Program Manager leading Google Maps Voice Navigation integrated with Gemini AI, Service Desk infrastructure for 150,000+ employees, and co-founding Stanford LEAD @ Google. At Apple (2009–2011), she managed global IS&T software releases including the Apple Job Search portal localized across 80+ countries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What AI frameworks and platforms has Minnie Ott developed at Creative Blue?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At Creative Blue, Minnie architected GrowthOS (an enterprise AI operations platform), Lead Generator (autonomous AI sales prospecting agent), and Brand Assessment (NLP sentiment and brand equity dashboard)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What book and patents is Minerva Tanglao Ott associated with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Minerva Tanglao Ott served as the Technical Editor for 'JMX Programming' (John Wiley & Sons, 2002) and is the lead inventor on US Patent 20020064766 for Enterprise Employee Training Systems."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I schedule a 1:1 meeting or advisory consultation with Minnie Ott?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can schedule a direct 1:1 consultation via her Google Appointment Calendar at https://calendar.app.google/MCnhZcK56rLJ7fnk8 or connect via LinkedIn at https://www.linkedin.com/in/minnieott/."
+        }
+      }
+    ]
+  };
+
+  // 5. BlogPosting Array Schema
+  const blogPostsSchema = posts.filter(p => p.published !== false).map(post => ({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${baseUrl}/blog/${post.slug || post.id}`,
     "headline": post.title,
     "description": post.excerpt,
+    "articleBody": post.content.replace(/<[^>]*>/g, '').substring(0, 5000),
     "author": {
       "@type": "Person",
-      "name": post.author || personalInfo.name
+      "name": post.author || personalInfo.name,
+      "@id": `${baseUrl}/#person`
     },
-    "datePublished": post.date,
-    "url": `${baseUrl}/#blog-${post.slug || post.id}`
+    "publisher": {
+      "@type": "Person",
+      "name": personalInfo.name,
+      "@id": `${baseUrl}/#person`
+    },
+    "datePublished": post.date ? new Date(post.date).toISOString().split('T')[0] : "2026-07-21",
+    "dateModified": post.date ? new Date(post.date).toISOString().split('T')[0] : "2026-08-04",
+    "url": `${baseUrl}/blog/${post.slug || post.id}`,
+    "mainEntityOfPage": `${baseUrl}/blog/${post.slug || post.id}`,
+    "keywords": [post.category, "Technical Program Management", "Agentic AI", "Engineering Leadership", "Software Strategy"]
   }));
 
+  // 6. BreadcrumbList Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${baseUrl}/` },
+      { "@type": "ListItem", "position": 2, "name": "Work & Experience", "item": `${baseUrl}/work` },
+      { "@type": "ListItem", "position": 3, "name": "Blog & Insights", "item": `${baseUrl}/blog` },
+      { "@type": "ListItem", "position": 4, "name": "Contact & Booking", "item": `${baseUrl}/contact` }
+    ]
+  };
+
   const htmlContent = `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH1F2ZJ32Y"></script>
@@ -123,36 +305,52 @@ export function generateSeoHtml(): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/jpeg" href="/minnieott.jpg" />
 
-  <!-- Primary SEO Metadata -->
-  <title>Minerva Tanglao Ott (Minnie) | Technology Transformation & TPM Leader</title>
-  <meta name="description" content="Official SEO-Optimized Portfolio of Minerva Tanglao Ott (Minnie), Head of Technology at Creative Blue & former Sr. TPM at Google & Apple. Specialized in Agentic AI, Model Context Protocol (MCP), and enterprise SDLC governance." />
-  <meta name="keywords" content="Minerva Tanglao Ott, Minerva Ott, Minnie Ott, Technical Program Management, Model Context Protocol, MCP, Agentic AI, Creative Blue, GrowthOS, Google Maps, Apple, Silicon Valley, Head of Technology" />
+  <!-- Primary SEO & GEO Metadata -->
+  <title>Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader</title>
+  <meta name="description" content="Official GEO-Optimized Portfolio of Minerva Tanglao Ott (Minnie), Head of Technology at Creative Blue & former Sr. TPM at Google & Apple. Leader in Agentic AI, Model Context Protocol (MCP), and enterprise SDLC governance." />
+  <meta name="keywords" content="Minerva Tanglao Ott, Minerva Ott, Minnie Ott, Technical Program Management, Model Context Protocol, MCP, Agentic AI, Creative Blue, GrowthOS, Google Maps, Apple, Silicon Valley, Head of Technology, JMX Programming" />
   <meta name="author" content="Minerva Tanglao Ott (Minnie)" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="ai-content-summary" content="Executive portfolio, AI frameworks (GrowthOS, Lead Generator), publications, patents (US 20020064766), and career experience of Minerva Tanglao Ott (Google, Apple, Creative Blue)." />
+  <meta name="citation_title" content="Minerva Tanglao Ott Portfolio & AI Knowledge Base" />
+  <meta name="citation_author" content="Minerva Tanglao Ott" />
+  <meta name="citation_publication_date" content="2026-08-04" />
+
   <link rel="canonical" href="${baseUrl}/index-seo.html" />
-  <link rel="alternate" type="text/plain" title="LLM-friendly content summary" href="/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLM Map" href="/llms.txt" />
+  <link rel="alternate" type="text/plain" title="LLM Full Content" href="/llms-full.txt" />
   <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="profile" />
-  <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Technology Transformation & TPM Leader" />
-  <meta property="og:description" content="Explore the full career portfolio, AI frameworks (GrowthOS, Lead Generator, Brand Assessment), Google Maps leadership, JMX publication, and tech insights of Minerva Tanglao Ott." />
+  <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader" />
+  <meta property="og:description" content="Explore the official career portfolio, AI frameworks (GrowthOS, Lead Generator), Google Maps leadership, JMX publication, and tech insights of Minerva Tanglao Ott." />
   <meta property="og:image" content="${baseUrl}/minnieott.jpg" />
   <meta property="og:url" content="${baseUrl}/index-seo.html" />
   <meta property="og:site_name" content="Minerva Tanglao Ott Portfolio" />
+  <meta property="og:locale" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Minerva Tanglao Ott (Minnie) | Technology Transformation & TPM Leader" />
+  <meta name="twitter:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology & TPM Leader" />
   <meta name="twitter:description" content="Official portfolio and AI technical insights of Minerva Tanglao Ott (Minnie)." />
   <meta name="twitter:image" content="${baseUrl}/minnieott.jpg" />
 
-  <!-- JSON-LD Structured Data (Rich Snippets) -->
+  <!-- JSON-LD Structured Data Graphs (Generative Engine Optimization) -->
   <script type="application/ld+json">
     ${JSON.stringify(personSchema, null, 2)}
   </script>
   <script type="application/ld+json">
     ${JSON.stringify(websiteSchema, null, 2)}
+  </script>
+  <script type="application/ld+json">
+    ${JSON.stringify(organizationSchema, null, 2)}
+  </script>
+  <script type="application/ld+json">
+    ${JSON.stringify(faqSchema, null, 2)}
+  </script>
+  <script type="application/ld+json">
+    ${JSON.stringify(breadcrumbSchema, null, 2)}
   </script>
   <script type="application/ld+json">
     ${JSON.stringify(blogPostsSchema, null, 2)}
@@ -273,19 +471,10 @@ export function generateSeoHtml(): string {
     .blog-content h1 { font-size: 1.4rem; }
     .blog-content h2 { font-size: 1.25rem; }
     .blog-content h3 { font-size: 1.1rem; }
-    .blog-content p {
-      margin-bottom: 1rem;
-    }
-    .blog-content p:last-child {
-      margin-bottom: 0;
-    }
-    .blog-content ul, .blog-content ol {
-      margin-left: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .blog-content li {
-      margin-bottom: 0.35rem;
-    }
+    .blog-content p { margin-bottom: 1rem; }
+    .blog-content p:last-child { margin-bottom: 0; }
+    .blog-content ul, .blog-content ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+    .blog-content li { margin-bottom: 0.35rem; }
     .blog-content blockquote {
       border-left: 4px solid #cbd5e1;
       padding-left: 1rem;
@@ -308,16 +497,8 @@ export function generateSeoHtml(): string {
       overflow-x: auto;
       margin: 1rem 0;
     }
-    .blog-content pre code {
-      background: transparent;
-      padding: 0;
-      color: inherit;
-    }
-    .blog-content a {
-      color: #2563eb;
-      font-weight: 600;
-      text-decoration: underline;
-    }
+    .blog-content pre code { background: transparent; padding: 0; color: inherit; }
+    .blog-content a { color: #2563eb; font-weight: 600; text-decoration: underline; }
     .blog-content img {
       max-width: 100%;
       max-height: 380px;
@@ -345,28 +526,29 @@ export function generateSeoHtml(): string {
 </head>
 <body>
 
-  <header>
+  <header role="banner">
     <h1><a href="https://minnieott.com" style="color: #ffffff; text-decoration: none;">Minerva Tanglao Ott (Minnie)</a></h1>
-    <nav>
+    <nav role="navigation" aria-label="Main navigation">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#portfolio">Portfolio</a>
       <a href="#skills">Skills</a>
       <a href="#publications">Publications</a>
+      <a href="#faq">FAQ</a>
       <a href="#blog">Blog</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <div class="container">
+  <main class="container" id="main-content" role="main">
 
     <!-- HERO SECTION -->
-    <section id="about" class="hero">
-      <img src="/minnieott.jpg" alt="Minerva Tanglao Ott (Minnie)" />
+    <section id="about" class="hero" itemscope itemtype="https://schema.org/Person">
+      <img src="/minnieott.jpg" alt="Minerva Tanglao Ott (Minnie)" itemprop="image" />
       <div class="hero-content">
-        <h2>${personalInfo.name}</h2>
-        <p class="subtitle">${personalInfo.title}</p>
-        <p class="tagline">${personalInfo.tagline}</p>
+        <h2 itemprop="name">${personalInfo.name}</h2>
+        <p class="subtitle" itemprop="jobTitle">${personalInfo.title}</p>
+        <p class="tagline" itemprop="description">${personalInfo.tagline}</p>
         <div>
           ${personalInfo.companiesLineage.map(c => `<span class="badge">${c}</span>`).join('')}
         </div>
@@ -384,7 +566,7 @@ export function generateSeoHtml(): string {
     <section id="experience" style="margin-bottom: 3rem;">
       <h2 class="section-title">Professional Experience & Leadership</h2>
       ${experiences.map(exp => `
-        <article class="card">
+        <article class="card" itemscope itemtype="https://schema.org/WorkBasedProgram">
           <div class="card-header">
             <div>
               <div class="card-title">${exp.role}</div>
@@ -408,10 +590,10 @@ export function generateSeoHtml(): string {
       <h2 class="section-title">Portfolio Applications & AI Frameworks</h2>
       <div class="grid-2">
         ${portfolioApps.map(app => `
-          <div class="card" style="margin-bottom: 0;">
-            <div class="card-title" style="margin-bottom: 0.25rem;">${app.name}</div>
+          <div class="card" style="margin-bottom: 0;" itemscope itemtype="https://schema.org/SoftwareApplication">
+            <div class="card-title" style="margin-bottom: 0.25rem;" itemprop="name">${app.name}</div>
             <div style="font-size: 0.85rem; color: #2563eb; font-weight: 600; margin-bottom: 0.75rem;">${app.role} &bull; ${app.status}</div>
-            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">${app.description}</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;" itemprop="description">${app.description}</p>
             <ul class="bullet-list" style="margin-left: 1rem; font-size: 0.875rem;">
               ${app.bulletPoints.map(b => `<li>${parseMarkdownToHtml(b)}</li>`).join('')}
             </ul>
@@ -454,71 +636,48 @@ export function generateSeoHtml(): string {
     <section id="publications" style="margin-bottom: 3rem;">
       <h2 class="section-title">Publications & Patents</h2>
       <div class="grid-2">
-        <div class="card">
-          <div class="card-title">${books.title}</div>
+        <article class="card" itemscope itemtype="https://schema.org/Book">
+          <div class="card-title" itemprop="name">${books.title}</div>
           <div style="color: #2563eb; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">Role: ${books.role} (Author: ${books.author}, John Wiley & Sons)</div>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">${books.description}</p>
+          <p style="font-size: 0.9rem; color: var(--text-muted);" itemprop="description">${books.description}</p>
           <div style="margin-top: 1rem;">
             <a href="${books.link}" target="_blank" rel="noopener noreferrer" style="font-weight: 600; font-size: 0.9rem;">View Book on Google Books &rarr;</a>
           </div>
-        </div>
+        </article>
 
         ${patents.map(p => `
-          <div class="card">
-            <div class="card-title">${p.title}</div>
+          <article class="card" itemscope itemtype="https://schema.org/Patent">
+            <div class="card-title" itemprop="name">${p.title}</div>
             <div style="color: #2563eb; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem;">${p.id}</div>
-            <p style="font-size: 0.9rem; color: var(--text-muted);">${p.description}</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted);" itemprop="description">${p.description}</p>
             <div style="margin-top: 1rem;">
               <a href="${p.link}" target="_blank" rel="noopener noreferrer" style="font-weight: 600; font-size: 0.9rem;">View Patent on Google Patents &rarr;</a>
             </div>
-          </div>
+          </article>
         `).join('')}
       </div>
     </section>
 
-    <!-- CERTIFICATIONS & EDUCATION -->
-    <section style="margin-bottom: 3rem;">
-      <h2 class="section-title">Certifications & Education</h2>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="margin-bottom: 1rem;">Certifications & Credentials</div>
-          ${certifications.map(c => `
-            <div style="margin-bottom: 1rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 0.75rem;">
-              <div style="font-weight: 700; font-size: 0.95rem;">${c.title}</div>
-              <div style="color: var(--text-muted); font-size: 0.85rem;">Issuer: ${c.issuer}</div>
-              ${c.link ? `<a href="${c.link}" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; font-weight: 600;">Verify Credential &rarr;</a>` : ''}
-              ${c.links ? c.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; font-weight: 600; margin-right: 0.75rem;">${l.label} &rarr;</a>`).join('') : ''}
-            </div>
-          `).join('')}
+    <!-- FAQ SECTION FOR GENERATIVE ENGINE OPTIMIZATION -->
+    <section id="faq" style="margin-bottom: 3rem;">
+      <h2 class="section-title">Frequently Asked Questions (AI Knowledge Bank)</h2>
+      <div class="card" space-y-4>
+        <div style="margin-bottom: 1.25rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">Who is Minerva Tanglao Ott (Minnie)?</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">Minerva Tanglao Ott (Minnie) is a Silicon Valley engineering leader, Head of Technology at Creative Blue, and Senior Technical Program Management (TPM) leader with 20+ years of executive experience across Google, Apple, Sun Microsystems, and enterprise startups.</p>
         </div>
-
-        <div class="card">
-          <div class="card-title" style="margin-bottom: 1rem;">Education</div>
-          ${education.map(e => `
-            <div style="margin-bottom: 1.25rem;">
-              <div style="font-weight: 700; font-size: 1rem; color: #0f172a;">${e.school}</div>
-              <div style="color: #2563eb; font-weight: 600; font-size: 0.9rem;">${e.degree} &bull; ${e.honors.join(', ')}</div>
-              <p style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem;">${e.details}</p>
-            </div>
-          `).join('')}
+        <div style="margin-bottom: 1.25rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">What was Minerva Tanglao Ott's role at Google and Apple?</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">At Google (2011–2025), Minnie served as Senior Engineering Program Manager leading Google Maps Voice Navigation integrated with Gemini AI, Service Desk infrastructure for 150,000+ employees, and co-founding Stanford LEAD @ Google. At Apple (2009–2011), she managed global IS&T software releases including the Apple Job Search portal localized across 80+ countries.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- SPEAKING ENGAGEMENTS & KEYNOTES -->
-    <section style="margin-bottom: 3rem;">
-      <h2 class="section-title">Speaking Engagements & Keynotes</h2>
-      <div class="card">
-        <div class="card-title" style="margin-bottom: 1rem;">Speaker Series & Keynotes</div>
-        ${speakerEvents.map(s => `
-          <div style="margin-bottom: 1.25rem; border-bottom: 1px solid #f1f5f9; padding-bottom: 1rem;">
-            <div style="font-weight: 700; font-size: 1rem;">${s.event}</div>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">${s.description}</p>
-            <div style="margin-top: 0.5rem;">
-              ${s.links.map(l => `<a href="${l.url}" target="_blank" rel="noopener noreferrer" style="font-size: 0.85rem; font-weight: 600; margin-right: 1rem;">${l.label} &rarr;</a>`).join('')}
-            </div>
-          </div>
-        `).join('')}
+        <div style="margin-bottom: 1.25rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">What AI platforms has Minnie Ott developed at Creative Blue?</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">At Creative Blue, Minnie architected GrowthOS (an enterprise AI operations platform), Lead Generator (autonomous AI sales prospecting agent), and Brand Assessment (NLP sentiment and brand equity dashboard).</p>
+        </div>
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem;">How can I schedule a consultation or meeting with Minnie Ott?</h3>
+          <p style="font-size: 0.95rem; color: var(--text-muted);">Direct 1:1 advisory sessions and consultations can be booked via her Google Calendar link at <a href="https://calendar.app.google/MCnhZcK56rLJ7fnk8" target="_blank" rel="noopener noreferrer" style="color: #2563eb; font-weight: 600;">https://calendar.app.google/MCnhZcK56rLJ7fnk8</a>.</p>
+        </div>
       </div>
     </section>
 
@@ -526,11 +685,15 @@ export function generateSeoHtml(): string {
     <section id="blog" style="margin-bottom: 3rem;">
       <h2 class="section-title">Technology Blog & Executive Insights</h2>
       ${posts.length > 0 ? posts.map(post => `
-        <article id="blog-${post.slug || post.id}" class="blog-post">
-          <div class="blog-meta">${post.date} &bull; ${post.category} &bull; ${post.readTime} &bull; By ${post.author || personalInfo.name}</div>
-          <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">${post.title}</h3>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; font-weight: 500;">${post.excerpt}</p>
-          <div class="blog-content">
+        <article id="blog-${post.slug || post.id}" class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+          <div class="blog-meta">
+            <time datetime="${post.date ? new Date(post.date).toISOString() : '2026-08-04'}" itemprop="datePublished">${post.date}</time> &bull; 
+            <span itemprop="articleSection">${post.category}</span> &bull; ${post.readTime} &bull; 
+            By <span itemprop="author">${post.author || personalInfo.name}</span>
+          </div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;" itemprop="headline">${post.title}</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; font-weight: 500;" itemprop="description">${post.excerpt}</p>
+          <div class="blog-content" itemprop="articleBody">
             ${parseMarkdownToHtml(post.content)}
           </div>
         </article>
@@ -552,11 +715,11 @@ export function generateSeoHtml(): string {
       </div>
     </section>
 
-  </div>
+  </main>
 
-  <footer>
+  <footer role="contentinfo">
     <p>&copy; ${new Date().getFullYear()} <a href="https://minnieott.com" style="color: #cbd5e1; text-decoration: underline;">Minerva Tanglao Ott (Minnie)</a>. All rights reserved.</p>
-    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #64748b;">SEO-Optimized Static & Dynamic Web Export for <a href="https://minnieott.com" style="color: #94a3b8; text-decoration: underline;">${personalInfo.name}</a></p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #64748b;">Generative Engine Optimization (GEO) & SEO Export for <a href="https://minnieott.com" style="color: #94a3b8; text-decoration: underline;">${personalInfo.name}</a></p>
   </footer>
 
   <div id="root"></div>
@@ -568,6 +731,17 @@ export function generateSeoHtml(): string {
 }
 
 export function writeSeoHtmlFile(): string {
+  const postsFilePath = path.join(process.cwd(), 'src', 'data', 'posts.json');
+  let posts: BlogPost[] = [];
+  try {
+    if (fs.existsSync(postsFilePath)) {
+      posts = JSON.parse(fs.readFileSync(postsFilePath, 'utf-8'));
+    }
+  } catch (e) {
+    console.error('Error loading posts for sitemap:', e);
+  }
+
+  // 1. Generate & write SEO HTML file
   const content = generateSeoHtml();
   const targetPath = path.join(process.cwd(), 'index-seo.html');
   fs.writeFileSync(targetPath, content, 'utf-8');
@@ -578,7 +752,15 @@ export function writeSeoHtmlFile(): string {
     fs.writeFileSync(path.join(distDir, 'index-seo.html'), content, 'utf-8');
   }
 
-  console.log('Successfully generated /index-seo.html with full SEO metadata and content.');
+  // 2. Dynamically generate & write XML Sitemap
+  const sitemapContent = generateSitemapXml(posts);
+  const publicSitemapPath = path.join(process.cwd(), 'public', 'sitemap.xml');
+  fs.writeFileSync(publicSitemapPath, sitemapContent, 'utf-8');
+  if (fs.existsSync(distDir)) {
+    fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapContent, 'utf-8');
+  }
+
+  console.log('Successfully generated /index-seo.html and /sitemap.xml with full SEO metadata and content.');
   return targetPath;
 }
 

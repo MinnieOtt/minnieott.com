@@ -151,7 +151,7 @@ export const experiences: ExperienceItem[] = [
     type: 'Full-time',
     description: 'Led large-scale engineering operations and full lifecycle program management within Google Engineering, delivering crucial features for Google Maps and leading massive infrastructure and SDLC transformations.',
     bullets: [
-      'Managed full product lifecycle from requirements to production for 50+ Google Maps features with Gemini Voice Navigation on Google Cloud Platform.',
+      'Managed full product lifecycle from requirements to production for 50+ Google Maps features with Gemini Voice Navigation on Google Cloud Platform for 2 billion+ users. Orchestrated PM, UX, Privacy/Security, GeoQuality reviews for Google Maps Content RLHF utilizing Google Search data. Facilitated GPU/TPU requests on GCP when needed.',
       'Led cross-functional execution across engineering, product, QA, and release stakeholders to deliver scaled launches on time.',
       'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building fluency in AI-driven program management. Provided consultation on leveraging Google AI tools for SDLC governance.',
       'Built TPM culture centered on technical rigor, mentoring, and execution, contributing to the promotion of senior TPM talent.',
@@ -302,7 +302,7 @@ export const education: EducationItem[] = [
   {
     school: 'Stanford Graduate School of Business',
     degree: 'Stanford LEAD',
-    honors: ['Distinguished Scholar', 'Community Advisory Board Member'],
+    honors: ['Distinguished Scholar', 'Community Advisory Board Member', 'Stanford LEAD Certificate'],
     details: 'Rigorous executive leadership certification focusing on design thinking, strategic development, and driving innovation within corporate organizations.'
   },
   {

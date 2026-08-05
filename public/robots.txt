@@ -1,43 +1,98 @@
 # Robots.txt for Minerva Tanglao Ott (Minnie) Portfolio
-# Highly optimized for standard search engines and AI Search Agents (Gemini, ChatGPT, Claude, Perplexity, Grok)
+# Fully optimized for Search Engines & Generative AI Search Crawlers (Google AI, Claude, ChatGPT, Perplexity, Grok, Applebot, Bytespider)
 
-# Allow all search bots
+# Default rule for all web crawlers
 User-agent: *
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /sitemap.xml
+Allow: /index-seo.html
 Disallow: /api/
 
-# Explicitly allow AI crawler agents to index the portfolio and blog posts
+# Explicitly grant full permission to AI Search Crawlers and LLM Indexers
 User-agent: GPTBot
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /index-seo.html
 
 User-agent: ChatGPT-User
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 User-agent: ClaudeBot
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
 
 User-agent: Claude-Web
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 User-agent: PerplexityBot
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
 
 User-agent: Google-Extended
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
 
-User-agent: Omgilibot
+User-agent: GoogleOther
 Allow: /
 Allow: /llms.txt
+Allow: /llms-full.txt
 
-User-agent: FacebookBot
+User-agent: GrokBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 
-# Sitemap & LLMs location
+User-agent: Bytespider
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: CCBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Amazonbot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+User-agent: Cohere-ai
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Sitemaps & LLM Context Maps
 Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/sitemap.xml
 Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms.txt
+Sitemap: https://ais-pre-mqznufwafvpvxtzyrnuxum-278675378343.us-east1.run.app/llms-full.txt
