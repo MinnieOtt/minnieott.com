@@ -14,7 +14,7 @@ export const personalInfo = {
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://youtu.be/NzH5PaEgjOs), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
-  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems', 'Oracle']
+  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'IBM, DHL, Infogain, Sun/Oracle']
 };
 
 export const portfolioApps: AppPortfolioItem[] = [
@@ -194,30 +194,18 @@ export const experiences: ExperienceItem[] = [
     logoColor: 'text-gray-900'
   },
   {
-    role: 'Technical Project Manager / Consultant',
-    company: 'Sun Microsystems / Oracle',
+    role: 'Software Engineering Consultant',
+    company: 'IBM, DHL, Infogain, Sun/Oracle',
     period: 'Apr 2000 – Jun 2009',
     type: 'Consultant',
-    description: 'Directed software implementations and consultancies, providing deep engineering expertise for enterprise-scale platforms.',
+    description: 'Directed software implementations, built core transactional systems, and provided expert engineering consultancy across enterprise leaders including Sun Microsystems, eBay, American Express, IBM, DHL, and Infogain.',
     bullets: [
-      'Led the end-to-end implementation of HP Project & Portfolio Management (PPM) software at Sun Microsystems to optimize outsourcing workflows.',
-      'Served as senior consultant at Sun Java Center, architecting robust Java-based architectures for premier clients including eBay, American Express, and the Chicago Board Options Exchange.'
-    ],
-    skillsUsed: ['Java EE', 'HP PPM', 'Enterprise Architecture', 'Systems Consulting'],
-    logoColor: 'text-orange-500'
-  },
-  {
-    role: 'Software Engineering Consultant',
-    company: 'IBM, DHL, Infogain',
-    period: 'Prior Experience',
-    type: 'Consultant',
-    description: 'Built core transactional software and back-office systems for global enterprise leaders as an expert engineering contractor.',
-    bullets: [
+      'Sun Microsystems / Sun Java Center: Led the implementation of HP Project & Portfolio Management (PPM) software to optimize outsourcing workflows, and served as senior consultant architecting Java EE solutions for eBay, American Express, and CBOE.',
       'Infogain Consultant: Led the full-cycle development of specialized Data Transfer Systems and Loan Collection Systems.',
       'DHL: Co-developed the global Shipment Control System for real-time parcel and logistics tracking.',
       'IBM Consultant: Led critical technical enhancements of TECSYS Financials & Distribution Systems for international clients.'
     ],
-    skillsUsed: ['Financial Systems', 'Logistics Software', 'Data Transfer', 'COBOL / Java'],
+    skillsUsed: ['Java EE', 'HP PPM', 'Enterprise Architecture', 'Financial Systems', 'Logistics Software', 'Data Transfer', 'Systems Consulting'],
     logoColor: 'text-blue-700'
   }
 ];

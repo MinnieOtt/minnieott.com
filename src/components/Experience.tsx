@@ -22,7 +22,7 @@ export default function Experience() {
     if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.png';
     if (companyName.includes('Google')) return '/google-favicon.png';
     if (companyName.includes('Apple')) return '/apple-favicon.png';
-    if (companyName.includes('Sun Microsystems') || companyName.includes('Oracle')) return '/sun-favicon.png';
+    if (companyName.startsWith('Sun Microsystems') || companyName.startsWith('Oracle')) return '/sun-favicon.png';
     return null;
   };
 
@@ -37,6 +37,7 @@ export default function Experience() {
             if (trimmed === 'IBM') url = 'https://www.ibm.com/';
             else if (trimmed === 'DHL') url = 'https://www.dhl.com/';
             else if (trimmed === 'Infogain') url = 'https://www.tenarai.com/';
+            else if (trimmed === 'Sun/Oracle' || trimmed.includes('Sun') || trimmed.includes('Oracle')) url = 'https://oracle.com';
 
             return (
               <React.Fragment key={trimmed}>

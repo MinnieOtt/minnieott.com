@@ -206,7 +206,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
               Technology Transformation Leader
             </span>
             <span id="logo-text-companies" className="text-[9px] text-gray-400 font-mono mt-1 tracking-wide">
-              Creative Blue &larr; Google &larr; Apple &larr; Sun / Oracle
+              Creative Blue &larr; Google &larr; Apple
             </span>
             {lastUpdateText && (
               <span id="logo-text-last-update" className="text-[9px] text-gray-400 font-mono mt-0.5 tracking-wide">
