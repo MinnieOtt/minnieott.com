@@ -196,7 +196,7 @@ export const experiences: ExperienceItem[] = [
   {
     role: 'Software Engineering Consultant',
     company: 'IBM, DHL, Infogain, Sun/Oracle',
-    period: 'Apr 2000 – Jun 2009',
+    period: 'Prior Experience',
     type: 'Consultant',
     description: 'Directed software implementations, built core transactional systems, and provided expert engineering consultancy across enterprise leaders including Sun Microsystems, eBay, American Express, IBM, DHL, and Infogain.',
     bullets: [
