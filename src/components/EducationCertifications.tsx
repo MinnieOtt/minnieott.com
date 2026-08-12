@@ -12,10 +12,10 @@ export default function EducationCertifications() {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Scholastics & IP
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-black tracking-tight mt-3 mb-4">
             Education, Patents & Authoring
           </h2>
-          <p className="font-sans text-base text-gray-600 leading-relaxed">
+          <p className="font-sans text-base text-black leading-relaxed">
             Academic foundations, certified engineering training, and registered intellectual property spanning over two decades of technical leadership.
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function EducationCertifications() {
             {/* Patents Card */}
             <div id="patent-card-block" className="bg-white border border-gray-100 rounded-2xl p-6 md:p-8 shadow-3xs relative overflow-hidden">
               <div className="absolute top-0 left-0 h-full w-1 bg-[#3333FF]" />
-              <h3 className="font-display font-bold text-gray-900 text-base mb-4 flex items-center gap-2">
+              <h3 className="font-display font-bold text-black text-base mb-4 flex items-center gap-2">
                 <Scale className="w-5 h-5 text-indigo-500" /> Intellectual Property
               </h3>
               {patents.map((pat) => (
@@ -43,15 +43,15 @@ export default function EducationCertifications() {
                       href={pat.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs text-gray-400 hover:text-gray-900 underline transition-colors"
+                      className="font-mono text-xs text-black hover:text-black underline transition-colors"
                     >
                       View Patent Official
                     </a>
                   </div>
-                  <h4 className="font-sans font-bold text-sm text-gray-900 leading-snug mt-1">
+                  <h4 className="font-sans font-bold text-sm text-black leading-snug mt-1">
                     {pat.title}
                   </h4>
-                  <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
+                  <p className="font-sans text-xs text-black mt-1 leading-relaxed">
                     {pat.description}
                   </p>
                 </div>
@@ -61,7 +61,7 @@ export default function EducationCertifications() {
             {/* Book Editing Card */}
             <div id="book-card-block" className="bg-white border border-gray-100 rounded-2xl p-6 md:p-8 shadow-3xs relative overflow-hidden">
               <div className="absolute top-0 left-0 h-full w-1 bg-[#3333FF]" />
-              <h3 className="font-display font-bold text-gray-900 text-base mb-4 flex items-center gap-2">
+              <h3 className="font-display font-bold text-black text-base mb-4 flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-indigo-500" /> Publications
               </h3>
               <div className="flex gap-4">
@@ -78,18 +78,18 @@ export default function EducationCertifications() {
                       href={books.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-xs text-gray-400 hover:text-gray-900 underline transition-colors"
+                      className="font-mono text-xs text-black hover:text-black underline transition-colors"
                     >
                       Google Books
                     </a>
                   </div>
-                  <h4 className="font-sans font-bold text-sm text-gray-900 mt-1.5">
+                  <h4 className="font-sans font-bold text-sm text-black mt-1.5">
                     {books.title}
                   </h4>
-                  <p className="font-sans text-xs text-gray-500 mt-0.5">
+                  <p className="font-sans text-xs text-black mt-0.5">
                     Authored by {books.author}
                   </p>
-                  <p className="font-sans text-xs text-gray-500 mt-2 leading-relaxed">
+                  <p className="font-sans text-xs text-black mt-2 leading-relaxed">
                     {books.description}
                   </p>
                 </div>
@@ -99,7 +99,7 @@ export default function EducationCertifications() {
             {/* Academic Education */}
             <div id="education-card-block" className="bg-white border border-gray-100 rounded-2xl p-6 md:p-8 shadow-3xs relative overflow-hidden">
               <div className="absolute top-0 left-0 h-full w-1 bg-[#3333FF]" />
-              <h3 className="font-display font-bold text-gray-900 text-base mb-6 flex items-center gap-2">
+              <h3 className="font-display font-bold text-black text-base mb-6 flex items-center gap-2">
                 <GraduationCap className="w-5 h-5 text-emerald-600" /> Education
               </h3>
 
@@ -107,7 +107,7 @@ export default function EducationCertifications() {
                 {education.map((edu, idx) => (
                   <div key={edu.school} id={`edu-item-${idx}`} className="flex flex-col gap-1 pb-6 last:pb-0 last:border-b-0 border-b border-gray-100/60">
                     <div className="flex justify-between items-start flex-wrap gap-2">
-                      <h4 className="font-display font-bold text-sm text-gray-900">
+                      <h4 className="font-display font-bold text-sm text-black">
                         {edu.school === 'Stanford Graduate School of Business' ? (
                           <a 
                             href="https://grow.stanford.edu/" 
@@ -131,7 +131,7 @@ export default function EducationCertifications() {
                         )}
                       </h4>
                       {edu.period && (
-                        <span className="font-mono text-[10px] text-gray-400">
+                        <span className="font-mono text-[10px] text-black">
                           {edu.period}
                         </span>
                       )}
@@ -194,14 +194,14 @@ export default function EducationCertifications() {
                         return (
                           <span
                             key={honor}
-                            className="px-2 py-0.5 bg-[#E4F0E7] border border-[#3333FF] rounded-md text-[10px] font-mono text-gray-600"
+                            className="px-2 py-0.5 bg-[#E4F0E7] border border-[#3333FF] rounded-md text-[10px] font-mono text-black"
                           >
                             {getHonorContent()}
                           </span>
                         );
                       })}
                     </div>
-                    <p className="font-sans text-xs text-gray-500 mt-3 leading-relaxed">
+                    <p className="font-sans text-xs text-black mt-3 leading-relaxed">
                       {edu.details}
                     </p>
                   </div>
@@ -215,7 +215,7 @@ export default function EducationCertifications() {
           <div id="certifications-col" className="lg:col-span-5">
             <div id="certifications-card-block" className="bg-white border border-gray-100 rounded-2xl p-6 md:p-8 shadow-3xs relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-accent" />
-              <h3 className="font-display font-bold text-gray-900 text-base mb-6 flex items-center gap-2">
+              <h3 className="font-display font-bold text-black text-base mb-6 flex items-center gap-2">
                 <Award className="w-5 h-5 text-amber-500" /> Certifications
               </h3>
 
@@ -238,17 +238,17 @@ export default function EducationCertifications() {
                             rel="noopener noreferrer"
                             className="group/link inline-flex items-center gap-1 hover:text-[#3333FF] transition-colors"
                           >
-                            <h4 className="font-sans font-bold text-xs text-gray-900 leading-normal group-hover/link:text-[#3333FF] transition-colors">
+                            <h4 className="font-sans font-bold text-xs text-black leading-normal group-hover/link:text-[#3333FF] transition-colors">
                               {cert.title}
                             </h4>
-                            <ExternalLink className="w-3.5 h-3.5 text-gray-400 shrink-0 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                            <ExternalLink className="w-3.5 h-3.5 text-black shrink-0 opacity-0 group-hover/link:opacity-100 transition-opacity" />
                           </a>
                         ) : (
-                          <h4 className="font-sans font-bold text-xs text-gray-900 leading-normal">
+                          <h4 className="font-sans font-bold text-xs text-black leading-normal">
                             {cert.title}
                           </h4>
                         )}
-                        <p className="font-mono text-[10px] text-gray-400 mt-1">
+                        <p className="font-mono text-[10px] text-black mt-1">
                           Issued by {cert.issuer}
                         </p>
                       </div>

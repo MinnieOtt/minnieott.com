@@ -18,6 +18,7 @@ import {
   endorsements
 } from "./src/data/resumeData";
 import { writeSeoHtmlFile } from "./scripts/generateSeo";
+import { renderBlogPostHtml, renderBlogIndexHtml, renderBlog404Html } from "./src/lib/blogSsr";
 
 interface BlogPost {
   id: string;
@@ -790,6 +791,58 @@ Formatting & Guidelines:
     return res.redirect(301, "https://minnieott.com/work#experience");
   });
 
+  // Serve pre-rendered HTML for Blog Index (/blog and /blog/) for AI & SEO agents
+  app.get(["/blog", "/blog/"], async (req, res) => {
+    try {
+      let posts: BlogPost[] = [];
+      try {
+        posts = await getPostsFromFirestore();
+      } catch (e) {
+        posts = readPostsFromFile();
+      }
+
+      const html = renderBlogIndexHtml(posts, "https://minnieott.com");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      return res.send(html);
+    } catch (error) {
+      console.error("Error rendering blog index HTML:", error);
+      return res.status(500).send("Internal server error");
+    }
+  });
+
+  // Serve pre-rendered HTML for Individual Blog Posts (/blog/:slug) for AI & SEO agents
+  app.get(["/blog/:slug", "/blog/:slug/"], async (req, res, next) => {
+    const { slug } = req.params;
+
+    // Pass author route or internal api requests to next()
+    if (slug === "author" || slug.startsWith("api")) {
+      return next();
+    }
+
+    try {
+      let posts: BlogPost[] = [];
+      try {
+        posts = await getPostsFromFirestore();
+      } catch (e) {
+        posts = readPostsFromFile();
+      }
+
+      // Find post by slug or ID
+      const post = posts.find(p => p.slug === slug || p.id === slug);
+
+      if (!post) {
+        return res.status(404).setHeader("Content-Type", "text/html; charset=utf-8").send(renderBlog404Html(slug, "https://minnieott.com"));
+      }
+
+      const html = renderBlogPostHtml(post, "https://minnieott.com");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      return res.send(html);
+    } catch (error) {
+      console.error(`Error rendering blog post HTML for ${slug}:`, error);
+      return res.status(500).send("Internal server error");
+    }
+  });
+
   // GET: Fetch all blog posts
   app.get("/api/posts", async (req, res) => {
     const posts = await getPostsFromFirestore();
@@ -865,6 +918,9 @@ Formatting & Guidelines:
       writePostsToFile(posts);
       await savePostToFirestore(updatedPost);
 
+      // Regenerate SEO/AEO HTML export for the updated blog entry
+      try { writeSeoHtmlFile(posts); } catch (e) { console.error("Error writing SEO HTML:", e); }
+
       return res.json({ success: true, post: updatedPost, posts, lastUpdated: lastBlogUpdateTimestamp });
     }
 
@@ -902,7 +958,7 @@ Formatting & Guidelines:
     await savePostToFirestore(newPost);
 
     // Regenerate SEO HTML export
-    try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
+    try { writeSeoHtmlFile(posts); } catch (e) { console.error("Error writing SEO HTML:", e); }
 
     return res.json({ success: true, post: newPost, posts, lastUpdated: lastBlogUpdateTimestamp });
   });
@@ -954,7 +1010,7 @@ Formatting & Guidelines:
     await savePostToFirestore(updatedPost);
 
     // Regenerate SEO HTML export
-    try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
+    try { writeSeoHtmlFile(posts); } catch (e) { console.error("Error writing SEO HTML:", e); }
 
     return res.json({ success: true, post: updatedPost, posts, lastUpdated: lastBlogUpdateTimestamp });
   });
@@ -978,7 +1034,7 @@ Formatting & Guidelines:
       await deletePostFromFirestore(postToDelete.id, postToDelete.slug);
 
       // Regenerate SEO HTML export
-      try { writeSeoHtmlFile(); } catch (e) { console.error("Error writing SEO HTML:", e); }
+      try { writeSeoHtmlFile(posts); } catch (e) { console.error("Error writing SEO HTML:", e); }
 
       return res.json({ success: true, posts, lastUpdated: lastBlogUpdateTimestamp });
     }

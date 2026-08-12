@@ -12,10 +12,10 @@ export default function Speaker() {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Keynotes & Mentorship
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-black tracking-tight mt-3 mb-4">
             Speaker Series & Panels
           </h2>
-          <p className="font-sans text-base text-gray-600 leading-relaxed">
+          <p className="font-sans text-base text-black leading-relaxed">
             Leading conversations on engineering execution, cross-cultural leadership, diversity in STEM, and technology transition. Connecting industry with academia to foster future technical leaders.
           </p>
         </div>
@@ -42,20 +42,20 @@ export default function Speaker() {
                     )}
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-gray-900 text-lg sm:text-xl tracking-tight leading-snug">
+                    <h3 className="font-display font-bold text-black text-lg sm:text-xl tracking-tight leading-snug">
                       {evt.event}
                     </h3>
                   </div>
                 </div>
 
-                <p className="font-sans text-sm text-gray-600 leading-relaxed mb-6">
+                <p className="font-sans text-sm text-black leading-relaxed mb-6">
                   {evt.description}
                 </p>
               </div>
 
               {/* Event Links */}
               <div className="border-t border-gray-100 pt-5 mt-auto flex flex-wrap items-center gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-gray-400 font-bold mr-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-black font-bold mr-1">
                   Event Coverage:
                 </span>
                 {evt.links.map((link) => (

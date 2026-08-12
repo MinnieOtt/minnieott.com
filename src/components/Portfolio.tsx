@@ -35,10 +35,10 @@ export default function Portfolio() {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Technical Case Studies
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-black tracking-tight mt-3 mb-4">
             Deployed Software & AI Solutions
           </h2>
-          <p className="font-sans text-base text-gray-600 leading-relaxed">
+          <p className="font-sans text-base text-black leading-relaxed">
             Discover the production-ready applications, orchestration pipelines, and client solutions I have conceptualized, designed, and deployed as a Head of Technology and System Architect.
           </p>
         </div>
@@ -48,36 +48,36 @@ export default function Portfolio() {
           {/* Subtle top border decorative accent */}
           <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#3333FF]" />
           
-          <h3 className="font-display font-bold text-gray-900 text-lg mb-6 flex items-center gap-2">
+          <h3 className="font-display font-bold text-black text-lg mb-6 flex items-center gap-2">
             Professional Profile & Engineering Leadership
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-sans">
             <div className="space-y-4">
-              <p className="text-sm text-gray-600 leading-relaxed">
+              <p className="text-sm text-black leading-relaxed">
                 As a hands-on, full-stack systems architect, I balance strategic leadership with tactical software execution. I specialize in building custom ingestion brokers, high-frequency lead routing, automated outreach pipelines, and highly optimized UI environments.
               </p>
             </div>
             <div className="bg-white border border-gray-150 p-6 rounded-xl space-y-4 shadow-3xs">
-              <h4 className="font-mono text-xs font-bold text-gray-400 uppercase tracking-widest">
+              <h4 className="font-mono text-xs font-bold text-black uppercase tracking-widest">
                 Academic & Community Roles
               </h4>
               <div className="space-y-3">
-                <p className="font-sans text-xs text-gray-600 leading-relaxed">
+                <p className="font-sans text-xs text-black leading-relaxed">
                   <strong>Stanford University Graduate School of Business</strong>
                 </p>
-                <p className="font-sans text-xs text-gray-500 mt-1 leading-relaxed">
+                <p className="font-sans text-xs text-black mt-1 leading-relaxed">
                   <a 
                     href="https://drive.google.com/file/d/1c7rR9-_DKWr6xtb830n2grkC4RVNF1LE/view" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="hover:text-[#3333FF] hover:underline transition-colors font-medium text-gray-700"
+                    className="hover:text-[#3333FF] hover:underline transition-colors font-medium text-black"
                   >
                     Distinguished GSB Scholar
                   </a>, serving on the <a 
                     href="https://drive.google.com/file/d/1gVjsnaXSuVHlDPTtdT2gzDKJiPtSEikt/view?usp=sharing" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="hover:text-[#3333FF] hover:underline transition-colors font-medium text-gray-700"
+                    className="hover:text-[#3333FF] hover:underline transition-colors font-medium text-black"
                   >
                     Community Advisory Board
                   </a>.
@@ -128,10 +128,10 @@ export default function Portfolio() {
                           {getAppIcon(app.name)}
                         </div>
                         <div>
-                          <h3 className="font-display font-bold text-gray-900 text-lg tracking-tight group-hover:text-gray-950">
+                          <h3 className="font-display font-bold text-black text-lg tracking-tight group-hover:text-black">
                             {app.name}
                           </h3>
-                          <p className="font-mono text-[10px] text-gray-500 font-semibold uppercase tracking-wider mt-0.5">
+                          <p className="font-mono text-[10px] text-black font-semibold uppercase tracking-wider mt-0.5">
                             {app.role}
                           </p>
                         </div>
@@ -157,20 +157,20 @@ export default function Portfolio() {
                     </div>
 
                     {/* App Description */}
-                    <p className="font-sans text-sm text-gray-600 leading-relaxed">
+                    <p className="font-sans text-sm text-black leading-relaxed">
                       {app.description}
                     </p>
 
                     {/* Achievements/Scope Bullets */}
                     <div className="flex flex-col gap-2.5 mt-2">
-                      <h4 className="font-mono text-[11px] font-bold text-gray-700 uppercase tracking-wider">
+                      <h4 className="font-mono text-[11px] font-bold text-black uppercase tracking-wider">
                         Technical Contributions:
                       </h4>
                       <ul className="flex flex-col gap-2">
                         {app.bulletPoints.map((bullet, bIdx) => (
                           <li key={bIdx} className="flex gap-2.5 items-start">
                             <Check className="w-4 h-4 text-[#3333FF] shrink-0 mt-0.5" />
-                            <span className="font-sans text-xs text-gray-500 leading-normal">
+                            <span className="font-sans text-xs text-black leading-normal">
                               {bullet}
                             </span>
                           </li>
@@ -186,7 +186,7 @@ export default function Portfolio() {
                       {app.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-0.5 bg-white border border-gray-100 rounded text-[10px] font-mono text-gray-500"
+                          className="px-2 py-0.5 bg-white border border-gray-100 rounded text-[10px] font-mono text-black"
                         >
                           {tag}
                         </span>
@@ -204,14 +204,14 @@ export default function Portfolio() {
                           className={`inline-flex items-center gap-1.5 text-xs font-semibold transition-colors px-3.5 py-1.5 rounded-lg shadow-2xs group/btn ${
                             app.cta.label === 'Request Demo'
                               ? 'bg-[#3333FF] text-white hover:bg-[#2525D0]'
-                              : 'text-gray-800 hover:text-[#3333FF] bg-white border border-gray-200 hover:border-[#3333FF]'
+                              : 'text-black hover:text-[#3333FF] bg-white border border-gray-200 hover:border-[#3333FF]'
                           }`}
                         >
                           {app.cta.label}
                           <ExternalLink className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                         </a>
                       ) : app.name === 'Just Ride' ? (
-                        <span className="text-[11px] font-mono font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded">
+                        <span className="text-[11px] font-mono font-medium text-black bg-gray-100 px-2 py-1 rounded">
                           Just Ride Framework
                         </span>
                       ) : null}

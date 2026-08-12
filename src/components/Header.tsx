@@ -199,17 +199,17 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
             )}
           </div>
           <div className="flex flex-col">
-            <span id="logo-text-name" className="font-display font-bold text-gray-900 leading-none text-base">
+            <span id="logo-text-name" className="font-display font-bold text-black leading-none text-base">
               Minerva T. Ott (Minnie)
             </span>
-            <span id="logo-text-title" className="text-[10px] text-gray-500 font-mono mt-0.5 uppercase tracking-wider">
+            <span id="logo-text-title" className="text-[10px] text-black font-mono mt-0.5 uppercase tracking-wider">
               Technology Transformation Leader
             </span>
-            <span id="logo-text-companies" className="text-[9px] text-gray-400 font-mono mt-1 tracking-wide">
+            <span id="logo-text-companies" className="text-[9px] text-black font-mono mt-1 tracking-wide">
               Creative Blue &larr; Google &larr; Apple
             </span>
             {lastUpdateText && (
-              <span id="logo-text-last-update" className="text-[9px] text-gray-400 font-mono mt-0.5 tracking-wide">
+              <span id="logo-text-last-update" className="text-[9px] text-black font-mono mt-0.5 tracking-wide">
                 Last update: {lastUpdateText}
               </span>
             )}
@@ -226,8 +226,8 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
                 id={`nav-link-${item.id}`}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
-                className={`font-sans text-sm font-medium transition-all duration-200 relative py-1 hover:text-gray-950 ${
-                  isNavActive(item.id) ? 'text-gray-950 font-semibold text-[#3333FF]' : 'text-gray-500'
+                className={`font-sans text-sm font-medium transition-all duration-200 relative py-1 hover:text-black ${
+                  isNavActive(item.id) ? 'text-black font-semibold text-[#3333FF]' : 'text-black'
                 }`}
               >
                 {item.label}
@@ -264,7 +264,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
           {/* Mobile Toggle */}
           <button
             id="mobile-nav-toggle-btn"
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-black transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle navigation menu"
           >
@@ -287,7 +287,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item)}
                 className={`font-sans text-base font-medium py-1.5 border-b border-gray-50 ${
-                  isNavActive(item.id) ? 'text-gray-950 pl-2 border-l-2 border-accent-dark' : 'text-gray-500'
+                  isNavActive(item.id) ? 'text-black pl-2 border-l-2 border-accent-dark' : 'text-black'
                 }`}
               >
                 {item.label}

@@ -490,7 +490,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           <button
             id="blog-back-btn"
             onClick={() => onNavigate('/blog')}
-            className="group flex items-center gap-2 text-sm text-gray-500 hover:text-gray-950 font-medium mb-8 transition-colors cursor-pointer"
+            className="group flex items-center gap-2 text-sm text-black hover:text-gray-950 font-medium mb-8 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Back to Articles
@@ -505,7 +505,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               {activePost.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-6 mt-6 text-xs font-mono text-gray-500">
+            <div className="flex flex-wrap items-center gap-6 mt-6 text-xs font-mono text-black">
               <div className="flex items-center gap-1.5">
                 <User className="w-3.5 h-3.5 text-[#3333FF]" />
                 <span>{activePost.author}</span>
@@ -549,7 +549,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           <div className="mt-12 p-6 bg-neutral-50 rounded-2xl border border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-left">
             <div>
               <h4 className="font-display font-bold text-gray-950 text-sm">Enjoyed this article?</h4>
-              <p className="font-sans text-xs text-gray-500 mt-1">Share it with your professional network or developer community.</p>
+              <p className="font-sans text-xs text-black mt-1">Share it with your professional network or developer community.</p>
             </div>
             <div className="flex items-center gap-2">
               <a
@@ -610,9 +610,9 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 />
               </div>
               <div>
-                <p className="text-xs text-gray-400 font-mono">WRITTEN BY</p>
+                <p className="text-xs text-black font-mono">WRITTEN BY</p>
                 <h4 className="font-display font-normal text-gray-900 text-sm mt-1">{activePost.author}</h4>
-                <p className="text-xs text-gray-500 mt-0.5">Technology Transformation Leader</p>
+                <p className="text-xs text-black mt-0.5">Technology Transformation Leader</p>
               </div>
             </div>
             
@@ -637,7 +637,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
           <button
             id="blog-back-btn"
             onClick={() => onNavigate('/blog')}
-            className="group flex items-center gap-2 text-sm text-gray-500 hover:text-gray-950 font-medium mb-8 transition-colors cursor-pointer"
+            className="group flex items-center gap-2 text-sm text-black hover:text-gray-950 font-medium mb-8 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Back to Public Articles
@@ -649,7 +649,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 <Sparkles className="w-8 h-8 text-[#3333FF]" />
                 Author Studio Workspace
               </h1>
-              <p className="font-sans text-sm text-gray-500 mt-2 leading-relaxed">
+              <p className="font-sans text-sm text-black mt-2 leading-relaxed">
                 Compose new publications, edit existing articles, or manage published records.
               </p>
             </div>
@@ -672,7 +672,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               <h4 className="font-display font-bold text-gray-900 text-lg mb-1">
                 Author Studio Authentication
               </h4>
-              <p className="font-sans text-xs text-gray-500 leading-relaxed mb-6">
+              <p className="font-sans text-xs text-black leading-relaxed mb-6">
                 This studio workspace is reserved. Please sign in with your authorized Google account to manage your portfolio articles.
               </p>
               <div className="flex flex-col gap-3 items-center justify-center w-full">
@@ -770,7 +770,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="md:col-span-2">
-                      <label className="block text-xs font-mono font-bold text-gray-600 mb-1 uppercase">
+                      <label className="block text-xs font-mono font-bold text-black mb-1 uppercase">
                         Article Title
                       </label>
                       <input
@@ -783,7 +783,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-mono font-bold text-gray-600 mb-1 uppercase">
+                      <label className="block text-xs font-mono font-bold text-black mb-1 uppercase">
                         Category
                       </label>
                       <select
@@ -801,7 +801,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono font-bold text-gray-600 mb-1 uppercase">
+                    <label className="block text-xs font-mono font-bold text-black mb-1 uppercase">
                       Short Excerpt (Teaser text)
                     </label>
                     <input
@@ -815,7 +815,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs font-mono font-bold text-gray-600 mb-1 uppercase">
+                      <label className="block text-xs font-mono font-bold text-black mb-1 uppercase">
                         Read Time (Optional)
                       </label>
                       <input
@@ -827,7 +827,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-mono font-bold text-gray-600 mb-1 uppercase">
+                      <label className="block text-xs font-mono font-bold text-black mb-1 uppercase">
                         Author Profile
                       </label>
                       <input
@@ -842,7 +842,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   <div>
                     <div className="flex flex-wrap justify-between items-center gap-2 mb-2">
                       <div className="flex items-center gap-3">
-                        <label className="text-xs font-mono font-bold text-gray-600 uppercase">
+                        <label className="text-xs font-mono font-bold text-black uppercase">
                           Content
                         </label>
                         <div className="inline-flex p-0.5 bg-neutral-100 rounded-lg border border-gray-200">
@@ -852,7 +852,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
                               activeEditorTab === 'write'
                                 ? 'bg-white text-gray-900 shadow-2xs border border-gray-200/60'
-                                : 'text-gray-500 hover:text-gray-900'
+                                : 'text-black hover:text-gray-900'
                             }`}
                           >
                             <Pencil className="w-3 h-3" />
@@ -864,7 +864,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                             className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-semibold transition-all cursor-pointer ${
                               activeEditorTab === 'preview'
                                 ? 'bg-[#3333FF] text-white shadow-2xs'
-                                : 'text-gray-500 hover:text-gray-900'
+                                : 'text-black hover:text-gray-900'
                             }`}
                           >
                             <Eye className="w-3 h-3" />
@@ -872,7 +872,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                           </button>
                         </div>
                       </div>
-                      <span className="text-[10px] text-gray-500 font-sans hidden sm:inline">
+                      <span className="text-[10px] text-black font-sans hidden sm:inline">
                         Use <code className="bg-neutral-100 border border-gray-200 text-black px-1.5 py-0.5 rounded font-mono text-[10px] font-medium">### Title</code> for headings and <code className="bg-neutral-100 border border-gray-200 text-black px-1.5 py-0.5 rounded font-mono text-[10px] font-medium">* list item</code> for bullet points.
                       </span>
                     </div>
@@ -896,7 +896,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                               {newPost.title}
                             </h2>
                             {newPost.excerpt && (
-                              <p className="font-sans text-xs text-gray-500 italic mt-1.5">
+                              <p className="font-sans text-xs text-black italic mt-1.5">
                                 {newPost.excerpt}
                               </p>
                             )}
@@ -905,7 +905,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                         {newPost.content && newPost.content.trim() ? (
                           renderFormattedContent(newPost.content)
                         ) : (
-                          <div className="py-12 text-center text-gray-400 font-sans text-sm italic">
+                          <div className="py-12 text-center text-black font-sans text-sm italic">
                             No content written yet. Switch to the "Write" tab to start composing your article.
                           </div>
                         )}
@@ -955,13 +955,13 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   <h3 className="font-display font-bold text-gray-950 text-base">
                     Manage Publications ({posts.length})
                   </h3>
-                  <p className="font-sans text-xs text-gray-500 mt-1">
+                  <p className="font-sans text-xs text-black mt-1">
                     Directly select any article to edit its content or delete it from the system.
                   </p>
                 </div>
 
                 {posts.length === 0 ? (
-                  <div className="text-center py-8 text-gray-400 font-sans text-xs">
+                  <div className="text-center py-8 text-black font-sans text-xs">
                     No articles published yet. Use the composer above to write your first article.
                   </div>
                 ) : (
@@ -973,7 +973,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                             <span className="text-[9px] bg-accent-light text-gray-900 font-mono font-bold px-2 py-0.5 rounded-full uppercase">
                               {post.category}
                             </span>
-                            <span className="text-[10px] text-gray-400 font-mono">
+                            <span className="text-[10px] text-black font-mono">
                               {post.date}
                             </span>
                           </div>
@@ -1043,10 +1043,10 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                     </a>
                   </div>
 
-                  <div className="space-y-0.5 font-sans text-[10px] sm:text-[11px] text-gray-600 leading-tight border-t border-gray-100/60 pt-1.5">
+                  <div className="space-y-0.5 font-sans text-[10px] sm:text-[11px] text-black leading-tight border-t border-gray-100/60 pt-1.5">
                     <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">1.</span>
-                      <span>To design, devise, or plan: <span className="italic text-gray-400">to architect a system.</span></span>
+                      <span>To design, devise, or plan: <span className="italic text-black">to architect a system.</span></span>
                     </p>
                     <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">2.</span>
@@ -1068,20 +1068,20 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <div className="flex items-baseline gap-1.5">
                       <h2 className="font-display font-bold text-gray-900 text-xs sm:text-sm tracking-tight">humanity</h2>
-                      <span className="font-sans italic text-[10px] text-gray-500">noun</span>
+                      <span className="font-sans italic text-[10px] text-black">noun</span>
                     </div>
                     <a 
                       href="https://www.dictionary.com/browse/humanity" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="p-1 rounded-lg bg-neutral-50 hover:bg-neutral-100 border border-gray-100 hover:border-gray-200 text-gray-400 hover:text-[#3333FF] transition-all cursor-pointer shadow-3xs flex items-center justify-center shrink-0"
+                      className="p-1 rounded-lg bg-neutral-50 hover:bg-neutral-100 border border-gray-100 hover:border-gray-200 text-black hover:text-[#3333FF] transition-all cursor-pointer shadow-3xs flex items-center justify-center shrink-0"
                       title="View on Dictionary.com"
                     >
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
 
-                  <div className="space-y-0.5 font-sans text-[10px] sm:text-[11px] text-gray-600 leading-tight border-t border-gray-100/60 pt-1.5">
+                  <div className="space-y-0.5 font-sans text-[10px] sm:text-[11px] text-black leading-tight border-t border-gray-100/60 pt-1.5">
                     <p className="flex gap-1.5">
                       <span className="font-mono text-[9px] text-[#3333FF] font-bold shrink-0 mt-0.5">1.</span>
                       <span>All human beings collectively; humankind.</span>
@@ -1106,7 +1106,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
               <h1 className="font-display font-bold text-gray-900 text-2xl sm:text-3xl tracking-tight">
                 Elevating people at the center of progress.
               </h1>
-              <p className="font-sans text-sm text-gray-600 leading-relaxed">
+              <p className="font-sans text-sm text-black leading-relaxed">
                 I’m an engineering leader whose tech journey started with self-taught BASIC as a teen and led to directing global enterprise transformations from Silicon Valley. As a mentor, <a href="https://carissaott.com" target="_blank" rel="noopener noreferrer" className="text-[#3333FF] hover:underline font-medium">mother to a fellow software engineer</a>, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
               </p>
             </div>
@@ -1199,7 +1199,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       <span className="text-[9px] bg-accent-light text-gray-900 font-mono font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                         {post.category}
                       </span>
-                      <span className="text-[10px] text-gray-400 font-mono">
+                      <span className="text-[10px] text-black font-mono">
                         {post.date}
                       </span>
                     </div>
@@ -1208,14 +1208,14 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                       {post.title}
                     </h3>
                     
-                    <p className="font-sans text-xs text-gray-500 mt-2 line-clamp-3 leading-relaxed">
+                    <p className="font-sans text-xs text-black mt-2 line-clamp-3 leading-relaxed">
                       {post.excerpt}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between border-t border-gray-50 mt-6 pt-4 text-xs font-mono text-gray-400">
+                  <div className="flex items-center justify-between border-t border-gray-50 mt-6 pt-4 text-xs font-mono text-black">
                     <span className="flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-gray-300" />
+                      <Clock className="w-3.5 h-3.5 text-black" />
                       {post.readTime}
                     </span>
                     <span className="text-indigo-500 font-semibold group-hover:translate-x-1 transition-transform flex items-center gap-0.5">

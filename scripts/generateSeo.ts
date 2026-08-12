@@ -13,6 +13,7 @@ import {
   speakerEvents,
   endorsements
 } from '../src/data/resumeData.js';
+import { renderBlogPostHtml, renderBlogIndexHtml } from '../src/lib/blogSsr.js';
 
 interface BlogPost {
   id: string;
@@ -89,15 +90,19 @@ ${postUrls.join('\n')}
 </urlset>`;
 }
 
-export function generateSeoHtml(): string {
-  const postsFilePath = path.join(process.cwd(), 'src', 'data', 'posts.json');
+export function generateSeoHtml(providedPosts?: BlogPost[]): string {
   let posts: BlogPost[] = [];
-  try {
-    if (fs.existsSync(postsFilePath)) {
-      posts = JSON.parse(fs.readFileSync(postsFilePath, 'utf-8'));
+  if (providedPosts && Array.isArray(providedPosts)) {
+    posts = providedPosts;
+  } else {
+    const postsFilePath = path.join(process.cwd(), 'src', 'data', 'posts.json');
+    try {
+      if (fs.existsSync(postsFilePath)) {
+        posts = JSON.parse(fs.readFileSync(postsFilePath, 'utf-8'));
+      }
+    } catch (e) {
+      console.error('Error loading posts for SEO generator:', e);
     }
-  } catch (e) {
-    console.error('Error loading posts for SEO generator:', e);
   }
 
   const baseUrl = 'https://minnieott.com';
@@ -730,19 +735,23 @@ export function generateSeoHtml(): string {
   return htmlContent;
 }
 
-export function writeSeoHtmlFile(): string {
-  const postsFilePath = path.join(process.cwd(), 'src', 'data', 'posts.json');
+export function writeSeoHtmlFile(providedPosts?: BlogPost[]): string {
   let posts: BlogPost[] = [];
-  try {
-    if (fs.existsSync(postsFilePath)) {
-      posts = JSON.parse(fs.readFileSync(postsFilePath, 'utf-8'));
+  if (providedPosts && Array.isArray(providedPosts)) {
+    posts = providedPosts;
+  } else {
+    const postsFilePath = path.join(process.cwd(), 'src', 'data', 'posts.json');
+    try {
+      if (fs.existsSync(postsFilePath)) {
+        posts = JSON.parse(fs.readFileSync(postsFilePath, 'utf-8'));
+      }
+    } catch (e) {
+      console.error('Error loading posts for sitemap:', e);
     }
-  } catch (e) {
-    console.error('Error loading posts for sitemap:', e);
   }
 
   // 1. Generate & write SEO HTML file
-  const content = generateSeoHtml();
+  const content = generateSeoHtml(posts);
   const targetPath = path.join(process.cwd(), 'index-seo.html');
   fs.writeFileSync(targetPath, content, 'utf-8');
 
@@ -760,7 +769,80 @@ export function writeSeoHtmlFile(): string {
     fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapContent, 'utf-8');
   }
 
-  console.log('Successfully generated /index-seo.html and /sitemap.xml with full SEO metadata and content.');
+  // 3. Generate static HTML pages for /blog and /blog/:slug
+  const publicBlogDir = path.join(process.cwd(), 'public', 'blog');
+  if (!fs.existsSync(publicBlogDir)) {
+    fs.mkdirSync(publicBlogDir, { recursive: true });
+  }
+
+  const distBlogDir = path.join(process.cwd(), 'dist', 'blog');
+  if (fs.existsSync(distDir) && !fs.existsSync(distBlogDir)) {
+    fs.mkdirSync(distBlogDir, { recursive: true });
+  }
+
+  // Blog index page
+  const blogIndexHtml = renderBlogIndexHtml(posts, 'https://minnieott.com');
+  fs.writeFileSync(path.join(publicBlogDir, 'index.html'), blogIndexHtml, 'utf-8');
+  if (fs.existsSync(distBlogDir)) {
+    fs.writeFileSync(path.join(distBlogDir, 'index.html'), blogIndexHtml, 'utf-8');
+  }
+
+  const publishedPosts = posts.filter(p => p.published !== false);
+  const activeSlugs = new Set(publishedPosts.map(p => p.slug || p.id));
+
+  // Clean up any stale blog post files that were deleted or un-published
+  const cleanStaleBlogFiles = (dir: string) => {
+    if (!fs.existsSync(dir)) return;
+    try {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.name === 'index.html') continue;
+        if (entry.isFile() && entry.name.endsWith('.html')) {
+          const slug = entry.name.slice(0, -5);
+          if (!activeSlugs.has(slug)) {
+            fs.unlinkSync(path.join(dir, entry.name));
+          }
+        } else if (entry.isDirectory()) {
+          if (!activeSlugs.has(entry.name)) {
+            fs.rmSync(path.join(dir, entry.name), { recursive: true, force: true });
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Warning cleaning stale blog files:', err);
+    }
+  };
+
+  cleanStaleBlogFiles(publicBlogDir);
+  if (fs.existsSync(distBlogDir)) {
+    cleanStaleBlogFiles(distBlogDir);
+  }
+
+  // Individual blog post pages (SEO/AEO optimized static HTML)
+  publishedPosts.forEach(post => {
+    const slug = post.slug || post.id;
+    const postHtml = renderBlogPostHtml(post, 'https://minnieott.com');
+
+    // Write public/blog/slug.html and public/blog/slug/index.html
+    fs.writeFileSync(path.join(publicBlogDir, `${slug}.html`), postHtml, 'utf-8');
+    const publicPostSubDir = path.join(publicBlogDir, slug);
+    if (!fs.existsSync(publicPostSubDir)) {
+      fs.mkdirSync(publicPostSubDir, { recursive: true });
+    }
+    fs.writeFileSync(path.join(publicPostSubDir, 'index.html'), postHtml, 'utf-8');
+
+    // Write dist/blog/slug.html and dist/blog/slug/index.html if dist exists
+    if (fs.existsSync(distBlogDir)) {
+      fs.writeFileSync(path.join(distBlogDir, `${slug}.html`), postHtml, 'utf-8');
+      const distPostSubDir = path.join(distBlogDir, slug);
+      if (!fs.existsSync(distPostSubDir)) {
+        fs.mkdirSync(distPostSubDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(distPostSubDir, 'index.html'), postHtml, 'utf-8');
+    }
+  });
+
+  console.log(`Successfully generated /index-seo.html, /sitemap.xml, and regenerated SEO/AEO optimized HTML files for ${publishedPosts.length} blog entries.`);
   return targetPath;
 }
 

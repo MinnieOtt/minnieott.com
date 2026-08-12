@@ -22,7 +22,7 @@ export default function Experience() {
     if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.png';
     if (companyName.includes('Google')) return '/google-favicon.png';
     if (companyName.includes('Apple')) return '/apple-favicon.png';
-    if (companyName.startsWith('Sun Microsystems') || companyName.startsWith('Oracle')) return '/sun-favicon.png';
+    if (companyName.startsWith('Sun Microsystems') || companyName.startsWith('Oracle') || companyName.includes('Sun')) return '/sun-favicon.jpeg';
     return null;
   };
 
@@ -149,10 +149,10 @@ export default function Experience() {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             15+ Year Career Path
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-black tracking-tight mt-3 mb-4">
             Professional Experience & Leadership
           </h2>
-          <p className="font-sans text-base text-gray-600 leading-relaxed">
+          <p className="font-sans text-base text-black leading-relaxed">
             Leading high-performing engineering organizations and program offices at world-renowned technology companies, delivering enterprise-scale systems and AI products.
           </p>
         </div>
@@ -162,7 +162,7 @@ export default function Experience() {
           
           {/* Tab Selector Column (Left) */}
           <div id="experience-tabs-col" className="lg:col-span-4 flex flex-col gap-2.5">
-            <h3 className="font-mono text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 pl-3">
+            <h3 className="font-mono text-xs font-bold text-black uppercase tracking-wider mb-2 pl-3">
               Organizations & Milestones
             </h3>
             {experiences.map((exp: ExperienceItem, idx: number) => (
@@ -173,7 +173,7 @@ export default function Experience() {
                 className={`flex items-center gap-4.5 p-4 rounded-xl text-left border transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-[#3333FF] w-full ${
                   activeTab === idx
                     ? 'bg-white border-[#3333FF] shadow-sm'
-                    : 'bg-transparent border-transparent hover:bg-white/50 text-gray-500 hover:text-gray-900'
+                    : 'bg-transparent border-transparent hover:bg-white/50 text-black hover:text-black'
                 }`}
               >
                 {/* 3-line spanning circular favicon */}
@@ -199,13 +199,13 @@ export default function Experience() {
 
                 {/* Right side: 3 lines of structured content */}
                 <div className="flex-1 min-w-0">
-                  <span className="block font-display font-bold text-sm tracking-tight text-gray-900">
+                  <span className="block font-display font-bold text-sm tracking-tight text-black">
                     {exp.company}
                   </span>
-                  <span className="block font-sans text-xs text-gray-500 mt-1 leading-snug">
+                  <span className="block font-sans text-xs text-black mt-1 leading-snug">
                     {exp.role}
                   </span>
-                  <span className="flex items-center gap-1 font-mono text-[10px] text-gray-400 mt-1.5 leading-none">
+                  <span className="flex items-center gap-1 font-mono text-[10px] text-black mt-1.5 leading-none">
                     <Calendar className="w-3 h-3 flex-shrink-0" /> {exp.period}
                   </span>
                 </div>
@@ -225,10 +225,10 @@ export default function Experience() {
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-full font-sans mb-3">
                   <Briefcase className="w-3 h-3" /> {experiences[activeTab].type || 'Full-time'}
                 </span>
-                <h3 className="font-display font-bold text-gray-900 text-xl sm:text-2xl tracking-tight">
+                <h3 className="font-display font-bold text-black text-xl sm:text-2xl tracking-tight">
                   {experiences[activeTab].role}
                 </h3>
-                <h4 className="font-display text-base font-semibold text-gray-600 mt-1 flex items-center gap-2">
+                <h4 className="font-display text-base font-semibold text-black mt-1 flex items-center gap-2">
                   {getCompanyFavicon(experiences[activeTab].company) && (
                     <img
                       src={getCompanyFavicon(experiences[activeTab].company)!}
@@ -241,10 +241,10 @@ export default function Experience() {
               </div>
 
               <div className="flex flex-col items-end text-right">
-                <span className="font-mono text-xs font-semibold text-gray-700 bg-gray-50 px-3 py-1 rounded-md border border-gray-100 flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-gray-400" /> {experiences[activeTab].period}
+                <span className="font-mono text-xs font-semibold text-black bg-gray-50 px-3 py-1 rounded-md border border-gray-100 flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-black" /> {experiences[activeTab].period}
                 </span>
-                <span className="text-[10px] text-gray-400 font-mono mt-1 flex items-center gap-1 justify-end">
+                <span className="text-[10px] text-black font-mono mt-1 flex items-center gap-1 justify-end">
                   <MapPin className="w-3 h-3" /> San Francisco Bay Area, CA
                 </span>
               </div>
@@ -252,22 +252,22 @@ export default function Experience() {
 
             {/* Experience Paragraph */}
             <div className="mt-6">
-              <p className="font-sans text-sm text-gray-700 leading-relaxed italic bg-[#E4F0E7]/30 p-4 rounded-lg border-l-4 border-[#3333FF]">
+              <p className="font-sans text-sm text-black leading-relaxed italic bg-[#E4F0E7]/30 p-4 rounded-lg border-l-4 border-[#3333FF]">
                 {renderTextWithLinks(experiences[activeTab].description)}
               </p>
             </div>
 
             {/* Bullet List accomplishments */}
             <div className="mt-8 flex flex-col gap-4">
-              <h5 className="font-mono text-[11px] font-bold text-gray-800 uppercase tracking-wider flex items-center gap-1">
-                <Award className="w-4 h-4 text-gray-600" /> Core Accomplishments & Metrics
+              <h5 className="font-mono text-[11px] font-bold text-black uppercase tracking-wider flex items-center gap-1">
+                <Award className="w-4 h-4 text-black" /> Core Accomplishments & Metrics
               </h5>
               
               <ul className="flex flex-col gap-3.5">
                 {experiences[activeTab].bullets.map((bullet, bIdx) => (
                   <li key={bIdx} className="flex gap-3 items-start">
                     <ChevronRight className="w-4.5 h-4.5 text-[#3333FF] shrink-0 mt-0.5" />
-                    <span className="font-sans text-sm text-gray-600 leading-relaxed">
+                    <span className="font-sans text-sm text-black leading-relaxed">
                       {renderTextWithLinks(bullet)}
                     </span>
                   </li>
@@ -277,7 +277,7 @@ export default function Experience() {
 
             {/* Skills Utilized in this Period */}
             <div className="mt-10 pt-6 border-t border-gray-100">
-              <h5 className="font-mono text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-3">
+              <h5 className="font-mono text-[11px] font-bold text-black uppercase tracking-wider mb-3">
                 Skills & Technologies Applied
               </h5>
               <div className="flex flex-wrap gap-1.5">

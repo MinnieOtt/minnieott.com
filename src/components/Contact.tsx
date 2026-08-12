@@ -135,10 +135,10 @@ export default function Contact() {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             Inquiries & Collaborations
           </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-gray-900 tracking-tight mt-3 mb-4">
+          <h2 className="font-display font-bold text-3xl sm:text-4xl text-black tracking-tight mt-3 mb-4">
             Connect & Collaborate
           </h2>
-          <p className="font-sans text-base text-gray-600 leading-relaxed">
+          <p className="font-sans text-base text-black leading-relaxed">
             Interested in scaling agentic workflows, deploying enterprise Google Cloud projects, or scheduling consultations? Reach out directly or leave a secure message below.
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function Contact() {
             <div id="contact-info-card" className="bg-neutral-50 rounded-2xl border border-gray-100 p-8 flex flex-col gap-6 relative overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-accent" />
               
-              <h3 className="font-display font-bold text-gray-900 text-lg mb-2">
+              <h3 className="font-display font-bold text-black text-lg mb-2">
                 Direct Channels
               </h3>
 
@@ -162,7 +162,7 @@ export default function Contact() {
                   <Linkedin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-sans font-bold text-xs text-gray-400 uppercase tracking-wider">
+                  <h4 className="font-sans font-bold text-xs text-black uppercase tracking-wider">
                     LinkedIn Network
                   </h4>
                   <a
@@ -170,7 +170,7 @@ export default function Contact() {
                     href={personalInfo.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-sans font-semibold text-sm text-gray-900 hover:text-blue-600 transition-colors mt-1 block"
+                    className="font-sans font-semibold text-sm text-black hover:text-blue-600 transition-colors mt-1 block"
                   >
                     linkedin.com/in/minnieott
                   </a>
@@ -179,14 +179,14 @@ export default function Contact() {
 
               {/* Location */}
               <div className="flex gap-4 items-start">
-                <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-500 shadow-3xs">
+                <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-black shadow-3xs">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-sans font-bold text-xs text-gray-400 uppercase tracking-wider">
+                  <h4 className="font-sans font-bold text-xs text-black uppercase tracking-wider">
                     Location
                   </h4>
-                  <span className="font-sans font-semibold text-sm text-gray-800 mt-1 block">
+                  <span className="font-sans font-semibold text-sm text-black mt-1 block">
                     {personalInfo.location}
                   </span>
                 </div>
@@ -203,16 +203,16 @@ export default function Contact() {
                   <Calendar className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-display font-bold text-gray-900 text-lg">
+                  <h3 className="font-display font-bold text-black text-lg">
                     Book an Appointment
                   </h3>
-                  <p className="font-mono text-[10px] text-gray-400 uppercase tracking-wider mt-0.5">
+                  <p className="font-mono text-[10px] text-black uppercase tracking-wider mt-0.5">
                     Google Appointment Calendar
                   </p>
                 </div>
               </div>
 
-              <p className="font-sans text-sm text-gray-600 leading-relaxed">
+              <p className="font-sans text-sm text-black leading-relaxed">
                 Schedule a 1:1 consultation, advisory session, or project sync directly via Minnie's calendar. Select a time that fits your schedule.
               </p>
 
@@ -244,30 +244,30 @@ export default function Contact() {
                       <div className="w-16 h-16 rounded-full bg-rose-50 flex items-center justify-center mb-4 border border-rose-100">
                         <span className="text-rose-500 text-2xl font-bold font-sans">✕</span>
                       </div>
-                      <h3 className="font-display font-bold text-gray-900 text-xl tracking-tight">
+                      <h3 className="font-display font-bold text-black text-xl tracking-tight">
                         Failed to send email
                       </h3>
-                      <p className="font-sans text-sm text-gray-500 mt-2 max-w-sm leading-relaxed">
+                      <p className="font-sans text-sm text-black mt-2 max-w-sm leading-relaxed">
                         There was an error communicating with the email service. Please try again.
                       </p>
                     </>
                   ) : submitStatus === 'sent' ? (
                     <>
                       <CheckCircle2 className="w-16 h-16 text-emerald-500 animate-scale-up mb-4" />
-                      <h3 className="font-display font-bold text-gray-900 text-xl tracking-tight">
+                      <h3 className="font-display font-bold text-black text-xl tracking-tight">
                         Email sent successfully!
                       </h3>
-                      <p className="font-sans text-sm text-gray-500 mt-2 max-w-sm leading-relaxed">
+                      <p className="font-sans text-sm text-black mt-2 max-w-sm leading-relaxed">
                         Your message has been sent directly to Minerva without opening a mail client.
                       </p>
                     </>
                   ) : (
                     <>
                       <CheckCircle2 className="w-16 h-16 text-[#3333FF] animate-scale-up mb-4" />
-                      <h3 className="font-display font-bold text-gray-900 text-xl tracking-tight">
+                      <h3 className="font-display font-bold text-black text-xl tracking-tight">
                         Message simulated successfully!
                       </h3>
-                      <p className="font-sans text-sm text-gray-500 mt-2 max-w-sm leading-relaxed">
+                      <p className="font-sans text-sm text-black mt-2 max-w-sm leading-relaxed">
                         Saved to sandbox. To send actual emails, configure <code className="bg-neutral-100 text-indigo-600 px-1 py-0.5 rounded font-mono text-xs">RESEND_API_KEY</code> in the Secrets panel.
                       </p>
                     </>
@@ -275,14 +275,14 @@ export default function Contact() {
                 </div>
               )}
 
-              <h3 className="font-display font-bold text-gray-900 text-lg mb-6">
+              <h3 className="font-display font-bold text-black text-lg mb-6">
                 Send a Direct Message
               </h3>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 {/* Name */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name-input" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+                  <label htmlFor="name-input" className="font-mono text-[11px] font-bold text-black uppercase tracking-wider">
                     Full Name / Organization *
                   </label>
                   <input
@@ -293,13 +293,13 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Enter your name"
-                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all"
+                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-black placeholder-gray-600 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all"
                   />
                 </div>
 
                 {/* Email */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="email-input" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+                  <label htmlFor="email-input" className="font-mono text-[11px] font-bold text-black uppercase tracking-wider">
                     Email Address *
                   </label>
                   <input
@@ -310,13 +310,13 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="you@domain.com"
-                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all"
+                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-black placeholder-gray-600 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all"
                   />
                 </div>
 
                 {/* Subject */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="subject-input" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+                  <label htmlFor="subject-input" className="font-mono text-[11px] font-bold text-black uppercase tracking-wider">
                     Subject *
                   </label>
                   <input
@@ -327,13 +327,13 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="How can we collaborate?"
-                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all"
+                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-black placeholder-gray-600 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all"
                   />
                 </div>
 
                 {/* Message */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="message-input" className="font-mono text-[11px] font-bold text-gray-600 uppercase tracking-wider">
+                  <label htmlFor="message-input" className="font-mono text-[11px] font-bold text-black uppercase tracking-wider">
                     Your Message *
                   </label>
                   <textarea
@@ -344,7 +344,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Write details of your project or proposal..."
-                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all resize-none"
+                    className="px-4 py-3 bg-white rounded-lg border border-gray-200 text-sm text-black placeholder-gray-600 focus:outline-none focus:border-[#3333FF] focus:ring-1 focus:ring-[#3333FF] transition-all resize-none"
                   />
                 </div>
 

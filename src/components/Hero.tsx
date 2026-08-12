@@ -179,7 +179,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
               </span>
-              <span className="text-[11px] font-mono text-gray-600 font-semibold uppercase tracking-wider">
+              <span className="text-[11px] font-mono text-black font-semibold uppercase tracking-wider">
                 Now Scaling Agentic Workflows @{' '}
                 <button
                   onClick={(e) => handleCompanyClick(e, 0)}
@@ -194,7 +194,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             <motion.h1
               id="hero-main-name"
               variants={itemVariants}
-              className="font-display font-normal text-3xl sm:text-4xl md:text-5xl text-gray-900 tracking-tight leading-none mb-4"
+              className="font-display font-normal text-3xl sm:text-4xl md:text-5xl text-black tracking-tight leading-none mb-4"
             >
               {personalInfo.name}
             </motion.h1>
@@ -202,7 +202,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             <motion.h2
               id="hero-main-title"
               variants={itemVariants}
-              className="font-display text-lg sm:text-xl md:text-2xl font-medium text-gray-600 tracking-wide mb-6"
+              className="font-display text-lg sm:text-xl md:text-2xl font-medium text-black tracking-wide mb-6"
             >
               {personalInfo.title}
             </motion.h2>
@@ -211,12 +211,12 @@ export default function Hero({ onNavigate }: HeroProps) {
             <motion.div
               id="career-lineage-flow"
               variants={itemVariants}
-              className="w-full flex flex-wrap items-center gap-2 mb-8 text-[11px] font-mono text-gray-500"
+              className="w-full flex flex-wrap items-center gap-2 mb-8 text-[11px] font-mono text-black"
             >
               <button
                 id="link-creative-blue"
                 onClick={(e) => handleCompanyClick(e, 0)}
-                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-gray-800 hover:text-[#5B5BFF] transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
+                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-black hover:text-[#5B5BFF] transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
                 <img
                   src="/creativeblue-favicon.png"
@@ -225,7 +225,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 />
                 Creative Blue
               </button>
-              <span className="text-gray-300">←</span>
+              <span className="text-black">←</span>
               <button
                 id="link-google"
                 onClick={(e) => handleCompanyClick(e, 1)}
@@ -238,7 +238,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 />
                 Google
               </button>
-              <span className="text-gray-300">←</span>
+              <span className="text-black">←</span>
               <button
                 id="link-apple"
                 onClick={(e) => handleCompanyClick(e, 2)}
@@ -251,13 +251,17 @@ export default function Hero({ onNavigate }: HeroProps) {
                 />
                 Apple
               </button>
-              <span className="text-gray-300">←</span>
+              <span className="text-black">←</span>
               <button
                 id="link-ibm-dhl-infogain"
                 onClick={(e) => handleCompanyClick(e, 3)}
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-700 hover:text-blue-900 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
-                <Briefcase className="w-3.5 h-3.5 text-blue-700" />
+                <img
+                  src="/sun-favicon.jpeg"
+                  alt="Sun/Oracle"
+                  className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
+                />
                 IBM, DHL, Infogain, Sun/Oracle
               </button>
             </motion.div>
@@ -266,9 +270,23 @@ export default function Hero({ onNavigate }: HeroProps) {
             <motion.div
               id="hero-about-text"
               variants={itemVariants}
-              className="font-sans text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mb-8"
+              className="font-sans text-base sm:text-lg text-black leading-relaxed max-w-2xl mb-6"
             >
               {renderAboutText(personalInfo.about)}
+            </motion.div>
+
+            {/* Salutation & Signature */}
+            <motion.div
+              id="hero-salutation-signature"
+              variants={itemVariants}
+              className="mb-8 flex flex-col items-start gap-0.5"
+            >
+              <span id="hero-salutation" className="font-sans font-medium text-base sm:text-lg text-black tracking-wide">
+                Love always,
+              </span>
+              <span id="hero-signature" className="font-signature text-3xl sm:text-4xl text-black tracking-wide leading-tight select-none">
+                Minnie Ott
+              </span>
             </motion.div>
 
             {/* Call to Actions */}
@@ -318,7 +336,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                     window.location.href = '/contact';
                   }
                 }}
-                className="px-6 py-3 bg-white hover:bg-gray-50 text-gray-700 font-sans font-medium text-sm rounded-lg border border-gray-200 shadow-2xs transition-all duration-200 hover:scale-[1.01]"
+                className="px-6 py-3 bg-white hover:bg-gray-50 text-black font-sans font-medium text-sm rounded-lg border border-gray-200 shadow-2xs transition-all duration-200 hover:scale-[1.01]"
               >
                 Get in Touch
               </a>
@@ -339,7 +357,7 @@ export default function Hero({ onNavigate }: HeroProps) {
               }
             }}
             aria-label="Scroll down"
-            className="flex flex-col items-center gap-2 text-xs text-gray-400 font-mono tracking-widest hover:text-gray-600 transition-colors"
+            className="flex flex-col items-center gap-2 text-xs text-black font-mono tracking-widest hover:text-black transition-colors"
           >
             SCROLL DOWN
             <ArrowDown className="w-4 h-4 animate-bounce" />

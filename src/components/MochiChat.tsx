@@ -35,17 +35,17 @@ function renderMarkdown(text: string, isModel: boolean, onNavigate?: (path: stri
           </p>
         ),
         h1: ({ children }) => (
-          <h2 className={`font-display font-bold text-base mt-3 mb-1.5 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
+          <h2 className={`font-display font-bold text-base mt-3 mb-1.5 leading-snug ${isModel ? 'text-black' : 'text-white'}`}>
             {children}
           </h2>
         ),
         h2: ({ children }) => (
-          <h3 className={`font-display font-bold text-sm mt-3 mb-1.5 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
+          <h3 className={`font-display font-bold text-sm mt-3 mb-1.5 leading-snug ${isModel ? 'text-black' : 'text-white'}`}>
             {children}
           </h3>
         ),
         h3: ({ children }) => (
-          <h4 className={`font-display font-bold text-xs mt-2 mb-1 leading-snug ${isModel ? 'text-gray-900' : 'text-white'}`}>
+          <h4 className={`font-display font-bold text-xs mt-2 mb-1 leading-snug ${isModel ? 'text-black' : 'text-white'}`}>
             {children}
           </h4>
         ),
@@ -484,7 +484,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                   <span id="mochi-header-name" className="font-display font-black text-sm tracking-wide flex items-center gap-1.5 text-white">
                     Mochi AI <Sparkles className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
                   </span>
-                  <span id="mochi-header-sub" className="text-[10px] text-gray-400 font-mono uppercase tracking-wider">
+                  <span id="mochi-header-sub" className="text-[10px] text-white font-mono uppercase tracking-wider">
                     Minnie's Digital Assistant
                   </span>
                 </div>
@@ -495,14 +495,14 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                   id="mochi-reset-btn"
                   onClick={handleResetChat}
                   title="Reset conversation"
-                  className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg hover:bg-white/10 text-white transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
                 <button
                   id="mochi-close-panel-btn"
                   onClick={() => setIsOpen(false)}
-                  className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  className="p-1.5 rounded-lg hover:bg-white/10 text-white transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -538,7 +538,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                         id={`mochi-msg-bubble-${msg.id}`}
                         className={`rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                           isModel
-                            ? 'bg-white text-gray-850 border border-gray-100 rounded-bl-xs shadow-3xs'
+                            ? 'bg-white text-black border border-gray-100 rounded-bl-xs shadow-3xs'
                             : 'bg-[#3333FF] text-white rounded-br-xs'
                         }`}
                       >
@@ -546,7 +546,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                       </div>
                       <span
                         id={`mochi-msg-time-${msg.id}`}
-                        className={`text-[9px] text-gray-400 font-mono tracking-wide px-1 ${
+                        className={`text-[9px] text-black font-mono tracking-wide px-1 ${
                           isModel ? 'text-left' : 'text-right'
                         }`}
                       >
@@ -569,10 +569,10 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <div id="mochi-typing-bubble" className="bg-white text-gray-850 border border-gray-100 rounded-2xl rounded-bl-xs px-4 py-3 shadow-3xs flex items-center gap-1.5 h-9 shrink-0">
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.2s]" />
-                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0.4s]" />
+                  <div id="mochi-typing-bubble" className="bg-white text-black border border-gray-100 rounded-2xl rounded-bl-xs px-4 py-3 shadow-3xs flex items-center gap-1.5 h-9 shrink-0">
+                    <span className="w-1.5 h-1.5 bg-black rounded-full animate-bounce" />
+                    <span className="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <span className="w-1.5 h-1.5 bg-black rounded-full animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               )}
@@ -655,7 +655,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                     key={sug.text}
                     id={sug.id}
                     onClick={() => handleSendMessage(sug.text)}
-                    className="text-[11px] font-sans font-medium bg-white text-gray-600 hover:text-[#3333FF] hover:border-[#3333FF] border border-gray-200 rounded-full px-2.5 py-1 transition-all cursor-pointer shadow-3xs"
+                    className="text-[11px] font-sans font-medium bg-white text-black hover:text-[#3333FF] hover:border-[#3333FF] border border-gray-200 rounded-full px-2.5 py-1 transition-all cursor-pointer shadow-3xs"
                   >
                     {sug.text}
                   </button>
@@ -676,7 +676,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 disabled={isLoading}
-                className="flex-1 bg-neutral-50 border border-gray-200 focus:border-[#3333FF] focus:outline-hidden text-sm rounded-xl px-3.5 py-2 transition-all disabled:opacity-50"
+                className="flex-1 bg-neutral-50 border border-gray-200 focus:border-[#3333FF] focus:outline-hidden text-sm rounded-xl px-3.5 py-2 transition-all disabled:opacity-50 text-black placeholder-gray-600"
               />
               {speechSupported && (
                 <button
@@ -686,7 +686,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                   className={`p-2 rounded-xl transition-all duration-200 cursor-pointer shrink-0 ${
                     isListening 
                       ? 'bg-red-500 text-white shadow-md shadow-red-200' 
-                      : 'bg-neutral-50 hover:bg-neutral-100 text-gray-500 hover:text-gray-800 border border-gray-200'
+                      : 'bg-neutral-50 hover:bg-neutral-100 text-black hover:text-black border border-gray-200'
                   }`}
                   title={isListening ? 'Stop listening' : 'Start voice typing'}
                 >
