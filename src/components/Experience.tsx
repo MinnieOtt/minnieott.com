@@ -19,10 +19,10 @@ export default function Experience() {
   }, []);
 
   const getCompanyFavicon = (companyName: string) => {
-    if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.png';
-    if (companyName.includes('Google')) return '/google-favicon.png';
-    if (companyName.includes('Apple')) return '/apple-favicon.png';
-    if (companyName.startsWith('Sun Microsystems') || companyName.startsWith('Oracle') || companyName.includes('Sun')) return '/sun-favicon.jpeg';
+    if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.webp';
+    if (companyName.includes('Google')) return '/google-favicon.webp';
+    if (companyName.includes('Apple')) return '/apple-favicon.webp';
+    if (companyName.startsWith('Sun Microsystems') || companyName.startsWith('Oracle') || companyName.includes('Sun')) return '/sun-favicon.webp';
     return null;
   };
 

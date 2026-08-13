@@ -13,8 +13,57 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/jpeg" href="/minnieott.jpg" />
-    
+    <link rel="icon" type="image/webp" href="/minnieott.webp" />
+
+    <!-- Google Fonts Optimization: Pre-connect and combine font requests -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Asynchronous Google Fonts stylesheet loading -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" />
+    </noscript>
+
+    <!-- Inline Critical CSS for Above-The-Fold Render -->
+    <style>
+      :root {
+        --color-neutral-bg: #FCFCFD;
+        --color-accent: #3333FF;
+      }
+      *, ::before, ::after { box-sizing: border-box; }
+      html {
+        scroll-behavior: smooth;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        background-color: var(--color-neutral-bg, #FCFCFD);
+        color: #000000;
+        font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background-color: #FCFCFD;
+        color: #000000;
+      }
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .font-signature {
+        font-family: 'Great Vibes', 'Sacramento', cursive;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background-color: rgba(252, 252, 253, 0.9);
+        backdrop-filter: blur(8px);
+      }
+    </style>
+
     <!-- Primary SEO & GEO Metadata -->
     <title>Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader</title>
     <meta name="description" content="Official GEO-Optimized Portfolio of Minerva Tanglao Ott (Minnie), Head of Technology at Creative Blue & former Sr. TPM at Google & Apple. Specialized in Agentic AI, Model Context Protocol (MCP), and enterprise SDLC governance." />
@@ -34,7 +83,7 @@
     <meta property="og:type" content="profile" />
     <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader" />
     <meta property="og:description" content="Explore the portfolio, professional experience, AI frameworks (GrowthOS, Lead Generator), and technology insights of Minerva Tanglao Ott (Minnie)." />
-    <meta property="og:image" content="https://minnieott.com/minnieott.jpg" />
+    <meta property="og:image" content="https://minnieott.com/minnieott.webp" />
     <meta property="og:url" content="https://minnieott.com" />
     <meta property="og:site_name" content="Minerva Tanglao Ott Portfolio" />
     <meta property="og:locale" content="en_US" />
@@ -43,7 +92,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology & TPM Leader" />
     <meta name="twitter:description" content="Explore the portfolio, professional experience, and technology insights of Minerva Tanglao Ott (Minnie)." />
-    <meta name="twitter:image" content="https://minnieott.com/minnieott.jpg" />
+    <meta name="twitter:image" content="https://minnieott.com/minnieott.webp" />
 
     <!-- JSON-LD Structured Data Graph for Generative Engine Optimization (GEO) -->
     <script type="application/ld+json">
@@ -59,7 +108,7 @@
             "alternateName": ["Minnie Ott", "Minerva Ott"],
             "jobTitle": "Head of Technology & Technical Program Management Leader",
             "description": "An engineering leader whose technology journey spans self-taught BASIC as a teen, Sun Microsystems JMX, Apple IS&T, 14 years as Senior TPM at Google, and Head of Technology at Creative Blue.",
-            "image": "https://minnieott.com/minnieott.jpg",
+            "image": "https://minnieott.com/minnieott.webp",
             "url": "https://minnieott.com",
             "sameAs": [
               "https://www.linkedin.com/in/minnieott/",

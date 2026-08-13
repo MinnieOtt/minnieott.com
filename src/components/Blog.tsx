@@ -599,7 +599,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             <div className="flex items-center gap-4 text-left">
               <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-150 bg-neutral-50 shrink-0 shadow-2xs">
                 <img
-                  src="/minnieott.jpg"
+                  src="/minnieott.webp"
                   alt={activePost.author}
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -1013,7 +1013,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             {/* Left Column: Banner Image (60% width = 3 cols out of 5) */}
             <div className="lg:col-span-3 relative rounded-3xl overflow-hidden shadow-xs border border-gray-100 bg-neutral-100 flex items-center justify-center p-3 sm:p-4">
               <img 
-                src="/architecting-humanity-logo.png" 
+                src="/architecting-humanity-logo.webp" 
                 alt="Architecting Humanity" 
                 referrerPolicy="no-referrer"
                 className="max-w-full max-h-full object-contain block mx-auto rounded-2xl"

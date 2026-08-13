@@ -188,7 +188,7 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
           >
             {!imageError ? (
               <img
-                src="/minnieott.jpg"
+                src="/minnieott.webp"
                 alt="MO"
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

@@ -422,7 +422,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
             <div id="mochi-avatar-container" className="relative w-full h-full flex items-center justify-center">
               <img
                 id="mochi-btn-avatar"
-                src="/mochi-pancake-ott.png"
+                src="/mochi-pancake-ott.webp"
                 alt="Mochi"
                 className="w-10 h-10 rounded-full object-cover border-2 border-white/20 shadow-inner"
                 referrerPolicy="no-referrer"
@@ -470,7 +470,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                 <div id="mochi-header-avatar-ring" className="relative w-10 h-10 rounded-full overflow-hidden bg-white/10 p-0.5 border border-white/20">
                   <img
                     id="mochi-header-avatar"
-                    src="/mochi-pancake-ott.png"
+                    src="/mochi-pancake-ott.webp"
                     alt="Mochi Mascot"
                     className="w-full h-full object-cover rounded-full"
                     referrerPolicy="no-referrer"
@@ -526,7 +526,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                       <div id={`mochi-avatar-wrap-${msg.id}`} className="w-7 h-7 rounded-full overflow-hidden shrink-0 bg-neutral-100 border border-gray-200">
                         <img
                           id={`mochi-msg-avatar-${msg.id}`}
-                          src="/mochi-pancake-ott.png"
+                          src="/mochi-pancake-ott.webp"
                           alt="Mochi"
                           className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
@@ -563,7 +563,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                   <div id="mochi-typing-avatar-wrap" className="w-7 h-7 rounded-full overflow-hidden shrink-0 bg-neutral-100 border border-gray-200">
                     <img
                       id="mochi-typing-avatar"
-                      src="/mochi-pancake-ott.png"
+                      src="/mochi-pancake-ott.webp"
                       alt="Mochi"
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"

@@ -93,7 +93,17 @@ export function renderBlogPostHtml(post: BlogPost, baseUrl = 'https://minnieott.
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/jpeg" href="/minnieott.jpg" />
+  <link rel="icon" type="image/webp" href="/minnieott.webp" />
+
+  <!-- Google Fonts Optimization: Pre-connect and combine font requests -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Asynchronous Google Fonts stylesheet loading -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" />
+  </noscript>
 
   <!-- Primary Metadata -->
   <title>${escapeHtml(post.title)} | Minerva Tanglao Ott (Minnie)</title>
@@ -109,7 +119,7 @@ export function renderBlogPostHtml(post: BlogPost, baseUrl = 'https://minnieott.
   <meta property="og:type" content="article" />
   <meta property="og:title" content="${escapeHtml(post.title)}" />
   <meta property="og:description" content="${escapeHtml(post.excerpt)}" />
-  <meta property="og:image" content="${baseUrl}/minnieott.jpg" />
+  <meta property="og:image" content="${baseUrl}/minnieott.webp" />
   <meta property="og:url" content="${postUrl}" />
   <meta property="article:published_time" content="${publishedDateIso}" />
   <meta property="article:author" content="${escapeHtml(post.author || 'Minerva Tanglao Ott')}" />
@@ -119,7 +129,7 @@ export function renderBlogPostHtml(post: BlogPost, baseUrl = 'https://minnieott.
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeHtml(post.title)}" />
   <meta name="twitter:description" content="${escapeHtml(post.excerpt)}" />
-  <meta name="twitter:image" content="${baseUrl}/minnieott.jpg" />
+  <meta name="twitter:image" content="${baseUrl}/minnieott.webp" />
 
   <!-- JSON-LD Structured Data for AI & Search Engines -->
   <script type="application/ld+json">
@@ -391,7 +401,7 @@ export function renderBlogPostHtml(post: BlogPost, baseUrl = 'https://minnieott.
     </article>
 
     <div class="author-card">
-      <img src="/minnieott.jpg" alt="Minerva Tanglao Ott" class="author-avatar" />
+      <img src="/minnieott.webp" alt="Minerva Tanglao Ott" class="author-avatar" />
       <div class="author-info">
         <h3>Minerva Tanglao Ott (Minnie)</h3>
         <p>Head of Technology at Creative Blue &bull; Former Sr. Engineering Program Manager at Google & Apple. Leader in Agentic AI, Model Context Protocol, and enterprise SDLC transformations.</p>
@@ -452,7 +462,17 @@ export function renderBlogIndexHtml(posts: BlogPost[], baseUrl = 'https://minnie
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/jpeg" href="/minnieott.jpg" />
+  <link rel="icon" type="image/webp" href="/minnieott.webp" />
+
+  <!-- Google Fonts Optimization: Pre-connect and combine font requests -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Asynchronous Google Fonts stylesheet loading -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" />
+  </noscript>
 
   <!-- Primary Metadata -->
   <title>Blog & Executive Technology Insights | Minerva Tanglao Ott (Minnie)</title>
@@ -468,7 +488,7 @@ export function renderBlogIndexHtml(posts: BlogPost[], baseUrl = 'https://minnie
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Blog & Executive Technology Insights | Minerva Tanglao Ott" />
   <meta property="og:description" content="Explore publications on Agentic AI, Model Context Protocol, scaling engineering teams, and enterprise systems by Minerva Tanglao Ott." />
-  <meta property="og:image" content="${baseUrl}/minnieott.jpg" />
+  <meta property="og:image" content="${baseUrl}/minnieott.webp" />
   <meta property="og:url" content="${baseUrl}/blog" />
 
   <!-- JSON-LD -->

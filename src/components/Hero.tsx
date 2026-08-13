@@ -156,7 +156,7 @@ export default function Hero({ onNavigate }: HeroProps) {
             >
               {!imageError ? (
                 <img
-                  src="/minnieott.jpg"
+                  src="/minnieott.webp"
                   alt={personalInfo.name}
                   className="w-full h-full object-cover rounded-xl"
                   referrerPolicy="no-referrer"
@@ -219,7 +219,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-black hover:text-[#5B5BFF] transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
                 <img
-                  src="/creativeblue-favicon.png"
+                  src="/creativeblue-favicon.webp"
                   alt="Creative Blue"
                   className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
                 />
@@ -232,7 +232,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-600 hover:text-blue-800 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
                 <img
-                  src="/google-favicon.png"
+                  src="/google-favicon.webp"
                   alt="Google"
                   className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
                 />
@@ -245,7 +245,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-red-500 hover:text-red-700 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
                 <img
-                  src="/apple-favicon.png"
+                  src="/apple-favicon.webp"
                   alt="Apple"
                   className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
                 />
@@ -258,7 +258,7 @@ export default function Hero({ onNavigate }: HeroProps) {
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-700 hover:text-blue-900 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
                 <img
-                  src="/sun-favicon.jpeg"
+                  src="/sun-favicon.webp"
                   alt="Sun/Oracle"
                   className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
                 />

@@ -120,7 +120,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
     "alternateName": ["Minnie Ott", "Minerva Ott"],
     "jobTitle": personalInfo.title,
     "description": personalInfo.tagline,
-    "image": `${baseUrl}/minnieott.jpg`,
+    "image": `${baseUrl}/minnieott.webp`,
     "url": baseUrl,
     "sameAs": [
       personalInfo.linkedin,
@@ -308,7 +308,17 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/jpeg" href="/minnieott.jpg" />
+  <link rel="icon" type="image/webp" href="/minnieott.webp" />
+
+  <!-- Google Fonts Optimization: Pre-connect and combine font requests -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Asynchronous Google Fonts stylesheet loading -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=JetBrains+Mono:wght@400;500&family=Montserrat:ital,wght@0,300..900;1,300..900&family=Sacramento&display=swap" />
+  </noscript>
 
   <!-- Primary SEO & GEO Metadata -->
   <title>Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader</title>
@@ -330,7 +340,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
   <meta property="og:type" content="profile" />
   <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader" />
   <meta property="og:description" content="Explore the official career portfolio, AI frameworks (GrowthOS, Lead Generator), Google Maps leadership, JMX publication, and tech insights of Minerva Tanglao Ott." />
-  <meta property="og:image" content="${baseUrl}/minnieott.jpg" />
+  <meta property="og:image" content="${baseUrl}/minnieott.webp" />
   <meta property="og:url" content="${baseUrl}/index-seo.html" />
   <meta property="og:site_name" content="Minerva Tanglao Ott Portfolio" />
   <meta property="og:locale" content="en_US" />
@@ -339,7 +349,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology & TPM Leader" />
   <meta name="twitter:description" content="Official portfolio and AI technical insights of Minerva Tanglao Ott (Minnie)." />
-  <meta name="twitter:image" content="${baseUrl}/minnieott.jpg" />
+  <meta name="twitter:image" content="${baseUrl}/minnieott.webp" />
 
   <!-- JSON-LD Structured Data Graphs (Generative Engine Optimization) -->
   <script type="application/ld+json">
@@ -549,7 +559,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
 
     <!-- HERO SECTION -->
     <section id="about" class="hero" itemscope itemtype="https://schema.org/Person">
-      <img src="/minnieott.jpg" alt="Minerva Tanglao Ott (Minnie)" itemprop="image" />
+      <img src="/minnieott.webp" alt="Minerva Tanglao Ott (Minnie)" itemprop="image" />
       <div class="hero-content">
         <h2 itemprop="name">${personalInfo.name}</h2>
         <p class="subtitle" itemprop="jobTitle">${personalInfo.title}</p>
