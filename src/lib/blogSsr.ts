@@ -404,7 +404,7 @@ export function renderBlogPostHtml(post: BlogPost, baseUrl = 'https://minnieott.
       <img src="/minnieott.webp" alt="Minerva Tanglao Ott" class="author-avatar" />
       <div class="author-info">
         <h3>Minerva Tanglao Ott (Minnie)</h3>
-        <p>Head of Technology at Creative Blue &bull; Former Sr. Engineering Program Manager at Google & Apple. Leader in Agentic AI, Model Context Protocol, and enterprise SDLC transformations.</p>
+        <p>Head of Technology Transformation at Creative Blue &bull; Former Sr. Engineering Program Manager at Google & Apple. Leader in Agentic AI, Model Context Protocol, and enterprise SDLC transformations.</p>
         <div class="cta-buttons">
           <a href="https://calendar.app.google/MCnhZcK56rLJ7fnk8" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book 1:1 Appointment</a>
           <a href="https://www.linkedin.com/in/minnieott/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Connect on LinkedIn</a>
@@ -476,7 +476,7 @@ export function renderBlogIndexHtml(posts: BlogPost[], baseUrl = 'https://minnie
 
   <!-- Primary Metadata -->
   <title>Blog & Executive Technology Insights | Minerva Tanglao Ott (Minnie)</title>
-  <meta name="description" content="Official technical publications and executive insights by Minerva Tanglao Ott (Minnie), Head of Technology at Creative Blue & former Sr. TPM at Google & Apple." />
+  <meta name="description" content="Official technical publications and executive insights by Minerva Tanglao Ott (Minnie), Head of Technology Transformation at Creative Blue & former Sr. TPM at Google & Apple." />
   <meta name="author" content="Minerva Tanglao Ott (Minnie)" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 

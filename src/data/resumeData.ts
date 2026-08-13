@@ -22,7 +22,7 @@ export const portfolioApps: AppPortfolioItem[] = [
     name: 'Creative Blue GrowthOS',
     url: 'https://cb-growthos-hub-553545205591.us-west1.run.app',
     description: 'A cutting-edge agentic platform that automates critical business operations, generating marketing campaign ideas, orchestrating AI-driven SEO, and facilitating lead generation with a unified manager cockpit.',
-    role: 'Head of Technology / Architect',
+    role: 'Head of Technology Transformation / Architect',
     bulletPoints: [
       'Engineered an integrated dashboard that centralizes multiple agentic workflows.',
       'Optimized payroll forecasting using dynamic dashboards pulling data from diverse cloud and internal sources.',
@@ -40,7 +40,7 @@ export const portfolioApps: AppPortfolioItem[] = [
     name: 'Lead Generator',
     url: 'https://creative-blue-lead-gen-1029286255981.us-west1.run.app',
     description: 'An AI-powered sales-intelligence agent that automatically finds, analyzes, and scores target prospects based on a company\'s ideal client profile (ICP).',
-    role: 'Head of Technology',
+    role: 'Head of Technology Transformation',
     bulletPoints: [
       'Implemented intelligent matching algorithms to scan and index prospective business data.',
       'Created custom recommendation engines mapping lead signals to hyper-personalized outreach strategies.',
@@ -58,7 +58,7 @@ export const portfolioApps: AppPortfolioItem[] = [
     name: 'Brand Assessment',
     url: 'https://creative-blue-brand-assessment-553545205591.us-west1.run.app',
     description: 'An analytical agentic engine (also referred to as Brand Assessment) that measures a brand\'s market share, sentiment score, and cross-channel visibility, providing direct recommendations for optimization.',
-    role: 'Head of Technology / System Designer',
+    role: 'Head of Technology Transformation / System Designer',
     bulletPoints: [
       'Designed NLP frameworks to analyze social, search, and marketing signals.',
       'Developed an automated branding scorecard detailing actionable, prioritized improvements.',
@@ -130,7 +130,7 @@ export const portfolioApps: AppPortfolioItem[] = [
 
 export const experiences: ExperienceItem[] = [
   {
-    role: 'Head of Technology',
+    role: 'Head of Technology Transformation',
     company: 'Creative Blue',
     period: 'Dec 2025 – Present',
     type: 'Contractor',

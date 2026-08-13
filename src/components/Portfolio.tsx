@@ -39,7 +39,7 @@ export default function Portfolio() {
             Deployed Software & AI Solutions
           </h2>
           <p className="font-sans text-base text-black leading-relaxed">
-            Discover the production-ready applications, orchestration pipelines, and client solutions I have conceptualized, designed, and deployed as a Head of Technology and System Architect.
+            Discover the production-ready applications, orchestration pipelines, and client solutions I have conceptualized, designed, and deployed as a Head of Technology Transformation and System Architect.
           </p>
         </div>
 

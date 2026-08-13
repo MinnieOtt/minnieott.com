@@ -72,7 +72,7 @@ export default function App() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
         <div 
           className="absolute -inset-16 bg-cover bg-center animate-slow-bg opacity-30 sm:opacity-40 transition-opacity duration-1000"
-          style={{ backgroundImage: "url('/iris-flowers-background.jpg')" }}
+          style={{ backgroundImage: "url('/iris-flowers-background.webp')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white/65 via-white/45 to-white/70 backdrop-blur-[0.5px]" />
       </div>
