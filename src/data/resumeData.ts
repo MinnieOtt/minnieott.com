@@ -5,7 +5,12 @@ export const personalInfo = {
   title: 'Technology Transformation Leader',
   email: '',
   phone: '',
-  linkedin: 'https://www.linkedin.com/in/minnieott/',
+  linkedin: 'https://www.linkedin.com/in/minnieott',
+  instagram: 'https://www.instagram.com/minnie.halohalo/',
+  facebook: 'https://www.facebook.com/minerva.t.ott',
+  x: 'https://x.com/ottminnie',
+  youtube: 'https://www.youtube.com/@MinnieOtt',
+  tiktok: 'https://www.tiktok.com/@minnie.halohalo',
   github: '#', // placeholder as none listed
   location: 'San Francisco Bay Area, CA',
   tagline: 'Bridging Engineering Operations & Agentic AI Transformation',
