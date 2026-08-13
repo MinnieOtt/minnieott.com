@@ -819,6 +819,12 @@ Formatting & Guidelines:
       return next();
     }
 
+    // Redirect broken relative links like /blog/minnieott.com or /blog/www.minnieott.com to root domain
+    const lowerSlug = slug.toLowerCase();
+    if (lowerSlug === "minnieott.com" || lowerSlug === "www.minnieott.com" || lowerSlug.includes("minnieott.com")) {
+      return res.redirect(301, "https://minnieott.com");
+    }
+
     try {
       let posts: BlogPost[] = [];
       try {

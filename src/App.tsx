@@ -39,6 +39,10 @@ export default function App() {
       window.location.href = 'https://minnieott.com/work#experience';
       return;
     }
+    if (currentPath.includes('/blog/minnieott.com') || currentPath.includes('/blog/www.minnieott.com')) {
+      window.location.href = 'https://minnieott.com';
+      return;
+    }
     if (currentPath.startsWith('/contact')) {
       const timer = setTimeout(() => {
         const el = document.getElementById('contact');

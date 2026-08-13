@@ -448,16 +448,22 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 </code>
               );
             },
-            a: ({ children, href }) => (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#3333FF] dark:text-[#A5B4FC] hover:underline font-medium inline-flex items-center gap-0.5"
-              >
-                {children}
-              </a>
-            ),
+            a: ({ children, href }) => {
+              let targetUrl = href || '';
+              if (targetUrl === 'minnieott.com' || targetUrl === 'www.minnieott.com' || targetUrl.startsWith('www.')) {
+                targetUrl = `https://${targetUrl}`;
+              }
+              return (
+                <a
+                  href={targetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#3333FF] dark:text-[#A5B4FC] hover:underline font-medium inline-flex items-center gap-0.5"
+                >
+                  {children}
+                </a>
+              );
+            },
             img: ({ src, alt }) => (
               <img
                 src={src}

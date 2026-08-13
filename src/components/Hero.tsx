@@ -257,11 +257,6 @@ export default function Hero({ onNavigate }: HeroProps) {
                 onClick={(e) => handleCompanyClick(e, 3)}
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-700 hover:text-blue-900 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
-                <img
-                  src="/sun-favicon.webp"
-                  alt="Sun/Oracle"
-                  className="w-3.5 h-3.5 rounded-full object-cover border border-gray-100"
-                />
                 IBM, DHL, Infogain, Sun/Oracle
               </button>
             </motion.div>

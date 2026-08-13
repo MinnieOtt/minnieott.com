@@ -22,7 +22,6 @@ export default function Experience() {
     if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.webp';
     if (companyName.includes('Google')) return '/google-favicon.webp';
     if (companyName.includes('Apple')) return '/apple-favicon.webp';
-    if (companyName.startsWith('Sun Microsystems') || companyName.startsWith('Oracle') || companyName.includes('Sun')) return '/sun-favicon.webp';
     return null;
   };
 

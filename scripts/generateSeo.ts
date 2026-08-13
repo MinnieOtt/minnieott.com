@@ -30,17 +30,20 @@ interface BlogPost {
 
 function parseMarkdownToHtml(text: string): string {
   if (!text) return '';
+  let html = '';
   try {
-    return marked.parse(text, { async: false }) as string;
+    html = marked.parse(text, { async: false }) as string;
   } catch (e) {
-    let html = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
+    html = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
       const isInternal = url.startsWith('#');
       return `<a href="${url}" ${isInternal ? '' : 'target="_blank" rel="noopener noreferrer"'} style="color: #2563eb; font-weight: 600; text-decoration: underline;">${label}</a>`;
     });
     html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-    return html;
   }
+  return html.replace(/href="(minnieott\.com|www\.minnieott\.com|www\.[^"]+)"/g, (_match, domain) => {
+    return `href="https://${domain}"`;
+  });
 }
 
 export function generateSitemapXml(posts: BlogPost[] = []): string {
