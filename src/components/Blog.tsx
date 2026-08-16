@@ -1019,7 +1019,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
             {/* Left Column: Banner Image (60% width = 3 cols out of 5) */}
             <div className="lg:col-span-3 relative rounded-3xl overflow-hidden shadow-xs border border-gray-100 bg-neutral-100 flex items-center justify-center p-3 sm:p-4">
               <img 
-                src="/architecting-humanity-logo.webp" 
+                src="/architecting-humanity.webp" 
                 alt="Architecting Humanity" 
                 referrerPolicy="no-referrer"
                 className="max-w-full max-h-full object-contain block mx-auto rounded-2xl"
