@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, FileText, Sparkles } from 'lucide-react';
+import { Menu, X, FileText, Sparkles, Gamepad2 } from 'lucide-react';
 import { personalInfo } from '../data/resumeData';
 import { BUILD_TIME } from '../version';
 
@@ -221,6 +221,12 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
     window.dispatchEvent(new CustomEvent('open-mochi-chat'));
   };
 
+  const handlePlayPacman = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onNavigate('/pacman');
+    window.dispatchEvent(new CustomEvent('open-mochi-pacman'));
+  };
+
   return (
     <header
       id="main-site-header"
@@ -323,6 +329,17 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
             {/* Vertical Divider */}
             <div className="h-4 w-px bg-gray-200" />
 
+            {/* Play Mochi Pac-Man Arcade Button */}
+            <button
+              id="header-play-pacman-btn-desktop"
+              onClick={handlePlayPacman}
+              title="Play Mochi Pac-Man Game"
+              className="px-3 py-1.5 bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#B45309] hover:text-[#92400E] border border-amber-300/80 font-sans text-xs font-bold rounded-full transition-all duration-200 flex items-center gap-1.5 hover:scale-[1.03] cursor-pointer shadow-3xs"
+            >
+              <Gamepad2 className="w-3.5 h-3.5 text-amber-600" />
+              <span>Mochi Pac-Man</span>
+            </button>
+
             {/* Ask Mochi Button on same line as menu */}
             <button
               id="header-ask-mochi-btn-desktop"
@@ -333,6 +350,16 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
               Ask Mochi
             </button>
           </nav>
+
+          {/* Play Pac-Man Mobile Button */}
+          <button
+            id="header-play-pacman-btn-mobile"
+            onClick={handlePlayPacman}
+            title="Play Mochi Pac-Man Game"
+            className="lg:hidden p-1.5 bg-[#FFFBEB] text-[#B45309] border border-amber-300/80 rounded-full transition-all duration-200 flex items-center justify-center cursor-pointer shadow-3xs"
+          >
+            <Gamepad2 className="w-4 h-4 text-amber-600" />
+          </button>
 
           {/* Ask Mochi Mobile Button (shows right on the header line) */}
           <button
@@ -400,18 +427,32 @@ export default function Header({ currentPath, onNavigate }: HeaderProps) {
               </div>
             </div>
 
-            {/* Mobile Drawer Ask Mochi Link */}
-            <button
-              id="mobile-nav-drawer-ask-mochi-btn"
-              onClick={(e) => {
-                setIsOpen(false);
-                handleAskMochi(e);
-              }}
-              className="mt-2 w-full py-2 bg-[#3333FF] hover:bg-[#1A1AFF] text-[#E4F0E7] font-sans text-sm font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-            >
-              <Sparkles className="w-4 h-4" />
-              Ask Mochi AI
-            </button>
+            {/* Mobile Drawer Actions */}
+            <div className="flex flex-col gap-2 mt-2">
+              <button
+                id="mobile-nav-drawer-play-pacman-btn"
+                onClick={(e) => {
+                  setIsOpen(false);
+                  handlePlayPacman(e);
+                }}
+                className="w-full py-2 bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#B45309] border border-amber-300 font-sans text-sm font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-3xs"
+              >
+                <Gamepad2 className="w-4 h-4 text-amber-600" />
+                Play Mochi Pac-Man 🎮
+              </button>
+
+              <button
+                id="mobile-nav-drawer-ask-mochi-btn"
+                onClick={(e) => {
+                  setIsOpen(false);
+                  handleAskMochi(e);
+                }}
+                className="w-full py-2 bg-[#3333FF] hover:bg-[#1A1AFF] text-[#E4F0E7] font-sans text-sm font-bold rounded-xl flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+              >
+                <Sparkles className="w-4 h-4" />
+                Ask Mochi AI
+              </button>
+            </div>
           </div>
         </div>
       )}

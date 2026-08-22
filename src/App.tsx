@@ -11,10 +11,14 @@ import Blog from './components/Blog';
 import { personalInfo } from './data/resumeData';
 import MochiChat from './components/MochiChat';
 import Newsletter from './components/Newsletter';
+import PacmanGame from './components/PacmanGame';
 import { initGA, trackPageView } from './lib/analytics';
 
 export default function App() {
+  const isPacmanRoute = (path: string) => path === '/pacman' || path === '/pacman/' || path === '/game';
+
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [isPacmanOpen, setIsPacmanOpen] = useState(isPacmanRoute(window.location.pathname));
 
   // Initialize Google Analytics on mount
   useEffect(() => {
@@ -28,11 +32,35 @@ export default function App() {
 
   useEffect(() => {
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname);
+      const path = window.location.pathname;
+      setCurrentPath(path);
+      if (isPacmanRoute(path)) {
+        setIsPacmanOpen(true);
+      } else {
+        setIsPacmanOpen(false);
+      }
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  useEffect(() => {
+    const handleOpenPacman = () => {
+      setIsPacmanOpen(true);
+      if (window.location.pathname !== '/pacman') {
+        window.history.pushState({}, '', '/pacman');
+        setCurrentPath('/pacman');
+      }
+    };
+    window.addEventListener('open-mochi-pacman', handleOpenPacman);
+    return () => window.removeEventListener('open-mochi-pacman', handleOpenPacman);
+  }, []);
+
+  useEffect(() => {
+    if (isPacmanRoute(currentPath)) {
+      setIsPacmanOpen(true);
+    }
+  }, [currentPath]);
 
   useEffect(() => {
     if (currentPath.startsWith('/resume')) {
@@ -140,6 +168,15 @@ export default function App() {
           </div>
         </footer>
         <MochiChat currentPath={currentPath} onNavigate={navigate} />
+        <PacmanGame
+          isOpen={isPacmanOpen}
+          onClose={() => {
+            setIsPacmanOpen(false);
+            if (isPacmanRoute(currentPath)) {
+              navigate('/');
+            }
+          }}
+        />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2, Mic, MicOff, Calendar } from 'lucide-react';
+import { MessageSquare, Send, X, Sparkles, RotateCcw, Minimize2, Mic, MicOff, Calendar, Gamepad2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -18,6 +18,7 @@ interface ChatMessage {
 
 const SUGGESTIONS = [
   { text: 'Who is Minnie?', id: 'sugg-who-is-minnie' },
+  { text: 'Play Pac-Man with Mochi 🎮', id: 'sugg-pacman' },
   { text: 'What is JMX Programming? 📘', id: 'sugg-jmx' },
   { text: 'Tell me about her Google career', id: 'sugg-google' },
   { text: 'Education & Patents 🎓', id: 'sugg-edu' },
@@ -336,6 +337,22 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
     const updatedMessages = [...messages, userMsg];
     setMessages(updatedMessages);
     setInputValue('');
+
+    if (textToSend.toLowerCase().includes('pacman') || textToSend.toLowerCase().includes('pac-man') || textToSend.toLowerCase().includes('play game')) {
+      const modelMsg: ChatMessage = {
+        id: `model-${Date.now()}`,
+        role: 'model',
+        text: "Let's play! 🥞 Launching **Mochi Pac-Man** right now! Grab those power pellets and chomp those ghosts!",
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages([...updatedMessages, modelMsg]);
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent('open-mochi-pacman'));
+        setIsOpen(false);
+      }, 500);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
@@ -492,6 +509,17 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
 
               <div id="mochi-header-actions" className="flex items-center gap-1">
                 <button
+                  id="mochi-play-pacman-header-btn"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('open-mochi-pacman'));
+                    setIsOpen(false);
+                  }}
+                  title="Play Mochi Pac-Man Game"
+                  className="p-1.5 rounded-lg hover:bg-white/10 text-yellow-300 hover:text-yellow-200 transition-colors cursor-pointer"
+                >
+                  <Gamepad2 className="w-4 h-4" />
+                </button>
+                <button
                   id="mochi-reset-btn"
                   onClick={handleResetChat}
                   title="Reset conversation"
@@ -579,7 +607,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
               <div ref={chatEndRef} />
             </div>
 
-            {/* Quick Actions (Meet & Message) */}
+            {/* Quick Actions (Meet, Message & Pac-Man) */}
             <div id="mochi-quick-actions-bar" className="px-4 py-2 bg-neutral-50 border-t border-gray-100 flex gap-2 justify-stretch shrink-0">
               <a
                 id="mochi-quick-action-meet"
@@ -601,10 +629,10 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
                   };
                   setMessages((prev) => [...prev, userMsg, modelMsg]);
                 }}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#E4F0E7] text-[#3333FF] hover:text-indigo-800 hover:bg-emerald-100/70 border border-[#3333FF]/20 rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-[#E4F0E7] text-[#3333FF] hover:text-indigo-800 hover:bg-emerald-100/70 border border-[#3333FF]/20 rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer"
               >
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Meet with Minnie</span>
+                <span>Meet</span>
               </a>
               <button
                 id="mochi-quick-action-message"
@@ -640,10 +668,38 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
 
                   setIsOpen(false);
                 }}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-[#3333FF] text-[#E4F0E7] hover:bg-[#1A1AFF] rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer border border-[#3333FF]/10"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-[#3333FF] text-[#E4F0E7] hover:bg-[#1A1AFF] rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer border border-[#3333FF]/10"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                <span>Message Minnie</span>
+                <span>Message</span>
+              </button>
+              <button
+                id="mochi-quick-action-pacman"
+                type="button"
+                onClick={() => {
+                  const userMsg: ChatMessage = {
+                    id: `user-pacman-${Date.now()}`,
+                    role: 'user',
+                    text: 'Play Mochi Pac-Man 🎮',
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  };
+                  const modelMsg: ChatMessage = {
+                    id: `model-pacman-${Date.now()}`,
+                    role: 'model',
+                    text: "Let's roll! 🥞 Launching **Mochi Pac-Man** right now! Chomp those power pellets and watch out for Blinky, Pinky, Inky, and Clyde!",
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  };
+                  setMessages((prev) => [...prev, userMsg, modelMsg]);
+                  if (onNavigate) {
+                    onNavigate('/pacman');
+                  }
+                  window.dispatchEvent(new CustomEvent('open-mochi-pacman'));
+                  setIsOpen(false);
+                }}
+                className="flex-1 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-[#FFFBEB] text-[#B45309] hover:bg-[#FEF3C7] border border-amber-300 rounded-xl font-sans font-semibold text-[11px] transition-all duration-200 shadow-3xs cursor-pointer"
+              >
+                <Gamepad2 className="w-3.5 h-3.5 text-amber-600" />
+                <span>Mochi Pac-Man</span>
               </button>
             </div>
 

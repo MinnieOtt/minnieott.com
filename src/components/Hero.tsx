@@ -55,6 +55,43 @@ export default function Hero({ onNavigate }: HeroProps) {
             {label}
           </button>
         );
+      } else if (url === '/pacman' || url === '/pacman/' || url === '/game') {
+        elements.push(
+          <a
+            key={index}
+            href="/pacman"
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigate) {
+                onNavigate('/pacman');
+              } else {
+                window.history.pushState({}, '', '/pacman');
+              }
+              window.dispatchEvent(new CustomEvent('open-mochi-pacman'));
+            }}
+            className="text-[#3333FF] hover:text-[#1A1AFF] hover:underline transition-colors font-semibold cursor-pointer inline align-baseline"
+          >
+            {label}
+          </a>
+        );
+      } else if (url.startsWith('/')) {
+        elements.push(
+          <a
+            key={index}
+            href={url}
+            onClick={(e) => {
+              e.preventDefault();
+              if (onNavigate) {
+                onNavigate(url);
+              } else {
+                window.history.pushState({}, '', url);
+              }
+            }}
+            className="text-[#3333FF] hover:text-[#1A1AFF] hover:underline transition-colors font-semibold cursor-pointer inline align-baseline"
+          >
+            {label}
+          </a>
+        );
       } else {
         elements.push(
           <a
