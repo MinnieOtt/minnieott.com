@@ -156,6 +156,48 @@ export default function Contact() {
                 Direct Channels
               </h3>
 
+              {/* Email */}
+              {personalInfo.email && (
+                <div className="flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-[#3333FF] shadow-3xs">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-sans font-bold text-xs text-black uppercase tracking-wider">
+                      Email Address
+                    </h4>
+                    <a
+                      id="contact-email-link"
+                      href={`mailto:${personalInfo.email}`}
+                      className="font-sans font-semibold text-sm text-black hover:text-[#3333FF] transition-colors mt-1 block"
+                    >
+                      {personalInfo.email}
+                    </a>
+                  </div>
+                </div>
+              )}
+
+              {/* Phone */}
+              {personalInfo.phone && (
+                <div className="flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-emerald-600 shadow-3xs">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-sans font-bold text-xs text-black uppercase tracking-wider">
+                      Direct Phone
+                    </h4>
+                    <a
+                      id="contact-phone-link"
+                      href={`tel:${personalInfo.phone.replace(/[^0-9+]/g, '')}`}
+                      className="font-sans font-semibold text-sm text-black hover:text-emerald-700 transition-colors mt-1 block"
+                    >
+                      {personalInfo.phone}
+                    </a>
+                  </div>
+                </div>
+              )}
+
               {/* LinkedIn */}
               <div className="flex gap-4 items-start">
                 <div className="w-10 h-10 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-blue-500 shadow-3xs">

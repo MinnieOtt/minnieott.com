@@ -2,10 +2,10 @@ import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, Certificat
 
 export const personalInfo = {
   name: 'Minerva Tanglao Ott (Minnie)',
-  title: 'Technology Transformation Leader',
-  email: '',
-  phone: '',
-  linkedin: 'https://www.linkedin.com/in/minnieott',
+  title: 'Principal Technical Program Manager',
+  email: 'minnie.ott@gmail.com',
+  phone: '+1 (408) 829-3100',
+  linkedin: 'https://www.linkedin.com/in/minnieott/',
   instagram: 'https://www.instagram.com/minnie.halohalo/',
   facebook: 'https://www.facebook.com/minerva.t.ott',
   x: 'https://x.com/ottminnie',
@@ -13,7 +13,8 @@ export const personalInfo = {
   tiktok: 'https://www.tiktok.com/@minnie.halohalo',
   github: '#', // placeholder as none listed
   location: 'San Francisco Bay Area, CA',
-  tagline: 'Bridging Engineering Operations & Agentic AI Transformation',
+  tagline: 'Creative Blue | Google | Apple',
+  summary: `Principal Technical Program Manager with 15+ years leading cross-functional engineering teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps (2 billion+ users), Ads, Legal, Finance, and HR engineering in partnership with UX and Security/Privacy teams. Directed development of Apple's global recruiting systems, including the Recruitment Information Board and Apple Job Search, launched across 80+ countries. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Founded Stanford LEAD at Google and led integration of home-grown systems with external platforms. Currently architecting GrowthOS, an agentic AI platform on Google Cloud Platform that cut client onboarding time from days to minutes. Core strengths: program management, Agile/SDLC governance, stakeholder management, risk & change management, and AI/ML-driven process transformation.`,
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://youtu.be/NzH5PaEgjOs), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner. In my youth I played Pac-Man in the arcade; try out [Mochi Pac-Man](/pacman) to play this classic video game with Mochi.
@@ -138,15 +139,15 @@ export const experiences: ExperienceItem[] = [
     role: 'Head of Technology Transformation',
     company: 'Creative Blue',
     period: 'Dec 2025 – Present',
-    type: 'Contractor',
-    description: 'Driving product technology strategy and agentic AI deployments, building advanced platforms ([GrowthOS](/work#portfolio-creative-blue-growthos), [Lead Generator](/work#portfolio-lead-generator), [Brand Assessment](/work#portfolio-brand-assessment)) that automate enterprise workflows with human-in-the-loop oversight.',
+    type: 'Leadership',
+    description: 'Architecting agentic AI transformation frameworks, leading enterprise platform development ([GrowthOS](/work#portfolio-creative-blue-growthos), [Lead Generator](/work#portfolio-lead-generator), [Brand Score](/work#portfolio-brand-assessment)), and driving practical automation adoption.',
     bullets: [
-      'Organized unstructured workflows by building [GrowthOS](/work#portfolio-creative-blue-growthos) as an integrated platform that generates marketing campaign ideas, AI search engine optimization (SEO), lead generation. Improved payroll forecasting using dashboards with data from various sources. Leading hands-on AI upskilling sprints focused on practical automation.',
-      'Spearheading the design and deployment of agentic AI transformation frameworks and advising on ethical policy considerations for emerging AI solutions, including [Lead Generator](/work#portfolio-lead-generator) (AI finds leads based on ideal client profile) and [Brand Assessment](/work#portfolio-brand-assessment) (AI measures brand score and provides recommendations for improvement).',
-      'Pioneered [Grex](/work#portfolio-grex-world) which uses AI for companies to post problems that can be solved by workers, which can potentially become investable opportunities. Defining partnerships for independent workers to obtain health insurance.',
-      'Architecting the AI framework for [Just Ride](/work#portfolio-just-ride) to unify cycling race data with automated pro intelligence and a single source of truth for the global peloton.'
+      'Architected [GrowthOS](/work#portfolio-creative-blue-growthos), an agentic AI platform integrating Harvest, Box, Slack, Apollo, Pomelli (marketing campaign generation), and Search Atlas (AI search engine optimization) with automated AI lead generation and agent scheduling. Reduced client onboarding time from days to minutes, improved payroll forecasting through data-driven dashboards sourced from multiple systems, and led hands-on AI upskilling sprints to drive practical automation adoption.',
+      'Design and deploy agentic AI transformation frameworks, advising on ethical AI policy for emerging solutions such as [Lead Generator](/work#portfolio-lead-generator) (AI-driven lead sourcing based on ideal client profile) and [Brand Score](/work#portfolio-brand-assessment) (automated brand scoring with improvement recommendations).',
+      'Architect [Grex](/work#portfolio-grex-world), an AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities, and negotiate partnerships to extend health insurance access to independent workers.',
+      'Architect the AI framework for [Just Ride](/work#portfolio-just-ride), unifying cycling race data into a single source of truth with automated pro-level race intelligence for the global peloton.'
     ],
-    skillsUsed: ['Generative AI', 'Agentic Workflows', 'LLM Ops', 'Python', 'Cloud Dashboards', 'Team Upskilling'],
+    skillsUsed: ['Google AI Studio', 'Claude Code/Cowork', 'Google Cloud Platform', 'Firebase', 'Agentic Workflows', 'LLM Ops'],
     logoColor: 'text-[#3333FF]'
   },
   {
@@ -154,34 +155,34 @@ export const experiences: ExperienceItem[] = [
     company: 'Google',
     period: 'Jun 2011 – Nov 2025',
     type: 'Full-time',
-    description: 'Led large-scale engineering operations and full lifecycle program management within Google Engineering, delivering crucial features for Google Maps and leading massive infrastructure and SDLC transformations.',
+    description: 'Led 14 years of enterprise-scale engineering operations across Google Maps (2B+ users), Ads, Legal, Finance, HR, and IT Engineering, driving full SDLC execution, Gemini AI navigation, and large-scale infrastructure transformations.',
     bullets: [
-      'Managed full product lifecycle from requirements to production for 50+ Google Maps features with Gemini Voice Navigation on Google Cloud Platform for 2 billion+ users. Orchestrated PM, UX, Privacy/Security, GeoQuality reviews for Google Maps Content RLHF utilizing Google Search data. Facilitated GPU/TPU requests on GCP when needed.',
-      'Led cross-functional execution across engineering, product, QA, and release stakeholders to deliver scaled launches on time.',
-      'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building fluency in AI-driven program management. Provided consultation on leveraging Google AI tools for SDLC governance.',
-      'Built TPM culture centered on technical rigor, mentoring, and execution, contributing to the promotion of senior TPM talent.',
-      'Drove AI Service Desk transformation, migrating ticket routing workflows contributing to $150M in organization-wide efficiencies.',
-      'Led transformation of Finance SDLC governance for SAP on Google Cloud Platform, providing consultation service for 40+ TPMs; improved time-to-market to 90+%, compliance to 82+%, and reduced defects by 21,000+.',
-      'Established program review cadences for a portfolio of 20+ programs, driving cross-functional executive visibility into status, risks, dependencies, and prioritization decisions.',
-      'Led infrastructure programs with 50+ TPMs at scale: SAP entity automation with 98% SLO, 67% testing cost reduction via server consolidation, and global IT standardization for vendor offices that reduced millions in operational cost.',
-      'Pioneered portfolio management for Finance Engineering using a single source of truth that enabled dashboard reporting for managing projects/programs and identifying risks that need leadership attention.',
-      'Led cross-functional teams in implementing lightweight SDLC which improves compliance, timeliness, quality and traceability of Finance system releases.',
-      'Built dashboards to monitor monthly releases, building AI/ML solutions for efficiency.',
-      'Led 12 cross-functional teams in completing configurations and dashboards for 100 new entities with 304 subledger requests. Improved closure rate to 96%, accelerated burn rate by 65%.',
-      'Established Stanford LEAD @ Google to challenge employees to change lives, change organizations, change the world. Negotiated with Stanford GSB, leveraged Google Educational Reimbursement to provide employees up to 72% savings after reimbursement. Participants improved leadership skills which resulted in some promotions.',
-      'Improved HR Engineering intake closure to 96%, burn rate 84% with simple intake/backlog management process for 200+ customers from 91 product areas. Automated intake ticket generation, built dashboards to improve service levels.',
-      'Built Return to Office dashboard and led full cycle enhancement of Staffing Requests, internal and external job sites to show remote work locations.',
-      'Led cross-functional teams in retrofitting 126 HR systems for the Oracle to SAP chart of accounts migration in May 2021.',
-      'Led cross-functional teams in implementing integrations for Workday, SAP and homegrown payroll systems in Ireland, Poland, Singapore.',
-      'Led cross-functional team from CorpEng, People Operations, Legal, and Information Security to ensure that HR systems are compliant to General Data Protection Regulation (EU GDPR).',
-      'Managed software releases for Google\'s HR integration platform, Workday Payroll integrations and HR Ops API.',
-      'Led a cross-functional team from Corporate Engineering, Extended Workforce Solutions, Finance, Legal, and Product Areas to implement a new vendor management system from inception through design. The mission was to drive value, reduce risk, and make it simpler to manage contingent workers.',
+      'Managed full SDLC and quarterly business reviews (QBR) while optimizing the roadmap for 50+ Google Maps features, including Gemini Voice Navigation, on cloud infrastructure serving 2 billion+ users. Directed critical path management and bottleneck resolution based on dependency risk, ensuring high-quality, on-time delivery. Landed AI/ML capabilities in production with Security/Privacy approval and incremental deployments/rollback based on Geo Quality metrics.',
+      'Directed cross-functional execution across engineering, product, QA, and release teams to deliver scaled launches on schedule.',
+      'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building organization-wide fluency in AI-driven program management, and advised teams on applying Google AI tools to SDLC governance.',
+      'Cultivated a TPM culture centered on technical rigor, mentoring, and execution, contributing to multiple senior TPM promotions.',
+      'Drove AI-powered Service Desk transformation, migrating ticket-routing workflows and contributing to $150M in organization-wide efficiency gains.',
+      'Transformed Finance SDLC governance for SAP on Google Cloud Platform, consulting for 40+ TPMs; improved timely delivery to 90+%, raised compliance to 82+%, and reduced defects by 21,000+.',
+      'Established program review cadences across a 20+ program portfolio, driving executive visibility into status, risk, dependencies, and prioritization decisions.',
+      'Directed infrastructure programs at scale with 50+ TPMs: automated SAP entity provisioning to 98% SLO, cut testing costs 67% via server consolidation, and standardized global IT for vendor offices, reducing operational costs by millions.',
+      'Pioneered a single-source-of-truth portfolio management system for Finance Engineering, enabling dashboard reporting for project/program tracking and risk escalation to leadership.',
+      'Led cross-functional teams to implement a lightweight SDLC, improving compliance, timeliness, quality, and traceability of Finance system releases.',
+      'Built dashboards to monitor monthly releases and developed AI/ML solutions to improve operational efficiency.',
+      'Led 12 cross-functional teams to complete configurations and dashboards for 100 new entities and 304 subledger requests, improving closure rate to 96% and accelerating burn rate by 65%.',
+      'Founded Stanford LEAD @ Google, a leadership development program empowering employees to change lives, organizations, and the world; participants strengthened leadership skills, with several earning promotions.',
+      'Improved HR Engineering intake closure rate to 96% and burn rate to 84% by designing a streamlined intake/backlog management process for 200+ customers across 91 product areas; automated ticket generation and built dashboards to elevate service levels.',
+      'Built the Return to Office dashboard and led end-to-end enhancement of Staffing Requests and internal/external job sites to surface remote work locations.',
+      'Led cross-functional teams to retrofit 126 HR systems for the Oracle-to-SAP chart of accounts migration.',
+      'Led cross-functional teams to implement integrations across Workday, SAP, and homegrown payroll systems in Ireland, Poland, and Singapore.',
+      'Led a cross-functional team spanning CorpEng, People Operations, Legal, and Information Security to ensure HR systems complied with General Data Protection Regulation (GDPR) requirements.',
+      'Managed software releases for Google\'s HR integration platform, including Workday Payroll integrations and the HR Ops API.',
+      'Led a cross-functional team across Corporate Engineering, Extended Workforce Solutions, Finance, Legal, and Product Areas to design and implement a new vendor management system from inception, driving value, reducing risk, and simplifying contingent workforce management.',
       'Delivered XWM Business Intelligence to provide a single source of truth for managing cost, risk, and operational efficiency in contingent workforce engagements.',
-      'Brought together subject matter experts from REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security, and Finance to standardize Google Owned Vendor Offices (GOVO) and efficiently build them at a lower cost than Googler offices. Streamlined GOVO operations by creating a guide for GOVO Site Managers to manage Temp/Vendor/Contractor (TVC) migrations and have Equipment Maintenance Technicians as the "smart hands onsite". This saved thousands of dollars in travel cost for Vendor Solutions as it allowed escalations to be handled remotely.',
-      'Spearheaded cross-functional collaboration among BizApps, REWS, xWS, PeopleOps, Vendor Solutions, Googler Experience, SecOps, Compliance, and FieldTechs to define the method for tracking information about facilities where TVCs work. This made it possible to verify if TVC facilities follow Google\'s Vendor Site Checklist with adherence to the User Data Access Policy.',
-      'Conceptualized PSH+ to automatically determine TVC access by job function and upload application list into Lantern for provisioning, thus reducing manual work for managers.'
+      'Convened subject matter experts across REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security, and Finance to standardize Google Owned Vendor Offices (GOVO), building them at lower cost than Googler offices; streamlined GOVO operations and saved thousands of dollars in travel costs via remote escalations.',
+      'Spearheaded cross-functional collaboration among BizApps, REWS, xWS, PeopleOps, Vendor Solutions, Googler Experience, SecOps, Compliance, and FieldTechs to establish a tracking method for TVC work facilities, enabling verification of compliance with Google\'s Vendor Site Checklist and User Data Access Policy.',
+      'Conceptualized PSH+, an automated system that determines TVC access by job function and uploads provisioning application lists, reducing manual work for managers.'
     ],
-    skillsUsed: ['Google Cloud Platform', 'Google Maps', 'Gemini AI', 'SDLC Governance', 'SAP Integration', 'Program Portfolio Management'],
+    skillsUsed: ['Google Cloud Platform', 'Google Maps (2B+ users)', 'Gemini AI', 'SDLC Governance', 'SAP on GCP', 'Portfolio Management', 'RLHF', 'Jira / Confluence'],
     logoColor: 'text-blue-500'
   },
   {
@@ -189,63 +190,75 @@ export const experiences: ExperienceItem[] = [
     company: 'Apple',
     period: 'Jun 2009 – Jun 2011',
     type: 'Full-time',
-    description: 'Managed critical development and cross-functional deployment of international recruitment and HR systems within Apple\'s IS&T division.',
+    description: 'Directed development of Apple\'s global recruiting systems, including the Recruitment Information Board and Apple Job Search, launched across 80+ countries.',
     bullets: [
-      'Led the software development and launch of Apple HR recruiting systems, including the Apple Job Search user interface.',
-      'Successfully deployed application experiences localized and active in 80+ countries.',
-      'Collaborated closely with cross-functional design, security, and infrastructure engineering teams.'
+      'Led development and launch of Apple HR recruiting systems, including the Apple Job Search user interface.',
+      'Deployed localized application experiences active in 80+ countries.',
+      'Partnered closely with cross-functional design, security, and infrastructure engineering teams.'
     ],
-    skillsUsed: ['UI Development', 'Internationalization', 'HR IS&T', 'Project Management'],
+    skillsUsed: ['UI Development', 'Internationalization (80+ countries)', 'Apple HR IS&T', 'Agile/SDLC', 'Infrastructure Security'],
     logoColor: 'text-gray-900'
   },
   {
-    role: 'Software Engineering Consultant',
+    role: 'Software Engineer',
     company: 'IBM, DHL, Infogain, Sun/Oracle',
     period: 'Prior Experience',
-    type: 'Consultant',
-    description: 'Directed software implementations, built core transactional systems, and provided expert engineering consultancy across enterprise leaders including Sun Microsystems, eBay, American Express, IBM, DHL, and Infogain.',
+    type: 'Engineering',
+    description: 'Co-developed patented enterprise employee training systems, built core shipment control architectures, and provided expert engineering consultancy across enterprise leaders.',
     bullets: [
-      'Sun Microsystems / Sun Java Center: Led the implementation of HP Project & Portfolio Management (PPM) software to optimize outsourcing workflows, and served as senior consultant architecting Java EE solutions for eBay, American Express, and CBOE.',
-      'Infogain Consultant: Led the full-cycle development of specialized Data Transfer Systems and Loan Collection Systems.',
-      'DHL: Co-developed the global Shipment Control System for real-time parcel and logistics tracking.',
-      'IBM Consultant: Led critical technical enhancements of TECSYS Financials & Distribution Systems for international clients.'
+      'Sun: Co-developed a web-based training registration system (US Patent 20020064766) and temp/contractor database; led implementation of HP Project & Portfolio Management software for outsourcing workflows.',
+      'Sun Java Center consultant: eBay, American Express, Chicago Board Options Exchange.',
+      'Infogain: Led full-cycle development of a Data Transfer System and Loan Collection System.',
+      'DHL: co-developed the Shipment Control System.',
+      'IBM: Led enhancement of the TECSYS Financials & Distribution System for clients.'
     ],
-    skillsUsed: ['Java EE', 'HP PPM', 'Enterprise Architecture', 'Financial Systems', 'Logistics Software', 'Data Transfer', 'Systems Consulting'],
+    skillsUsed: ['Java EE', 'HP PPM', 'US Patent 20020064766', 'Financial Systems', 'Logistics Systems', 'SQL', 'Data Transfer'],
     logoColor: 'text-blue-700'
   }
 ];
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: 'Technical & AI/ML',
+    name: 'Technical Skills',
     skills: [
-      { name: 'Google AI/ML & LLM Ops', level: 95 },
-      { name: 'Agentic Workflows & Multi-Agent systems', level: 98 },
-      { name: 'Google Cloud Platform (GCP)', level: 92 },
-      { name: 'Model Context Protocol (MCP)', level: 90 },
-      { name: 'SQL & Database Architecture', level: 85 },
-      { name: 'API Integration & Middleware', level: 94 },
-      { name: 'Software Development Lifecycle (SDLC)', level: 96 }
+      { name: 'Google AI/ML & LLM Ops', level: 96 },
+      { name: 'Claude AI & Claude Code', level: 95 },
+      { name: 'Agentic Workflows & Multi-Agent Systems', level: 98 },
+      { name: 'Cloud Computing (GCP)', level: 94 },
+      { name: 'Reinforcement Learning (RLHF)', level: 90 },
+      { name: 'API & Model Context Protocol (MCP)', level: 92 },
+      { name: 'SQL & SDLC Governance', level: 95 }
     ]
   },
   {
-    name: 'Leadership & Governance',
+    name: 'Leadership & Program Management',
     skills: [
-      { name: 'Transformational Programs & Operations', level: 97 },
-      { name: 'Strategic Planning & Execution', level: 94 },
-      { name: 'Product Lifecycle Governance', level: 95 },
-      { name: 'Risk Management & Mitigation', level: 90 },
-      { name: 'Change Management & Upskilling', level: 93 },
-      { name: 'TPM Culture & Mentorship', level: 96 }
+      { name: 'Transformational Programs & Execution', level: 98 },
+      { name: 'Process Improvement & Operations', level: 96 },
+      { name: 'Strategic & Tactical Planning', level: 95 },
+      { name: 'Product Lifecycle Governance', level: 96 },
+      { name: 'Risk & Change Management', level: 94 },
+      { name: 'Technical/Business Communication', level: 97 },
+      { name: 'Conflict Resolution & Consensus Building', level: 95 }
     ]
   },
   {
     name: 'Domain Expertise',
     skills: [
-      { name: 'Google Maps Platform & Telemetry', level: 95 },
-      { name: 'Corporate Engineering & HR IS&T', level: 90 },
-      { name: 'Finance SDLC & SAP Integrations', level: 88 },
-      { name: 'Enterprise SaaS & Cloud Dashboards', level: 92 }
+      { name: 'Technical Program Management (TPM)', level: 98 },
+      { name: 'Cloud Computing IaaS & Scale', level: 93 },
+      { name: 'Full-Stack Architecture & Modern UI', level: 92 },
+      { name: 'Enterprise Consulting & Governance', level: 95 }
+    ]
+  },
+  {
+    name: 'Tools & Platforms',
+    skills: [
+      { name: 'Google AI Studio', level: 97 },
+      { name: 'Claude Code / Cowork', level: 95 },
+      { name: 'Google Cloud Platform (GCP)', level: 94 },
+      { name: 'Firebase & Firestore', level: 92 },
+      { name: 'Jira & Confluence', level: 98 }
     ]
   }
 ];
@@ -276,7 +289,7 @@ export const certifications: CertificationItem[] = [
   },
   {
     title: 'Google AI (Professional & Essentials)',
-    issuer: 'Google Cloud',
+    issuer: 'Google AI',
     links: [
       { label: 'Professional', url: 'https://www.coursera.org/account/accomplishments/specialization/ESJ09OCIXG9Y' },
       { label: 'Essentials', url: 'https://www.credly.com/badges/d101f754-d0e8-4da3-b787-c464320df9a6/public_url' }
@@ -284,7 +297,7 @@ export const certifications: CertificationItem[] = [
     badgeType: 'ai'
   },
   {
-    title: 'PRINCE2 Foundation Project Management',
+    title: 'PRINCE2 Foundation (Project Management)',
     issuer: 'Office of Government Commerce',
     link: 'https://drive.google.com/file/d/0B_9ZUKe9gx67eThhbDRFZGptYTJ2c2c0T1k4N01RRTctcXdN/view?resourcekey=0-XbfvNl996HCzEJeou3W8AA',
     badgeType: 'pm'
@@ -295,8 +308,8 @@ export const education: EducationItem[] = [
   {
     school: 'Stanford Graduate School of Business',
     degree: 'Stanford LEAD',
-    honors: ['Distinguished Scholar', 'Community Advisory Board Member', 'Stanford LEAD Certificate'],
-    details: 'Rigorous executive leadership certification focusing on design thinking, strategic development, and driving innovation within corporate organizations.'
+    honors: ['Distinguished Scholar', 'Community Advisory Board', 'Stanford LEAD Certificate'],
+    details: 'Rigorous executive leadership program focusing on design thinking, strategic development, and driving innovation within corporate organizations.'
   },
   {
     school: 'Ateneo de Manila University',
@@ -319,11 +332,12 @@ export const speakerEvents: SpeakerEvent[] = [
     event: 'Ohlone College STEM Summit',
     description: 'Presented keynote guidance and technical mentorship for student pathways in computing and engineering. Spoke about bridging academia and industry, fostering diverse pipelines, and leading with technological curiosity.',
     links: [
-      { label: 'Ohlone STEM Summit Facebook Post', url: 'https://www.facebook.com/ohlonecollege/posts/pfbid037txouR56THqakGJ4CUAi9P5VovxwnweMRpK5mppqetWfGuFG65Scsb8ZhqJBq51Ml' },
-      { label: 'Ohlone STEM Summit Instagram Post', url: 'https://www.instagram.com/p/DQXvB2OjJ8k/?img_index=2&igsh=NTc4MTIwNjQ2YQ==' }
+      { label: 'Facebook post', url: 'https://www.facebook.com/ohlonecollege/posts/pfbid037txouR56THqakGJ4CUAi9P5VovxwnweMRpK5mppqetWfGuFG65Scsb8ZhqJBq51Ml' },
+      { label: 'Instagram post', url: 'https://www.instagram.com/p/DQXvB2OjJ8k/?img_index=2&igsh=NTc4MTIwNjQ2YQ==' }
     ]
   }
 ];
 
 export const endorsements: EndorsementItem[] = [];
+
 

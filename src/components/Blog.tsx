@@ -1113,7 +1113,7 @@ export default function Blog({ currentSlug, onNavigate }: BlogProps) {
                 Elevating people at the center of progress.
               </h1>
               <p className="font-sans text-sm text-black leading-relaxed">
-                I’m an engineering leader whose tech journey started with self-taught BASIC as a teen and led to directing global enterprise transformations from Silicon Valley. As a mentor, <a href="https://carissaott.com" target="_blank" rel="noopener noreferrer" className="text-[#3333FF] hover:underline font-medium">mother to a fellow software engineer</a>, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
+                I'm an AI transformation and engineering operations leader who knows how to turn complex AI strategy into measurable execution at enterprise scale. As a mentor, <a href="https://carissaott.com" target="_blank" rel="noopener noreferrer" className="text-[#3333FF] hover:underline font-medium">mother to a fellow software engineer</a>, and technology strategist, I focus on helping organizations scale AI while ensuring we always elevate people at the center of progress.
               </p>
             </div>
             

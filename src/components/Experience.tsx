@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar, Briefcase, MapPin, ChevronRight, Award } from 'lucide-react';
-import { experiences } from '../data/resumeData';
+import { experiences, personalInfo } from '../data/resumeData';
 import { ExperienceItem } from '../types';
 
 export default function Experience() {
@@ -144,7 +144,7 @@ export default function Experience() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
-        <div id="experience-section-header" className="max-w-3xl mb-16">
+        <div id="experience-section-header" className="max-w-4xl mb-12">
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#3333FF] bg-[#E4F0E7] px-3 py-1 rounded-full">
             15+ Year Career Path
           </span>
@@ -152,7 +152,7 @@ export default function Experience() {
             Professional Experience & Leadership
           </h2>
           <p className="font-sans text-base text-black leading-relaxed">
-            Leading high-performing engineering organizations and program offices at world-renowned technology companies, delivering enterprise-scale systems and AI products.
+            {personalInfo.summary}
           </p>
         </div>
 

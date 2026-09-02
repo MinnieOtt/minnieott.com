@@ -6,7 +6,8 @@ export default function Skills() {
   const getCategoryIcon = (name: string) => {
     if (name.includes('Technical')) return <Cpu className="w-5 h-5 text-indigo-600" />;
     if (name.includes('Leadership')) return <Users className="w-5 h-5 text-emerald-600" />;
-    return <Globe2 className="w-5 h-5 text-amber-500" />;
+    if (name.includes('Domain')) return <Globe2 className="w-5 h-5 text-amber-500" />;
+    return <Layers className="w-5 h-5 text-[#3333FF]" />;
   };
 
   return (
@@ -27,44 +28,46 @@ export default function Skills() {
         </div>
 
         {/* Skill Panels Grid */}
-        <div id="skills-panel-grid" className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div id="skills-panel-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillCategories.map((cat) => (
             <div
               key={cat.name}
               id={`skills-card-${cat.name.replace(/\s+/g, '-').toLowerCase()}`}
-              className="bg-neutral-50 rounded-2xl border border-gray-100 p-6 md:p-8 hover:shadow-xs transition-shadow duration-300 relative overflow-hidden"
+              className="bg-neutral-50 rounded-2xl border border-gray-100 p-6 hover:shadow-xs transition-shadow duration-300 relative overflow-hidden flex flex-col justify-between"
             >
-              {/* Subtle top decoration */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-[#3333FF]" />
+              <div>
+                {/* Subtle top decoration */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#3333FF]" />
 
-              {/* Title & Icon */}
-              <div className="flex items-center gap-3 pb-6 border-b border-gray-100/60 mb-6">
-                <div className="w-9 h-9 rounded-lg bg-white border border-gray-100 flex items-center justify-center shadow-3xs">
-                  {getCategoryIcon(cat.name)}
-                </div>
-                <h3 className="font-display font-bold text-black text-base tracking-tight">
-                  {cat.name}
-                </h3>
-              </div>
-
-              {/* Skill bars */}
-              <div className="flex flex-col gap-5">
-                {cat.skills.map((skill) => (
-                  <div key={skill.name} className="flex flex-col gap-2">
-                    <div className="flex justify-between items-center text-xs font-medium">
-                      <span className="font-sans text-black font-semibold">{skill.name}</span>
-                      <span className="font-mono text-black">{skill.level}%</span>
-                    </div>
-                    {/* Background track */}
-                    <div className="w-full h-1.5 bg-gray-200/60 rounded-full overflow-hidden">
-                      {/* Active indicator */}
-                      <div
-                        className="h-full bg-[#3333FF] rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
+                {/* Title & Icon */}
+                <div className="flex items-center gap-3 pb-5 border-b border-gray-100/60 mb-5">
+                  <div className="w-9 h-9 rounded-lg bg-white border border-gray-100 flex items-center justify-center shadow-3xs shrink-0">
+                    {getCategoryIcon(cat.name)}
                   </div>
-                ))}
+                  <h3 className="font-display font-bold text-black text-sm tracking-tight leading-snug">
+                    {cat.name}
+                  </h3>
+                </div>
+
+                {/* Skill bars */}
+                <div className="flex flex-col gap-4">
+                  {cat.skills.map((skill) => (
+                    <div key={skill.name} className="flex flex-col gap-1.5">
+                      <div className="flex justify-between items-center text-xs font-medium">
+                        <span className="font-sans text-black font-semibold text-xs leading-tight">{skill.name}</span>
+                        <span className="font-mono text-black text-[11px] ml-1">{skill.level}%</span>
+                      </div>
+                      {/* Background track */}
+                      <div className="w-full h-1.5 bg-gray-200/60 rounded-full overflow-hidden">
+                        {/* Active indicator */}
+                        <div
+                          className="h-full bg-[#3333FF] rounded-full transition-all duration-1000 ease-out"
+                          style={{ width: `${skill.level}%` }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
