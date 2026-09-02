@@ -224,9 +224,9 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Google AI/ML & LLM Ops', level: 96 },
       { name: 'Claude AI & Claude Code', level: 95 },
       { name: 'Agentic Workflows & Multi-Agent Systems', level: 98 },
+      { name: 'A2A Protocol & Model Context Protocol (MCP)', level: 96 },
       { name: 'Cloud Computing (GCP)', level: 94 },
       { name: 'Reinforcement Learning (RLHF)', level: 90 },
-      { name: 'API & Model Context Protocol (MCP)', level: 92 },
       { name: 'SQL & SDLC Governance', level: 95 }
     ]
   },

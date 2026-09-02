@@ -17,6 +17,8 @@ interface ChatMessage {
 }
 
 const SUGGESTIONS = [
+  { text: 'What is the A2A Protocol? 🤖', id: 'sugg-a2a' },
+  { text: 'What is Model Context Protocol (MCP)? 🔌', id: 'sugg-mcp' },
   { text: 'Who is Minnie?', id: 'sugg-who-is-minnie' },
   { text: 'Play Pac-Man with Mochi 🎮', id: 'sugg-pacman' },
   { text: 'What is JMX Programming? 📘', id: 'sugg-jmx' },
