@@ -78,6 +78,7 @@ export default function Portfolio() {
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="hover:text-[#3333FF] hover:underline transition-colors font-medium text-black"
+                    title="View Stanford LEAD Community Advisory Board Members (opens in new tab)"
                   >
                     Community Advisory Board
                   </a>.

@@ -165,13 +165,14 @@ export default function EducationCertifications() {
                               </a>
                             );
                           }
-                          if (honor === 'Community Advisory Board Member') {
+                          if (honor === 'Community Advisory Board' || honor === 'Community Advisory Board Member' || honor.includes('Community Advisory Board')) {
                             return (
                               <a 
                                 href="https://drive.google.com/file/d/1gVjsnaXSuVHlDPTtdT2gzDKJiPtSEikt/view?usp=sharing" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 className="hover:underline text-indigo-600 font-medium"
+                                title="View Stanford LEAD Community Advisory Board Members (opens in new tab)"
                               >
                                 {honor}
                               </a>
