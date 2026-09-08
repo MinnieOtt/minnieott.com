@@ -72,6 +72,7 @@
 ---
 
 ## Certifications & Credentials
+- **Architect Reusable AI Agent Systems** - Coursera
 - **AI Agent Development & LLM Fluency (Model Context Protocol / MCP)** - Vanderbilt University
 - **Google Cloud AI (Professional & Essentials)** - Google Cloud
 - **PRINCE2 Foundation** - Project Management Foundation

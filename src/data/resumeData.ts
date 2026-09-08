@@ -282,6 +282,12 @@ export const books = {
 
 export const certifications: CertificationItem[] = [
   {
+    title: 'Architect Reusable AI Agent Systems',
+    issuer: 'Coursera',
+    link: 'https://coursera.org/verify/4NUOQHYUUEE3',
+    badgeType: 'ai'
+  },
+  {
     title: 'AI Agent Development & LLM Fluency (Model Context Protocol)',
     issuer: 'Vanderbilt University',
     link: 'https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3',

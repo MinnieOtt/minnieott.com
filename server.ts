@@ -725,8 +725,8 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
       return `Minnie is an active tech speaker and student mentor! 🎤\n\n* **SF Bay Area Filipino American Professionals Networking Day** (Covered by Inquirer.net and Positively Filipino)\n* **Ohlone College STEM Summit**: Keynote guidance on bridging academia and industry in STEM.`;
     }
 
-    if (query.includes('certificat') || query.includes('credential') || query.includes('badge') || query.includes('prince2') || query.includes('vanderbilt') || query.includes('mcp')) {
-      return `Minnie's active certifications include:\n\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google AI\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
+    if (query.includes('certificat') || query.includes('credential') || query.includes('badge') || query.includes('prince2') || query.includes('vanderbilt') || query.includes('mcp') || query.includes('reusable')) {
+      return `Minnie's active certifications include:\n\n* **Architect Reusable AI Agent Systems** - Coursera\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google AI\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
     }
 
     return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Principal Technical Program Manager & Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun Microsystems.\n\nYou can ask me about the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
@@ -818,7 +818,8 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
         return res.status(400).json({ error: "Messages array or query parameter is required." });
       }
 
-      const lastUserMessage = normalizedMessages[normalizedMessages.length - 1]?.text || '';
+      const lastMsg = normalizedMessages[normalizedMessages.length - 1];
+      const lastUserMessage = lastMsg?.text || lastMsg?.content || '';
 
       // Check for GEMINI_API_KEY presence
       if (!process.env.GEMINI_API_KEY) {
@@ -848,7 +849,7 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
       // Format messages into GoogleGenAI standard structure
       const contents = normalizedMessages.map((m: any) => ({
         role: m.role === "model" ? "model" : "user",
-        parts: [{ text: m.text }]
+        parts: [{ text: m.text || m.content || "" }]
       }));
 
       // Dynamically build Mochi / Blue Agent system instruction using latest content

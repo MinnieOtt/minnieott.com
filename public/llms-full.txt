@@ -92,6 +92,7 @@ Her career spans the modern history of computing—from self-taught BASIC progra
 ## CERTIFICATIONS & TECHNICAL SKILLS
 
 ### Certifications
+- **Architect Reusable AI Agent Systems** - Coursera
 - **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University
 - **Google Cloud AI Professional Specialization & Essentials Badge** - Google Cloud
 - **PRINCE2 Foundation in Project Management** - UK Office of Government Commerce
