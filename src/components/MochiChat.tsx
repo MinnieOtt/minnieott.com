@@ -272,7 +272,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
         const parsed = JSON.parse(saved) as ChatMessage[];
         // Auto-update old welcome message text if it exists
         if (parsed.length > 0 && parsed[0].id === 'welcome-msg') {
-          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by [real-life Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs).   I can answer questions regarding this website. How can I help?";
+          parsed[0].text = "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by [real-life Mochi Pancake Samoyed](https://www.youtube.com/shorts/2T1lhjRaovY).   I can answer questions regarding this website. How can I help?";
         }
         setMessages(parsed);
       } catch (e) {
@@ -311,7 +311,7 @@ export default function MochiChat({ currentPath, onNavigate }: MochiChatProps) {
     const welcome: ChatMessage = {
       id: 'welcome-msg',
       role: 'model',
-      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by [real-life Mochi Pancake Samoyed](https://www.youtube.com/watch?v=NzH5PaEgjOs).   I can answer questions regarding this website. How can I help?",
+      text: "Hi there! 🥞 I'm Mochi, Minnie's pancake-loving AI assistant, inspired by [real-life Mochi Pancake Samoyed](https://www.youtube.com/shorts/2T1lhjRaovY).   I can answer questions regarding this website. How can I help?",
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
     setMessages([welcome]);
