@@ -26,8 +26,9 @@ export default function Experience() {
   };
 
   const renderCompanyLinks = (companyName: string) => {
-    if (companyName.includes(',')) {
-      const parts = companyName.split(',');
+    if (companyName.includes('·') || companyName.includes(',')) {
+      const delimiter = companyName.includes('·') ? '·' : ',';
+      const parts = companyName.split(delimiter);
       return (
         <span>
           {parts.map((part, index) => {
@@ -36,11 +37,11 @@ export default function Experience() {
             if (trimmed === 'IBM') url = 'https://www.ibm.com/';
             else if (trimmed === 'DHL') url = 'https://www.dhl.com/';
             else if (trimmed === 'Infogain') url = 'https://www.tenarai.com/';
-            else if (trimmed === 'Sun/Oracle' || trimmed.includes('Sun') || trimmed.includes('Oracle')) url = 'https://oracle.com';
+            else if (trimmed.includes('Sun') || trimmed.includes('Oracle')) url = 'https://www.oracle.com/';
 
             return (
-              <React.Fragment key={trimmed}>
-                {index > 0 && <span className="text-gray-400">, </span>}
+              <React.Fragment key={`${trimmed}-${index}`}>
+                {index > 0 && <span className="text-gray-400"> · </span>}
                 {url ? (
                   <a
                     href={url}
@@ -60,6 +61,31 @@ export default function Experience() {
       );
     }
 
+    if (companyName.includes('/')) {
+      const parts = companyName.split('/');
+      return (
+        <span>
+          {parts.map((part, index) => {
+            const trimmed = part.trim();
+            const url = 'https://www.oracle.com/';
+            return (
+              <React.Fragment key={`${trimmed}-${index}`}>
+                {index > 0 && <span className="text-gray-400"> / </span>}
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-indigo-600 hover:text-[#3333FF] hover:underline transition-colors duration-200"
+                >
+                  {trimmed}
+                </a>
+              </React.Fragment>
+            );
+          })}
+        </span>
+      );
+    }
+
     let url = '';
     if (companyName.includes('Creative Blue')) {
       url = 'https://www.creativeblue.agency/';
@@ -67,7 +93,7 @@ export default function Experience() {
       url = 'https://www.google.com/';
     } else if (companyName.includes('Apple')) {
       url = 'https://www.apple.com/';
-    } else if (companyName.includes('Sun Microsystems') || companyName.includes('Oracle')) {
+    } else if (companyName.includes('Sun') || companyName.includes('Oracle')) {
       url = 'https://www.oracle.com/';
     }
 
@@ -257,21 +283,46 @@ export default function Experience() {
             </div>
 
             {/* Bullet List accomplishments */}
-            <div className="mt-8 flex flex-col gap-4">
+            <div className="mt-8 flex flex-col gap-6">
               <h5 className="font-mono text-[11px] font-bold text-black uppercase tracking-wider flex items-center gap-1">
                 <Award className="w-4 h-4 text-black" /> Core Accomplishments & Metrics
               </h5>
               
-              <ul className="flex flex-col gap-3.5">
-                {experiences[activeTab].bullets.map((bullet, bIdx) => (
-                  <li key={bIdx} className="flex gap-3 items-start">
-                    <ChevronRight className="w-4.5 h-4.5 text-[#3333FF] shrink-0 mt-0.5" />
-                    <span className="font-sans text-sm text-black leading-relaxed">
-                      {renderTextWithLinks(bullet)}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {experiences[activeTab].sections && experiences[activeTab].sections!.length > 0 ? (
+                <div className="flex flex-col gap-7">
+                  {experiences[activeTab].sections!.map((section, sIdx) => (
+                    <div key={sIdx} className="flex flex-col gap-3">
+                      <div className="flex items-center gap-2">
+                        <span className="font-display font-bold text-base text-[#3333FF] tracking-tight">
+                          {section.title}
+                        </span>
+                        <div className="h-px bg-gray-200 flex-1" />
+                      </div>
+                      <ul className="flex flex-col gap-3.5">
+                        {section.bullets.map((bullet, bIdx) => (
+                          <li key={bIdx} className="flex gap-3 items-start">
+                            <ChevronRight className="w-4.5 h-4.5 text-[#3333FF] shrink-0 mt-0.5" />
+                            <span className="font-sans text-sm text-black leading-relaxed">
+                              {renderTextWithLinks(bullet)}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul className="flex flex-col gap-3.5">
+                  {experiences[activeTab].bullets.map((bullet, bIdx) => (
+                    <li key={bIdx} className="flex gap-3 items-start">
+                      <ChevronRight className="w-4.5 h-4.5 text-[#3333FF] shrink-0 mt-0.5" />
+                      <span className="font-sans text-sm text-black leading-relaxed">
+                        {renderTextWithLinks(bullet)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {/* Skills Utilized in this Period */}

@@ -20,6 +20,7 @@ export interface ExperienceItem {
   type?: string;
   description: string;
   bullets: string[];
+  sections?: { title: string; bullets: string[] }[];
   skillsUsed: string[];
   logoColor?: string;
 }

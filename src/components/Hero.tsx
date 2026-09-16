@@ -290,11 +290,19 @@ export default function Hero({ onNavigate }: HeroProps) {
               </button>
               <span className="text-black">←</span>
               <button
-                id="link-ibm-dhl-infogain"
+                id="link-sun-oracle"
                 onClick={(e) => handleCompanyClick(e, 3)}
+                className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-red-600 hover:text-red-800 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
+              >
+                Sun / Oracle
+              </button>
+              <span className="text-black">←</span>
+              <button
+                id="link-ibm-dhl-infogain"
+                onClick={(e) => handleCompanyClick(e, 4)}
                 className="inline-flex items-center gap-1.5 px-2 py-1 bg-white border border-gray-100 hover:border-gray-300 rounded-md shadow-2xs font-semibold text-blue-700 hover:text-blue-900 transition-all duration-200 hover:scale-[1.04] cursor-pointer text-left"
               >
-                IBM, DHL, Infogain, Sun/Oracle
+                IBM · DHL · Infogain
               </button>
             </motion.div>
 
