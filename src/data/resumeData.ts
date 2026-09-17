@@ -14,27 +14,27 @@ export const personalInfo = {
   github: '#', // placeholder as none listed
   location: 'San Francisco Bay Area, CA',
   tagline: 'Creative Blue | Google | Apple | Sun/Oracle',
-  summary: `Results-focused Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems that launched across 80+ countries. Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Harvest, Box, Slack, and Search Atlas to compress lead prospecting, client onboarding, and social media analysis from days to minutes.`,
+  summary: `Results-focused Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems that launched across 80+ countries. Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Google Maps, Harvest, Box, Slack, Search Atlas to compress lead prospecting, client onboarding, social analysis from days to minutes.`,
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://www.youtube.com/shorts/2T1lhjRaovY), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner. In my youth I played Pac-Man in the arcade; try out [Mochi Pac-Man](/pacman) to play this classic video game with Mochi.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
-  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems / Oracle', 'IBM · DHL · Infogain · Sun Microsystems']
+  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems / Oracle', 'IBM, DHL, Infogain, Sun Microsystems']
 };
 
 export const portfolioApps: AppPortfolioItem[] = [
   {
     name: 'Creative Blue GrowthOS',
     url: 'https://cb-growthos-hub-553545205591.us-west1.run.app',
-    description: 'An enterprise agentic AI platform on GCP integrating Apollo, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing.',
+    description: 'An enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing.',
     role: 'Head of Technology Transformation / Architect',
     bulletPoints: [
-      'Built GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Harvest, Box, Slack and Search Atlas.',
+      'Architected GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas.',
       'Slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing.',
-      'Modernized operational forecasting through unified data dashboards and led hands-on sprints driving agency-wide AI automation adoption.'
+      'Modernized operational forecasting through unified insights from data dashboards and led hands-on sprints driving agency-wide AI automation adoption.'
     ],
-    tags: ['Generative AI', 'Agentic Workflows', 'GCP', 'Multi-Agent Systems', 'Enterprise Automation'],
+    tags: ['Generative AI', 'Agentic Workflows', 'GCP', 'Google Maps', 'Multi-Agent Systems', 'Enterprise Automation'],
     isFlagship: true,
     status: 'Work in progress',
     cta: {
@@ -140,9 +140,9 @@ export const experiences: ExperienceItem[] = [
     company: 'Creative Blue',
     period: 'Dec 2025 – Present',
     type: 'Leadership',
-    description: 'Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Harvest, Box, Slack, and Search Atlas to compress lead prospecting, client onboarding, and social media analysis from days to minutes.',
+    description: 'Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Google Maps, Harvest, Box, Slack, Search Atlas to compress lead prospecting, client onboarding, social analysis from days to minutes.',
     bullets: [
-      'Built GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing. Modernized operational forecasting through unified data dashboards and led hands-on sprints driving agency-wide AI automation adoption.',
+      'Architected GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing. Modernized operational forecasting through unified insights from data dashboards and led hands-on sprints driving agency-wide AI automation adoption.',
       'Designed and deployed agentic frameworks with ethical AI policy for emerging solutions such as [Lead Generator](/work#portfolio-lead-generator) (AI-driven prospecting based on ideal client profile) and [Brand Assessment](/work#portfolio-brand-assessment) (AI-driven brand scoring with improvement recommendations).',
       'Pioneered [Grex](/work#portfolio-grex-world), an AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities. Planning partnerships to offer perks for members.',
       'Developed the AI framework for [Just Ride](/work#portfolio-just-ride), unifying cycling race data into a single source of truth with automated pro-level race intelligence for the global peloton.'
@@ -253,13 +253,16 @@ export const experiences: ExperienceItem[] = [
   },
   {
     role: 'Software Engineer',
-    company: 'IBM · DHL · Infogain · Sun Microsystems',
-    period: 'Earlier',
+    company: 'IBM, DHL, Infogain, Sun Microsystems',
+    period: 'Prior Experience',
     type: 'Engineering',
     description: 'Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange; co-developed patented enterprise employee training systems.',
     bullets: [
-      'Sun: co-developed a web-based training registration system (US Patent 20020064766) and a temp/contractor database; Sun Java Center consultant to eBay, American Express and the Chicago Board Options Exchange.',
-      'Infogain: led full-cycle development of a Data Transfer System and Loan Collection System. DHL: co-developed the Shipment Control System. IBM: led enhancement of the TECSYS Financials & Distribution System for clients.'
+      'Sun: Co-developed a web-based training registration system and temp/contractor database.',
+      'Sun Java Center consultant: eBay, American Express, Chicago Board Options Exchange.',
+      'Infogain: Led full-cycle development of a Data Transfer System and Loan Collection System.',
+      'DHL: co-developed the Shipment Control System.',
+      'IBM: Led enhancement of the TECSYS Financials & Distribution System for clients.'
     ],
     skillsUsed: ['Sun Java Center', 'US Patent 20020064766', 'Java', 'Data Transfer System', 'Loan Collection System', 'Shipment Control System', 'TECSYS Financials & Distribution'],
     logoColor: 'text-blue-700'
@@ -273,19 +276,19 @@ export const skillCategories: SkillCategory[] = [
       { name: 'Technical Program Management', level: 98 },
       { name: 'Cloud Computing IaaS', level: 95 },
       { name: 'Full-Stack Architecture', level: 94 },
-      { name: 'Enterprise Consulting & Governance', level: 96 }
+      { name: 'Consulting', level: 96 }
     ]
   },
   {
     name: 'Technical Skills',
     skills: [
-      { name: 'Google AI & Claude AI', level: 97 },
-      { name: 'LLM Ops & Agentic Workflows', level: 98 },
+      { name: 'Google AI, Claude AI & LLM Ops', level: 98 },
+      { name: 'Agentic Workflows & Multi-Agent Systems', level: 98 },
       { name: 'API, MCP & A2A Protocols', level: 96 },
       { name: 'Python, Java & AppScript', level: 94 },
-      { name: 'TypeScript, JavaScript, HTML & CSS', level: 95 },
+      { name: 'HTML, CSS, JavaScript & TypeScript', level: 95 },
       { name: 'SQL & Database Architecture', level: 94 },
-      { name: 'Linux, MacOS & Windows Environments', level: 92 }
+      { name: 'Linux, MacOS & Windows', level: 92 }
     ]
   },
   {
@@ -293,17 +296,17 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       { name: 'Transformational Programs & Process Improvement', level: 98 },
       { name: 'Strategic & Tactical Planning', level: 96 },
-      { name: 'Agile PLC & SDLC Governance', level: 97 },
+      { name: 'Agile Product Lifecycle & SDLC (PLC/SDLC) Governance', level: 97 },
       { name: 'Risk & Change Management', level: 95 },
       { name: 'Technical/Business Communication', level: 97 },
       { name: 'Conflict Resolution & Consensus Building', level: 96 }
     ]
   },
   {
-    name: 'Tools & Platforms',
+    name: 'Tools',
     skills: [
       { name: 'Google AI Studio & Claude Code/Cowork', level: 98 },
-      { name: 'Google Cloud Platform (Cloud Run, IAM, VPC, CI/CD, Vertex AI)', level: 96 },
+      { name: 'Google Cloud Platform (Cloud Run, IAM, VPC, CI/CD, secrets management, Vertex AI)', level: 96 },
       { name: 'Firebase & GitHub', level: 94 },
       { name: 'Looker, Jira & Confluence', level: 97 },
       { name: 'Linear, Monday.com & Smartsheet', level: 93 }

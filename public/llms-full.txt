@@ -5,70 +5,78 @@
 ---
 
 ## EXECUTIVE SUMMARY
-Minerva Tanglao Ott (Minnie) is a Silicon Valley engineering leader, Head of Technology at Creative Blue, and Senior Technical Program Management (TPM) leader with over two decades of experience leading transformative technology programs across Google, Apple, Sun Microsystems, and enterprise startups. 
+Minerva Tanglao Ott (Minnie) is a Principal Technical Program Manager and Head of Technology Transformation at Creative Blue, with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT) and 2 years at Apple HR Engineering.
 
-Her career spans the modern history of computing—from self-taught BASIC programming as a teenager to managing Java Management Extensions (JMX) at Sun Microsystems, launching global HR software at Apple across 80+ countries, directing Google Maps voice navigation integrated with Gemini AI, and leading Agentic AI platform transformations at Creative Blue.
+Her career spans the modern history of computing—from self-taught BASIC programming as a teenager to hands-on software engineering at Sun Java Center, architecting enterprise systems for eBay, American Express, and Chicago Board Options Exchange, technical editor for JMX Programming, launching global HR software at Apple across 80+ countries, delivering enterprise-scale programs for Google Maps with Ads (2 billion+ users), and architecting Creative Blue GrowthOS, an agentic AI platform integrating Apollo, Google Maps, Harvest, Box, Slack, and Search Atlas.
 
 ---
 
 ## BIOGRAPHY & FOUNDATIONAL BACKGROUND
 - **Full Legal Name**: Minerva Tanglao Ott
 - **Preferred Name**: Minnie Ott
-- **Location**: Silicon Valley, California, United States
-- **Current Position**: Head of Technology at Creative Blue
+- **Location**: San Francisco Bay Area, CA, United States
+- **Current Position**: Principal Technical Program Manager | Head of Technology Transformation at Creative Blue
 - **Primary Website**: https://minnieott.com
 - **LinkedIn Profile**: https://www.linkedin.com/in/minnieott/
 - **Advisory Calendar**: https://calendar.app.google/MCnhZcK56rLJ7fnk8
 
 ### Education
-1. **Stanford Graduate School of Business (2021 – 2022)**
+1. **Stanford Graduate School of Business**
    - Program: Stanford LEAD Executive Education Program
    - Distinction: Distinguished Scholar & Community Advisory Board Member
    - Focus: Corporate Innovation, Global Leadership, Strategic Agility, Organizational Design
 
-2. **Ateneo de Manila University (1993 – 1997)**
+2. **Ateneo de Manila University**
    - Degree: Bachelor of Science (BS) in Computer Science
-   - Honors: Dean's List, Recipient of the prestigious Lourdes Evangelista Scholarship Award
+   - Honors: Dean's List, Lourdes Evangelista Scholarship Award
    - Activities: Computer Society President, Algorithmic Problem Solving
 
 ---
 
 ## CAREER TIMELINE & LEADERSHIP RECORD
 
-### 1. Creative Blue (Dec 2024 – Present)
-- **Role**: Head of Technology & Executive Strategy
+### 1. Creative Blue (Dec 2025 – Present)
+- **Role**: Head of Technology Transformation
 - **Location**: San Francisco Bay Area, CA
-- **Overview**: Leading technology strategy, engineering execution, and Agentic AI platform deployment for agency operations.
+- **Overview**: Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Google Maps, Harvest, Box, Slack, Search Atlas to compress lead prospecting, client onboarding, social analysis from days to minutes.
 - **Key Achievements**:
-  - Architected and launched **GrowthOS**, an enterprise AI operations engine automating lead intelligence, brand assessment, and strategic agency workflows.
-  - Implemented Model Context Protocol (MCP) standards and multi-agent coordination pipelines reducing campaign delivery cycles by over 40%.
-  - Oversaw product development across Lead Generator, Brand Assessment, Grex World, and Just Ride telemetry pipelines.
+  - Architected GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing.
+  - Modernized operational forecasting through unified insights from data dashboards and led hands-on sprints driving agency-wide AI automation adoption.
+  - Designed and deployed agentic frameworks with ethical AI policy for emerging solutions such as Lead Generator (AI-driven prospecting based on ideal client profile) and Brand Assessment (AI-driven brand scoring with improvement recommendations).
+  - Pioneered Grex, an AI-powered marketplace connecting companies' problem statements with worker-sourced solutions that can become investable opportunities. Planning partnerships to offer perks for members.
+  - Developed the AI framework for Just Ride, unifying cycling race data into a single source of truth with automated pro-level race intelligence for the global peloton.
 
 ### 2. Google (Jun 2011 – Nov 2025)
-- **Role**: Senior Engineering Program Manager / Technical Program Manager
+- **Role**: Senior Engineering Program Manager
 - **Location**: Mountain View & Sunnyvale, CA
-- **Overview**: Spent 14+ years managing major technical infrastructure, consumer product features, and enterprise service management across Google Geo / Maps and Corporate Engineering.
+- **Overview**: 14 years of enterprise-scale engineering operations across Google Maps, Google Core, and Google Corporate Engineering.
 - **Key Achievements**:
-  - Led engineering program delivery for **Google Maps Voice Navigation**, integrating Gemini AI models for multi-lingual natural language voice guidance used by over 1 Billion active users globally.
-  - Spearheaded Google's internal **Service Desk Infrastructure & Operations**, scaling global support systems for 150,000+ Google employees across 50+ countries.
-  - Championed diversity and leadership initiatives, founding and co-leading **Stanford LEAD @ Google**, an executive peer network spanning hundreds of Google leaders.
-  - Directed cross-functional vendor operations and software development lifecycle (SDLC) governance frameworks for major GCP cloud migrations.
+  - **Google Maps**: Managed full SDLC and MBR/QBR roadmap for 50+ Google Maps features (with Ads and Gemini Voice Navigation) on cloud infrastructure serving 2 billion+ users. Directed critical path management and bottleneck resolution. Landed AI/ML capabilities in production with Security/Privacy approval and incremental deployments/rollback based on A/B Testing and Geo Quality metrics.
+  - **Google Maps TPM Fluency**: Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building organization-wide fluency in AI-driven program management.
+  - **Google Core**: Drove AI-powered Service Desk transformation contributing to $150M in efficiency gains. Transformed Finance SDLC governance for SAP on GCP for 40+ TPMs, improving timely delivery to 90+%, raising compliance to 82+%, and reducing defects by 21,000+. Automated SAP entity provisioning to 98% SLO and cut testing costs 67%.
+  - **Google Corporate Engineering**: Founded Stanford LEAD @ Google in partnership with Stanford GSB. Improved HR Engineering intake closure to 95% across 91 product areas. Built Return to Office dashboard. Retrofitted 126 HR systems for Oracle-to-SAP chart of accounts migration. Delivered XWM Business Intelligence for contingent workforce management and standardized Google Owned Vendor Offices (GOVO).
 
 ### 3. Apple (Jun 2009 – Jun 2011)
-- **Role**: Technical Project Manager, Information Systems & Technology (IS&T)
+- **Role**: Technical Project Manager
 - **Location**: Cupertino, CA
-- **Overview**: Managed end-to-end software development lifecycle and global rollout of Apple's corporate HR and recruitment platforms.
 - **Key Achievements**:
-  - Directed the global release of the **Apple Job Search Portal**, localized across 80+ countries and integrated with internal HRIS databases.
-  - Reduced system latency and improved recruitment pipeline throughput for high-volume Apple retail and corporate hiring.
+  - Led development and launch of Apple HR recruiting systems, including the design of Apple Job Search user interface with localized application experiences in 80+ countries.
+  - Partnered closely with cross-functional design, security, and infrastructure engineering teams per launch.
 
-### 4. Sun Microsystems / Oracle (2000 – 2008)
-- **Role**: Software Engineer, Program Architect & Technical Editor
+### 4. Sun Microsystems / Oracle (Jan 2004 – Jun 2009)
+- **Role**: Technical Project Manager
 - **Location**: Santa Clara, CA
-- **Overview**: Core contributor to Java enterprise standards, JMX (Java Management Extensions) program management, and developer tools.
 - **Key Achievements**:
-  - Served as **Technical Editor** for the landmark book *JMX Programming* (John Wiley & Sons, 2002).
-  - Co-authored **US Patent 20020064766** on Enterprise Employee Training Management Systems.
+  - Led implementation of HP Project & Portfolio Management software for outsourcing workflows.
+
+### 5. IBM, DHL, Infogain, Sun Microsystems (Prior Experience)
+- **Role**: Software Engineer
+- **Key Achievements**:
+  - Sun: Co-developed a web-based training registration system and temp/contractor database.
+  - Sun Java Center consultant: eBay, American Express, Chicago Board Options Exchange.
+  - Infogain: Led full-cycle development of a Data Transfer System and Loan Collection System.
+  - DHL: Co-developed the Shipment Control System.
+  - IBM: Led enhancement of the TECSYS Financials & Distribution System for clients.
 
 ---
 

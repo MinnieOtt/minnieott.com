@@ -1,16 +1,16 @@
 # Minerva Tanglao Ott (Minnie) - Portfolio & LLM Map
 
-> Minerva Tanglao Ott (Minnie) is a Silicon Valley engineering leader, Head of Technology at Creative Blue, and Technical Program Management (TPM) leader with 20+ years of executive experience across Google, Apple, and Sun Microsystems / Oracle. She specializes in Agentic AI transformations, enterprise SDLC governance, and scaling human-centered technology.
+> Minerva Tanglao Ott (Minnie) is a Principal Technical Program Manager and Head of Technology Transformation at Creative Blue, with 15+ years of cross-functional leadership across Google, Apple, and Sun/Oracle. She specializes in Agentic AI transformations, enterprise SDLC governance, and scaling human-centered technology.
 
 ## Core Identity & Key Facts
 - **Full Name**: Minerva Tanglao Ott
 - **Known As**: Minnie Ott
-- **Title**: Head of Technology at Creative Blue & Executive TPM Strategist
+- **Title**: Principal Technical Program Manager | Head of Technology Transformation at Creative Blue
 - **Education**: 
   - Stanford Graduate School of Business: Stanford LEAD Executive Education Program (Distinguished Scholar & Community Advisory Board)
-  - Ateneo de Manila University: BS Computer Science (Dean's List, Lourdes Evangelista Scholarship)
-- **Key Corporate Lineage**: Google (Sr. TPM, 14 years) -> Apple (IS&T Technical Project Manager, 2 years) -> Sun Microsystems / Oracle (Software Engineer & Technical Editor) -> Creative Blue (Head of Technology).
-- **Core Expertise**: Technical Program Management (TPM), Agentic AI, Model Context Protocol (MCP), Enterprise Software Architecture, SDLC Governance, Global Team Leadership, Google Cloud Platform (GCP).
+  - Ateneo de Manila University: BS Computer Science (Dean's List, Lourdes Evangelista Scholarship Award)
+- **Key Corporate Lineage**: Creative Blue -> Google (14 years) -> Apple (2 years) -> Sun Microsystems / Oracle (5+ years) -> IBM, DHL, Infogain, Sun Microsystems.
+- **Core Expertise**: Technical Program Management (TPM), Cloud Computing IaaS, Full-Stack Architecture, Consulting, Agentic AI Workflows, Model Context Protocol (MCP), A2A Protocol, Enterprise SDLC Governance, Google Cloud Platform (GCP).
 
 ---
 
@@ -29,30 +29,26 @@
 
 ### 1. Creative Blue GrowthOS
 - **Type**: Flagship Enterprise AI Platform
-- **Focus**: Strategic AI-driven operations, agentic workflow automation, and agency execution.
-- **Tech Stack**: Generative AI, Agentic Workflows, React, TypeScript, Google Cloud Platform.
+- **Focus**: Strategic AI-driven operations and agentic workflow automation integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas to compress lead prospecting, client onboarding, and social analysis from days to minutes.
+- **Tech Stack**: Generative AI, Agentic Workflows, GCP, Google Maps, Multi-Agent Systems, Enterprise Automation.
 
 ### 2. Lead Generator
 - **Type**: Sales Intelligence AI Agent
-- **Focus**: Autonomous lead prospecting, data enrichment, and qualification pipelines.
-- **Tech Stack**: AI Agents, GCP, Natural Language Processing.
+- **Focus**: Autonomous lead prospecting, data enrichment, and qualification pipelines based on ideal client profile.
+- **Tech Stack**: AI Agents, GCP, Natural Language Processing, Ethical AI Policy.
 
 ### 3. Brand Assessment
 - **Type**: Brand Intelligence Dashboard
-- **Focus**: Enterprise sentiment analysis, brand equity evaluation, and executive NLP analytics.
+- **Focus**: Enterprise brand scoring with improvement recommendations and real-time social analysis via AI-driven URL parsing.
 - **Tech Stack**: NLP, Sentiment Analysis, Executive Dashboards, Real-Time Ingestion.
 
-### 4. Regnum Dei
-- **Type**: Community Platform
-- **Focus**: High-fidelity digital engagement, community organization, and responsive design.
+### 4. Grex World
+- **Type**: Problem-to-Solution Marketplace
+- **Focus**: AI-powered marketplace connecting companies' problem statements with worker-sourced solutions that can become investable opportunities.
 
-### 5. Grex World
-- **Type**: Health & Gig Economy Incubator (WIP)
-- **Focus**: AI-matched partnership framework bridging individual gig contributions into investable ventures.
-
-### 6. Just Ride
-- **Type**: Telemetry Analytics Platform (WIP)
-- **Focus**: High-speed sports telemetry ingestion and telemetry analytics pipeline.
+### 5. Just Ride
+- **Type**: Cycling Intelligence Platform
+- **Focus**: AI framework unifying cycling race data into a single source of truth with automated pro-level race intelligence for the global peloton.
 
 ---
 
