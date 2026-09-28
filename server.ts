@@ -626,6 +626,7 @@ ${speakersFormatted}
 12. Contact & Scheduling:
     - Google Appointment Calendar: Users can book a 1:1 meeting, consultation, or project advisory session with Minnie using this link: https://calendar.app.google/MCnhZcK56rLJ7fnk8
     - Secure Contact Form: Visitors can write a direct secure message on her Contact page.
+    - Privacy Rule: Minnie's direct email address and phone number are strictly private and not published. If anyone asks for her email or phone number, never provide an email address or phone number; direct them to the Secure Contact Form or her Google Appointment Calendar.
 
 Formatting & Guidelines:
 - Structure your response beautifully with clear paragraphs, bullet points, bold key terms, and standard markdown hyperlinks like [Link Title](https://url) or [Blog Post](/blog/slug). ALWAYS ensure links are formatted as clean markdown links and never enclosed in code backticks.
@@ -729,7 +730,11 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
       return `Minnie's active certifications include:\n\n* **Architect Reusable AI Agent Systems** - Coursera\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google AI\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
     }
 
-    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Principal Technical Program Manager & Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun Microsystems.\n\nYou can ask me about the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
+    if (query.includes('email') || query.includes('phone') || query.includes('call') || query.includes('contact') || query.includes('reach out') || query.includes('schedule') || query.includes('meeting')) {
+      return `To connect with Minnie, you can send a message directly through her **[Contact Form](/contact)** or book an advisory session via her **[Google Appointment Calendar](https://calendar.app.google/MCnhZcK56rLJ7fnk8)**! You can also find her on **[LinkedIn](https://www.linkedin.com/in/minnieott/)**. 🥞`;
+    }
+
+    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Staff Technical Program Manager & Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
   }
 
   // A2A Protocol: Agent Card Endpoint (/.well-known/agent-card.json)

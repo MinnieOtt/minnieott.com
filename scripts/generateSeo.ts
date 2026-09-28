@@ -222,7 +222,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
         "name": "Who is Minerva Tanglao Ott (Minnie)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Minerva Tanglao Ott (Minnie) is a Silicon Valley engineering leader, Head of Technology at Creative Blue, and Senior Technical Program Management (TPM) leader with 20+ years of executive experience spanning Google, Apple, Sun Microsystems, and enterprise startups."
+          "text": "Minerva Tanglao Ott (Minnie) is a Silicon Valley engineering leader, Staff Technical Program Manager, Head of Technology Transformation at Creative Blue, and Senior Technical Program Management (TPM) leader with 15+ years of executive-facing experience spanning Google, Apple, Sun/Oracle, and enterprise startups."
         }
       },
       {
@@ -324,9 +324,9 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
   </noscript>
 
   <!-- Primary SEO & GEO Metadata -->
-  <title>Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader</title>
-  <meta name="description" content="Official GEO-Optimized Portfolio of Minerva Tanglao Ott (Minnie), Head of Technology at Creative Blue & former Sr. TPM at Google & Apple. Leader in Agentic AI, Model Context Protocol (MCP), and enterprise SDLC governance." />
-  <meta name="keywords" content="Minerva Tanglao Ott, Minerva Ott, Minnie Ott, Technical Program Management, Model Context Protocol, MCP, Agentic AI, Creative Blue, GrowthOS, Google Maps, Apple, Silicon Valley, Head of Technology, JMX Programming" />
+  <title>Minerva Tanglao Ott (Minnie) | Staff Technical Program Manager, Agentic AI Leader</title>
+  <meta name="description" content="Official GEO-Optimized Portfolio of Minerva Tanglao Ott (Minnie), Staff Technical Program Manager, Head of Technology Transformation at Creative Blue & former Senior TPM at Google & Apple. Leader in Agentic AI, Model Context Protocol (MCP), and enterprise SDLC governance." />
+  <meta name="keywords" content="Minerva Tanglao Ott, Minerva Ott, Minnie Ott, Technical Program Management, Staff TPM, Model Context Protocol, MCP, Agentic AI, Creative Blue, GrowthOS, Vertex AI, AWS, Google Maps, Apple, Silicon Valley, Head of Technology, JMX Programming" />
   <meta name="author" content="Minerva Tanglao Ott (Minnie)" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="ai-content-summary" content="Executive portfolio, AI frameworks (GrowthOS, Lead Generator), publications, patents (US 20020064766), and career experience of Minerva Tanglao Ott (Google, Apple, Creative Blue)." />
@@ -341,7 +341,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="profile" />
-  <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology, Agentic AI & TPM Leader" />
+  <meta property="og:title" content="Minerva Tanglao Ott (Minnie) | Staff Technical Program Manager, Agentic AI Leader" />
   <meta property="og:description" content="Explore the official career portfolio, AI frameworks (GrowthOS, Lead Generator), Google Maps leadership, JMX publication, and tech insights of Minerva Tanglao Ott." />
   <meta property="og:image" content="${baseUrl}/minnieott.webp" />
   <meta property="og:url" content="${baseUrl}/index-seo.html" />
@@ -350,7 +350,7 @@ export function generateSeoHtml(providedPosts?: BlogPost[]): string {
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Minerva Tanglao Ott (Minnie) | Head of Technology & TPM Leader" />
+  <meta name="twitter:title" content="Minerva Tanglao Ott (Minnie) | Staff Technical Program Manager & TPM Leader" />
   <meta name="twitter:description" content="Official portfolio and AI technical insights of Minerva Tanglao Ott (Minnie)." />
   <meta name="twitter:image" content="${baseUrl}/minnieott.webp" />
 

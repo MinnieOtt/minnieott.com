@@ -2,9 +2,7 @@ import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, Certificat
 
 export const personalInfo = {
   name: 'Minerva Tanglao Ott (Minnie)',
-  title: 'Principal Technical Program Manager',
-  email: 'minnie.ott@gmail.com',
-  phone: '+1 (408) 829-3100',
+  title: 'Staff Technical Program Manager',
   linkedin: 'https://www.linkedin.com/in/minnieott/',
   instagram: 'https://www.instagram.com/minnie.halohalo/',
   facebook: 'https://www.facebook.com/minerva.t.ott',
@@ -14,27 +12,27 @@ export const personalInfo = {
   github: '#', // placeholder as none listed
   location: 'San Francisco Bay Area, CA',
   tagline: 'Creative Blue | Google | Apple | Sun/Oracle',
-  summary: `Results-focused Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems that launched across 80+ countries. Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Google Maps, Harvest, Box, Slack, Search Atlas to compress lead prospecting, client onboarding, social analysis from days to minutes.`,
+  summary: `Staff Technical Program Manager with 15+ years leading org-level, executive-facing technical programs across high-scale infrastructure, distributed systems, and 0→1 GenAI/agentic AI platforms – structuring ambiguous, undefined problem spaces into executable roadmaps. Spearheading the end-to-end architecture and deployment of Creative Blue’s GrowthOS—a high-impact agentic AI platform on GCP utilizing Vertex AI and Model Context Protocol (MCP) to integrate Apollo, Harvest, and Slack, drastically streamlining lead prospecting and onboarding. Driving expansion by scaling GrowthOS to Amazon Web Services for resilient multi-cloud deployment. Spent 14 years at Google Engineering as a strategic thought partner to VPs and Directors, driving cross-functional alignment across Engineering, Product, UX, Legal, and Security/Privacy while delivering critical-path infrastructure and GenAI tooling for 2B+ users. Known for pairing deep technical fluency in cloud and agentic infrastructure with the hands-on rigor to build the program plan, align stakeholders, and move complex, multi-team initiatives from ambiguity to execution.`,
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://www.youtube.com/shorts/2T1lhjRaovY), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner. In my youth I played Pac-Man in the arcade; try out [Mochi Pac-Man](/pacman) to play this classic video game with Mochi.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
-  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems / Oracle', 'IBM, DHL, Infogain, Sun Microsystems']
+  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun/Oracle', 'IBM, DHL, Infogain']
 };
 
 export const portfolioApps: AppPortfolioItem[] = [
   {
     name: 'Creative Blue GrowthOS',
     url: 'https://cb-growthos-hub-553545205591.us-west1.run.app',
-    description: 'An enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing.',
+    description: 'An enterprise agentic AI platform on GCP utilizing Vertex AI and Model Context Protocol (MCP) to integrate Apollo, Harvest, and Slack, drastically streamlining lead prospecting and onboarding, with expansion scaling to Amazon Web Services for resilient multi-cloud deployment.',
     role: 'Head of Technology Transformation / Architect',
     bulletPoints: [
-      'Architected GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas.',
-      'Slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing.',
+      'Collaborated with CEO, COO in architecting and delivering GrowthOS from 0→1, an enterprise agentic AI platform on GCP leveraging Vertex AI, MCP, and custom agentic workflows to unify Apollo, Google Maps, Harvest, Box, and Slack.',
+      'Compressed prospecting and onboarding runtimes from days to minutes; driving expansion by scaling GrowthOS to Amazon Web Services for resilient multi-cloud deployment.',
       'Modernized operational forecasting through unified insights from data dashboards and led hands-on sprints driving agency-wide AI automation adoption.'
     ],
-    tags: ['Generative AI', 'Agentic Workflows', 'GCP', 'Google Maps', 'Multi-Agent Systems', 'Enterprise Automation'],
+    tags: ['Generative AI', 'Agentic Workflows', 'GCP', 'Vertex AI', 'MCP', 'AWS Multi-Cloud', 'Enterprise Automation'],
     isFlagship: true,
     status: 'Work in progress',
     cta: {
@@ -85,7 +83,7 @@ export const portfolioApps: AppPortfolioItem[] = [
     role: 'Platform Pioneer / Advisor',
     bulletPoints: [
       'Pioneered Grex, an AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities.',
-      'Planning partnerships to offer perks for members.',
+      'Planning partnerships to offer benefits for members.',
       'Creating frameworks that nurture worker contributions into scalable, investable ventures.'
     ],
     tags: ['Gig Economy', 'AI Marketplace', 'Workplace Innovation', 'Investable Solutions'],
@@ -140,14 +138,14 @@ export const experiences: ExperienceItem[] = [
     company: 'Creative Blue',
     period: 'Dec 2025 – Present',
     type: 'Leadership',
-    description: 'Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Google Maps, Harvest, Box, Slack, Search Atlas to compress lead prospecting, client onboarding, social analysis from days to minutes.',
+    description: 'Collaborated with CEO, COO in architecting and delivering GrowthOS from 0→1, an enterprise agentic AI platform on GCP leveraging Vertex AI, MCP, and custom agentic workflows to unify Apollo, Google Maps, Harvest, Box, and Slack. Compressed prospecting and onboarding runtimes from days to minutes. Driving expansion by scaling GrowthOS to Amazon Web Services for resilient multi-cloud deployment.',
     bullets: [
-      'Architected GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Google Maps, Harvest, Box, Slack and Search Atlas; slashed lead prospecting and client onboarding time from days to minutes while automating social media audits via AI-driven URL parsing. Modernized operational forecasting through unified insights from data dashboards and led hands-on sprints driving agency-wide AI automation adoption.',
-      'Designed and deployed agentic frameworks with ethical AI policy for emerging solutions such as [Lead Generator](/work#portfolio-lead-generator) (AI-driven prospecting based on ideal client profile) and [Brand Assessment](/work#portfolio-brand-assessment) (AI-driven brand scoring with improvement recommendations).',
-      'Pioneered [Grex](/work#portfolio-grex-world), an AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities. Planning partnerships to offer perks for members.',
+      'Collaborated with CEO, COO in architecting and delivering GrowthOS from 0→1, an enterprise agentic AI platform on GCP leveraging Vertex AI, MCP, and custom agentic workflows to unify Apollo, Google Maps, Harvest, Box, and Slack. Compressed prospecting and onboarding runtimes from days to minutes. Driving expansion by scaling GrowthOS to Amazon Web Services for resilient multi-cloud deployment.',
+      'Designed and deployed agentic frameworks with ethical AI policy for emerging solutions such as [Lead Generator](/work#portfolio-lead-generator) (AI-driven prospecting) and [Brand Assessment](/work#portfolio-brand-assessment) (AI-driven brand scoring with improvement recommendations).',
+      'Pioneered [Grex](/work#portfolio-grex-world), an AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities. Planning partnerships to offer benefits for members.',
       'Developed the AI framework for [Just Ride](/work#portfolio-just-ride), unifying cycling race data into a single source of truth with automated pro-level race intelligence for the global peloton.'
     ],
-    skillsUsed: ['Google AI Studio', 'Claude Code/Cowork', 'Google Cloud Platform (Cloud Run, IAM, VPC, CI/CD, secrets management, Vertex AI)', 'Firebase', 'Agentic Workflows', 'LLM Ops', 'API', 'MCP', 'A2A', 'Python', 'TypeScript'],
+    skillsUsed: ['Vertex AI', 'Model Context Protocol (MCP)', 'Agent-to-Agent (A2A) Protocol', 'Google Cloud Platform (Cloud Run, IAM, VPC, CI/CD, Secrets Management, Firebase)', 'Amazon Web Services (AWS)', 'Agentic Frameworks', 'LLM Ops', 'Python', 'Java', 'SQL', 'APIs'],
     logoColor: 'text-[#3333FF]'
   },
   {
@@ -155,72 +153,66 @@ export const experiences: ExperienceItem[] = [
     company: 'Google',
     period: 'Jun 2011 – Nov 2025',
     type: 'Full-time',
-    description: 'Led 14 years of enterprise-scale engineering operations across Google Maps (2B+ users with Ads & Gemini Voice Navigation), Google Core (SAP on GCP, Finance SDLC Governance, $150M Service Desk Transformation), and Google Corporate Engineering (Stanford LEAD @ Google, HR Systems, Vendor Management, TVC Governance).',
+    description: 'Spent 14 years at Google Engineering as a strategic thought partner to VPs and Directors, driving cross-functional alignment across Engineering, Product, UX, Legal, and Security/Privacy while delivering critical-path infrastructure and GenAI tooling for 2B+ users.',
     sections: [
       {
-        title: 'Google Maps',
+        title: 'Google Maps & Core AI Platforms',
         bullets: [
-          'Managed full SDLC and monthly/quarterly business reviews (MBR/QBR) of roadmap for 50+ Google Maps features (with Ads and Gemini Voice Navigation) on cloud infrastructure serving 2 billion+ users. Directed critical path management and bottleneck resolution based on dependency risk, ensuring high-quality, on-time delivery. Landed AI/ML capabilities in production with Security/Privacy approval and incremental deployments/rollback based on A/B Testing and Geo Quality metrics.',
-          'Led cross-functional execution across engineering, product, UX, Security/Privacy, QA and release teams to deliver scaled launches on schedule.',
+          'Orchestrated end-to-end SDLC and critical path execution for 50+ Google Maps cloud infrastructure and AI/ML features (including Gemini Voice Navigation and Ads platforms) as strategic thought partner to VPs and Directors, serving 2B+ global active users with high availability and stringent Latency/SLO targets.',
+          'Directed cross-functional execution across engineering, product, UX, Security/Privacy, QA, and release teams to deliver scaled launches on schedule.',
           'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building organization-wide fluency in AI-driven program management, and advised teams on applying Google AI tools to SDLC governance.'
         ]
       },
       {
-        title: 'Google Core',
+        title: 'Finance Cloud Infrastructure & Service Desk Transformation',
         bullets: [
-          'Cultivated a TPM culture centered on technical rigor, mentoring and execution, contributing to multiple senior TPM promotions.',
           'Drove AI-powered Service Desk transformation, migrating ticket-routing workflows and contributing to $150M in organization-wide efficiency gains.',
-          'Transformed Finance SDLC governance for SAP on Google Cloud Platform, consulting for 40+ TPMs; improved timely delivery to 90+%, raised compliance to 82+%, and reduced defects by 21,000+.',
-          'Established program review cadences across a 20+ program portfolio, driving executive visibility into status, risk, dependencies and prioritization decisions.',
+          'Spearheaded Finance Cloud Infrastructure & SDLC transformation for SAP on GCP across 40+ TPMs; improved timely delivery to 90+%, raised regulatory/security compliance to 82+%, and eliminated 21,000+ technical debt defects.',
+          'Established program review cadences across a 20+ program portfolio, driving executive visibility into status, risk, dependencies, and prioritization decisions as strategic thought partner to VPs and Directors.',
+          'Pioneered a single-source-of-truth portfolio management system for Finance Engineering, enabling dashboard reporting for project/program tracking and risk escalation to VPs and Directors.',
           'Directed infrastructure programs at scale with 50+ TPMs: automated SAP entity provisioning to 98% SLO, cut testing costs 67% via server consolidation, and standardized global IT for vendor offices, reducing operational costs by millions.',
-          'Pioneered a single-source-of-truth portfolio management system for Finance Engineering, enabling dashboard reporting for project/program tracking and risk escalation to leadership.',
-          'Led cross-functional teams to implement a lightweight SDLC, improving compliance, timeliness, quality and traceability of Finance system releases by incentivizing quarterly leaderboards.',
-          'Built dashboards to monitor monthly releases and developed AI/ML solutions to improve operational efficiency.',
           'Led 12 cross-functional teams to complete configurations and dashboards for 100 new entities and 304 subledger requests, improving closure rate to 96%.'
         ]
       },
       {
-        title: 'Google Corporate Engineering',
+        title: 'Corporate Engineering, HR Systems & Contingent Workforce Governance',
         bullets: [
           'Founded Stanford LEAD @ Google in partnership with Stanford Graduate School of Business, empowering employees to become change agents; participants strengthened leadership skills, with several earning promotions.',
           'Improved HR Engineering intake closure to 95% by designing a streamlined intake/backlog process for 200+ customers across 91 product areas, automating ticket generation, and building performance dashboards.',
           'Built the Return to Office dashboard and led end-to-end enhancement of Staffing Requests and internal/external job sites to surface remote work locations.',
           'Orchestrated cross-functional teams to retrofit 126 HR systems for the Oracle-to-SAP chart of accounts migration.',
-          'Led cross-functional teams to implement integrations across Workday, SAP and homegrown payroll systems in Ireland, Poland and Singapore.',
-          'Partnered with People Operations, Legal and Information Security to ensure HR systems complied with General Data Protection Regulation (GDPR) requirements.',
+          'Led cross-functional teams to implement integrations across Workday, SAP, and homegrown payroll systems in Ireland, Poland, and Singapore.',
+          'Partnered with People Operations, Legal, and Information Security to ensure HR systems complied with General Data Protection Regulation (GDPR) requirements.',
           'Managed software releases for Google\'s HR integration platform, Workday Payroll integrations and HR Ops API.',
-          'Led a cross-functional team partnered with Finance, Legal and Product Areas to design a new vendor management system driving value, reducing risk and simplifying contingent workforce management.',
-          'Delivered XWM Business Intelligence to provide a single source of truth for managing cost, risk and operational efficiency in contingent workforce engagements.',
-          'Standardized Google Owned Vendor Offices (GOVO) across REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security and Finance; cut build costs vs. Googler offices and saved thousands in travel via remote escalations.',
-          'Spearheaded cross-functional tracking for TVC facilities across BizApps, REWS, xWS, PeopleOps and SecOps to verify Vendor Site Checklist and User Data Access Policy compliance.',
+          'Led a cross-functional team partnered with Finance, Legal, and Product Areas to design a new vendor management system driving value, reducing risk, and simplifying contingent workforce management.',
+          'Delivered XWM Business Intelligence to provide a single source of truth for managing cost, risk, and operational efficiency in contingent workforce engagements.',
+          'Standardized Google Owned Vendor Offices (GOVO) across REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security, and Finance; cut build costs vs. Google employee offices and saved thousands in travel via remote escalations.',
+          'Spearheaded cross-functional tracking for TVC facilities across BizApps, REWS, xWS, PeopleOps, and SecOps to verify Vendor Site Checklist and User Data Access Policy compliance.',
           'Conceptualized PSH+, automating TVC access determination by job function and uploading provisioning application lists to eliminate manual manager overhead.'
         ]
       }
     ],
     bullets: [
-      'Managed full SDLC and monthly/quarterly business reviews (MBR/QBR) of roadmap for 50+ Google Maps features (with Ads and Gemini Voice Navigation) on cloud infrastructure serving 2 billion+ users. Directed critical path management and bottleneck resolution based on dependency risk, ensuring high-quality, on-time delivery. Landed AI/ML capabilities in production with Security/Privacy approval and incremental deployments/rollback based on A/B Testing and Geo Quality metrics.',
-      'Led cross-functional execution across engineering, product, UX, Security/Privacy, QA and release teams to deliver scaled launches on schedule.',
+      'Orchestrated end-to-end SDLC and critical path execution for 50+ Google Maps cloud infrastructure and AI/ML features (including Gemini Voice Navigation and Ads platforms) as strategic thought partner to VPs and Directors, serving 2B+ global active users with high availability and stringent Latency/SLO targets.',
+      'Directed cross-functional execution across engineering, product, UX, Security/Privacy, QA, and release teams to deliver scaled launches on schedule.',
       'Championed rapid prototyping and AI evaluation workshops for 30+ TPMs, building organization-wide fluency in AI-driven program management, and advised teams on applying Google AI tools to SDLC governance.',
-      'Cultivated a TPM culture centered on technical rigor, mentoring and execution, contributing to multiple senior TPM promotions.',
       'Drove AI-powered Service Desk transformation, migrating ticket-routing workflows and contributing to $150M in organization-wide efficiency gains.',
-      'Transformed Finance SDLC governance for SAP on Google Cloud Platform, consulting for 40+ TPMs; improved timely delivery to 90+%, raised compliance to 82+%, and reduced defects by 21,000+.',
-      'Established program review cadences across a 20+ program portfolio, driving executive visibility into status, risk, dependencies and prioritization decisions.',
+      'Spearheaded Finance Cloud Infrastructure & SDLC transformation for SAP on GCP across 40+ TPMs; improved timely delivery to 90+%, raised regulatory/security compliance to 82+%, and eliminated 21,000+ technical debt defects.',
+      'Established program review cadences across a 20+ program portfolio, driving executive visibility into status, risk, dependencies, and prioritization decisions as strategic thought partner to VPs and Directors.',
+      'Pioneered a single-source-of-truth portfolio management system for Finance Engineering, enabling dashboard reporting for project/program tracking and risk escalation to VPs and Directors.',
       'Directed infrastructure programs at scale with 50+ TPMs: automated SAP entity provisioning to 98% SLO, cut testing costs 67% via server consolidation, and standardized global IT for vendor offices, reducing operational costs by millions.',
-      'Pioneered a single-source-of-truth portfolio management system for Finance Engineering, enabling dashboard reporting for project/program tracking and risk escalation to leadership.',
-      'Led cross-functional teams to implement a lightweight SDLC, improving compliance, timeliness, quality and traceability of Finance system releases by incentivizing quarterly leaderboards.',
-      'Built dashboards to monitor monthly releases and developed AI/ML solutions to improve operational efficiency.',
       'Led 12 cross-functional teams to complete configurations and dashboards for 100 new entities and 304 subledger requests, improving closure rate to 96%.',
       'Founded Stanford LEAD @ Google in partnership with Stanford Graduate School of Business, empowering employees to become change agents; participants strengthened leadership skills, with several earning promotions.',
       'Improved HR Engineering intake closure to 95% by designing a streamlined intake/backlog process for 200+ customers across 91 product areas, automating ticket generation, and building performance dashboards.',
       'Built the Return to Office dashboard and led end-to-end enhancement of Staffing Requests and internal/external job sites to surface remote work locations.',
       'Orchestrated cross-functional teams to retrofit 126 HR systems for the Oracle-to-SAP chart of accounts migration.',
-      'Led cross-functional teams to implement integrations across Workday, SAP and homegrown payroll systems in Ireland, Poland and Singapore.',
-      'Partnered with People Operations, Legal and Information Security to ensure HR systems complied with General Data Protection Regulation (GDPR) requirements.',
+      'Led cross-functional teams to implement integrations across Workday, SAP, and homegrown payroll systems in Ireland, Poland, and Singapore.',
+      'Partnered with People Operations, Legal, and Information Security to ensure HR systems complied with General Data Protection Regulation (GDPR) requirements.',
       'Managed software releases for Google\'s HR integration platform, Workday Payroll integrations and HR Ops API.',
-      'Led a cross-functional team partnered with Finance, Legal and Product Areas to design a new vendor management system driving value, reducing risk and simplifying contingent workforce management.',
-      'Delivered XWM Business Intelligence to provide a single source of truth for managing cost, risk and operational efficiency in contingent workforce engagements.',
-      'Standardized Google Owned Vendor Offices (GOVO) across REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security and Finance; cut build costs vs. Googler offices and saved thousands in travel via remote escalations.',
-      'Spearheaded cross-functional tracking for TVC facilities across BizApps, REWS, xWS, PeopleOps and SecOps to verify Vendor Site Checklist and User Data Access Policy compliance.',
+      'Led a cross-functional team partnered with Finance, Legal, and Product Areas to design a new vendor management system driving value, reducing risk, and simplifying contingent workforce management.',
+      'Delivered XWM Business Intelligence to provide a single source of truth for managing cost, risk, and operational efficiency in contingent workforce engagements.',
+      'Standardized Google Owned Vendor Offices (GOVO) across REWS, xWS, NetOps, AV Eng, Vendor Solutions, Physical Security, and Finance; cut build costs vs. Google employee offices and saved thousands in travel via remote escalations.',
+      'Spearheaded cross-functional tracking for TVC facilities across BizApps, REWS, xWS, PeopleOps, and SecOps to verify Vendor Site Checklist and User Data Access Policy compliance.',
       'Conceptualized PSH+, automating TVC access determination by job function and uploading provisioning application lists to eliminate manual manager overhead.'
     ],
     skillsUsed: ['Google Cloud Platform', 'Google Maps (2B+ users)', 'Gemini Voice Navigation', 'A/B Testing & Geo Quality', 'SAP on GCP', 'SDLC Governance', 'Workday & HR Ops API', 'GDPR Compliance', 'Looker', 'Jira / Confluence'],
@@ -240,31 +232,18 @@ export const experiences: ExperienceItem[] = [
     logoColor: 'text-gray-900'
   },
   {
-    role: 'Technical Project Manager',
-    company: 'Sun Microsystems / Oracle',
-    period: 'Jan 2004 – Jun 2009',
-    type: 'Full-time',
-    description: 'Led implementation of HP Project & Portfolio Management software for outsourcing workflows.',
-    bullets: [
-      'Led implementation of HP Project & Portfolio Management software for outsourcing workflows.'
-    ],
-    skillsUsed: ['HP PPM', 'Outsourcing Workflows', 'Program Management', 'Enterprise Systems', 'SDLC Governance'],
-    logoColor: 'text-red-600'
-  },
-  {
-    role: 'Software Engineer',
+    role: 'Software Engineer / Consultant',
     company: 'IBM, DHL, Infogain, Sun Microsystems',
     period: 'Prior Experience',
     type: 'Engineering',
-    description: 'Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange; co-developed patented enterprise employee training systems.',
+    description: 'Extensive hands-on software engineering across distributed architectures, enterprise workflow integrations, data transfer systems, and financial logistics.',
     bullets: [
-      'Sun: Co-developed a web-based training registration system and temp/contractor database.',
-      'Sun Java Center consultant: eBay, American Express, Chicago Board Options Exchange.',
+      'Sun Microsystems (Oracle) : Led implementation of HP Project & Portfolio Management software for outsourcing workflows. Co-developed a web-based training registration system and temp/contractor database. Sun Java Center consultant for eBay, American Express, Chicago Board Options Exchange.',
       'Infogain: Led full-cycle development of a Data Transfer System and Loan Collection System.',
       'DHL: co-developed the Shipment Control System.',
       'IBM: Led enhancement of the TECSYS Financials & Distribution System for clients.'
     ],
-    skillsUsed: ['Sun Java Center', 'US Patent 20020064766', 'Java', 'Data Transfer System', 'Loan Collection System', 'Shipment Control System', 'TECSYS Financials & Distribution'],
+    skillsUsed: ['Sun Java Center', 'US Patent 20020064766', 'HP PPM', 'Java', 'Data Transfer System', 'Loan Collection System', 'Shipment Control System', 'TECSYS Financials & Distribution'],
     logoColor: 'text-blue-700'
   }
 ];
@@ -273,31 +252,31 @@ export const skillCategories: SkillCategory[] = [
   {
     name: 'Domain Expertise',
     skills: [
-      { name: 'Technical Program Management', level: 98 },
-      { name: 'Cloud Computing IaaS', level: 95 },
-      { name: 'Full-Stack Architecture', level: 94 },
-      { name: 'Consulting', level: 96 }
+      { name: 'Technical Program Management (Staff)', level: 98 },
+      { name: 'GenAI & AI Platform Infrastructure', level: 98 },
+      { name: 'Cloud Computing (GCP/IaaS)', level: 96 },
+      { name: 'Full-Stack Systems Architecture', level: 95 },
+      { name: 'SDLC & PLC Governance', level: 97 }
     ]
   },
   {
-    name: 'Technical Skills',
+    name: 'AI & Infrastructure Technical Skills',
     skills: [
-      { name: 'Google AI, Claude AI & LLM Ops', level: 98 },
-      { name: 'Agentic Workflows & Multi-Agent Systems', level: 98 },
-      { name: 'API, MCP & A2A Protocols', level: 96 },
-      { name: 'Python, Java & AppScript', level: 94 },
-      { name: 'HTML, CSS, JavaScript & TypeScript', level: 95 },
-      { name: 'SQL & Database Architecture', level: 94 },
-      { name: 'Linux, MacOS & Windows', level: 92 }
+      { name: 'Agentic Frameworks & LLM Ops', level: 98 },
+      { name: 'Vertex AI & Model Context Protocol (MCP)', level: 98 },
+      { name: 'Agent-to-Agent (A2A) Protocol', level: 96 },
+      { name: 'Google Cloud Platform (Cloud Run, IAM, VPC, CI/CD, Secrets Management, Firebase)', level: 97 },
+      { name: 'Amazon Web Services (AWS)', level: 94 },
+      { name: 'Python, Java, SQL, APIs', level: 95 }
     ]
   },
   {
     name: 'Leadership',
     skills: [
       { name: 'Transformational Programs & Process Improvement', level: 98 },
-      { name: 'Strategic & Tactical Planning', level: 96 },
-      { name: 'Agile Product Lifecycle & SDLC (PLC/SDLC) Governance', level: 97 },
-      { name: 'Risk & Change Management', level: 95 },
+      { name: 'Strategic & Tactical Planning', level: 97 },
+      { name: 'Agile Product Lifecycle & SDLC (PLC/SDLC) Governance', level: 98 },
+      { name: 'Risk & Change Management', level: 96 },
       { name: 'Technical/Business Communication', level: 97 },
       { name: 'Conflict Resolution & Consensus Building', level: 96 }
     ]
@@ -306,10 +285,9 @@ export const skillCategories: SkillCategory[] = [
     name: 'Tools',
     skills: [
       { name: 'Google AI Studio & Claude Code/Cowork', level: 98 },
-      { name: 'Google Cloud Platform (Cloud Run, IAM, VPC, CI/CD, secrets management, Vertex AI)', level: 96 },
-      { name: 'Firebase & GitHub', level: 94 },
+      { name: 'Firebase & GitHub', level: 96 },
       { name: 'Looker, Jira & Confluence', level: 97 },
-      { name: 'Linear, Monday.com & Smartsheet', level: 93 }
+      { name: 'Smartsheet, Linear, Monday.com', level: 94 }
     ]
   }
 ];
@@ -317,7 +295,7 @@ export const skillCategories: SkillCategory[] = [
 export const patents: PatentItem[] = [
   {
     title: 'Method and Apparatus for Managing Enterprise Employee Training Systems',
-    id: 'US Patent 20020064766',
+    id: 'US Patent Application 20020064766',
     link: 'https://patents.google.com/patent/US20020064766A1/en',
     description: 'An innovative mechanism for auditing, managing, and automated provisioning of organizational training assets for enterprise-scale employee cohorts.'
   }
@@ -333,15 +311,15 @@ export const books = {
 
 export const certifications: CertificationItem[] = [
   {
-    title: 'Architect Reusable AI Agent Systems',
-    issuer: 'Vanderbilt University',
-    link: 'https://coursera.org/verify/4NUOQHYUUEE3',
-    badgeType: 'ai'
-  },
-  {
     title: 'AI Agent Development & LLM Fluency (Model Context Protocol)',
     issuer: 'Vanderbilt University',
     link: 'https://www.coursera.org/account/accomplishments/verify/R3G9DX3448H3',
+    badgeType: 'ai'
+  },
+  {
+    title: 'AI Agents with MCP (Architect Reusable AI Agent Systems)',
+    issuer: 'Coursera / Vanderbilt University',
+    link: 'https://coursera.org/verify/4NUOQHYUUEE3',
     badgeType: 'ai'
   },
   {
