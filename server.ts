@@ -734,7 +734,7 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
       return `To connect with Minnie, you can send a message directly through her **[Contact Form](/contact)** or book an advisory session via her **[Google Appointment Calendar](https://calendar.app.google/MCnhZcK56rLJ7fnk8)**! You can also find her on **[LinkedIn](https://www.linkedin.com/in/minnieott/)**. 🥞`;
     }
 
-    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Staff Technical Program Manager & Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
+    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
   }
 
   // A2A Protocol: Agent Card Endpoint (/.well-known/agent-card.json)

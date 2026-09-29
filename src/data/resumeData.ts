@@ -2,7 +2,7 @@ import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, Certificat
 
 export const personalInfo = {
   name: 'Minerva Tanglao Ott (Minnie)',
-  title: 'Staff Technical Program Manager',
+  title: 'Technology Transformation Leader',
   linkedin: 'https://www.linkedin.com/in/minnieott/',
   instagram: 'https://www.instagram.com/minnie.halohalo/',
   facebook: 'https://www.facebook.com/minerva.t.ott',
@@ -12,7 +12,7 @@ export const personalInfo = {
   github: '#', // placeholder as none listed
   location: 'San Francisco Bay Area, CA',
   tagline: 'Creative Blue | Google | Apple | Sun/Oracle',
-  summary: `Staff Technical Program Manager with 15+ years leading org-level, executive-facing technical programs across high-scale infrastructure, distributed systems, and 0→1 GenAI/agentic AI platforms – structuring ambiguous, undefined problem spaces into executable roadmaps. Spearheading the end-to-end architecture and deployment of Creative Blue’s GrowthOS—a high-impact agentic AI platform on GCP utilizing Vertex AI and Model Context Protocol (MCP) to integrate Apollo, Harvest, and Slack, drastically streamlining lead prospecting and onboarding. Driving expansion by scaling GrowthOS to Amazon Web Services for resilient multi-cloud deployment. Spent 14 years at Google Engineering as a strategic thought partner to VPs and Directors, driving cross-functional alignment across Engineering, Product, UX, Legal, and Security/Privacy while delivering critical-path infrastructure and GenAI tooling for 2B+ users. Known for pairing deep technical fluency in cloud and agentic infrastructure with the hands-on rigor to build the program plan, align stakeholders, and move complex, multi-team initiatives from ambiguity to execution.`,
+  summary: `Technology Transformation Leader with 15+ years leading org-level, executive-facing technical programs across high-scale infrastructure, distributed systems, and 0→1 GenAI/agentic AI platforms – structuring ambiguous, undefined problem spaces into executable roadmaps. Spearheading the end-to-end architecture and deployment of Creative Blue’s GrowthOS—a high-impact agentic AI platform on GCP utilizing Vertex AI and Model Context Protocol (MCP) to integrate Apollo, Harvest, and Slack, drastically streamlining lead prospecting and onboarding. Driving expansion by scaling GrowthOS to Amazon Web Services for resilient multi-cloud deployment. Spent 14 years at Google Engineering as a strategic thought partner to VPs and Directors, driving cross-functional alignment across Engineering, Product, UX, Legal, and Security/Privacy while delivering critical-path infrastructure and GenAI tooling for 2B+ users. Known for pairing deep technical fluency in cloud and agentic infrastructure with the hands-on rigor to build the program plan, align stakeholders, and move complex, multi-team initiatives from ambiguity to execution.`,
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://www.youtube.com/shorts/2T1lhjRaovY), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner. In my youth I played Pac-Man in the arcade; try out [Mochi Pac-Man](/pacman) to play this classic video game with Mochi.
@@ -252,7 +252,7 @@ export const skillCategories: SkillCategory[] = [
   {
     name: 'Domain Expertise',
     skills: [
-      { name: 'Technical Program Management (Staff)', level: 98 },
+      { name: 'Technical Program Management', level: 98 },
       { name: 'GenAI & AI Platform Infrastructure', level: 98 },
       { name: 'Cloud Computing (GCP/IaaS)', level: 96 },
       { name: 'Full-Stack Systems Architecture', level: 95 },
