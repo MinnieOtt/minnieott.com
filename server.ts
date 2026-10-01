@@ -727,14 +727,14 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
     }
 
     if (query.includes('certificat') || query.includes('credential') || query.includes('badge') || query.includes('prince2') || query.includes('vanderbilt') || query.includes('mcp') || query.includes('reusable')) {
-      return `Minnie's active certifications include:\n\n* **Architect Reusable AI Agent Systems** - Coursera\n* **AI Agent Development & LLM Fluency (Model Context Protocol)** - Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google AI\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
+      return `Minnie's active certifications include:\n\n* **AI Agent Development & LLM Fluency (AI Agents with Model Context Protocol)** - Vanderbilt University\n* **Architect Reusable AI Agent Systems** - Coursera / Vanderbilt University\n* **Google AI (Professional Specialization & Essentials Badge)** - Google AI\n* **PRINCE2 Foundation Project Management** - Office of Government Commerce`;
     }
 
     if (query.includes('email') || query.includes('phone') || query.includes('call') || query.includes('contact') || query.includes('reach out') || query.includes('schedule') || query.includes('meeting')) {
       return `To connect with Minnie, you can send a message directly through her **[Contact Form](/contact)** or book an advisory session via her **[Google Appointment Calendar](https://calendar.app.google/MCnhZcK56rLJ7fnk8)**! You can also find her on **[LinkedIn](https://www.linkedin.com/in/minnieott/)**. 🥞`;
     }
 
-    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Technology Transformation Leader** with rich experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP career, her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
+    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Technical Program Manager (Launch & Cross-Functional Programs | AI & Agentic Products)** and technology leader with rich experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP portfolio governance career, the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
   }
 
   // A2A Protocol: Agent Card Endpoint (/.well-known/agent-card.json)
