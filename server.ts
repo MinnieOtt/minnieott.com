@@ -703,11 +703,11 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
     if (query.includes('google') || query.includes('maps') || query.includes('voice') || query.includes('tpm') || query.includes('service desk')) {
       const googleExp = experiences.find(e => e.company === 'Google');
       const topBullets = googleExp ? googleExp.bullets.slice(0, 6).map(b => `* ${b}`).join('\n') : '';
-      return `At **Google** (Jun 2011 – Nov 2025), Minnie served as Senior Engineering Program Manager! 🗺️ Here are highlights of her leadership:\n\n${topBullets}\n\n...plus leading 20+ portfolio programs, establishing Stanford LEAD @ Google, and driving vendor infrastructure transformations!`;
+      return `At **Google** (Jun 2011 – Nov 2025), Minnie served as Senior Engineering Program Manager across Maps, Finance, HR, and IT! 🗺️ Here are highlights of her leadership:\n\n${topBullets}\n\n...plus leading 20+ portfolio programs, lifting Finance on-time delivery KPI to 90+% through leaderboard incentive governance, founding Stanford LEAD @ Google, and driving vendor infrastructure transformations!`;
     }
 
     if (query.includes('apple') || query.includes('job') || query.includes('recruiting')) {
-      return `At **Apple** (Jun 2009 – Jun 2011), Minnie served as Technical Project Manager in IS&T! 🍏 She led the software development and launch of Apple HR recruiting systems, including the **Apple Job Search** user interface localized and deployed across 80+ countries!`;
+      return `At **Apple** (Jun 2009 – Jun 2011), Minnie served as Technical Project Manager in IS&T / HR Engineering! 🍏 She led the software development and launch of Apple HR recruiting systems, including the **Apple Job Search** user interface localized and deployed across 80+ countries!`;
     }
 
     if (query.includes('jmx') || query.includes('programming') || query.includes('book') || query.includes('publication') || query.includes('wiley')) {
@@ -734,7 +734,7 @@ The **A2A (Agent2Agent) Protocol** ([a2a-protocol.org](https://a2a-protocol.org/
       return `To connect with Minnie, you can send a message directly through her **[Contact Form](/contact)** or book an advisory session via her **[Google Appointment Calendar](https://calendar.app.google/MCnhZcK56rLJ7fnk8)**! You can also find her on **[LinkedIn](https://www.linkedin.com/in/minnieott/)**. 🥞`;
     }
 
-    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Technical Program Manager (Launch & Cross-Functional Programs | AI & Agentic Products)** and technology leader with rich experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about her AI agent platforms (GrowthOS, Lead Generator, Brand Score), her 14-year Google Maps & GCP portfolio governance career, the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
+    return `Hi! I'm Mochi (Blue Agent). 🥞 I'm Minnie's AI companion! Minnie is a **Senior Program Leader | AI Transformation & Enterprise Programs** with rich executive-facing experience at Creative Blue, Google, Apple, and Sun/Oracle.\n\nYou can ask me about her AI agent platforms (GrowthOS, Lead Generator, Brand Assessment), her 14-year Google Engineering career (Maps with Ads for 2B+ users, Finance SDLC governance, HR, IT), the **A2A Protocol (Agent2Agent - a2a-protocol.org)**, Model Context Protocol (MCP), her *JMX Programming* technical editor role, US Patent 20020064766, or her latest published blog posts! What would you like to explore?`;
   }
 
   // A2A Protocol: Agent Card Endpoint (/.well-known/agent-card.json)
