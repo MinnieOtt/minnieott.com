@@ -18,6 +18,9 @@ export default function Experience() {
     return () => window.removeEventListener('select-experience-company', handleSelectCompany);
   }, []);
 
+  const safeActiveTab = Math.min(Math.max(0, activeTab), experiences.length - 1);
+  const currentExp = experiences[safeActiveTab];
+
   const getCompanyFavicon = (companyName: string) => {
     if (companyName.includes('Creative Blue')) return '/creativeblue-favicon.webp';
     if (companyName.includes('Google')) return '/google-favicon.webp';
@@ -196,7 +199,7 @@ export default function Experience() {
                 id={`exp-tab-btn-${idx}`}
                 onClick={() => setActiveTab(idx)}
                 className={`flex items-center gap-4.5 p-4 rounded-xl text-left border transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-[#3333FF] w-full ${
-                  activeTab === idx
+                  safeActiveTab === idx
                     ? 'bg-white border-[#3333FF] shadow-sm'
                     : 'bg-transparent border-transparent hover:bg-white/50 text-black hover:text-black'
                 }`}
@@ -215,7 +218,7 @@ export default function Experience() {
                     >
                       <span
                         className={`w-3 h-3 rounded-full ${
-                          activeTab === idx ? 'bg-[#3333FF]' : 'bg-gray-300'
+                          safeActiveTab === idx ? 'bg-[#3333FF]' : 'bg-gray-300'
                         }`}
                       />
                     </div>
@@ -248,26 +251,26 @@ export default function Experience() {
             <div className="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-gray-100">
               <div>
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-100 px-2.5 py-0.5 rounded-full font-sans mb-3">
-                  <Briefcase className="w-3 h-3" /> {experiences[activeTab].type || 'Full-time'}
+                  <Briefcase className="w-3 h-3" /> {currentExp.type || 'Full-time'}
                 </span>
                 <h3 className="font-display font-bold text-black text-xl sm:text-2xl tracking-tight">
-                  {experiences[activeTab].role}
+                  {currentExp.role}
                 </h3>
                 <h4 className="font-display text-base font-semibold text-black mt-1 flex items-center gap-2">
-                  {getCompanyFavicon(experiences[activeTab].company) && (
+                  {getCompanyFavicon(currentExp.company) && (
                     <img
-                      src={getCompanyFavicon(experiences[activeTab].company)!}
-                      alt={`${experiences[activeTab].company} favicon`}
+                      src={getCompanyFavicon(currentExp.company)!}
+                      alt={`${currentExp.company} favicon`}
                       className="w-5 h-5 rounded-full object-contain border border-gray-200"
                     />
                   )}
-                  {renderCompanyLinks(experiences[activeTab].company)}
+                  {renderCompanyLinks(currentExp.company)}
                 </h4>
               </div>
 
               <div className="flex flex-col items-end text-right">
                 <span className="font-mono text-xs font-semibold text-black bg-gray-50 px-3 py-1 rounded-md border border-gray-100 flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-black" /> {experiences[activeTab].period}
+                  <Calendar className="w-3.5 h-3.5 text-black" /> {currentExp.period}
                 </span>
                 <span className="text-[10px] text-black font-mono mt-1 flex items-center gap-1 justify-end">
                   <MapPin className="w-3 h-3" /> San Francisco Bay Area, CA
@@ -278,7 +281,7 @@ export default function Experience() {
             {/* Experience Paragraph */}
             <div className="mt-6">
               <p className="font-sans text-sm text-black leading-relaxed italic bg-[#E4F0E7]/30 p-4 rounded-lg border-l-4 border-[#3333FF]">
-                {renderTextWithLinks(experiences[activeTab].description)}
+                {renderTextWithLinks(currentExp.description)}
               </p>
             </div>
 
@@ -288,9 +291,9 @@ export default function Experience() {
                 <Award className="w-4 h-4 text-black" /> Core Accomplishments & Metrics
               </h5>
               
-              {experiences[activeTab].sections && experiences[activeTab].sections!.length > 0 ? (
+              {currentExp.sections && currentExp.sections!.length > 0 ? (
                 <div className="flex flex-col gap-7">
-                  {experiences[activeTab].sections!.map((section, sIdx) => (
+                  {currentExp.sections!.map((section, sIdx) => (
                     <div key={sIdx} className="flex flex-col gap-3">
                       <div className="flex items-center gap-2">
                         <span className="font-display font-bold text-base text-[#3333FF] tracking-tight">
@@ -313,7 +316,7 @@ export default function Experience() {
                 </div>
               ) : (
                 <ul className="flex flex-col gap-3.5">
-                  {experiences[activeTab].bullets.map((bullet, bIdx) => (
+                  {currentExp.bullets.map((bullet, bIdx) => (
                     <li key={bIdx} className="flex gap-3 items-start">
                       <ChevronRight className="w-4.5 h-4.5 text-[#3333FF] shrink-0 mt-0.5" />
                       <span className="font-sans text-sm text-black leading-relaxed">
@@ -331,7 +334,7 @@ export default function Experience() {
                 Skills & Technologies Applied
               </h5>
               <div className="flex flex-wrap gap-1.5">
-                {experiences[activeTab].skillsUsed.map((skill) => (
+                {currentExp.skillsUsed.map((skill) => (
                   <span
                     key={skill}
                     className="px-2.5 py-1 bg-[#E4F0E7] hover:bg-[#D4E6D9] text-[#3333FF] border border-[#3333FF] rounded-lg text-xs font-medium transition-colors"

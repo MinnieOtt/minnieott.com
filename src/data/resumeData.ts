@@ -12,13 +12,13 @@ export const personalInfo = {
   github: '#', // placeholder as none listed
   location: 'San Jose, CA',
   tagline: 'Creative Blue | Google | Apple | Sun/Oracle',
-  summary: `Results-focused Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT PMO) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems that launched across 80+ countries. Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform for forward-deployed engineering, integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation to compress lead prospecting, client onboarding, and social media analysis from days to minutes. Scaling GrowthOS to Amazon Web Services (AWS) for multi-cloud deployment.`,
+  summary: `Results-focused Technology Transformation Leader and Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT PMO) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems, redesigning the job search interface for over 80 countries. At Sun Microsystems, managed a global development team, led the implementation of scalable, highly-available architectures, defined SOX-compliant development and system administration standards, strengthening dev/support team communication via a collaborative wiki, and architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange at Sun Java Center. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform for forward-deployed engineering, integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation to compress lead prospecting, client onboarding, and social media analysis from days to minutes. Scaling GrowthOS to Amazon Web Services (AWS) for multi-cloud deployment.`,
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://www.youtube.com/shorts/2T1lhjRaovY), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner. In my youth I played Pac-Man in the arcade; try out [Mochi Pac-Man](/pacman) to play this classic video game with Mochi.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
-  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun/Oracle']
+  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun Microsystems']
 };
 
 export const portfolioApps: AppPortfolioItem[] = [
@@ -249,28 +249,31 @@ export const experiences: ExperienceItem[] = [
     company: 'Apple',
     period: 'Jun 2009 – Jun 2011',
     type: 'Full-time',
-    description: 'Led development and launch of Apple HR recruiting systems, including the design of Apple Job Search user interface with localized application experiences in 80+ countries.',
+    description: 'Led development and global launch of Apple\'s recruiting systems (IS&T / HR Engineering), redesigning the Apple Job Search user interface with localized application experiences for over 80 countries. Partnered closely with design, security, and infrastructure engineering teams.',
     bullets: [
-      'Led development and launch of Apple HR recruiting systems, including the design of Apple Job Search user interface with localized application experiences in 80+ countries.',
-      'Partnered closely with cross-functional design, security, and infrastructure engineering teams per launch.'
+      'Led the development and launch of Apple\'s global recruiting systems, redesigning the Apple Job Search user interface for over 80 countries.',
+      'Partnered closely with cross-functional design, security, and infrastructure engineering teams across international releases.',
+      'Ensured high-availability, responsive performance, and strict compliance with global data privacy and security standards across all applicant portals.'
     ],
-    skillsUsed: ['Apple Job Search UI', 'Internationalization (80+ countries)', 'Apple HR Recruiting Systems', 'Cross-Functional Design & Security', 'Infrastructure Engineering'],
+    skillsUsed: ['Apple Job Search UI', 'Internationalization (80+ Countries)', 'Apple HR Recruiting Systems', 'IS&T Engineering', 'Cross-Functional Design & Security', 'Infrastructure & Releases'],
     logoColor: 'text-gray-900'
   },
   {
-    role: 'Software Engineer / Consultant',
-    company: 'IBM, DHL, Infogain, Sun Microsystems',
-    period: 'Prior Experience',
-    type: 'Engineering',
-    description: 'Extensive hands-on software engineering across distributed architectures, enterprise workflow integrations, data transfer systems, and financial logistics.',
+    role: 'Staff Software Engineer / Engineering Manager',
+    company: 'Sun Microsystems',
+    period: '2000 – 2009',
+    type: 'Full-time',
+    description: 'Managed a global development team, and led the implementation of a scalable, highly-available architecture. Defined SOX-compliant development and system administration standards, strengthening dev/support team communication via a collaborative wiki. Defined workflows to improve IT project efficiency, and architected several enterprise systems at Sun Java Center.',
     bullets: [
-      'Sun Microsystems (Oracle) : Led implementation of HP Project & Portfolio Management software for outsourcing workflows. Co-developed a web-based training registration system and temp/contractor database. Sun Java Center consultant for eBay, American Express, Chicago Board Options Exchange.',
-      'Infogain: Led full-cycle development of a Data Transfer System and Loan Collection System.',
-      'DHL: Co-developed the Shipment Control System.',
-      'IBM: Led enhancement of the TECSYS Financials & Distribution System for clients.'
+      'Managed a global development team, leading the architecture and implementation of scalable, highly-available enterprise systems across mission-critical services.',
+      'Defined SOX-compliant development and system administration standards, strengthening dev/support team communication via a collaborative wiki to improve IT project efficiency and cross-functional execution.',
+      'Led implementation of HP Project & Portfolio Management (PPM) software for outsourcing workflows, resource governance, and delivery predictability.',
+      'Sun Java Center Consultant: Architected distributed enterprise systems and J2EE solutions for tier-1 enterprise clients including eBay, American Express, and the Chicago Board Options Exchange (CBOE).',
+      'Co-developed a web-based training registration system and temp/contractor database, leading to US Patent 20020064766 (\'Method and Apparatus for Managing Enterprise Employee Training Systems\').',
+      'Served as Technical Editor for \'JMX Programming\' (Wiley, 2002 by Mike Jasnowski), validating Java Management Extensions patterns and enterprise operational designs.'
     ],
-    skillsUsed: ['Sun Java Center', 'US Patent 20020064766', 'HP PPM', 'Java', 'Data Transfer System', 'Loan Collection System', 'Shipment Control System', 'TECSYS Financials & Distribution'],
-    logoColor: 'text-blue-700'
+    skillsUsed: ['Sun Java Center', 'High Availability & Scalability', 'SOX Compliance', 'Global Team Management', 'Collaborative Wiki', 'HP PPM', 'J2EE Distributed Systems', 'US Patent 20020064766', 'JMX Programming'],
+    logoColor: 'text-red-600'
   }
 ];
 
