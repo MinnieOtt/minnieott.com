@@ -2,7 +2,7 @@ import { AppPortfolioItem, ExperienceItem, SkillCategory, PatentItem, Certificat
 
 export const personalInfo = {
   name: 'Minerva Tanglao Ott (Minnie)',
-  title: 'Senior Program Leader | AI Transformation & Enterprise Programs',
+  title: 'Technology Transformation Leader',
   linkedin: 'https://www.linkedin.com/in/minnieott/',
   instagram: 'https://www.instagram.com/minnie.halohalo/',
   facebook: 'https://www.facebook.com/minerva.t.ott',
@@ -12,27 +12,27 @@ export const personalInfo = {
   github: '#', // placeholder as none listed
   location: 'San Jose, CA',
   tagline: 'Creative Blue | Google | Apple | Sun/Oracle',
-  summary: `Results-focused Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems that launched across 80+ countries. Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation to compress lead prospecting, client onboarding, and social media analysis from days to minutes. Scaling GrowthOS to Amazon Web Services (AWS) for multi-cloud deployment.`,
+  summary: `Results-focused Technical Program Manager with 15+ years leading cross-functional teams from inception to production, including 14 years at Google Engineering (Maps, Finance, HR, IT PMO) and 2 years at Apple HR Engineering. Delivered enterprise-scale programs for Google Maps with Ads (2 billion+ users), Finance, and HR engineering in partnership with UX, Legal and Security/Privacy teams. Built Finance engineering governance that lifted on-time delivery KPI to 90+% through a quarterly leaderboard incentive program. Led integration of home-grown systems with external platforms. Founded Stanford LEAD at Google in partnership with Stanford Graduate School of Business. Led the development of Apple's global recruiting systems that launched across 80+ countries. Rooted in hands-on software engineering at Sun Java Center, architected enterprise systems for eBay, American Express, and Chicago Board Options Exchange. Architecting Creative Blue GrowthOS, a GCP-hosted agentic AI platform for forward-deployed engineering, integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation to compress lead prospecting, client onboarding, and social media analysis from days to minutes. Scaling GrowthOS to Amazon Web Services (AWS) for multi-cloud deployment.`,
   about: `My path into technology started with a simple act of curiosity: helping a high school friend set up her first Apple computer, which meant teaching myself BASIC along the way. That early spark earned me a full-ride scholarship in Computer Science and eventually carried me to the heart of Silicon Valley where I worked for big tech companies like [Google](company:1) who sponsored my completion of the [Stanford LEAD](https://grow.stanford.edu/browse/stanford-lead-online-business-program) executive education program.
 
 I've led global enterprise deployments spanning Japan, Taiwan, Bahrain, Philippines, Europe and India. Working across such different cultures taught me as much about people as it did about technology, and shaped how I think about collaboration to this day. Alongside that career, I built a life with my husband and raised a [daughter](https://carissaott.com) who is now forging her own path in software engineering. Our Samoyed dog, [Mochi Pancake](https://www.youtube.com/shorts/2T1lhjRaovY), inspired the creation of Mochi AI chatbot on this website. Feel free to ask Mochi questions about me by clicking on his icon on the lower right-hand corner. In my youth I played Pac-Man in the arcade; try out [Mochi Pac-Man](/pacman) to play this classic video game with Mochi.
 
 Today, I focus on ##leading technology transformations that put people at the center of progress.## I help companies put AI to work at scale, while investing just as much in the growth of the teams behind that innovation.`,
-  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun/Oracle', 'IBM, DHL, Infogain']
+  companiesLineage: ['Creative Blue', 'Google', 'Apple', 'Sun/Oracle']
 };
 
 export const portfolioApps: AppPortfolioItem[] = [
   {
     name: 'Creative Blue GrowthOS',
     url: 'https://cb-growthos-hub-553545205591.us-west1.run.app',
-    description: 'A GCP-hosted agentic AI platform integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation to compress lead prospecting, client onboarding, and social media analysis from days to minutes. Scaling GrowthOS to Amazon Web Services (AWS) for multi-cloud deployment.',
+    description: 'A GCP-hosted agentic AI platform for forward-deployed engineering, integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation to compress lead prospecting, client onboarding, and social media analysis from days to minutes. Scaling GrowthOS to Amazon Web Services (AWS) for multi-cloud deployment.',
     role: 'Head of Technology Transformation / Architect',
     bulletPoints: [
-      'Built GrowthOS, an enterprise agentic AI platform on GCP integrating Apollo, Harvest, Box, Slack, and Search Atlas; compressed lead prospecting and client onboarding from days to minutes while automating social media audits.',
-      'Partnered directly with the CEO and COO to translate executive priorities into an actionable technical roadmap, leading cross-functional engineering execution and driving multi-cloud expansion to AWS.',
-      'Designed and deployed agentic frameworks with ethical AI policy for emerging solutions such as Lead Generator and Brand Assessment.'
+      'Built GrowthOS, a GCP-hosted agentic AI platform for forward-deployed engineering, integrating Apollo, Harvest, Box, Slack, and Search Atlas with low-code automation.',
+      'Compressed lead prospecting and client onboarding from days to minutes while automating social media audits.',
+      'Partnered directly with the CEO and COO to translate executive priorities into an actionable technical roadmap, leading cross-functional engineering execution and driving multi-cloud expansion to AWS.'
     ],
-    tags: ['Generative AI', 'Agentic Workflows', 'GCP', 'Vertex AI', 'MCP', 'Search Atlas', 'Low-Code Automation', 'AWS Multi-Cloud'],
+    tags: ['Generative AI', 'Agentic Workflows', 'Forward Deployed Engineering', 'GCP', 'Vertex AI', 'MCP', 'Search Atlas', 'Low-Code Automation', 'AWS Multi-Cloud'],
     isFlagship: true,
     status: 'Work in progress',
     cta: {
@@ -77,13 +77,31 @@ export const portfolioApps: AppPortfolioItem[] = [
     }
   },
   {
+    name: 'Pitch Deck Assessment',
+    url: 'https://www.creativeblue.agency/contact',
+    description: 'An AI-powered assessment tool evaluating investor pitch decks against venture capital criteria, market readiness, and storytelling impact.',
+    role: 'Head of Technology Transformation',
+    bulletPoints: [
+      'Designed and deployed agentic frameworks with ethical AI policy for pitch deck intelligence.',
+      'AI-driven venture readiness scoring and narrative flow analysis.',
+      'Automated feedback generation providing actionable investor-facing recommendations.'
+    ],
+    tags: ['AI Agents', 'Pitch Deck Analysis', 'Venture Readiness', 'NLP'],
+    isFlagship: false,
+    status: 'Ready to use',
+    cta: {
+      label: 'Request Demo',
+      url: 'https://www.creativeblue.agency/contact'
+    }
+  },
+  {
     name: 'Grex World',
     url: 'https://grex.world/',
     description: 'An AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities.',
     role: 'Platform Pioneer / Advisor',
     bulletPoints: [
       'Pioneered grex.world, an AI-powered marketplace connecting companies\' problem statements with worker-sourced solutions that can become investable opportunities.',
-      'Planning partnerships to offer perks for members.',
+      'Planning partnerships for member benefits.',
       'Creating frameworks that nurture worker contributions into scalable, investable ventures.'
     ],
     tags: ['Gig Economy', 'AI Marketplace', 'Workplace Innovation', 'Investable Solutions'],
@@ -149,7 +167,7 @@ export const experiences: ExperienceItem[] = [
     logoColor: 'text-[#3333FF]'
   },
   {
-    role: 'Senior Engineering Program Manager',
+    role: 'Senior Technical Program Manager',
     company: 'Google',
     period: 'Jun 2011 – Nov 2025',
     type: 'Full-time',

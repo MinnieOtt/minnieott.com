@@ -1,6 +1,6 @@
 {
   "name": "Minerva Tanglao Ott",
-  "description": "Personal portfolio and blog of Minerva Tanglao Ott, Senior Program Leader specializing in AI transformation & enterprise programs.",
+  "description": "Personal portfolio and blog of Minerva Tanglao Ott, Technology Transformation Leader.",
   "requestFramePermissions": ["microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
