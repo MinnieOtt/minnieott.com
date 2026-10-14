@@ -261,7 +261,7 @@ export const experiences: ExperienceItem[] = [
   {
     role: 'Staff Software Engineer / Engineering Manager',
     company: 'Sun Microsystems',
-    period: '2000 – 2009',
+    period: '1996 – 2009',
     type: 'Full-time',
     description: 'Managed a global development team, and led the implementation of a scalable, highly-available architecture. Defined SOX-compliant development and system administration standards, strengthening dev/support team communication via a collaborative wiki. Defined workflows to improve IT project efficiency, and architected several enterprise systems at Sun Java Center.',
     bullets: [
